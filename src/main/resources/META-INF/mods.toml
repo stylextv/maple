@@ -1,0 +1,38 @@
+modLoader = "javafml"
+
+loaderVersion = "[36,)"
+
+license = "All rights reserved"
+
+issueTrackerURL = "https://github.com/StylexTV/Dwarf/issues"
+
+[[mods]]
+
+modId = "dwarf"
+
+version = "1.0.0"
+
+displayName = "Dwarf"
+
+displayURL = "https://github.com/StylexTV/Dwarf/"
+
+logoFile = "logo.png"
+
+credits = "Thanks to everyone who has contributed on GitHub"
+
+authors = "StylexTV"
+
+description = '''
+This is a long form description of the mod. You can write whatever you want here
+
+Have some lorem ipsum.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mollis lacinia magna. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed sagittis luctus odio eu tempus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque volutpat ligula eget lacus auctor sagittis. In hac habitasse platea dictumst. Nunc gravida elit vitae sem vehicula efficitur. Donec mattis ipsum et arcu lobortis, eleifend sagittis sem rutrum. Cras pharetra quam eget posuere fermentum. Sed id tincidunt justo. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+'''
+
+[[dependencies.dwarf]]
+    modId = "minecraft"
+    mandatory = true
+    versionRange = "[1.16.5,1.17)"
+    ordering = "NONE"
+    side = "BOTH"
