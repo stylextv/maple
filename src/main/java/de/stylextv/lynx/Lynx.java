@@ -1,11 +1,10 @@
 package de.stylextv.lynx;
 
 import de.stylextv.lynx.cache.WorldCache;
-import de.stylextv.lynx.event.GuiEvent;
+import de.stylextv.lynx.event.ChatEvent;
 import de.stylextv.lynx.event.RenderEvent;
 import de.stylextv.lynx.event.TickEvent;
 import de.stylextv.lynx.event.WorldEvent;
-import de.stylextv.lynx.item.ItemManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -32,8 +31,6 @@ public class Lynx {
 		
 		registerEvents();
 		
-		ItemManager.register(bus);
-		
 		Runtime.getRuntime().addShutdownHook(new Thread(this::shutdown));
 		
 		WorldCache.init();
@@ -43,7 +40,7 @@ public class Lynx {
 		MinecraftForge.EVENT_BUS.register(new TickEvent());
 		MinecraftForge.EVENT_BUS.register(new WorldEvent());
 		MinecraftForge.EVENT_BUS.register(new RenderEvent());
-		MinecraftForge.EVENT_BUS.register(new GuiEvent());
+		MinecraftForge.EVENT_BUS.register(new ChatEvent());
 	}
 	
 	private void setup(final FMLCommonSetupEvent event) {

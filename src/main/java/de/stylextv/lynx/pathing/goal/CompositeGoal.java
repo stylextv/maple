@@ -2,20 +2,20 @@ package de.stylextv.lynx.pathing.goal;
 
 import de.stylextv.lynx.pathing.Node;
 
-public class CompositeGoal implements IGoal {
+public class CompositeGoal extends Goal {
 	
-	private IGoal[] goals;
+	private Goal[] goals;
 	
-	public CompositeGoal(IGoal... goals) {
+	public CompositeGoal(Goal... goals) {
 		this.goals = goals;
 	}
 	
 	@Override
-	public int calcHeuristic(Node n) {
+	public int heuristic(Node n) {
 		int cost = Integer.MAX_VALUE;
 		
-		for(IGoal g : goals) {
-			int h = g.calcHeuristic(n);
+		for(Goal g : goals) {
+			int h = g.heuristic(n);
 			
 			if(h < cost) cost = h;
 		}
@@ -25,11 +25,26 @@ public class CompositeGoal implements IGoal {
 	
 	@Override
 	public boolean isFinalNode(Node n) {
-		for(IGoal g : goals) {
+		for(Goal g : goals) {
 			if(g.isFinalNode(n)) return true;
 		}
 		
 		return false;
+	}
+	
+	@Override
+	public String toString() {
+		String s = "";
+		
+		int l = goals.length;
+		
+		for(int i = 0; i < l; i++) {
+			s += goals[i];
+			
+			if(i + 1 < l) s += ",";
+		}
+		
+		return "CompositeGoal{goals=[" + s + "]}";
 	}
 	
 }

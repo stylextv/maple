@@ -35,11 +35,11 @@ public class ChunkCache {
 			for(int z = 0; z < 16; z++) {
 				for(int y = 0; y < 256; y++) {
 					
-					BlockState center = c.getBlockState(new BlockPos(x, y, z));
-					BlockState bottom = c.getBlockState(new BlockPos(x, y - 1, z));
-					BlockState top = c.getBlockState(new BlockPos(x, y + 1, z));
+					BlockState state = c.getBlockState(new BlockPos(x, y, z));
+					BlockState below = c.getBlockState(new BlockPos(x, y - 1, z));
+					BlockState above = c.getBlockState(new BlockPos(x, y + 1, z));
 					
-					int i = BlockType.fromBlocks(center, bottom, top).getID();
+					int i = BlockType.fromBlocks(state, below, above).getID();
 					
 					for(int j = 0; j < 2; j++) {
 						boolean b = (i & 1) != 0;

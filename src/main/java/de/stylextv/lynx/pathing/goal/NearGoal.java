@@ -1,9 +1,10 @@
 package de.stylextv.lynx.pathing.goal;
 
+import de.stylextv.lynx.pathing.Cost;
 import de.stylextv.lynx.pathing.Node;
 import net.minecraft.util.math.BlockPos;
 
-public class NearGoal implements IGoal {
+public class NearGoal extends Goal {
 	
 	private BlockPos pos;
 	
@@ -15,14 +16,14 @@ public class NearGoal implements IGoal {
 	}
 	
 	@Override
-	public int calcHeuristic(Node n) {
+	public int heuristic(Node n) {
 		int disX = Math.abs(n.getX() - pos.getX());
 		int disY = Math.abs(n.getY() - pos.getY());
 		int disZ = Math.abs(n.getZ() - pos.getZ());
 		
 		int dis = disX + disY + disZ;
 		
-		return dis * Node.COST_PER_UNIT;
+		return dis * Cost.COST_PER_UNIT;
 	}
 	
 	@Override
@@ -34,6 +35,11 @@ public class NearGoal implements IGoal {
 		int d = disX * disX + disY * disY + disZ * disZ;
 		
 		return d <= dis;
+	}
+	
+	@Override
+	public String toString() {
+		return "NearGoal{pos=" + pos + ",dis=" + dis + "}";
 	}
 	
 }

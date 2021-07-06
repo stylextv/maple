@@ -12,8 +12,8 @@ import net.minecraft.util.math.vector.Vector3d;
 
 public class MovementController {
 	
-	private static final float NEXT_NODE_HDIS = 1f;
-	private static final float NEXT_NODE_VDIS = 1.5f;
+	private static final float NEXT_NODE_HDIS = 1.25f;
+	private static final float NEXT_NODE_VDIS = 1.4f;
 	private static final float NEXT_NODE_VDIS_OFFSET = -0.5f;
 	
 	private static final float MIN_MOVING_DIS = 0.5f;
@@ -33,16 +33,18 @@ public class MovementController {
 	public static void onTick() {
 		if(path == null) return;
 		
-		ClientPlayerEntity p = PlayerContext.player();
-		
 		Node n = path.getCurrentNode();
 		
-		boolean move = horizontalDistance(n) > MIN_MOVING_DIS;
+		boolean onGround = PlayerContext.isOnGround();
+		
+		boolean move = onGround || horizontalDistance(n) > MIN_MOVING_DIS;
+		
+		boolean jump = canJump() && shouldJump();
 		
 		InputController.setPressed(Input.MOVE_FORWARD, move);
 		InputController.setPressed(Input.SPRINT, true);
 		
-		InputController.setPressed(Input.JUMP, shouldJump(p));
+		InputController.setPressed(Input.JUMP, jump);
 		
 		ViewController.lookAt(n);
 		
@@ -53,11 +55,19 @@ public class MovementController {
 		}
 	}
 	
-	private static boolean shouldJump(ClientPlayerEntity p) {
-		return shouldJump(p, 0, 10f) || shouldJump(p, -45, 5f) || shouldJump(p, 45, 5f);
+	private static boolean canJump() {
+		BlockPos pos = PlayerContext.blockPosition().offset(0, 2, 0);
+		
+		return WorldCache.getBlockType(pos) == BlockType.AIR;
 	}
 	
-	private static boolean shouldJump(ClientPlayerEntity p, float angle, float dis) {
+	private static boolean shouldJump() {
+		return shouldJump(0, 10f) || shouldJump(-45, 5f) || shouldJump(45, 5f);
+	}
+	
+	private static boolean shouldJump(float angle, float dis) {
+		ClientPlayerEntity p = PlayerContext.player();
+		
 		double rot = Math.toRadians(90f - p.yRot + angle);
 		
 		double m = (0.03f + PlayerContext.horizontalSpeed()) * dis;
@@ -73,9 +83,25 @@ public class MovementController {
 	}
 	
 	private static boolean hasReachedNode(Node n) {
-		if(verticalDistance(n) > NEXT_NODE_VDIS) return false;
+		BlockPos pos = PlayerContext.blockPosition();
 		
-		return horizontalDistance(n) <= NEXT_NODE_HDIS;
+		int y = pos.getY();
+		
+		if(!PlayerContext.isOnGround() && n.getY() > y) return false;
+		
+		return distanceToNode(n) <= NEXT_NODE_HDIS;
+	}
+	
+	private static double distanceToNode(Node n) {
+		Vector3d pos = PlayerContext.position();
+		
+		pos.add(0, NEXT_NODE_VDIS_OFFSET, 0);
+		
+		Vector3d v = pos.subtract(n.getX() + 0.5f, n.getY(), n.getZ() + 0.5f);
+		
+		v.multiply(1, NEXT_NODE_HDIS / NEXT_NODE_VDIS, 1);
+		
+		return v.length();
 	}
 	
 	private static double horizontalDistance(Node n) {
@@ -86,11 +112,6 @@ public class MovementController {
 		return v.length();
 	}
 	
-	private static double verticalDistance(Node n) {
-		Vector3d pos = PlayerContext.position();
-		
-		return pos.y() + NEXT_NODE_VDIS_OFFSET - n.getY();
-	}
 	
 	public static boolean isMoving() {
 		return path != null;

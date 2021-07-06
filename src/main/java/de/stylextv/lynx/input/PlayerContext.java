@@ -4,6 +4,7 @@ import net.minecraft.client.GameSettings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.gui.IngameGui;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.multiplayer.PlayerController;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.math.BlockPos;
@@ -40,8 +41,18 @@ public class PlayerContext {
 		return v.multiply(1, 0, 1).length();
 	}
 	
+	public static double verticalSpeed() {
+		Vector3d v = MC.player.getDeltaMovement();
+		
+		return v.y();
+	}
+	
 	public static double speed() {
 		return MC.player.getDeltaMovement().length();
+	}
+	
+	public static boolean isOnGround() {
+		return MC.player.isOnGround();
 	}
 	
 	public static ClientWorld world() {
@@ -58,6 +69,10 @@ public class PlayerContext {
 	
 	public static IngameGui ingameGui() {
 		return MC.gui;
+	}
+	
+	public static Screen screen() {
+		return MC.screen;
 	}
 	
 	public static GameSettings gameSettings() {

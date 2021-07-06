@@ -11,7 +11,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 public class RenderEvent {
 	
 	@SubscribeEvent
-	public void onRender(RenderWorldLastEvent event) {
+	public void onWorldRender(RenderWorldLastEvent event) {
 		if(!PlayerContext.isInWorld()) return;
 		
 		if(MovementController.isMoving()) {

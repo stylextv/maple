@@ -29,7 +29,13 @@ public class ViewController {
 	public static void lookAt(Node n) {
 		double y = PlayerContext.player().getEyeY();
 		
-		lookAt(n.getX() + 0.5, y, n.getZ() + 0.5);
+		BlockPos pos = PlayerContext.blockPosition();
+		
+		int disY = Math.abs(pos.getY() - n.getY());
+		
+		boolean b = disY > 2;
+		
+		lookAt(n.getX() + 0.5, b ? n.getY() + 0.5 : y, n.getZ() + 0.5);
 	}
 	
 	public static void lookAt(double x, double y, double z) {

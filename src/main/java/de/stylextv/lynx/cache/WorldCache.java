@@ -96,7 +96,7 @@ public class WorldCache {
 		
 		ChunkCache chunk = getChunk(p.x, p.z);
 		
-		if(chunk == null) return BlockType.AIR;
+		if(chunk == null) return BlockType.VOID;
 		
 		int rx = pos.getX() - p.x * 16;
 		int rz = pos.getZ() - p.z * 16;

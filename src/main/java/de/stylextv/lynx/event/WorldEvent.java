@@ -8,10 +8,10 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 public class WorldEvent {
 	
 	@SubscribeEvent
-    public void onLeave(EntityLeaveWorldEvent event) {
-    	if(event.getEntity().equals(PlayerContext.player())) {
-    		WorldCache.clear();
-    	}
-    }
-    
+	public void onLeave(EntityLeaveWorldEvent event) {
+		if(event.getEntity().equals(PlayerContext.player())) {
+			WorldCache.clear();
+		}
+	}
+	
 }

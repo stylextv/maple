@@ -2,18 +2,10 @@ package de.stylextv.lynx.pathing;
 
 import de.stylextv.lynx.cache.BlockType;
 import de.stylextv.lynx.cache.WorldCache;
-import de.stylextv.lynx.pathing.goal.IGoal;
+import de.stylextv.lynx.pathing.goal.Goal;
 import net.minecraft.util.math.BlockPos;
 
 public class Node {
-	
-	public static final int COST_PER_UNIT = 10;
-	
-	private static final int[] MOVE_COSTS = new int[] {
-			10, 14, 17
-	};
-	
-	private static final int WATER_COST = 3;
 	
 	private int x;
 	private int y;
@@ -42,8 +34,8 @@ public class Node {
 		type = WorldCache.getBlockType(x, y, z);
 	}
 	
-	public void calcHeuristic(IGoal goal) {
-		hCost = goal.calcHeuristic(this);
+	public void updateHeuristic(Goal goal) {
+		hCost = goal.heuristic(this);
 	}
 	
 	public int getFinalCost() {
@@ -55,12 +47,14 @@ public class Node {
 		int i2 = Math.abs(n.getY() - y);
 		int i3 = Math.abs(n.getZ() - z);
 		
+		if(i2 > 1) i2 = 1;
+		
 		int i = i1 + i2 + i3;
 		
-		int cost = MOVE_COSTS[i - 1];
+		int cost = Cost.MOVEMENT_COSTS[i - 1];
 		
 		if(n.getType() == BlockType.WATER) {
-			cost *= WATER_COST;
+			cost *= Cost.WATER_MULTIPLIER;
 		}
 		
 		return cost;
