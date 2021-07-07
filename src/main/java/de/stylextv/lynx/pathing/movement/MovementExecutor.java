@@ -1,6 +1,5 @@
 package de.stylextv.lynx.pathing.movement;
 
-
 import de.stylextv.lynx.input.controller.InputController;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.calc.Path;
@@ -99,6 +98,8 @@ public class MovementExecutor {
 			if(diagonally) m = new DiagonalMovement(n);
 			else m = new StraightMovement(n);
 		}
+		
+		clearInputs();
 		
 		movement = m;
 	}
