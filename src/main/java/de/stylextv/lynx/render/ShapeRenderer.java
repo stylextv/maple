@@ -6,8 +6,8 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import de.stylextv.lynx.input.PlayerContext;
-import de.stylextv.lynx.pathing.Node;
-import de.stylextv.lynx.pathing.Path;
+import de.stylextv.lynx.pathing.calc.Node;
+import de.stylextv.lynx.pathing.calc.Path;
 import de.stylextv.lynx.scheme.Color;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;

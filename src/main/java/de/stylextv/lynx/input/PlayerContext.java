@@ -3,6 +3,7 @@ package de.stylextv.lynx.input;
 import net.minecraft.client.GameSettings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.IngameGui;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.multiplayer.PlayerController;
@@ -33,6 +34,10 @@ public class PlayerContext {
 	
 	public static BlockPos blockPosition() {
 		return player().blockPosition();
+	}
+	
+	public static BlockPos feetPosition() {
+		return new BlockPos(position().add(0, 0.125f, 0));
 	}
 	
 	public static double horizontalSpeed() {
@@ -75,6 +80,10 @@ public class PlayerContext {
 		return MC.screen;
 	}
 	
+	public static FontRenderer font() {
+		return MC.font;
+	}
+	
 	public static GameSettings gameSettings() {
 		return MC.options;
 	}
@@ -97,6 +106,10 @@ public class PlayerContext {
 	
 	public static void closeContainer() {
 		player().closeContainer();
+	}
+	
+	public static boolean setFlying(boolean b) {
+		return MC.player.abilities.flying = b;
 	}
 	
 }

@@ -1,6 +1,6 @@
-package de.stylextv.lynx.pathing.goal;
+package de.stylextv.lynx.pathing.calc.goal;
 
-import de.stylextv.lynx.pathing.Node;
+import de.stylextv.lynx.pathing.calc.Node;
 
 public class CompositeGoal extends Goal {
 	
@@ -44,7 +44,7 @@ public class CompositeGoal extends Goal {
 			if(i + 1 < l) s += ",";
 		}
 		
-		return "CompositeGoal{goals=[" + s + "]}";
+		return String.format("CompositeGoal{goals=[%s]}", s);
 	}
 	
 }

@@ -1,8 +1,8 @@
-package de.stylextv.lynx.pathing;
+package de.stylextv.lynx.pathing.calc;
 
 import de.stylextv.lynx.cache.BlockType;
 import de.stylextv.lynx.cache.WorldCache;
-import de.stylextv.lynx.pathing.goal.Goal;
+import de.stylextv.lynx.pathing.calc.goal.Goal;
 import net.minecraft.util.math.BlockPos;
 
 public class Node {
@@ -92,6 +92,11 @@ public class Node {
 	
 	public boolean equals(int x, int y, int z) {
 		return this.x == x && this.y == y && this.z == z;
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("Node{x=%s, y=%s, z=%s, type=%s}", x, y, z, type);
 	}
 	
 	public int getX() {

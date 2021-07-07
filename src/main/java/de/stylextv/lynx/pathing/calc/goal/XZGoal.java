@@ -1,7 +1,7 @@
-package de.stylextv.lynx.pathing.goal;
+package de.stylextv.lynx.pathing.calc.goal;
 
-import de.stylextv.lynx.pathing.Cost;
-import de.stylextv.lynx.pathing.Node;
+import de.stylextv.lynx.pathing.calc.Cost;
+import de.stylextv.lynx.pathing.calc.Node;
 
 public class XZGoal extends Goal {
 	
@@ -30,7 +30,7 @@ public class XZGoal extends Goal {
 	
 	@Override
 	public String toString() {
-		return "XZGoal{x=" + x + ",z=" + z + "}";
+		return String.format("XZGoal{x=%s, z=%s}", x, z);
 	}
 	
 }

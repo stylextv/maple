@@ -1,12 +1,16 @@
-package de.stylextv.lynx.pathing.goal;
+package de.stylextv.lynx.pathing.calc.goal;
 
-import de.stylextv.lynx.pathing.Cost;
-import de.stylextv.lynx.pathing.Node;
+import de.stylextv.lynx.pathing.calc.Cost;
+import de.stylextv.lynx.pathing.calc.Node;
 import net.minecraft.util.math.BlockPos;
 
 public class GetToBlockGoal extends Goal {
 	
 	private BlockPos pos;
+	
+	public GetToBlockGoal(int x, int y, int z) {
+		this(new BlockPos(x, y, z));
+	}
 	
 	public GetToBlockGoal(BlockPos pos) {
 		this.pos = pos;
@@ -36,7 +40,7 @@ public class GetToBlockGoal extends Goal {
 	
 	@Override
 	public String toString() {
-		return "GetToBlockGoal{pos=" + pos + "}";
+		return String.format("GetToBlockGoal{pos=%s}", pos);
 	}
 	
 }

@@ -1,4 +1,4 @@
-package de.stylextv.lynx.pathing;
+package de.stylextv.lynx.pathing.calc;
 
 public class Cost {
 	

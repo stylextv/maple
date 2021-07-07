@@ -1,6 +1,6 @@
 package de.stylextv.lynx.state;
 
-import de.stylextv.lynx.pathing.goal.Goal;
+import de.stylextv.lynx.pathing.calc.goal.Goal;
 
 public class StateManager {
 	

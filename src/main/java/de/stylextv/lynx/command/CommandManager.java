@@ -1,5 +1,11 @@
 package de.stylextv.lynx.command;
 
+import de.stylextv.lynx.command.commands.GoCommand;
+import de.stylextv.lynx.command.commands.GoalCommand;
+import de.stylextv.lynx.command.commands.HelpCommand;
+import de.stylextv.lynx.command.commands.InvertCommand;
+import de.stylextv.lynx.command.commands.StopCommand;
+import de.stylextv.lynx.command.commands.VersionCommand;
 import de.stylextv.lynx.util.ChatUtil;
 
 public class CommandManager {
@@ -9,8 +15,9 @@ public class CommandManager {
 	private static final Command[] COMMANDS = new Command[] {
 			new HelpCommand(),
 			new GoalCommand(),
-			new StartCommand(),
+			new GoCommand(),
 			new StopCommand(),
+			new InvertCommand(),
 			new VersionCommand()
 	};
 	
@@ -32,7 +39,7 @@ public class CommandManager {
 		Command c = getCommand(name);
 		
 		if(c == null) {
-			ChatUtil.sendToUser("Couldn't find command!");
+			ChatUtil.sendToUser("§cCouldn't find command!");
 			
 			return;
 		}
@@ -52,6 +59,10 @@ public class CommandManager {
 		}
 		
 		return null;
+	}
+	
+	public static Command[] getCommands() {
+		return COMMANDS;
 	}
 	
 }

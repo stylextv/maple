@@ -1,14 +1,18 @@
-package de.stylextv.lynx.pathing.goal;
+package de.stylextv.lynx.pathing.calc.goal;
 
-import de.stylextv.lynx.pathing.Cost;
-import de.stylextv.lynx.pathing.Node;
+import de.stylextv.lynx.pathing.calc.Cost;
+import de.stylextv.lynx.pathing.calc.Node;
 import net.minecraft.util.math.BlockPos;
 
-public class BlockGoal extends Goal {
+public class TwoBlocksGoal extends Goal {
 	
 	private BlockPos pos;
 	
-	public BlockGoal(BlockPos pos) {
+	public TwoBlocksGoal(int x, int y, int z) {
+		this(new BlockPos(x, y, z));
+	}
+	
+	public TwoBlocksGoal(BlockPos pos) {
 		this.pos = pos;
 	}
 	
@@ -17,6 +21,8 @@ public class BlockGoal extends Goal {
 		int disX = Math.abs(n.getX() - pos.getX());
 		int disY = Math.abs(n.getY() - pos.getY());
 		int disZ = Math.abs(n.getZ() - pos.getZ());
+		
+		if(disY < 0) disY++;
 		
 		int dis = disX + disY + disZ;
 		
@@ -29,12 +35,12 @@ public class BlockGoal extends Goal {
 		int y = n.getY();
 		int z = n.getZ();
 		
-		return x == pos.getX() && y == pos.getY() && z == pos.getZ();
+		return x == pos.getX() && (y == pos.getY() || y == pos.getY() - 1) && z == pos.getZ();
 	}
 	
 	@Override
 	public String toString() {
-		return "BlockGoal{pos=" + pos + "}";
+		return String.format("TwoBlocksGoal{pos=%s}", pos);
 	}
 	
 }

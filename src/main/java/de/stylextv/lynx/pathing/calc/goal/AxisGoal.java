@@ -1,7 +1,7 @@
-package de.stylextv.lynx.pathing.goal;
+package de.stylextv.lynx.pathing.calc.goal;
 
-import de.stylextv.lynx.pathing.Cost;
-import de.stylextv.lynx.pathing.Node;
+import de.stylextv.lynx.pathing.calc.Cost;
+import de.stylextv.lynx.pathing.calc.Node;
 
 public class AxisGoal extends Goal {
 	
@@ -10,9 +10,11 @@ public class AxisGoal extends Goal {
 		int x = Math.abs(n.getX());
 		int z = Math.abs(n.getZ());
 		
-		int dis = Math.min(x, z);
+		int majorDis = Math.min(x, z);
 		
-		return dis * Cost.COST_PER_UNIT;
+		int minorDis = Math.abs(x - z);
+		
+		return Math.min(majorDis, minorDis) * Cost.COST_PER_UNIT;
 	}
 	
 	@Override

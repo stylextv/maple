@@ -34,7 +34,7 @@ public class InputController {
 			
 			p.setSprinting(isMoving() && isPressed(Input.SPRINT));
 			
-			p.abilities.flying = false;
+			PlayerContext.setFlying(false);
 			
 			if(p.input.getClass() != PlayerMovementInput.class) {
 				p.input = new PlayerMovementInput();

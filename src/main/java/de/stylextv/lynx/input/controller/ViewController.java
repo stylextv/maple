@@ -2,7 +2,7 @@ package de.stylextv.lynx.input.controller;
 
 import de.stylextv.lynx.input.PlayerContext;
 import de.stylextv.lynx.input.SmoothLook;
-import de.stylextv.lynx.pathing.Node;
+import de.stylextv.lynx.pathing.calc.Node;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.BlockPos;
@@ -27,15 +27,13 @@ public class ViewController {
 	}
 	
 	public static void lookAt(Node n) {
+		lookAt(n, false);
+	}
+	
+	public static void lookAt(Node n, boolean lookDown) {
 		double y = PlayerContext.player().getEyeY();
 		
-		BlockPos pos = PlayerContext.blockPosition();
-		
-		int disY = Math.abs(pos.getY() - n.getY());
-		
-		boolean b = disY > 2;
-		
-		lookAt(n.getX() + 0.5, b ? n.getY() + 0.5 : y, n.getZ() + 0.5);
+		lookAt(n.getX() + 0.5, lookDown ? n.getY() + 0.5 : y, n.getZ() + 0.5);
 	}
 	
 	public static void lookAt(double x, double y, double z) {
@@ -104,12 +102,8 @@ public class ViewController {
 		return PlayerContext.world().clip(new RayTraceContext(v1, v2, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, p)).getType() == RayTraceResult.Type.MISS;
 	}
 	
-	public static void onTick() {
+	public static void onRenderTick() {
 		smoothLook.update();
-	}
-	
-	public static void onRender() {
-		smoothLook.apply();
 	}
 	
 }

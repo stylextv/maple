@@ -1,7 +1,7 @@
-package de.stylextv.lynx.pathing.goal;
+package de.stylextv.lynx.pathing.calc.goal;
 
-import de.stylextv.lynx.pathing.Cost;
-import de.stylextv.lynx.pathing.Node;
+import de.stylextv.lynx.pathing.calc.Cost;
+import de.stylextv.lynx.pathing.calc.Node;
 
 public class YLevelGoal extends Goal {
 	
@@ -25,7 +25,7 @@ public class YLevelGoal extends Goal {
 	
 	@Override
 	public String toString() {
-		return "YGoal{y=" + y + "}";
+		return String.format("YGoal{y=%s}", y);
 	}
 	
 }

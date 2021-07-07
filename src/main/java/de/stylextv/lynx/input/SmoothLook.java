@@ -22,23 +22,25 @@ public class SmoothLook {
 		if(active) {
 			active = false;
 			
+			apply();
+			
 			return;
 		}
 		
 		reset();
 	}
 	
-	private void reset() {
-		turnYawAmount = 0;
-		turnPitchAmount = 0;
-	}
-	
-	public void apply() {
+	private void apply() {
 		ClientPlayerEntity p = PlayerContext.player();
 		
 		float f = TURN_SPEED * PlayerContext.deltaTime();
 		
 		p.turn(turnYawAmount * f, turnPitchAmount * f);
+	}
+	
+	private void reset() {
+		turnYawAmount = 0;
+		turnPitchAmount = 0;
 	}
 	
 }

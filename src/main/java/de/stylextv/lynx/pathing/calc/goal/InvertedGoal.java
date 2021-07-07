@@ -1,6 +1,6 @@
-package de.stylextv.lynx.pathing.goal;
+package de.stylextv.lynx.pathing.calc.goal;
 
-import de.stylextv.lynx.pathing.Node;
+import de.stylextv.lynx.pathing.calc.Node;
 
 public class InvertedGoal extends Goal {
 	
@@ -22,7 +22,7 @@ public class InvertedGoal extends Goal {
 	
 	@Override
 	public String toString() {
-		return "InvertGoal{goal=" + goal + "}";
+		return String.format("InvertGoal{goal=%s}", goal);
 	}
 	
 }

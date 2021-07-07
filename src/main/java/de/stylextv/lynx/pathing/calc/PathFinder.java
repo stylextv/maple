@@ -1,4 +1,4 @@
-package de.stylextv.lynx.pathing;
+package de.stylextv.lynx.pathing.calc;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -7,7 +7,7 @@ import java.util.PriorityQueue;
 import java.util.Set;
 
 import de.stylextv.lynx.cache.BlockType;
-import de.stylextv.lynx.pathing.goal.Goal;
+import de.stylextv.lynx.pathing.calc.goal.Goal;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import net.minecraft.util.math.BlockPos;
 

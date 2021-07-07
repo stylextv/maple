@@ -1,7 +1,7 @@
-package de.stylextv.lynx.pathing.goal;
+package de.stylextv.lynx.pathing.calc.goal;
 
-import de.stylextv.lynx.pathing.Cost;
-import de.stylextv.lynx.pathing.Node;
+import de.stylextv.lynx.pathing.calc.Cost;
+import de.stylextv.lynx.pathing.calc.Node;
 import net.minecraft.util.math.BlockPos;
 
 public class NearGoal extends Goal {
@@ -9,6 +9,10 @@ public class NearGoal extends Goal {
 	private BlockPos pos;
 	
 	private float dis;
+	
+	public NearGoal(int x, int y, int z, float dis) {
+		this(new BlockPos(x, y, z), dis);
+	}
 	
 	public NearGoal(BlockPos pos, float dis) {
 		this.pos = pos;
@@ -39,7 +43,7 @@ public class NearGoal extends Goal {
 	
 	@Override
 	public String toString() {
-		return "NearGoal{pos=" + pos + ",dis=" + dis + "}";
+		return String.format("NearGoal{pos=%s, dis=%s}", pos, dis);
 	}
 	
 }
