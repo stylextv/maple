@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <img src="https://raw.githubusercontent.com/StylexTV/LYNX/main/imgs/cover.png">
+  <img src="https://raw.githubusercontent.com/StylexTV/LYNX/main/image/cover.png">
   <br>
 </h1>
 
