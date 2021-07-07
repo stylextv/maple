@@ -25,3 +25,16 @@
 </p>
 
 ## Overview
+Coming soon...
+
+## Features
+Coming soon...
+
+## Commands
+Coming soon...
+
+## Settings
+Coming soon...
+
+## Installing & setup
+Coming soon...
