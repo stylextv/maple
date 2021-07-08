@@ -118,7 +118,7 @@ public class PathFinder {
 		
 		int m = isValidNode(n, parent);
 		
-		if(m != -1) {
+		if(m != Cost.INVALID) {
 			int cost = parent.costToNode(n) * m;
 			
 			if(openList.contains(n)) {
