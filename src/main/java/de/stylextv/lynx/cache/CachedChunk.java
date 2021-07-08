@@ -10,7 +10,7 @@ import net.minecraft.world.chunk.Chunk;
 
 public class CachedChunk {
 	
-	public static final int BIT_AMOUNT = 16 * 16 * 256 * 2;
+	private static final int BIT_AMOUNT = 16 * 16 * 256 * 2;
 	
 	private CachedRegion region;
 	
@@ -42,9 +42,9 @@ public class CachedChunk {
 		
 		int index = 0;
 		
-		for(int x = 0; x < 16; x++) {
-			for(int z = 0; z < 16; z++) {
-				for(int y = 0; y < 256; y++) {
+		for(int y = 0; y < 256; y++) {
+			for(int x = 0; x < 16; x++) {
+				for(int z = 0; z < 16; z++) {
 					
 					BlockState state = c.getBlockState(new BlockPos(x, y, z));
 					BlockState below = c.getBlockState(new BlockPos(x, y - 1, z));
@@ -60,6 +60,7 @@ public class CachedChunk {
 						boolean b2 = bitSet.get(k);
 						
 						if(b != b2) {
+							
 							region.setModified(true);
 							
 							bitSet.set(k, b);
@@ -84,7 +85,7 @@ public class CachedChunk {
 		x -= this.x * 16;
 		z -= this.z * 16;
 		
-		int index = x * (16 * 256) + z * 256 + y;
+		int index = y * (16 * 16) + x * 16 + z;
 		
 		int i = 0;
 		

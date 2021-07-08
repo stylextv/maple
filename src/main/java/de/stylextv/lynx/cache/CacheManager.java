@@ -12,6 +12,8 @@ public class CacheManager {
 	private static CachedWorld currentWorld;
 	
 	public static void enterWorld() {
+		exitWorld();
+		
 		String name = WorldContext.getLevelName();
 		
 		currentWorld = getCache(name);
@@ -20,6 +22,8 @@ public class CacheManager {
 	}
 	
 	public static void exitWorld() {
+		if(currentWorld == null) return;
+		
 		currentWorld.exit();
 		
 		currentWorld = null;

@@ -50,9 +50,9 @@ public class CachedRegion {
 	public void saveChanges() {
 		if(!modified) return;
 		
-		File f = world.getSaveFile(this);
+		File f = getSaveFile();
 		
-		FileAccess access = new FileAccess(f);
+		FileAccess access = FileSystem.openFile(f);
 		
 		FileSystem.writeRegion(this, access);
 		
@@ -95,8 +95,8 @@ public class CachedRegion {
 		return false;
 	}
 	
-	public File getFile() {
-		return new File("");
+	public File getSaveFile() {
+		return world.getSaveFile(this);
 	}
 	
 	public long getHash() {
@@ -115,6 +115,10 @@ public class CachedRegion {
 		return z;
 	}
 	
+	public boolean wasModified() {
+		return modified;
+	}
+	
 	public void setModified(boolean modified) {
 		this.modified = modified;
 	}
@@ -124,7 +128,7 @@ public class CachedRegion {
 		
 		File f = world.getSaveFile(r);
 		
-		FileAccess access = new FileAccess(f);
+		FileAccess access = FileSystem.openFile(f);
 		
 		r = FileSystem.readRegion(r, access);
 		

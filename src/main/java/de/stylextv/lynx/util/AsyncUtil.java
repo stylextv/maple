@@ -13,7 +13,7 @@ public class AsyncUtil {
 	public static ThreadInfo loopAsync(Runnable r, Runnable killCallback, long initialDelay, long delay) {
 		ThreadInfo info = new ThreadInfo();
 		
-		runAsync(() -> {
+		Thread thread = runAsync(() -> {
 			
 			sleep(initialDelay);
 			
@@ -26,11 +26,13 @@ public class AsyncUtil {
 			if(killCallback != null) killCallback.run();
 		});
 		
+		info.setThread(thread);
+		
 		return info;
 	}
 	
-	public static void runLaterAsync(Runnable r, long delay) {
-		runAsync(() -> {
+	public static Thread runLaterAsync(Runnable r, long delay) {
+		return runAsync(() -> {
 			
 			try {
 				Thread.sleep(delay);
@@ -42,8 +44,12 @@ public class AsyncUtil {
 		});
 	}
 	
-	public static void runAsync(Runnable r) {
-		new Thread(r).start();
+	public static Thread runAsync(Runnable r) {
+		Thread thread = new Thread(r);
+		
+		thread.start();
+		
+		return thread;
 	}
 	
 	public static void sleep(long delay) {
@@ -51,9 +57,7 @@ public class AsyncUtil {
 			
 			Thread.sleep(delay);
 			
-		} catch (InterruptedException ex) {
-			ex.printStackTrace();
-		}
+		} catch (InterruptedException ex) {}
 	}
 	
 }

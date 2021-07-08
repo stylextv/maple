@@ -37,7 +37,7 @@ public class FileSystem {
 		int x = readInt(f);
 		int z = readInt(f);
 		
-		BitSet bitSet = readBitSet(CachedChunk.BIT_AMOUNT, f);
+		BitSet bitSet = readBitSet(f);
 		
 		return new CachedChunk(r, x, z, bitSet);
 	}
@@ -54,8 +54,8 @@ public class FileSystem {
 		writeBitSet(bitSet, f);
 	}
 	
-	public static BitSet readBitSet(int n, FileAccess f) {
-		int l = n / 8;
+	public static BitSet readBitSet(FileAccess f) {
+		int l = readInt(f);
 		
 		byte[] data = f.read(l);
 		
@@ -65,15 +65,11 @@ public class FileSystem {
 	}
 	
 	public static void writeBitSet(BitSet bitSet, FileAccess f) {
-		int l = bitSet.size() / 8;
-		
 		byte[] data = bitSet.toByteArray();
 		
-		int n = l - data.length;
+		int l = data.length;
 		
-		for(int i = 0; i < n; i++) {
-			f.write((byte) 0);
-		}
+		writeInt(l, f);
 		
 		f.write(data);
 	}

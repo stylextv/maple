@@ -25,17 +25,19 @@ public class CachedWorld {
 	public CachedWorld(String name) {
 		this.name = name;
 		
-		this.regionMap = new Long2ObjectOpenHashMap<>(64, 0.75f);
+		this.regionMap = new Long2ObjectOpenHashMap<>(16, 0.75f);
 	}
 	
 	public void enter() {
+		exit();
+		
 		collectThread = AsyncUtil.loopAsync(() -> collectChunks(), 500);
 		saveThread = AsyncUtil.loopAsync(() -> saveChanges(), () -> clear(), 30000, 600000);
 	}
 	
 	public void exit() {
-		collectThread.kill();
-		saveThread.kill();
+		if(collectThread != null) collectThread.kill();
+		if(saveThread != null) saveThread.kill();
 	}
 	
 	private void clear() {

@@ -5,17 +5,31 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.zip.Deflater;
+import java.util.zip.DeflaterOutputStream;
+import java.util.zip.InflaterInputStream;
 
 public class FileAccess {
 	
+	private static final int COMPRESSION_LEVEL = Deflater.BEST_COMPRESSION;
+	
 	private File file;
 	
-	private FileInputStream inputStream;
+	private boolean compress;
 	
-	private FileOutputStream outputStream;
+	private InputStream inputStream;
+	
+	private OutputStream outputStream;
 	
 	public FileAccess(File f) {
+		this(f, true);
+	}
+	
+	public FileAccess(File f, boolean compress) {
 		this.file = f;
+		this.compress = compress;
 		
 		f.getParentFile().mkdirs();
 	}
@@ -42,16 +56,6 @@ public class FileAccess {
 		}
 		
 		return null;
-	}
-	
-	public void write(byte b) {
-		try {
-			
-			getOutputStream().write(b);
-			
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
 	}
 	
 	public void write(byte[] data) {
@@ -95,11 +99,16 @@ public class FileAccess {
 		return 0;
 	}
 	
-	public FileInputStream getInputStream() {
+	public InputStream getInputStream() {
 		if(inputStream == null) {
 			try {
 				
 				inputStream = new FileInputStream(file);
+				
+				if(compress) {
+					
+					inputStream = new InflaterInputStream(inputStream);
+				}
 				
 			} catch (FileNotFoundException ex) {
 				ex.printStackTrace();
@@ -109,11 +118,18 @@ public class FileAccess {
 		return inputStream;
 	}
 	
-	public FileOutputStream getOutputStream() {
+	public OutputStream getOutputStream() {
 		if(outputStream == null) {
 			try {
 				
 				outputStream = new FileOutputStream(file);
+				
+				if(compress) {
+					
+					Deflater deflater = new Deflater(COMPRESSION_LEVEL);
+					
+					outputStream = new DeflaterOutputStream(outputStream, deflater);
+				}
 				
 			} catch (FileNotFoundException ex) {
 				ex.printStackTrace();
