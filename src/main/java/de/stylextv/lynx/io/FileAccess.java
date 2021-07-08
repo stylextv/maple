@@ -44,6 +44,16 @@ public class FileAccess {
 		return null;
 	}
 	
+	public void write(byte b) {
+		try {
+			
+			getOutputStream().write(b);
+			
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+	}
+	
 	public void write(byte[] data) {
 		try {
 			
@@ -52,6 +62,21 @@ public class FileAccess {
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
+	}
+	
+	public void close() {
+		try {
+			
+			if(inputStream != null) inputStream.close();
+			if(outputStream != null) outputStream.close();
+			
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+	public boolean exists() {
+		return file.exists();
 	}
 	
 	public boolean isEmpty() {
@@ -68,17 +93,6 @@ public class FileAccess {
 		}
 		
 		return 0;
-	}
-	
-	public void close() {
-		try {
-			
-			if(inputStream != null) inputStream.close();
-			if(outputStream != null) outputStream.close();
-			
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
 	}
 	
 	public FileInputStream getInputStream() {

@@ -137,7 +137,7 @@ public class CachedWorld {
 		int x = r.getX();
 		int z = r.getZ();
 		
-		String name = String.format("region_%s,%s", x, z);
+		String name = String.format("region_%s,%s.dat", x, z);
 		
 		return new File(f, name);
 	}

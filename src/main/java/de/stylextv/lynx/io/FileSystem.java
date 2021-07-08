@@ -14,6 +14,8 @@ public class FileSystem {
 	public static final File ROOT_FOLDER = new File(GameContext.directory(), "." + Constants.MOD_ID);
 	
 	public static CachedRegion readRegion(CachedRegion r, FileAccess f) {
+		if(!f.exists()) return r;
+		
 		while(!f.isEmpty()) {
 			
 			CachedChunk chunk = readChunk(r, f);
@@ -65,7 +67,15 @@ public class FileSystem {
 	public static void writeBitSet(BitSet bitSet, FileAccess f) {
 		int l = bitSet.size() / 8;
 		
+		byte[] data = bitSet.toByteArray();
 		
+		int n = l - data.length;
+		
+		for(int i = 0; i < n; i++) {
+			f.write((byte) 0);
+		}
+		
+		f.write(data);
 	}
 	
 	public static int readInt(FileAccess f) {
