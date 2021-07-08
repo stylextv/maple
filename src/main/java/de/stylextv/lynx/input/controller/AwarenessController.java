@@ -2,7 +2,8 @@ package de.stylextv.lynx.input.controller;
 
 import java.util.ArrayList;
 
-import de.stylextv.lynx.input.PlayerContext;
+import de.stylextv.lynx.context.PlayerContext;
+import de.stylextv.lynx.context.WorldContext;
 import net.minecraft.block.Block;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.util.math.BlockPos;
@@ -68,7 +69,7 @@ public class AwarenessController {
 	}
 	
 	public static Block getBlock(BlockPos pos) {
-		return PlayerContext.world().getBlockState(pos).getBlock();
+		return WorldContext.world().getBlockState(pos).getBlock();
 	}
 	
 }

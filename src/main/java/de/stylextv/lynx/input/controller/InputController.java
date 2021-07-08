@@ -2,8 +2,9 @@ package de.stylextv.lynx.input.controller;
 
 import java.util.HashSet;
 
+import de.stylextv.lynx.context.GameContext;
+import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.input.Input;
-import de.stylextv.lynx.input.PlayerContext;
 import de.stylextv.lynx.input.PlayerMovementInput;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.util.MovementInputFromOptions;
@@ -43,7 +44,7 @@ public class InputController {
 		} else {
 			
 			if(p.input.getClass() == PlayerMovementInput.class) {
-				p.input = new MovementInputFromOptions(PlayerContext.gameSettings());
+				p.input = new MovementInputFromOptions(GameContext.settings());
 			}
 		}
 	}

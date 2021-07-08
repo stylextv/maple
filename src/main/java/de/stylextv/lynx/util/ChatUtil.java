@@ -6,7 +6,7 @@ import java.util.List;
 import com.google.common.collect.Lists;
 
 import de.stylextv.lynx.Constants;
-import de.stylextv.lynx.input.PlayerContext;
+import de.stylextv.lynx.context.PlayerContext;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 

@@ -1,7 +1,7 @@
 package de.stylextv.lynx.command.commands;
 
 import de.stylextv.lynx.command.Command;
-import de.stylextv.lynx.input.PlayerContext;
+import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.pathing.calc.Path;
 import de.stylextv.lynx.pathing.calc.PathFinder;
 import de.stylextv.lynx.pathing.calc.goal.Goal;

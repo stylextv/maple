@@ -1,9 +1,11 @@
 package de.stylextv.lynx.input.controller;
 
-import de.stylextv.lynx.input.PlayerContext;
+import de.stylextv.lynx.context.PlayerContext;
+import de.stylextv.lynx.context.WorldContext;
 import de.stylextv.lynx.input.SmoothLook;
 import de.stylextv.lynx.pathing.calc.Node;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -82,10 +84,12 @@ public class ViewController {
 	public static boolean canSee(BlockPos pos) {
 		ClientPlayerEntity p = PlayerContext.player();
 		
+		ClientWorld w = WorldContext.world();
+		
 		Vector3d v1 = new Vector3d(p.getX(), p.getEyeY(), p.getZ());
 		Vector3d v2 = new Vector3d(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 		
-		BlockRayTraceResult result = PlayerContext.world().clip(new RayTraceContext(v1, v2, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, p));
+		BlockRayTraceResult result = w.clip(new RayTraceContext(v1, v2, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, p));
 		
 		if(result.getType() == RayTraceResult.Type.MISS) return true;
 		if(result.getType() == RayTraceResult.Type.BLOCK && result.getBlockPos().equals(pos)) return true;
@@ -96,10 +100,12 @@ public class ViewController {
 	public static boolean canSee(double x, double y, double z) {
 		ClientPlayerEntity p = PlayerContext.player();
 		
+		ClientWorld w = WorldContext.world();
+		
 		Vector3d v1 = new Vector3d(p.getX(), p.getEyeY(), p.getZ());
 		Vector3d v2 = new Vector3d(x, y, z);
 		
-		return PlayerContext.world().clip(new RayTraceContext(v1, v2, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, p)).getType() == RayTraceResult.Type.MISS;
+		return w.clip(new RayTraceContext(v1, v2, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, p)).getType() == RayTraceResult.Type.MISS;
 	}
 	
 	public static void onRenderTick() {

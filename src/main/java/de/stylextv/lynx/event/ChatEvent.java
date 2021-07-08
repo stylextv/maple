@@ -1,7 +1,7 @@
 package de.stylextv.lynx.event;
 
 import de.stylextv.lynx.command.CommandManager;
-import de.stylextv.lynx.input.PlayerContext;
+import de.stylextv.lynx.context.GameContext;
 import net.minecraftforge.client.event.ClientChatEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
@@ -14,7 +14,7 @@ public class ChatEvent {
 		if(CommandManager.isCommandMessage(msg)) {
 			event.setCanceled(true);
 			
-			PlayerContext.ingameGui().getChat().addRecentChat(msg);
+			GameContext.ingameGui().getChat().addRecentChat(msg);
 			
 			CommandManager.parseMessage(msg);
 		}

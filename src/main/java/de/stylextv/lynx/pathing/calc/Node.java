@@ -1,7 +1,7 @@
 package de.stylextv.lynx.pathing.calc;
 
 import de.stylextv.lynx.cache.BlockType;
-import de.stylextv.lynx.cache.WorldCache;
+import de.stylextv.lynx.cache.CacheManager;
 import de.stylextv.lynx.pathing.calc.goal.Goal;
 import net.minecraft.util.math.BlockPos;
 
@@ -31,7 +31,7 @@ public class Node {
 	}
 	
 	public void updateBlockType() {
-		type = WorldCache.getBlockType(x, y, z);
+		type = CacheManager.getBlockType(x, y, z);
 	}
 	
 	public void updateHeuristic(Goal goal) {

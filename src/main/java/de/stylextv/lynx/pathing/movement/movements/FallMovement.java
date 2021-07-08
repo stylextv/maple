@@ -1,7 +1,7 @@
 package de.stylextv.lynx.pathing.movement.movements;
 
+import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.input.Input;
-import de.stylextv.lynx.input.PlayerContext;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.movement.Movement;
 import net.minecraft.util.math.BlockPos;

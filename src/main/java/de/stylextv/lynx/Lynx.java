@@ -1,6 +1,5 @@
 package de.stylextv.lynx;
 
-import de.stylextv.lynx.cache.WorldCache;
 import de.stylextv.lynx.event.ChatEvent;
 import de.stylextv.lynx.event.RenderEvent;
 import de.stylextv.lynx.event.TickEvent;
@@ -32,8 +31,6 @@ public class Lynx {
 		registerEvents();
 		
 		Runtime.getRuntime().addShutdownHook(new Thread(this::shutdown));
-		
-		WorldCache.init();
 	}
 	
 	private void registerEvents() {
@@ -48,7 +45,7 @@ public class Lynx {
 	}
 	
 	private void shutdown() {
-		WorldCache.shutdown();
+		
 	}
 	
 	public static Lynx getInstance() {

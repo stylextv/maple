@@ -2,26 +2,37 @@ package de.stylextv.lynx.cache;
 
 import java.util.BitSet;
 
-import de.stylextv.lynx.input.PlayerContext;
+import de.stylextv.lynx.context.WorldContext;
 import net.minecraft.block.*;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.chunk.Chunk;
 
-public class ChunkCache {
+public class CachedChunk {
+	
+	public static final int BLOCK_AMOUNT = 16 * 16 * 256 * 2;
+	
+	private CachedRegion region;
 	
 	private int x;
 	private int z;
 	
-	private BitSet bitSet = new BitSet(16 * 16 * 256 * 2);
+	private BitSet bitSet;
 	
-	public ChunkCache(int x, int z) {
+	public CachedChunk(CachedRegion r, int x, int z) {
+		this(r, x, z, new BitSet(BLOCK_AMOUNT));
+	}
+	
+	public CachedChunk(CachedRegion r, int x, int z, BitSet bitSet) {
+		this.region = r;
 		this.x = x;
 		this.z = z;
+		
+		this.bitSet = bitSet;
 	}
 	
 	public boolean update() {
-		ClientWorld w = PlayerContext.world();
+		ClientWorld w = WorldContext.world();
 		
 		if(w == null) return false;
 		
@@ -44,7 +55,15 @@ public class ChunkCache {
 					for(int j = 0; j < 2; j++) {
 						boolean b = (i & 1) != 0;
 						
-						bitSet.set(index * 2 + j, b);
+						int k = index * 2 + j;
+						
+						boolean b2 = bitSet.get(k);
+						
+						if(b != b2) {
+							region.setModified(true);
+							
+							bitSet.set(k, b);
+						}
 						
 						i >>= 1;
 					}
@@ -58,10 +77,13 @@ public class ChunkCache {
 	}
 	
 	public boolean isInView() {
-		return WorldCache.isInView(x, z);
+		return WorldContext.isChunkInView(x, z);
 	}
 	
 	public BlockType getBlockType(int x, int y, int z) {
+		x -= this.x * 16;
+		z -= this.z * 16;
+		
 		int index = x * (16 * 256) + z * 256 + y;
 		
 		int i = 0;
@@ -75,20 +97,12 @@ public class ChunkCache {
 		return BlockType.fromID(i);
 	}
 	
-	public long getHash() {
-		return posAsLong(x, z);
-	}
-	
 	public int getX() {
 		return x;
 	}
 	
 	public int getZ() {
 		return z;
-	}
-	
-	public static long posAsLong(int x, int z) {
-		return BlockPos.asLong(x, 0, z);
 	}
 	
 }

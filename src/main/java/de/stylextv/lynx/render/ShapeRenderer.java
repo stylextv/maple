@@ -5,7 +5,7 @@ import org.lwjgl.opengl.GL11;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
-import de.stylextv.lynx.input.PlayerContext;
+import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.calc.Path;
 import de.stylextv.lynx.scheme.Color;

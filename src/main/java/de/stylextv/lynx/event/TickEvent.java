@@ -1,6 +1,6 @@
 package de.stylextv.lynx.event;
 
-import de.stylextv.lynx.input.PlayerContext;
+import de.stylextv.lynx.context.WorldContext;
 import de.stylextv.lynx.input.controller.InputController;
 import net.minecraftforge.event.TickEvent.ClientTickEvent;
 import net.minecraftforge.event.TickEvent.Phase;
@@ -14,7 +14,7 @@ public class TickEvent {
 	public void onTick(ClientTickEvent event) {
 		if(event.type == Type.CLIENT && event.side == LogicalSide.CLIENT && event.phase == Phase.START) {
 			
-			if(!PlayerContext.isIngame()) return;
+			if(!WorldContext.isIngame()) return;
 			
 			InputController.onTick();
 		}

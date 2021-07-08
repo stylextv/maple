@@ -1,7 +1,7 @@
 package de.stylextv.lynx.pathing.movement;
 
+import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.input.Input;
-import de.stylextv.lynx.input.PlayerContext;
 import de.stylextv.lynx.input.controller.InputController;
 import de.stylextv.lynx.input.controller.ViewController;
 import de.stylextv.lynx.pathing.calc.Node;
