@@ -54,6 +54,22 @@ public class FileAccess {
 		}
 	}
 	
+	public boolean isEmpty() {
+		return available() == 0;
+	}
+	
+	public int available() {
+		try {
+			
+			return getInputStream().available();
+			
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+		
+		return 0;
+	}
+	
 	public void close() {
 		try {
 			

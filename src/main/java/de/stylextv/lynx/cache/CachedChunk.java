@@ -10,7 +10,7 @@ import net.minecraft.world.chunk.Chunk;
 
 public class CachedChunk {
 	
-	public static final int BLOCK_AMOUNT = 16 * 16 * 256 * 2;
+	public static final int BIT_AMOUNT = 16 * 16 * 256 * 2;
 	
 	private CachedRegion region;
 	
@@ -20,7 +20,7 @@ public class CachedChunk {
 	private BitSet bitSet;
 	
 	public CachedChunk(CachedRegion r, int x, int z) {
-		this(r, x, z, new BitSet(BLOCK_AMOUNT));
+		this(r, x, z, new BitSet(BIT_AMOUNT));
 	}
 	
 	public CachedChunk(CachedRegion r, int x, int z, BitSet bitSet) {
@@ -103,6 +103,10 @@ public class CachedChunk {
 	
 	public int getZ() {
 		return z;
+	}
+	
+	public BitSet getBitSet() {
+		return bitSet;
 	}
 	
 }
