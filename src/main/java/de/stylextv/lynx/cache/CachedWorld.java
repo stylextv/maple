@@ -96,6 +96,10 @@ public class CachedWorld {
 	}
 	
 	public BlockType getBlockType(BlockPos pos) {
+		int y = pos.getY();
+		
+		if(y < 0 || y > 255) return BlockType.VOID;
+		
 		ChunkPos p = new ChunkPos(pos);
 		
 		CachedChunk chunk = getChunk(p.x, p.z);
@@ -103,7 +107,6 @@ public class CachedWorld {
 		if(chunk == null) return BlockType.VOID;
 		
 		int x = pos.getX();
-		int y = pos.getY();
 		int z = pos.getZ();
 		
 		return chunk.getBlockType(x, y, z);
