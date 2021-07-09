@@ -4,10 +4,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.stylextv.lynx.context.WorldContext;
+import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.io.FileAccess;
 import de.stylextv.lynx.io.FileSystem;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 
 public class CachedRegion {
 	
@@ -82,17 +83,17 @@ public class CachedRegion {
 	}
 	
 	public boolean isInView() {
-		for(int x = 0; x < SIZE; x++) {
-			for(int z = 0; z < SIZE; z++) {
-				
-				int cx = chunkX + x;
-				int cz = chunkZ + z;
-				
-				if(WorldContext.isChunkInView(cx, cz)) return true;
-			}
-		}
+		BlockPos pos = PlayerContext.blockPosition();
 		
-		return false;
+		ChunkPos p = new ChunkPos(pos);
+		
+		int rx = chunkToRegionPos(p.x);
+		int rz = chunkToRegionPos(p.z);
+		
+		int disX = Math.abs(x - rx);
+		int disZ = Math.abs(z - rz);
+		
+		return disX < 2 && disZ < 2;
 	}
 	
 	public File getSaveFile() {

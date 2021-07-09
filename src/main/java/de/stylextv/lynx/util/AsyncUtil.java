@@ -34,11 +34,7 @@ public class AsyncUtil {
 	public static Thread runLaterAsync(Runnable r, long delay) {
 		return runAsync(() -> {
 			
-			try {
-				Thread.sleep(delay);
-			} catch (InterruptedException ex) {
-				ex.printStackTrace();
-			}
+			sleep(delay);
 			
 			r.run();
 		});

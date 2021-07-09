@@ -83,7 +83,9 @@ public class FileSystem {
 	}
 	
 	public static void writeInt(int i, FileAccess f) {
-		ByteBuffer buffer = ByteBuffer.allocate(4).putInt(i);
+		ByteBuffer buffer = ByteBuffer.allocate(4);
+		
+		buffer.putInt(i);
 		
 		byte[] data = buffer.array();;
 		

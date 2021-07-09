@@ -1,13 +1,17 @@
 package de.stylextv.lynx.cache;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.context.WorldContext;
 import de.stylextv.lynx.io.FileSystem;
 import de.stylextv.lynx.util.AsyncUtil;
 import de.stylextv.lynx.util.ThreadInfo;
+import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectCollection;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 
@@ -17,7 +21,7 @@ public class CachedWorld {
 	
 	private String name;
 	
-	private Long2ObjectOpenHashMap<CachedRegion> regionMap;
+	private Long2ObjectMap<CachedRegion> regionMap;
 	
 	private ThreadInfo collectThread;
 	private ThreadInfo saveThread;
@@ -40,13 +44,13 @@ public class CachedWorld {
 		if(saveThread != null) saveThread.kill();
 	}
 	
-	private void clear() {
+	private synchronized void clear() {
 		saveChanges();
 		
 		regionMap.clear();
 	}
 	
-	private void collectChunks() {
+	private synchronized void collectChunks() {
 		if(!WorldContext.isIngame()) return;
 		
 		BlockPos p = PlayerContext.player().blockPosition();
@@ -75,7 +79,7 @@ public class CachedWorld {
 			}
 		}
 		
-		for(CachedRegion r : regionMap.values()) {
+		for(CachedRegion r : regions()) {
 			r.update();
 		}
 	}
@@ -89,9 +93,20 @@ public class CachedWorld {
 		r.storeChunk(chunk);
 	}
 	
-	private void saveChanges() {
-		for(CachedRegion r : regionMap.values()) {
+	private synchronized void saveChanges() {
+		for(CachedRegion r : regions()) {
+			
 			r.saveChanges();
+			
+			if(!r.isInView()) {
+				
+				int x = r.getX();
+				int z = r.getZ();
+				
+				long hash = CachedRegion.posAsLong(x, z);
+				
+				regionMap.remove(hash);
+			}
 		}
 	}
 	
@@ -118,7 +133,7 @@ public class CachedWorld {
 		return r.getChunk(cx, cz);
 	}
 	
-	public CachedRegion getRegion(int cx, int cz) {
+	public synchronized CachedRegion getRegion(int cx, int cz) {
 		int rx = CachedRegion.chunkToRegionPos(cx);
 		int rz = CachedRegion.chunkToRegionPos(cz);
 		
@@ -134,6 +149,12 @@ public class CachedWorld {
 		}
 		
 		return r;
+	}
+	
+	private synchronized List<CachedRegion> regions() {
+		ObjectCollection<CachedRegion> values = regionMap.values();
+		
+		return new ArrayList<>(values);
 	}
 	
 	public File getSaveFile(CachedRegion r) {
