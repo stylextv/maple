@@ -105,7 +105,11 @@ public class FileSystem {
 	}
 	
 	public static FileAccess openFile(File f) {
-		return new FileAccess(f);
+		return openFile(f, true);
+	}
+	
+	public static FileAccess openFile(File f, boolean compress) {
+		return new FileAccess(f, compress);
 	}
 	
 }

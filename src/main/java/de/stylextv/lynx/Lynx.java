@@ -4,6 +4,7 @@ import de.stylextv.lynx.event.ChatEvent;
 import de.stylextv.lynx.event.RenderEvent;
 import de.stylextv.lynx.event.TickEvent;
 import de.stylextv.lynx.event.WorldEvent;
+import de.stylextv.lynx.option.Options;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -14,6 +15,8 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 public class Lynx {
 	
 	private static Lynx instance;
+	
+	private Options options;
 	
 	public Lynx() {
 		instance = this;
@@ -30,6 +33,16 @@ public class Lynx {
 		
 		registerEvents();
 		
+		options = Options.load();
+		
+		if(options == null) {
+			options = new Options();
+			
+			options.save();
+		}
+		
+		// init
+		
 		Runtime.getRuntime().addShutdownHook(new Thread(this::shutdown));
 	}
 	
@@ -45,7 +58,11 @@ public class Lynx {
 	}
 	
 	private void shutdown() {
-		
+		options.save();
+	}
+	
+	public Options getOptions() {
+		return options;
 	}
 	
 	public static Lynx getInstance() {
