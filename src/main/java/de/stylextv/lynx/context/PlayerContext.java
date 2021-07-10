@@ -55,10 +55,6 @@ public class PlayerContext {
 		return MC.hitResult;
 	}
 	
-	public static Vector3d cameraPosition() {
-		return MC.gameRenderer.getMainCamera().getPosition();
-	}
-	
 	public static void closeContainer() {
 		player().closeContainer();
 	}

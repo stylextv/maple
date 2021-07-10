@@ -7,6 +7,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.IngameGui;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.util.math.vector.Vector3d;
 
 public class GameContext {
 	
@@ -38,6 +39,10 @@ public class GameContext {
 	
 	public static float deltaTime() {
 		return MC.getDeltaFrameTime();
+	}
+	
+	public static Vector3d cameraPosition() {
+		return MC.gameRenderer.getMainCamera().getPosition();
 	}
 	
 }

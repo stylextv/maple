@@ -5,7 +5,7 @@ import org.lwjgl.opengl.GL11;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
-import de.stylextv.lynx.context.PlayerContext;
+import de.stylextv.lynx.context.GameContext;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.calc.Path;
 import de.stylextv.lynx.scheme.Color;
@@ -178,7 +178,7 @@ public class ShapeRenderer {
 		
 		stack = event.getMatrixStack();
 		
-		Vector3d pos = PlayerContext.cameraPosition();
+		Vector3d pos = GameContext.cameraPosition();
 		
 		stack.pushPose();
 		stack.translate(-pos.x(), -pos.y(), -pos.z());

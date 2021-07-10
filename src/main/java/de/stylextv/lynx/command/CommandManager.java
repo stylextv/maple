@@ -8,6 +8,7 @@ import de.stylextv.lynx.command.commands.InvertCommand;
 import de.stylextv.lynx.command.commands.ModifiedCommand;
 import de.stylextv.lynx.command.commands.StopCommand;
 import de.stylextv.lynx.command.commands.VersionCommand;
+import de.stylextv.lynx.command.commands.WaypointCommand;
 import de.stylextv.lynx.util.ChatUtil;
 
 public class CommandManager {
@@ -20,6 +21,7 @@ public class CommandManager {
 			new GoalCommand(),
 			new GoCommand(),
 			new StopCommand(),
+			new WaypointCommand(),
 			new InvertCommand(),
 			new ModifiedCommand(),
 			new VersionCommand()

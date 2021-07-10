@@ -10,4 +10,6 @@ public class Colors {
 	public static final Color BOX = new Color(255, 216, 83);
 	public static final Color BOX_OUTLINE = new Color(255, 216, 83, 95);
 	
+	public static final Color WAYPOINT = new Color(224, 58, 224);
+	
 }
