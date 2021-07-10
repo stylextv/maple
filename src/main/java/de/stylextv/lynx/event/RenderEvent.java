@@ -45,8 +45,6 @@ public class RenderEvent {
 		for(Waypoint p : Waypoints.getWaypoints()) {
 			drawWaypoint(event, p);
 		}
-		
-		drawWaypoint(event, new Waypoint("Portal", "", new BlockPos(26, 74, -12)));
 	}
 	
 	private void drawWaypoint(RenderWorldLastEvent event, Waypoint p) {
