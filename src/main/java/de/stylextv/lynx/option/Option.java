@@ -23,7 +23,7 @@ public class Option<T> {
 	}
 	
 	public boolean wasModified() {
-		return value.equals(defaultValue);
+		return !value.equals(defaultValue);
 	}
 	
 	public String getName() {

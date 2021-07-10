@@ -23,7 +23,9 @@ public class ChatUtil {
 		
 		int pages = (int) Math.ceil((double) l / rows);
 		
-		page = MathUtil.clamp(page, 0, pages - 1);
+		int max = Math.max(pages - 1, 0);
+		
+		page = MathUtil.clamp(page, 0, max);
 		
 		int start = page * rows;
 		
