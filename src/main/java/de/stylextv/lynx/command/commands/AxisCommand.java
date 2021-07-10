@@ -26,9 +26,4 @@ public class AxisCommand extends Command {
 		return true;
 	}
 	
-	@Override
-	public String[] getUsages() {
-		return Goal.getUsages();
-	}
-	
 }
