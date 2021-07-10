@@ -1,6 +1,7 @@
 package de.stylextv.lynx.render;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.systems.RenderSystem;
 
 import de.stylextv.lynx.context.GameContext;
 import net.minecraft.client.gui.FontRenderer;
@@ -56,6 +57,8 @@ public class TextRenderer {
 		buffer.endBatch();
 		
 		stack.popPose();
+		
+		RenderSystem.enableDepthTest();
 	}
 	
 }

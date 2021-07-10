@@ -12,8 +12,8 @@ public class ModifiedCommand extends Command {
 	}
 	
 	@Override
-	public void execute(String[] args) {
-		ChatUtil.sendToUser("Modified options:");
+	public boolean execute(String[] args) {
+		ChatUtil.send("Modified options:");
 		
 		int n = 8;
 		
@@ -27,15 +27,17 @@ public class ModifiedCommand extends Command {
 				
 				String s = String.format("§7%s §8(%s)", name, type);
 				
-				ChatUtil.sendToUser("- " + s);
+				ChatUtil.send("- " + s);
 				
 				n--;
 			}
 		}
 		
 		for(int i = 0; i < n; i++) {
-			ChatUtil.sendToUser("§8--");
+			ChatUtil.send("§8--");
 		}
+		
+		return true;
 	}
 	
 }

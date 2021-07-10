@@ -16,9 +16,9 @@ public abstract class Goal {
 	public static Goal fromArgs(String[] args) {
 		if(args.length != 3) return null;
 		
-		Integer x = ArgumentHelper.toInt(args[0]);
-		Integer y = ArgumentHelper.toInt(args[1]);
-		Integer z = ArgumentHelper.toInt(args[2]);
+		Integer x = ArgumentHelper.toCoordinate(args[0], 0);
+		Integer y = ArgumentHelper.toCoordinate(args[1], 1);
+		Integer z = ArgumentHelper.toCoordinate(args[2], 2);
 		
 		if(x == null || y == null || z == null) return null;
 		return new BlockGoal(x, y, z);

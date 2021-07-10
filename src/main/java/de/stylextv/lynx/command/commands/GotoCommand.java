@@ -13,22 +13,18 @@ public class GotoCommand extends Command {
 	}
 	
 	@Override
-	public void execute(String[] args) {
+	public boolean execute(String[] args) {
 		Goal goal = Goal.fromArgs(args);
 		
-		if(goal == null) {
-			ChatUtil.sendToUser("§cInvalid arguments!");
-			
-			return;
-		}
+		if(goal == null) return false;
 		
 		MemoryManager.setGoal(goal);
 		
-		ChatUtil.sendToUser("Goal set. §8(" + goal + ")");
+		MovementExecutor.gotoGoal();
 		
-		MovementExecutor.gotoGoal(goal);
+		ChatUtil.send("Started.");
 		
-		ChatUtil.sendToUser("Started.");
+		return true;
 	}
 	
 	@Override

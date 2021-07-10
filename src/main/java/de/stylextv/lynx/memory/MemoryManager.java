@@ -1,6 +1,7 @@
 package de.stylextv.lynx.memory;
 
 import de.stylextv.lynx.pathing.calc.goal.Goal;
+import de.stylextv.lynx.util.ChatUtil;
 
 public class MemoryManager {
 	
@@ -8,6 +9,8 @@ public class MemoryManager {
 	
 	public static void setGoal(Goal g) {
 		goal = g;
+		
+		ChatUtil.send("Goal set. §8(" + goal + ")");
 	}
 	
 	public static Goal getGoal() {

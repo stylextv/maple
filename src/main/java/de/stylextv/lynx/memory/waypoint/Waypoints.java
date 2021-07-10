@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import de.stylextv.lynx.config.ConfigHelper;
+import de.stylextv.lynx.memory.MemoryManager;
 import de.stylextv.lynx.pathing.calc.goal.BlockGoal;
 import de.stylextv.lynx.pathing.calc.goal.Goal;
 import de.stylextv.lynx.pathing.movement.MovementExecutor;
@@ -24,12 +25,20 @@ public class Waypoints {
 		save();
 	}
 	
+	public static void removeWaypoint(Waypoint p) {
+		waypoints.remove(p);
+		
+		save();
+	}
+	
 	public static void gotoWaypoint(Waypoint p) {
 		BlockPos pos = p.getPos();
 		
 		Goal goal = new BlockGoal(pos);
 		
-		MovementExecutor.gotoGoal(goal);
+		MemoryManager.setGoal(goal);
+		
+		MovementExecutor.gotoGoal();
 	}
 	
 	public static void save() {
@@ -54,9 +63,15 @@ public class Waypoints {
 		return waypoints.toArray(arr);
 	}
 	
-	public static Waypoint getWaypoint(String name) {
+	public static Waypoint getWaypoint(String name, String levelName) {
 		for(Waypoint p : waypoints) {
-			if(p.getName().equals(name)) return p;
+			
+			boolean b1 = p.getName().equalsIgnoreCase(name);
+			boolean b2 = p.getLevelName().equalsIgnoreCase(levelName);
+			
+			if(b1 && b2) {
+				return p;
+			}
 		}
 		
 		return null;

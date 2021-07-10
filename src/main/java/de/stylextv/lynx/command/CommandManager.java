@@ -30,7 +30,7 @@ public class CommandManager {
 	public static void parseMessage(String s) {
 		s = s.substring(1);
 		
-		ChatUtil.sendToUser("§f> " + s);
+		ChatUtil.send("§f> " + s);
 		
 		String[] split = s.split(" ");
 		
@@ -45,12 +45,16 @@ public class CommandManager {
 		Command c = getCommand(name);
 		
 		if(c == null) {
-			ChatUtil.sendToUser("§cCouldn't find command!");
+			ChatUtil.send("§cCouldn't find command!");
 			
 			return;
 		}
 		
-		c.execute(args);
+		boolean success = c.execute(args);
+		
+		if(!success) {
+			ChatUtil.send("§cInvalid arguments!");
+		}
 	}
 	
 	public static boolean isCommandMessage(String s) {

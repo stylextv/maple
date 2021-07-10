@@ -48,6 +48,8 @@ public class RenderEvent {
 	}
 	
 	private void drawWaypoint(RenderWorldLastEvent event, Waypoint p) {
+		if(!p.isInWorld()) return;
+		
 		BlockPos pos = p.getPos();
 		
 		float x = pos.getX() + 0.5f;

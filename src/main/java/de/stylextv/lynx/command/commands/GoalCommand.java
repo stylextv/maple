@@ -12,18 +12,16 @@ public class GoalCommand extends Command {
 	}
 	
 	@Override
-	public void execute(String[] args) {
+	public boolean execute(String[] args) {
 		Goal goal = Goal.fromArgs(args);
 		
-		if(goal == null) {
-			ChatUtil.sendToUser("§cInvalid arguments!");
-			
-			return;
-		}
+		if(goal == null) return false;
 		
 		MemoryManager.setGoal(goal);
 		
-		ChatUtil.sendToUser("Goal set. §8(" + goal + ")");
+		ChatUtil.send("Goal set. §8(" + goal + ")");
+		
+		return true;
 	}
 	
 	@Override

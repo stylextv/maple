@@ -13,18 +13,20 @@ public class InvertCommand extends Command {
 	}
 	
 	@Override
-	public void execute(String[] args) {
+	public boolean execute(String[] args) {
 		Goal goal = MemoryManager.getGoal();
 		
 		if(goal == null) {
-			ChatUtil.sendToUser("§cNo goal present!");
+			ChatUtil.send("§cNo goal present!");
 			
-			return;
+			return true;
 		}
 		
 		MemoryManager.setGoal(new InvertedGoal(goal));
 		
-		ChatUtil.sendToUser("Goal inverted.");
+		ChatUtil.send("Goal inverted.");
+		
+		return true;
 	}
 	
 }

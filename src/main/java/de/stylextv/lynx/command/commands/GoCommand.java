@@ -13,18 +13,20 @@ public class GoCommand extends Command {
 	}
 	
 	@Override
-	public void execute(String[] args) {
+	public boolean execute(String[] args) {
 		Goal goal = MemoryManager.getGoal();
 		
 		if(goal == null) {
-			ChatUtil.sendToUser("§cNo goal present!");
+			ChatUtil.send("§cNo goal present!");
 			
-			return;
+			return true;
 		}
 		
-		MovementExecutor.gotoGoal(goal);
+		MovementExecutor.gotoGoal();
 		
-		ChatUtil.sendToUser("Started. §8(Goal: " + goal + ")");
+		ChatUtil.send("Started. §8(Goal: " + goal + ")");
+		
+		return true;
 	}
 	
 }

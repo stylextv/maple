@@ -2,6 +2,7 @@ package de.stylextv.lynx.pathing.movement;
 
 import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.input.controller.InputController;
+import de.stylextv.lynx.memory.MemoryManager;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.calc.Path;
 import de.stylextv.lynx.pathing.calc.PathFinder;
@@ -20,7 +21,9 @@ public class MovementExecutor {
 	
 	private static Node previousNode;
 	
-	public static void gotoGoal(Goal goal) {
+	public static void gotoGoal() {
+		Goal goal = MemoryManager.getGoal();
+		
 		PathFinder finder = new PathFinder(goal);
 		
 		Path path = finder.find(PlayerContext.blockPosition());

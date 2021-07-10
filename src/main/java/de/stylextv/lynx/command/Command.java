@@ -11,7 +11,7 @@ public abstract class Command {
 		this.description = description;
 	}
 	
-	public abstract void execute(String[] args);
+	public abstract boolean execute(String[] args);
 	
 	public String getName() {
 		return name;

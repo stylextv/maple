@@ -11,10 +11,12 @@ public class StopCommand extends Command {
 	}
 	
 	@Override
-	public void execute(String[] args) {
+	public boolean execute(String[] args) {
 		MovementExecutor.stop();
 		
-		ChatUtil.sendToUser("Stopped.");
+		ChatUtil.send("Stopped.");
+		
+		return true;
 	}
 	
 }

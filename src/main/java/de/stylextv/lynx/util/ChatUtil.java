@@ -18,13 +18,35 @@ public class ChatUtil {
 	
 	private static final char FORMATTING_SYMBOL = '§';
 	
-	public static void sendToUser(String... lines) {
+	public static void sendList(List<String> list, int rows, int page, String command) {
+		int l = list.size();
+		
+		int pages = (int) Math.ceil((double) l / page);
+		
+		page = MathUtil.clamp(page, 0, pages - 1);
+		
+		for(String s : list) {
+			send("- " + s);
+		}
+		
+		int n = rows - l;
+		
+		for(int i = 0; i < n; i++) {
+			send("§8--");
+		}
+		
+		String s = String.format("§8<< §7¦ §b>> §7%s/%s", page + 1, pages);
+		
+		send(s);
+	}
+	
+	public static void send(String... lines) {
 		for(String s : lines) {
-			sendToUser(s);
+			send(s);
 		}
 	}
 	
-	public static void sendToUser(String line) {
+	public static void send(String line) {
 		List<String> list = splitLine(line);
 		
 		for(String s : list) {
