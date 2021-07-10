@@ -21,17 +21,23 @@ public class ChatUtil {
 	public static void sendList(List<String> list, int rows, int page, String command) {
 		int l = list.size();
 		
-		int pages = (int) Math.ceil((double) l / page);
+		int pages = (int) Math.ceil((double) l / rows);
 		
 		page = MathUtil.clamp(page, 0, pages - 1);
 		
-		for(String s : list) {
+		int start = page * rows;
+		
+		int end = Math.min(start + rows, l) - 1;
+		
+		for(int i = start; i <= end; i++) {
+			String s = list.get(start + i);
+			
 			send("- " + s);
 		}
 		
-		int n = rows - l;
+		int remaining = rows - (end - start + 1);
 		
-		for(int i = 0; i < n; i++) {
+		for(int i = 0; i < remaining; i++) {
 			send("§8--");
 		}
 		

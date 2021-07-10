@@ -1,5 +1,9 @@
 package de.stylextv.lynx.command.commands;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import de.stylextv.lynx.command.ArgumentHelper;
 import de.stylextv.lynx.command.Command;
 import de.stylextv.lynx.option.Option;
 import de.stylextv.lynx.option.Options;
@@ -13,9 +17,17 @@ public class ModifiedCommand extends Command {
 	
 	@Override
 	public boolean execute(String[] args) {
+		Integer page = null;
+		
+		if(args.length != 0) {
+			page = ArgumentHelper.toInt(args[0]);
+		}
+		
+		if(page == null) page = 0;
+		
 		ChatUtil.send("Modified options:");
 		
-		int n = 8;
+		List<String> list = new ArrayList<>();
 		
 		Option<?>[] options = Options.getOptions();
 		
@@ -27,17 +39,18 @@ public class ModifiedCommand extends Command {
 				
 				String s = String.format("§7%s §8(%s)", name, type);
 				
-				ChatUtil.send("- " + s);
-				
-				n--;
+				list.add(s);
 			}
 		}
 		
-		for(int i = 0; i < n; i++) {
-			ChatUtil.send("§8--");
-		}
+		ChatUtil.sendList(list, 7, page, getName());
 		
 		return true;
+	}
+	
+	@Override
+	public String[] getUsages() {
+		return new String[] {"[page]"};
 	}
 	
 }

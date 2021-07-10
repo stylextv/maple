@@ -35,7 +35,7 @@ public class HelpCommand extends Command {
 				list.add(name);
 			}
 			
-			ChatUtil.sendList(list, 6, page, getName());
+			ChatUtil.sendList(list, 4, page, getName());
 			
 			return true;
 		}

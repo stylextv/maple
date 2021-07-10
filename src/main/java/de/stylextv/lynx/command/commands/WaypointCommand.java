@@ -1,5 +1,6 @@
 package de.stylextv.lynx.command.commands;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.stylextv.lynx.command.ArgumentHelper;
@@ -16,7 +17,7 @@ public class WaypointCommand extends Command {
 	private static final String[] USAGES = new String[] {
 			"create <name> [x y z]",
 			"remove <name>",
-			"list",
+			"list [page]",
 			"goto <name>"
 	};
 	
@@ -26,13 +27,13 @@ public class WaypointCommand extends Command {
 	
 	@Override
 	public boolean execute(String[] args) {
-		String s = "";
-		
 		int l = args.length;
 		
-		if(l != 0) s = args[0];
+		if(l == 0) return false;
 		
-		if(s.isEmpty() || s.equalsIgnoreCase("list")) {
+		String s = args[0];
+		
+		if(s.equalsIgnoreCase("list")) {
 			
 			List<Waypoint> waypoints = Waypoints.getWaypoints();
 			
@@ -42,9 +43,15 @@ public class WaypointCommand extends Command {
 				return true;
 			}
 			
-			ChatUtil.send("Waypoints:");
+			Integer page = null;
 			
-			int n = 8;
+			if(args.length > 1) {
+				page = ArgumentHelper.toInt(args[1]);
+			}
+			
+			if(page == null) page = 0;
+			
+			List<String> list = new ArrayList<>();
 			
 			for(Waypoint p : waypoints) {
 				
@@ -55,14 +62,14 @@ public class WaypointCommand extends Command {
 				
 				String s2 = name + " §8(" + pos + ")";
 				
-				ChatUtil.send("- " + s2);
-				
-				n--;
+				list.add(s2);
 			}
 			
-			for(int i = 0; i < n; i++) {
-				ChatUtil.send("§8--");
-			}
+			ChatUtil.send("Waypoints:");
+			
+			String command = getName() + " list";
+			
+			ChatUtil.sendList(list, 7, page, command);
 			
 			return true;
 		}
