@@ -6,7 +6,9 @@ import de.stylextv.lynx.pathing.calc.Node;
 public abstract class Goal {
 	
 	private static final String[] USAGES = new String[] {
-			"<x> <y> <z>"
+			"<x> <y> <z> [radius]",
+			"<x> <z>",
+			"<y>"
 	};
 	
 	public abstract int heuristic(Node n);
@@ -14,14 +16,40 @@ public abstract class Goal {
 	public abstract boolean isFinalNode(Node n);
 	
 	public static Goal fromArgs(String[] args) {
-		if(args.length != 3) return null;
+		if(args.length == 0) return null;
 		
-		Integer x = ArgumentHelper.toCoordinate(args[0], 0);
-		Integer y = ArgumentHelper.toCoordinate(args[1], 1);
-		Integer z = ArgumentHelper.toCoordinate(args[2], 2);
+		if(args.length >= 3) {
+			
+			Integer x = ArgumentHelper.toCoordinate(args[0], 0);
+			Integer y = ArgumentHelper.toCoordinate(args[1], 1);
+			Integer z = ArgumentHelper.toCoordinate(args[2], 2);
+			
+			if(x == null || y == null || z == null) return null;
+			
+			if(args.length >= 4) {
+				Float dis = ArgumentHelper.toFloat(args[3]);
+				
+				if(dis == null) return null;
+				return new NearGoal(null, dis);
+			}
+			
+			return new BlockGoal(x, y, z);
+		}
 		
-		if(x == null || y == null || z == null) return null;
-		return new BlockGoal(x, y, z);
+		if(args.length == 2) {
+			
+			Integer x = ArgumentHelper.toCoordinate(args[0], 0);
+			Integer z = ArgumentHelper.toCoordinate(args[1], 2);
+			
+			if(x == null || z == null) return null;
+			return new XZGoal(x, z);
+		}
+		
+		Integer y = ArgumentHelper.toCoordinate(args[0], 1);
+		
+		if(y == null) return null;
+		
+		return new YLevelGoal(y);
 	}
 	
 	public static String[] getUsages() {
