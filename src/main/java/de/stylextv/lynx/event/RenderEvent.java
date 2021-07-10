@@ -53,7 +53,7 @@ public class RenderEvent {
 		BlockPos pos = p.getPos();
 		
 		float x = pos.getX() + 0.5f;
-		float y = pos.getY() + 1.25f;
+		float y = pos.getY() + 1.4f;
 		float z = pos.getZ() + 0.5f;
 		
 		Vector3f v1 = new Vector3f(x, 0, z);
