@@ -20,7 +20,7 @@ public class RenderEvent {
 	public void onWorldRender(RenderWorldLastEvent event) {
 		if(!WorldContext.isInWorld()) return;
 		
-		drawPath(event);
+		drawCurrentPath(event);
 		
 		// draw goals, path calculation
 		
@@ -33,7 +33,7 @@ public class RenderEvent {
 		ViewController.onRenderTick();
 	}
 	
-	private void drawPath(RenderWorldLastEvent event) {
+	private void drawCurrentPath(RenderWorldLastEvent event) {
 		Path path = MovementExecutor.getPath();
 		
 		if(path != null) {
