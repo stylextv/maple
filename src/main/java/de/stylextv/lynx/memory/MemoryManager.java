@@ -1,8 +1,8 @@
-package de.stylextv.lynx.state;
+package de.stylextv.lynx.memory;
 
 import de.stylextv.lynx.pathing.calc.goal.Goal;
 
-public class StateManager {
+public class MemoryManager {
 	
 	private static Goal goal;
 	

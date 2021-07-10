@@ -1,9 +1,9 @@
 package de.stylextv.lynx.command.commands;
 
 import de.stylextv.lynx.command.Command;
+import de.stylextv.lynx.memory.MemoryManager;
 import de.stylextv.lynx.pathing.calc.goal.Goal;
 import de.stylextv.lynx.pathing.calc.goal.InvertedGoal;
-import de.stylextv.lynx.state.StateManager;
 import de.stylextv.lynx.util.ChatUtil;
 
 public class InvertCommand extends Command {
@@ -14,7 +14,7 @@ public class InvertCommand extends Command {
 	
 	@Override
 	public void execute(String[] args) {
-		Goal goal = StateManager.getGoal();
+		Goal goal = MemoryManager.getGoal();
 		
 		if(goal == null) {
 			ChatUtil.sendToUser("§cNo goal present!");
@@ -22,7 +22,7 @@ public class InvertCommand extends Command {
 			return;
 		}
 		
-		StateManager.setGoal(new InvertedGoal(goal));
+		MemoryManager.setGoal(new InvertedGoal(goal));
 		
 		ChatUtil.sendToUser("Goal inverted.");
 	}

@@ -3,12 +3,13 @@ package de.stylextv.lynx.command.commands;
 import de.stylextv.lynx.command.Command;
 import de.stylextv.lynx.memory.MemoryManager;
 import de.stylextv.lynx.pathing.calc.goal.Goal;
+import de.stylextv.lynx.pathing.movement.MovementExecutor;
 import de.stylextv.lynx.util.ChatUtil;
 
-public class GoalCommand extends Command {
+public class GotoCommand extends Command {
 	
-	public GoalCommand() {
-		super("goal", "Sets a new goal.");
+	public GotoCommand() {
+		super("goto", "Sets a new goal and starts moving to it.");
 	}
 	
 	@Override
@@ -24,6 +25,10 @@ public class GoalCommand extends Command {
 		MemoryManager.setGoal(goal);
 		
 		ChatUtil.sendToUser("Goal set. §8(" + goal + ")");
+		
+		MovementExecutor.gotoGoal(goal);
+		
+		ChatUtil.sendToUser("Started.");
 	}
 	
 	@Override

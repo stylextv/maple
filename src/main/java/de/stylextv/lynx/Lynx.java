@@ -4,6 +4,7 @@ import de.stylextv.lynx.event.ChatEvent;
 import de.stylextv.lynx.event.RenderEvent;
 import de.stylextv.lynx.event.TickEvent;
 import de.stylextv.lynx.event.WorldEvent;
+import de.stylextv.lynx.memory.waypoint.Waypoints;
 import de.stylextv.lynx.option.Options;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -33,13 +34,7 @@ public class Lynx {
 		
 		registerEvents();
 		
-		options = Options.load();
-		
-		if(options == null) {
-			options = new Options();
-			
-			options.save();
-		}
+		loadConfigs();
 		
 		// init
 		
@@ -53,12 +48,24 @@ public class Lynx {
 		MinecraftForge.EVENT_BUS.register(new ChatEvent());
 	}
 	
+	private void loadConfigs() {
+		options = Options.load();
+		
+		if(options == null) {
+			options = new Options();
+			
+			options.save();
+		}
+		
+		Waypoints.load();
+	}
+	
 	private void setup(final FMLCommonSetupEvent event) {
 		
 	}
 	
 	private void shutdown() {
-		options.save();
+		
 	}
 	
 	public Options getOptions() {

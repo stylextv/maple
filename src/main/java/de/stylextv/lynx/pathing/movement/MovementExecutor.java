@@ -1,8 +1,11 @@
 package de.stylextv.lynx.pathing.movement;
 
+import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.input.controller.InputController;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.calc.Path;
+import de.stylextv.lynx.pathing.calc.PathFinder;
+import de.stylextv.lynx.pathing.calc.goal.Goal;
 import de.stylextv.lynx.pathing.movement.movements.AscendMovement;
 import de.stylextv.lynx.pathing.movement.movements.DescendMovement;
 import de.stylextv.lynx.pathing.movement.movements.DiagonalMovement;
@@ -16,6 +19,14 @@ public class MovementExecutor {
 	private static Movement movement;
 	
 	private static Node previousNode;
+	
+	public static void gotoGoal(Goal goal) {
+		PathFinder finder = new PathFinder(goal);
+		
+		Path path = finder.find(PlayerContext.blockPosition());
+		
+		followPath(path);
+	}
 	
 	public static void followPath(Path p) {
 		path = p;

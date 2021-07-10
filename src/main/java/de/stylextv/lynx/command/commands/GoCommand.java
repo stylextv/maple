@@ -1,12 +1,9 @@
 package de.stylextv.lynx.command.commands;
 
 import de.stylextv.lynx.command.Command;
-import de.stylextv.lynx.context.PlayerContext;
-import de.stylextv.lynx.pathing.calc.Path;
-import de.stylextv.lynx.pathing.calc.PathFinder;
+import de.stylextv.lynx.memory.MemoryManager;
 import de.stylextv.lynx.pathing.calc.goal.Goal;
 import de.stylextv.lynx.pathing.movement.MovementExecutor;
-import de.stylextv.lynx.state.StateManager;
 import de.stylextv.lynx.util.ChatUtil;
 
 public class GoCommand extends Command {
@@ -17,7 +14,7 @@ public class GoCommand extends Command {
 	
 	@Override
 	public void execute(String[] args) {
-		Goal goal = StateManager.getGoal();
+		Goal goal = MemoryManager.getGoal();
 		
 		if(goal == null) {
 			ChatUtil.sendToUser("§cNo goal present!");
@@ -25,13 +22,9 @@ public class GoCommand extends Command {
 			return;
 		}
 		
+		MovementExecutor.gotoGoal(goal);
+		
 		ChatUtil.sendToUser("Started. §8(Goal: " + goal + ")");
-		
-		PathFinder finder = new PathFinder(goal);
-		
-		Path path = finder.find(PlayerContext.blockPosition());
-		
-		MovementExecutor.followPath(path);
 	}
 	
 }

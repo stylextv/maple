@@ -2,8 +2,10 @@ package de.stylextv.lynx.command;
 
 import de.stylextv.lynx.command.commands.GoCommand;
 import de.stylextv.lynx.command.commands.GoalCommand;
+import de.stylextv.lynx.command.commands.GotoCommand;
 import de.stylextv.lynx.command.commands.HelpCommand;
 import de.stylextv.lynx.command.commands.InvertCommand;
+import de.stylextv.lynx.command.commands.ModifiedCommand;
 import de.stylextv.lynx.command.commands.StopCommand;
 import de.stylextv.lynx.command.commands.VersionCommand;
 import de.stylextv.lynx.util.ChatUtil;
@@ -14,10 +16,12 @@ public class CommandManager {
 	
 	private static final Command[] COMMANDS = new Command[] {
 			new HelpCommand(),
+			new GotoCommand(),
 			new GoalCommand(),
 			new GoCommand(),
 			new StopCommand(),
 			new InvertCommand(),
+			new ModifiedCommand(),
 			new VersionCommand()
 	};
 	
