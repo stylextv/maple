@@ -16,13 +16,13 @@ public class WaypointCommand extends Command {
 	
 	private static final String[] USAGES = new String[] {
 			"create <name> [x y z]",
-			"remove <name>",
+			"delete <name>",
 			"list [page]",
 			"goto <name>"
 	};
 	
 	public WaypointCommand() {
-		super("waypoint", "Used to create and travel to waypoints.");
+		super("waypoint", "Used to create and travel to waypoints.", "wp");
 	}
 	
 	@Override
@@ -117,7 +117,7 @@ public class WaypointCommand extends Command {
 			return true;
 		}
 		
-		if(s.equalsIgnoreCase("remove")) {
+		if(s.equalsIgnoreCase("delete")) {
 			
 			Waypoints.removeWaypoint(p);
 			

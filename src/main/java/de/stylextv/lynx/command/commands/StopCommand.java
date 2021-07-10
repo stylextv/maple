@@ -7,7 +7,7 @@ import de.stylextv.lynx.util.ChatUtil;
 public class StopCommand extends Command {
 	
 	public StopCommand() {
-		super("stop", "Stops all actions");
+		super("stop", "Stops all actions", "cancel");
 	}
 	
 	@Override

@@ -7,7 +7,7 @@ import de.stylextv.lynx.util.ChatUtil;
 public class VersionCommand extends Command {
 	
 	public VersionCommand() {
-		super("version", "Shows the installed version of LYNX.");
+		super("version", "Shows the installed version of LYNX.", "ver", "v");
 	}
 	
 	@Override

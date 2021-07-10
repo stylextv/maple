@@ -7,6 +7,7 @@ import de.stylextv.lynx.command.ArgumentHelper;
 import de.stylextv.lynx.command.Command;
 import de.stylextv.lynx.command.CommandManager;
 import de.stylextv.lynx.util.ChatUtil;
+import de.stylextv.lynx.util.TextUtil;
 
 public class HelpCommand extends Command {
 	
@@ -50,8 +51,16 @@ public class HelpCommand extends Command {
 		
 		String name = c.getName();
 		String description = c.getDescription();
+		String[] aliases = c.getAliases();
 		
 		ChatUtil.send("#" + name + ":", description);
+		
+		if(aliases.length != 0) {
+			
+			String s2 = TextUtil.combine(aliases, ", ");
+			
+			ChatUtil.send("Aliases: " + s2);
+		}
 		
 		String[] usages = c.getUsages();
 		

@@ -69,9 +69,7 @@ public class CommandManager {
 	
 	public static Command getCommand(String name) {
 		for(Command c : COMMANDS) {
-			if(c.getName().equalsIgnoreCase(name)) {
-				return c;
-			}
+			if(c.nameEquals(name)) return c;
 		}
 		
 		return null;

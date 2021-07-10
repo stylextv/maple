@@ -8,7 +8,7 @@ import de.stylextv.lynx.util.ChatUtil;
 public class HomeCommand extends Command {
 	
 	public HomeCommand() {
-		super("home", "Travel to the waypoint named §ohome§7.");
+		super("home", "Travel to the waypoint named §ohome§7.", "h");
 	}
 	
 	@Override
