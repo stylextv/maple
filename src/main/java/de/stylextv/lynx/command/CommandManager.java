@@ -4,7 +4,9 @@ import de.stylextv.lynx.command.commands.GoCommand;
 import de.stylextv.lynx.command.commands.GoalCommand;
 import de.stylextv.lynx.command.commands.GotoCommand;
 import de.stylextv.lynx.command.commands.HelpCommand;
+import de.stylextv.lynx.command.commands.HomeCommand;
 import de.stylextv.lynx.command.commands.InvertCommand;
+import de.stylextv.lynx.command.commands.LostCommand;
 import de.stylextv.lynx.command.commands.ModifiedCommand;
 import de.stylextv.lynx.command.commands.StopCommand;
 import de.stylextv.lynx.command.commands.VersionCommand;
@@ -22,6 +24,8 @@ public class CommandManager {
 			new GoCommand(),
 			new StopCommand(),
 			new WaypointCommand(),
+			new HomeCommand(),
+			new LostCommand(),
 			new InvertCommand(),
 			new ModifiedCommand(),
 			new VersionCommand()

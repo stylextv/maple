@@ -26,7 +26,7 @@ public class MovementExecutor {
 		
 		PathFinder finder = new PathFinder(goal);
 		
-		Path path = finder.find(PlayerContext.blockPosition());
+		Path path = finder.find(PlayerContext.feetPosition());
 		
 		followPath(path);
 	}

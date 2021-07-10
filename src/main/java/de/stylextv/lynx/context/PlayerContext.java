@@ -47,6 +47,20 @@ public class PlayerContext {
 		return MC.player.isOnGround();
 	}
 	
+	public static double distanceSqr(BlockPos pos) {
+		float x = pos.getX() + 0.5f;
+		float y = pos.getY() + 0.5f;
+		float z = pos.getZ() + 0.5f;
+		
+		return distanceSqr(x, y, z);
+	}
+	
+	public static double distanceSqr(double x, double y, double z) {
+		Vector3d pos = position();
+		
+		return pos.distanceToSqr(x, y, z);
+	}
+	
 	public static PlayerController controller() {
 		return MC.gameMode;
 	}

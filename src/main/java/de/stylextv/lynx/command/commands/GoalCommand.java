@@ -3,7 +3,6 @@ package de.stylextv.lynx.command.commands;
 import de.stylextv.lynx.command.Command;
 import de.stylextv.lynx.memory.MemoryManager;
 import de.stylextv.lynx.pathing.calc.goal.Goal;
-import de.stylextv.lynx.util.ChatUtil;
 
 public class GoalCommand extends Command {
 	
@@ -18,8 +17,6 @@ public class GoalCommand extends Command {
 		if(goal == null) return false;
 		
 		MemoryManager.setGoal(goal);
-		
-		ChatUtil.send("Goal set. §8(" + goal + ")");
 		
 		return true;
 	}

@@ -117,11 +117,11 @@ public class WaypointCommand extends Command {
 			return true;
 		}
 		
-		name = p.getName();
-		
 		if(s.equalsIgnoreCase("remove")) {
 			
 			Waypoints.removeWaypoint(p);
+			
+			name = p.getName();
 			
 			ChatUtil.send("Waypoint §o" + name + " §7removed.");
 			
@@ -131,8 +131,6 @@ public class WaypointCommand extends Command {
 		if(s.equalsIgnoreCase("goto")) {
 			
 			Waypoints.gotoWaypoint(p);
-			
-			ChatUtil.send("Travelling to waypoint §o" + name + "§7.");
 			
 			return true;
 		}

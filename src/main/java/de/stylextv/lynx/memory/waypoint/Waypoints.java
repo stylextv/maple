@@ -5,10 +5,13 @@ import java.util.Arrays;
 import java.util.List;
 
 import de.stylextv.lynx.config.ConfigHelper;
+import de.stylextv.lynx.context.PlayerContext;
+import de.stylextv.lynx.context.WorldContext;
 import de.stylextv.lynx.memory.MemoryManager;
 import de.stylextv.lynx.pathing.calc.goal.BlockGoal;
 import de.stylextv.lynx.pathing.calc.goal.Goal;
 import de.stylextv.lynx.pathing.movement.MovementExecutor;
+import de.stylextv.lynx.util.ChatUtil;
 import net.minecraft.util.math.BlockPos;
 
 public class Waypoints {
@@ -39,6 +42,10 @@ public class Waypoints {
 		MemoryManager.setGoal(goal);
 		
 		MovementExecutor.gotoGoal();
+		
+		String name = p.getName();
+		
+		ChatUtil.send("Travelling to waypoint §o" + name + "§7.");
 	}
 	
 	public static void save() {
@@ -61,6 +68,35 @@ public class Waypoints {
 		Waypoint[] arr = new Waypoint[0];
 		
 		return waypoints.toArray(arr);
+	}
+	
+	public static Waypoint nearest() {
+		Waypoint point = null;
+		
+		double dis = 0;
+		
+		for(Waypoint p : waypoints) {
+			
+			if(!p.isInWorld()) continue;
+			
+			BlockPos pos = p.getPos();
+			
+			double d = PlayerContext.distanceSqr(pos);
+			
+			if(point == null || d < dis) {
+				
+				point = p;
+				dis = d;
+			}
+		}
+		
+		return point;
+	}
+	
+	public static Waypoint getWaypoint(String name) {
+		String levelName = WorldContext.getLevelName();
+		
+		return getWaypoint(name, levelName);
 	}
 	
 	public static Waypoint getWaypoint(String name, String levelName) {
