@@ -19,6 +19,9 @@ Steps to reproduce the behavior:
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
 
+**Modified options**
+Run #modified ingame to get a list of all modified options, and place that list here.
+
 **Environment (please complete the following information):**
  - OS: [e.g. iOS, Windows]
  - Java version: [e.g. 1.8.0]
