@@ -13,6 +13,8 @@ import java.util.zip.InflaterInputStream;
 
 public class FileAccess {
 	
+	private static final int FILE_VERSION = 163196754;
+	
 	private static final int COMPRESSION_LEVEL = Deflater.BEST_COMPRESSION;
 	
 	private File file;
@@ -80,7 +82,15 @@ public class FileAccess {
 	}
 	
 	public boolean exists() {
-		return file.exists();
+		if(!file.exists()) return false;
+		
+		if(compress) {
+			int i = FileSystem.readInt(this);
+			
+			return i == FILE_VERSION;
+		}
+		
+		return true;
 	}
 	
 	public boolean isEmpty() {
@@ -129,6 +139,8 @@ public class FileAccess {
 					Deflater deflater = new Deflater(COMPRESSION_LEVEL);
 					
 					outputStream = new DeflaterOutputStream(outputStream, deflater);
+					
+					FileSystem.writeInt(FILE_VERSION, this);
 				}
 				
 			} catch (FileNotFoundException ex) {
