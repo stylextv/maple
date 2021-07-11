@@ -36,7 +36,8 @@ If you simply want to use LYNX, you can download the latest version from the [do
 Coming soon...
 
 ## Commands
-All your interactions with the bot take place via the in-game chat functionality. In order for LYNX to recognize your command, it must start with a `#`.
+All your interactions with the bot take place via the in-game chat functionality.
+In order for LYNX to recognize your command, it must start with a `#`.
 You can use the following list as a guide or simply use the ingame command `#help`.
 
 Name | Usages | Aliases | Description
