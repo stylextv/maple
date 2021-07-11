@@ -7,6 +7,7 @@ import java.util.PriorityQueue;
 import java.util.Set;
 
 import de.stylextv.lynx.cache.BlockType;
+import de.stylextv.lynx.pathing.calc.cost.Cost;
 import de.stylextv.lynx.pathing.calc.goal.Goal;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import net.minecraft.util.math.BlockPos;
@@ -80,7 +81,7 @@ public class PathFinder {
 					
 					int dis = disX + disY + disZ;
 					
-					if(dis != 0 && (disY == 0 || disX != 0 || disZ != 0)) {
+					if(dis != 0) {
 						
 						int rx = node.getX() + x;
 						int ry = node.getY() + y;
@@ -116,10 +117,10 @@ public class PathFinder {
 		
 		if(closedSet.contains(n)) return;
 		
-		int m = isValidNode(n, parent);
-		
-		if(m != Cost.INVALID) {
-			int cost = parent.costToNode(n) * m;
+		if(isValidNode(n, parent)) {
+			int cost = parent.costToNode(n);
+			
+			if(cost >= Cost.INFINITY) return;
 			
 			if(openList.contains(n)) {
 				
@@ -137,63 +138,66 @@ public class PathFinder {
 		}
 	}
 	
-	private int isValidNode(Node node, Node parent) {
-		if(node.getType() != BlockType.AIR) return Cost.INVALID;
-		
+	private boolean isValidNode(Node node, Node parent) {
 		int x = node.getX();
 		int y = node.getY();
 		int z = node.getZ();
 		
-		Node below = getMapNode(x, y - 1, z);
-		Node above = getMapNode(x, y + 1, z);
-		
-		if(below.getType() != BlockType.SOLID || above.getType() != BlockType.AIR) return Cost.INVALID;
-		
-		Node higherNode = node;
-		Node lowerNode = parent;
-		
-		if(y != parent.getY()) {
-			
-			if(higherNode.getY() < lowerNode.getY()) {
-				
-				higherNode = parent;
-				lowerNode = node;
-			}
-			
-			if(isBlocked(lowerNode.getX(), higherNode.getY() + 1, lowerNode.getZ())) return Cost.INVALID;
-		}
-		
 		int disX = Math.abs(parent.getX() - x);
+		int disY = Math.abs(parent.getY() - y);
 		int disZ = Math.abs(parent.getZ() - z);
 		
-		int dis = disX + disZ;
+		boolean diagonally = disX + disZ + disY > 1;
 		
-		if(dis > 1) {
-			Node n1 = getMapNode(x, higherNode.getY(), parent.getZ());
-			Node n2 = getMapNode(parent.getX(), higherNode.getY(), z);
-			
-			boolean b1 = isBlocked(n1, 2);
-			boolean b2 = isBlocked(n2, 2);
-			
-			if(b1 && b2) return Cost.INVALID;
-			if(b1 || b2) return Cost.OBSTRUCTION_MULTIPLIER;
-		}
+		if(diagonally && !canStandAt(node)) return false;
 		
-		return Cost.NEUTRAL_MULTIPLIER;
+		Node above = getMapNode(x, y + 1, z);
+		
+		if(above.getType() == BlockType.WATER) return false;
+		
+		if(isDangerousNode(node) || isDangerousNode(above)) return false;
+		
+		return true;
 	}
 	
-	private boolean isBlocked(Node n, int height) {
-		for(int i = 0; i < height; i++) {
-			if(isBlocked(n.getX(), n.getY() + i, n.getZ())) return true;
+	private boolean isDangerousNode(Node node) {
+		for(int x = -1; x <= 1; x++) {
+			for(int y = -1; y <= 1; y++) {
+				for(int z = -1; z <= 1; z++) {
+					
+					int disX = Math.abs(x);
+					int disY = Math.abs(y);
+					int disZ = Math.abs(z);
+					
+					int dis = disX + disY + disZ;
+					
+					if(dis <= 1) {
+						
+						int rx = node.getX() + x;
+						int ry = node.getY() + y;
+						int rz = node.getZ() + z;
+						
+						Node n = getMapNode(rx, ry, rz);
+						
+						if(n.getType() == BlockType.DANGER) return true;
+					}
+				}
+			}
 		}
 		
 		return false;
 	}
 	
-	private boolean isBlocked(int x, int y, int z) {
-		Node n = getMapNode(x, y, z);
+	private boolean canStandAt(Node n) {
+		if(n.getType() == BlockType.WATER) return true;
 		
-		return n.getType() != BlockType.AIR;
+		int x = n.getX();
+		int y = n.getY();
+		int z = n.getZ();
+		
+		Node below = getMapNode(x, y - 1, z);
+		
+		return below.getType() == BlockType.SOLID;
 	}
 	
 	private Node getMapNode(int x, int y, int z) {

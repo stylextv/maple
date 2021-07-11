@@ -2,6 +2,7 @@ package de.stylextv.lynx.pathing.calc;
 
 import de.stylextv.lynx.cache.BlockType;
 import de.stylextv.lynx.cache.CacheManager;
+import de.stylextv.lynx.pathing.calc.cost.Cost;
 import de.stylextv.lynx.pathing.calc.goal.Goal;
 import net.minecraft.util.math.BlockPos;
 
@@ -43,21 +44,7 @@ public class Node {
 	}
 	
 	public int costToNode(Node n) {
-		int i1 = Math.abs(n.getX() - x);
-		int i2 = Math.abs(n.getY() - y);
-		int i3 = Math.abs(n.getZ() - z);
-		
-		if(i2 > 1) i2 = 1;
-		
-		int i = i1 + i2 + i3;
-		
-		int cost = Cost.MOVEMENT_COSTS[i - 1];
-		
-		if(n.getType() == BlockType.WATER) {
-			cost *= Cost.WATER_MULTIPLIER;
-		}
-		
-		return cost;
+		return Cost.getCost(n, this);
 	}
 	
 	public boolean updateParent(Node n, int cost) {

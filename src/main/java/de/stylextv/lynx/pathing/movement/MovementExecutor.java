@@ -1,6 +1,7 @@
 package de.stylextv.lynx.pathing.movement;
 
 import de.stylextv.lynx.context.PlayerContext;
+import de.stylextv.lynx.input.Input;
 import de.stylextv.lynx.input.controller.InputController;
 import de.stylextv.lynx.memory.MemoryManager;
 import de.stylextv.lynx.pathing.calc.Node;
@@ -33,6 +34,12 @@ public class MovementExecutor {
 	}
 	
 	public static void followPath(Path p) {
+		if(p == null) {
+			ChatUtil.send("§cPath not found!");
+			
+			return;
+		}
+		
 		path = p;
 		
 		nextNode();
@@ -61,6 +68,8 @@ public class MovementExecutor {
 		} else {
 			
 			movement.onRenderTick();
+			
+			if(PlayerContext.isInWater()) InputController.setPressed(Input.JUMP, true);
 			
 			if(movement.isCompleted()) {
 				movement = null;

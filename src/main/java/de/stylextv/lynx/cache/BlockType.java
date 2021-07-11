@@ -10,7 +10,7 @@ import net.minecraft.fluid.Fluids;
 
 public enum BlockType {
 	
-	AIR(0), SOLID(1), WATER(2), DANGER(3), VOID(-1);
+	AIR(0, true), SOLID(1), WATER(2, true), DANGER(3), VOID(-1, true);
 	
 	private static final Block[] DANGER_BLOCKS = new Block[] {
 			Blocks.LAVA,
@@ -24,12 +24,23 @@ public enum BlockType {
 	
 	private int id;
 	
+	private boolean passable;
+	
 	private BlockType(int id) {
+		this(id, false);
+	}
+	
+	private BlockType(int id, boolean passable) {
 		this.id = id;
+		this.passable = passable;
 	}
 	
 	public int getID() {
 		return id;
+	}
+	
+	public boolean isPassable() {
+		return passable;
 	}
 	
 	public static BlockType fromBlocks(BlockState state, BlockState below, BlockState above) {

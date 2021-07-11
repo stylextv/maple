@@ -1,7 +1,7 @@
 package de.stylextv.lynx.pathing.calc.goal;
 
-import de.stylextv.lynx.pathing.calc.Cost;
 import de.stylextv.lynx.pathing.calc.Node;
+import de.stylextv.lynx.pathing.calc.cost.Cost;
 
 public class YLevelGoal extends Goal {
 	

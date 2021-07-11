@@ -47,6 +47,10 @@ public class PlayerContext {
 		return MC.player.isOnGround();
 	}
 	
+	public static boolean isInWater() {
+		return MC.player.isInWater();
+	}
+	
 	public static double distanceSqr(BlockPos pos) {
 		float x = pos.getX() + 0.5f;
 		float y = pos.getY() + 0.5f;

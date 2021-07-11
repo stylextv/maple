@@ -1,7 +1,9 @@
 package de.stylextv.lynx.pathing.calc.goal;
 
 import de.stylextv.lynx.command.ArgumentHelper;
+import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.pathing.calc.Node;
+import net.minecraft.util.math.BlockPos;
 
 public abstract class Goal {
 	
@@ -16,7 +18,11 @@ public abstract class Goal {
 	public abstract boolean isFinalNode(Node n);
 	
 	public static Goal fromArgs(String[] args) {
-		if(args.length == 0) return null;
+		if(args.length == 0) {
+			BlockPos pos = PlayerContext.feetPosition();
+			
+			return new BlockGoal(pos);
+		}
 		
 		if(args.length >= 3) {
 			
