@@ -18,8 +18,6 @@ public class CommandManager {
 	
 	private static final char COMMAND_PREFIX = '#';
 	
-	private static final String SPLIT_ARGS_REGEX = "\\s+(?=([^\"]*\"[^\"]*\")*[^\"]*$)";
-	
 	private static final Command[] COMMANDS = new Command[] {
 			new HelpCommand(),
 			new GotoCommand(),
@@ -40,7 +38,7 @@ public class CommandManager {
 		
 		ChatUtil.send("§f> " + s);
 		
-		String[] split = s.split(SPLIT_ARGS_REGEX);
+		String[] split = s.split(" ");
 		
 		String name = split[0];
 		
