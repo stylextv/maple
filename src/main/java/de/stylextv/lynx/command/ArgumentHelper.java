@@ -23,7 +23,11 @@ public class ArgumentHelper {
 		
 		if(s.isEmpty()) return base;
 		
-		return base += toInt(s);
+		Integer offset = toInt(s);
+		
+		if(offset == null) return null;
+		
+		return base + offset;
 	}
 	
 	public static Integer toInt(String s) {

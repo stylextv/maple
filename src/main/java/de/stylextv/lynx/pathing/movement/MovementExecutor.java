@@ -12,6 +12,7 @@ import de.stylextv.lynx.pathing.movement.movements.DescendMovement;
 import de.stylextv.lynx.pathing.movement.movements.DiagonalMovement;
 import de.stylextv.lynx.pathing.movement.movements.FallMovement;
 import de.stylextv.lynx.pathing.movement.movements.StraightMovement;
+import de.stylextv.lynx.util.ChatUtil;
 
 public class MovementExecutor {
 	
@@ -75,6 +76,8 @@ public class MovementExecutor {
 		path.next();
 		
 		if(path.isFinished()) {
+			ChatUtil.send("Destination reached.");
+			
 			stop();
 		}
 	}

@@ -16,7 +16,6 @@ public enum BlockType {
 			Blocks.LAVA,
 			Blocks.FIRE,
 			Blocks.SOUL_FIRE,
-			Blocks.MAGMA_BLOCK,
 			Blocks.CAMPFIRE,
 			Blocks.SOUL_CAMPFIRE,
 			Blocks.SWEET_BERRY_BUSH,
@@ -56,11 +55,17 @@ public enum BlockType {
 		
 		boolean inWater = fluidType.equals(Fluids.WATER) || fluidType.equals(Fluids.FLOWING_WATER);
 		
-		if(isWater || inWater) return WATER;
+		boolean aboveMagma = blockBelow.equals(Blocks.MAGMA_BLOCK);
+		
+		if(isWater || inWater) {
+			return aboveMagma ? DANGER : WATER;
+		}
 		
 		boolean isSolid = state.getMaterial().blocksMotion();
 		
-		return isSolid ? SOLID : AIR;
+		if(isSolid) return SOLID; 
+		
+		return aboveMagma ? DANGER : AIR;
 	}
 	
 	public static BlockType fromID(int id) {
