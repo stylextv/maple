@@ -35,6 +35,9 @@ If you simply want to use LYNX, you can download the latest version from the [do
 ## Features
 Coming soon...
 
+### 📍 Waypoints
+Coming soon...
+
 ## Commands
 All your interactions with the bot take place via the in-game chat functionality.
 
