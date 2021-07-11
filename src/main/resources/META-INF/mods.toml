@@ -23,11 +23,11 @@ credits = "Thanks to everyone who has contributed on GitHub"
 authors = "the LYNX developers (see AUTHORS file)"
 
 description = '''
-This is a long form description of the mod. You can write whatever you want here
+LYNX is a free and powerful path-finding bot that lets you navigate the vast landscapes of Minecraft without any user intervention.
 
-Have some lorem ipsum.
+Additionally, LYNX focuses on an unobtrusive look and feel of being a real person rather than focusing on efficiency and performance. The bot is mainly controlled by chat input and the underlying pathing algorithm is called A*, a perfect algorithm for navigating voxel worlds like Minecraft.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mollis lacinia magna. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed sagittis luctus odio eu tempus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque volutpat ligula eget lacus auctor sagittis. In hac habitasse platea dictumst. Nunc gravida elit vitae sem vehicula efficitur. Donec mattis ipsum et arcu lobortis, eleifend sagittis sem rutrum. Cras pharetra quam eget posuere fermentum. Sed id tincidunt justo. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Type '#help' in your in-game chat to get started.
 '''
 
 [[dependencies.lynx]]
