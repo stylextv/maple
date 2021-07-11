@@ -59,7 +59,7 @@ version | - | ver, v | Shows the installed version of LYNX.
 ## Options
 With the help of options you can better customize the behavior and functionality of LYNX to your personal needs.
 
-Use the command '#help option' (not implemented yet!) in combination with the table of available options below to start customizing the bot.
+Use the command `#help option` in combination with the table of available options below to start customizing the bot.
 
   * #### allowBreak
     Whether or not the bot should be allowed to break blocks in order to get to the specified goal.
