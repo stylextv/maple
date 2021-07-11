@@ -35,7 +35,19 @@ If you simply want to use LYNX, you can download the latest version from the [do
 ## Features
 Coming soon...
 
+### 🧭 Long distance travel
+Coming soon...
+
+### 📚 Caching
+Coming soon...
+
 ### 📍 Waypoints
+Coming soon...
+
+### 🧱 Breaking/Placing blocks
+Coming soon...
+
+### ⛔ Avoiding dangers
 Coming soon...
 
 ## Commands
