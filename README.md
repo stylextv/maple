@@ -57,7 +57,17 @@ modified | modified [page] | - | Shows all modified options.
 version | - | ver, v | Shows the installed version of LYNX.
 
 ## Options
-Coming soon...
+With the help of options you can better customize the behavior and functionality of LYNX to your personal needs.
+
+Use the command '#help option' (not implemented yet!) in combination with the table of available options below to start customizing the bot.
+
+  * #### allowBreak
+    Whether or not the bot should be allowed to break blocks in order to get to the specified goal.
+    Disabling could lead to the possibility of the bot not being able to reach the destination.
+
+  * #### allowPlace
+    Whether or not the bot should be allowed to place blocks in order to get to the specified goal.
+    Disabling could lead to the possibility of the bot not being able to reach the destination.
 
 ## Installation & setup
 Coming soon...
