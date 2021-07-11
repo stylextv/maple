@@ -1,5 +1,6 @@
 package de.stylextv.lynx.memory.waypoint;
 
+import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.context.WorldContext;
 import net.minecraft.util.math.BlockPos;
 
@@ -21,6 +22,10 @@ public class Waypoint {
 		String name = WorldContext.getLevelName();
 		
 		return levelName.equals(name);
+	}
+	
+	public double distanceSqr() {
+		return PlayerContext.distanceSqr(pos);
 	}
 	
 	public String getName() {

@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import de.stylextv.lynx.config.ConfigHelper;
-import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.context.WorldContext;
 import de.stylextv.lynx.memory.MemoryManager;
 import de.stylextv.lynx.pathing.calc.goal.BlockGoal;
@@ -79,9 +78,7 @@ public class Waypoints {
 			
 			if(!p.isInWorld()) continue;
 			
-			BlockPos pos = p.getPos();
-			
-			double d = PlayerContext.distanceSqr(pos);
+			double d = p.distanceSqr();
 			
 			if(point == null || d < dis) {
 				

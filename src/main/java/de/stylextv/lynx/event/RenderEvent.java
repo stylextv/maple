@@ -16,6 +16,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class RenderEvent {
 	
+	private static final int WAYPOINT_RENDER_DISTANCE = 250 * 250;
+	
 	@SubscribeEvent
 	public void onWorldRender(RenderWorldLastEvent event) {
 		if(!WorldContext.isInWorld()) return;
@@ -50,14 +52,18 @@ public class RenderEvent {
 	private void drawWaypoint(RenderWorldLastEvent event, Waypoint p) {
 		if(!p.isInWorld()) return;
 		
+		double dis = p.distanceSqr();
+		
+		if(dis > WAYPOINT_RENDER_DISTANCE) return;
+		
 		BlockPos pos = p.getPos();
 		
 		float x = pos.getX() + 0.5f;
 		float y = pos.getY() + 1.4f;
 		float z = pos.getZ() + 0.5f;
 		
-		Vector3f v1 = new Vector3f(x, 0, z);
-		Vector3f v2 = new Vector3f(x, 256, z);
+		Vector3f v1 = new Vector3f(x, pos.getY(), z);
+		Vector3f v2 = new Vector3f(x, 1024, z);
 		
 		Vector3f[] vertices = new Vector3f[] {
 			v1, v2
