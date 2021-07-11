@@ -14,7 +14,7 @@ public class ChatUtil {
 	
 	private static final String PREFIX = Constants.COLORED_NAME + " §8| §7";
 	
-	private static final int MAX_LINE_LENGTH = 45;
+	private static final int MAX_LINE_LENGTH = 50;
 	
 	private static final char FORMATTING_SYMBOL = '§';
 	
