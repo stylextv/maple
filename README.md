@@ -35,7 +35,7 @@ If you simply want to use LYNX, you can download the latest version from the [do
 ## Features
 Coming soon...
 
-### 🧭 Long distance travel
+### 🌎 Long distance travel
 Coming soon...
 
 ### 📚 Caching
