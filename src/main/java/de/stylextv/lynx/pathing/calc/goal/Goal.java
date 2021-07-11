@@ -30,7 +30,7 @@ public abstract class Goal {
 				Float dis = ArgumentHelper.toFloat(args[3]);
 				
 				if(dis == null) return null;
-				return new NearGoal(null, dis);
+				return new NearGoal(x, y, z, dis);
 			}
 			
 			return new BlockGoal(x, y, z);
