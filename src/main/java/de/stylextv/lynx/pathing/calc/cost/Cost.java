@@ -6,7 +6,7 @@ import de.stylextv.lynx.pathing.calc.Node;
 
 public class Cost {
 	
-	public static final int INFINITY = 1000000000;
+	public static final int INFINITY = 100000000;
 	
 	public static final int COST_PER_UNIT = 10;
 	
@@ -18,7 +18,7 @@ public class Cost {
 	
 	private static final int BUMP_MULTIPLIER = 2;
 	
-	// TODO factor in fall time cost and block placing -> only horizontally / vertically
+	// TODO factor in fall time cost
 	
 	public static int getCost(Node node, Node parent) {
 		int x = node.getX();
@@ -79,6 +79,15 @@ public class Cost {
 			cost += costToBreak;
 		}
 		
+		boolean pillar = dis == 1 && y == parent.getY() + 1;
+		
+		if(pillar || !canStandAt(node)) {
+			
+			int costToPlace = PlacingCost.getCost(x, y - 1, z);
+			
+			cost += costToPlace;
+		}
+		
 		return cost;
 	}
 	
@@ -94,6 +103,18 @@ public class Cost {
 		BlockType type = CacheManager.getBlockType(x, y, z);
 		
 		return !type.isPassable();
+	}
+	
+	private static boolean canStandAt(Node n) {
+		if(n.getType() == BlockType.WATER) return true;
+		
+		int x = n.getX();
+		int y = n.getY();
+		int z = n.getZ();
+		
+		BlockType type = CacheManager.getBlockType(x, y - 1, z);
+		
+		return type == BlockType.SOLID;
 	}
 	
 }

@@ -34,6 +34,8 @@ public class CacheManager {
 	}
 	
 	public static BlockType getBlockType(BlockPos pos) {
+		if(!WorldContext.isInsideBorder(pos)) return BlockType.UNBREAKABLE;
+		
 		return currentWorld.getBlockType(pos);
 	}
 	

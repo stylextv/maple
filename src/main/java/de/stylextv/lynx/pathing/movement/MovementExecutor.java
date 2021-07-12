@@ -67,7 +67,7 @@ public class MovementExecutor {
 			
 		} else {
 			
-			movement.onRenderTick();
+//			movement.onRenderTick();
 			
 			if(PlayerContext.isInWater()) InputController.setPressed(Input.JUMP, true);
 			

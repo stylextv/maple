@@ -20,6 +20,8 @@ public class BreakingCost {
 		
 		if(type.isPassable()) return 0;
 		
+		if(!type.isBreakable()) return Cost.INFINITY;
+		
 		ClientWorld w = WorldContext.world();
 		
 		BlockPos pos = new BlockPos(x, y, z);

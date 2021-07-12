@@ -84,4 +84,8 @@ public class WorldContext {
 		return VIEW_DISTANCE;
 	}
 	
+	public static boolean isInsideBorder(BlockPos pos) {
+		return world().getWorldBorder().isWithinBounds(pos);
+	}
+	
 }
