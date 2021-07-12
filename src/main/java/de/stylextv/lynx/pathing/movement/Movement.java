@@ -21,6 +21,10 @@ public abstract class Movement {
 		InputController.setPressed(i, pressed);
 	}
 	
+	protected void lookAt(BlockPos pos) {
+		ViewController.lookAt(pos);
+	}
+	
 	protected void lookAt(Node n) {
 		ViewController.lookAt(n);
 	}
@@ -29,10 +33,10 @@ public abstract class Movement {
 		ViewController.lookAt(n, lookDown);
 	}
 	
-	public boolean isCompleted() {
+	public MovementState getState() {
 		BlockPos pos = PlayerContext.feetPosition();
 		
-		return getNode().equals(pos);
+		return getNode().equals(pos) ? MovementState.REACHED_NODE : MovementState.GOING;
 	}
 	
 	public Node getNode() {

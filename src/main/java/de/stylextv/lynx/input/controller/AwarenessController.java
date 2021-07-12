@@ -54,14 +54,14 @@ public class AwarenessController {
 		return dx * dx + dy * dy + dz * dz < PLAYER_REACH_SQR;
 	}
 	
-	public static BlockPos getBlockUnderCrosshair() {
+	public static BlockRayTraceResult getBlockUnderCrosshair() {
 		RayTraceResult result = getObjectUnderCrosshair();
 		
 		if(result == null || result.getType() != Type.BLOCK) return null;
 		
 		BlockRayTraceResult blockResult = (BlockRayTraceResult) result;
 		
-		return blockResult.getBlockPos();
+		return blockResult;
 	}
 	
 	public static RayTraceResult getObjectUnderCrosshair() {

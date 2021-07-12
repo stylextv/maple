@@ -133,7 +133,7 @@ public class CachedWorld {
 		return r.getChunk(cx, cz);
 	}
 	
-	private synchronized CachedRegion getRegion(int cx, int cz) {
+	private CachedRegion getRegion(int cx, int cz) {
 		int rx = CachedRegion.chunkToRegionPos(cx);
 		int rz = CachedRegion.chunkToRegionPos(cz);
 		

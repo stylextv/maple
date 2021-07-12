@@ -2,6 +2,8 @@ package de.stylextv.lynx.context;
 
 import java.io.File;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.world.ClientWorld;
@@ -10,6 +12,7 @@ import net.minecraft.util.RegistryKey;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
+import net.minecraft.world.border.WorldBorder;
 
 public class WorldContext {
 	
@@ -84,8 +87,16 @@ public class WorldContext {
 		return VIEW_DISTANCE;
 	}
 	
+	public static Block getBlock(BlockPos pos) {
+		BlockState state = world().getBlockState(pos);
+		
+		return state.getBlock();
+	}
+	
 	public static boolean isInsideBorder(BlockPos pos) {
-		return world().getWorldBorder().isWithinBounds(pos);
+		WorldBorder border = world().getWorldBorder();
+		
+		return border.isWithinBounds(pos);
 	}
 	
 }

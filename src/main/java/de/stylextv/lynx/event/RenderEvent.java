@@ -1,6 +1,7 @@
 package de.stylextv.lynx.event;
 
 import de.stylextv.lynx.context.WorldContext;
+import de.stylextv.lynx.input.controller.BuildingController;
 import de.stylextv.lynx.input.controller.ViewController;
 import de.stylextv.lynx.memory.waypoint.Waypoint;
 import de.stylextv.lynx.memory.waypoint.Waypoints;
@@ -32,6 +33,7 @@ public class RenderEvent {
 		
 		MovementExecutor.onRenderTick();
 		
+		BuildingController.onRenderTick();
 		ViewController.onRenderTick();
 	}
 	
