@@ -37,6 +37,8 @@ public class SmoothLook {
 		
 		float f = TURN_SPEED * GameContext.deltaTime();
 		
+		f = 1;
+		
 		p.turn(turnYawAmount * f, turnPitchAmount * f);
 	}
 	

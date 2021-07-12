@@ -153,6 +153,8 @@ public class PathFinder {
 		int disY = Math.abs(parent.getY() - y);
 		int disZ = Math.abs(parent.getZ() - z);
 		
+		if(disY > 3) return false;
+		
 		boolean diagonally = disX + disZ + disY > 1;
 		
 		if(diagonally && !canStandAt(node)) return false;
