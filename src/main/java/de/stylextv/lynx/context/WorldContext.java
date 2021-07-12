@@ -88,9 +88,13 @@ public class WorldContext {
 	}
 	
 	public static Block getBlock(BlockPos pos) {
-		BlockState state = world().getBlockState(pos);
+		BlockState state = getBlockState(pos);
 		
 		return state.getBlock();
+	}
+	
+	public static BlockState getBlockState(BlockPos pos) {
+		return world().getBlockState(pos);
 	}
 	
 	public static boolean isInsideBorder(BlockPos pos) {

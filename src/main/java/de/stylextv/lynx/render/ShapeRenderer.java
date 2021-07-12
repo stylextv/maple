@@ -170,6 +170,8 @@ public class ShapeRenderer {
 		RenderSystem.enableBlend();
 		RenderSystem.defaultBlendFunc();
 		
+		RenderSystem.enableDepthTest();
+		
 		RenderSystem.disableTexture();
 		
 		tessellator = Tessellator.getInstance();

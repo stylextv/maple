@@ -2,8 +2,8 @@ package de.stylextv.lynx.command.commands;
 
 import de.stylextv.lynx.command.Command;
 import de.stylextv.lynx.memory.MemoryManager;
+import de.stylextv.lynx.pathing.calc.SearchExecutor;
 import de.stylextv.lynx.pathing.calc.goal.Goal;
-import de.stylextv.lynx.pathing.movement.MovementExecutor;
 import de.stylextv.lynx.util.ChatUtil;
 
 public class GoCommand extends Command {
@@ -22,7 +22,7 @@ public class GoCommand extends Command {
 			return true;
 		}
 		
-		MovementExecutor.gotoGoal();
+		SearchExecutor.startSearch();
 		
 		ChatUtil.send("Started. §8(Goal: " + goal + ")");
 		

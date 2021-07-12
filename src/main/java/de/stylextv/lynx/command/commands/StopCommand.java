@@ -2,6 +2,7 @@ package de.stylextv.lynx.command.commands;
 
 import de.stylextv.lynx.command.Command;
 import de.stylextv.lynx.input.controller.BuildingController;
+import de.stylextv.lynx.pathing.calc.SearchExecutor;
 import de.stylextv.lynx.pathing.movement.MovementExecutor;
 import de.stylextv.lynx.util.ChatUtil;
 
@@ -13,6 +14,8 @@ public class StopCommand extends Command {
 	
 	@Override
 	public boolean execute(String[] args) {
+		SearchExecutor.stopSearch();
+		
 		MovementExecutor.stop();
 		
 		BuildingController.stop();

@@ -22,6 +22,8 @@ public class PathFinder {
 	
 	private Goal goal;
 	
+	private boolean stop;
+	
 	public PathFinder(Goal goal) {
 		this.goal = goal;
 		
@@ -39,7 +41,7 @@ public class PathFinder {
 	public Path find(int startX, int startY, int startZ) {
 		openList.add(getMapNode(startX, startY, startZ));
 		
-		while(!openList.isEmpty()) {
+		while(!openList.isEmpty() && !stop) {
 			Node n = openList.poll();
 			
 			closedSet.add(n);
@@ -56,6 +58,10 @@ public class PathFinder {
 		}
 		
 		return null;
+	}
+	
+	public void stop() {
+		stop = true;
 	}
 	
 	private List<Node> backtrace(Node n) {
@@ -216,8 +222,16 @@ public class PathFinder {
 		return n;
 	}
 	
+	public Node getCurrentNode() {
+		return openList.peek();
+	}
+	
 	public Goal getGoal() {
 		return goal;
+	}
+	
+	public boolean wasStopped() {
+		return stop;
 	}
 	
 }

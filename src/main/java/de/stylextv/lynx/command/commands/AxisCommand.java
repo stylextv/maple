@@ -2,9 +2,9 @@ package de.stylextv.lynx.command.commands;
 
 import de.stylextv.lynx.command.Command;
 import de.stylextv.lynx.memory.MemoryManager;
+import de.stylextv.lynx.pathing.calc.SearchExecutor;
 import de.stylextv.lynx.pathing.calc.goal.AxisGoal;
 import de.stylextv.lynx.pathing.calc.goal.Goal;
-import de.stylextv.lynx.pathing.movement.MovementExecutor;
 import de.stylextv.lynx.util.ChatUtil;
 
 public class AxisCommand extends Command {
@@ -19,7 +19,7 @@ public class AxisCommand extends Command {
 		
 		MemoryManager.setGoal(goal);
 		
-		MovementExecutor.gotoGoal();
+		SearchExecutor.startSearch();
 		
 		ChatUtil.send("Started.");
 		

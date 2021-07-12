@@ -7,9 +7,9 @@ import java.util.List;
 import de.stylextv.lynx.config.ConfigHelper;
 import de.stylextv.lynx.context.WorldContext;
 import de.stylextv.lynx.memory.MemoryManager;
+import de.stylextv.lynx.pathing.calc.SearchExecutor;
 import de.stylextv.lynx.pathing.calc.goal.BlockGoal;
 import de.stylextv.lynx.pathing.calc.goal.Goal;
-import de.stylextv.lynx.pathing.movement.MovementExecutor;
 import de.stylextv.lynx.util.ChatUtil;
 import net.minecraft.util.math.BlockPos;
 
@@ -40,7 +40,7 @@ public class Waypoints {
 		
 		MemoryManager.setGoal(goal);
 		
-		MovementExecutor.gotoGoal();
+		SearchExecutor.startSearch();
 		
 		String name = p.getName();
 		

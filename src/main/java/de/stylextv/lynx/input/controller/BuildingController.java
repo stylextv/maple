@@ -2,8 +2,7 @@ package de.stylextv.lynx.input.controller;
 
 import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.context.WorldContext;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.multiplayer.PlayerController;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
@@ -24,9 +23,9 @@ public class BuildingController {
 	}
 	
 	public static boolean canBreakBlock(BlockPos pos) {
-		Block block = WorldContext.getBlock(pos);
+		BlockState state = WorldContext.getBlockState(pos);
 		
-		return !block.equals(Blocks.AIR);
+		return state.getMaterial().blocksMotion();
 	}
 	
 	public static void placeBlock(BlockPos pos, BlockPos supportPos) {

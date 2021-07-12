@@ -30,7 +30,9 @@ public class BreakingCost {
 		
 		float hardness = state.getDestroySpeed(w, pos);
 		
-		return BASE_COST + (int) (hardness * HARDNESS_MULTIPLIER);
+		if(hardness < 0) return Cost.INFINITY;
+		
+		return BASE_COST; // + (int) (hardness * HARDNESS_MULTIPLIER)
 	}
 	
 }

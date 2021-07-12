@@ -8,11 +8,9 @@ import de.stylextv.lynx.input.Input;
 import de.stylextv.lynx.input.controller.BuildingController;
 import de.stylextv.lynx.input.controller.InputController;
 import de.stylextv.lynx.input.controller.ViewController;
-import de.stylextv.lynx.memory.MemoryManager;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.calc.Path;
-import de.stylextv.lynx.pathing.calc.PathFinder;
-import de.stylextv.lynx.pathing.calc.goal.Goal;
+import de.stylextv.lynx.pathing.calc.SearchExecutor;
 import de.stylextv.lynx.pathing.movement.movements.AscendMovement;
 import de.stylextv.lynx.pathing.movement.movements.BreakBlockMovement;
 import de.stylextv.lynx.pathing.movement.movements.DescendMovement;
@@ -30,19 +28,11 @@ public class MovementExecutor {
 	
 	private static Node previousNode;
 	
-	public static void gotoGoal() {
-		Goal goal = MemoryManager.getGoal();
-		
-		PathFinder finder = new PathFinder(goal);
-		
-		Path path = finder.find(PlayerContext.feetPosition());
-		
-		followPath(path);
-	}
-	
 	public static void followPath(Path p) {
 		if(p == null) {
 			ChatUtil.send("§cPath not found!");
+			
+			SearchExecutor.stopSearch();
 			
 			return;
 		}
