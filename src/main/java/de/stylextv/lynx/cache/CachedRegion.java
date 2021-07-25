@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.stylextv.lynx.context.PlayerContext;
+import de.stylextv.lynx.context.WorldContext;
 import de.stylextv.lynx.io.FileAccess;
 import de.stylextv.lynx.io.FileSystem;
 import net.minecraft.util.math.BlockPos;
@@ -83,6 +84,8 @@ public class CachedRegion {
 	}
 	
 	public boolean isInView() {
+		if(!WorldContext.isInWorld()) return false;
+		
 		BlockPos pos = PlayerContext.blockPosition();
 		
 		ChunkPos p = new ChunkPos(pos);

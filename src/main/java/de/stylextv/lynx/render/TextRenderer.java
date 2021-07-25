@@ -50,7 +50,7 @@ public class TextRenderer {
 		
 		float f = GameContext.settings().getBackgroundOpacity(0.25F);
 		
-        int rgb = (int) (f * 255) << 24;
+		int rgb = (int) (f * 255) << 24;
 		
 		FONT.drawInBatch(s, offX, offY, 0, false, matrix, buffer, false, rgb, 0);
 		

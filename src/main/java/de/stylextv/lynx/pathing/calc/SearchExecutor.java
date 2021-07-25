@@ -8,6 +8,8 @@ import de.stylextv.lynx.util.AsyncUtil;
 
 public class SearchExecutor {
 	
+	private static final long SEARCH_TIMEOUT = 10000;
+	
 	private static PathFinder finder;
 	
 	public static void startSearch() {

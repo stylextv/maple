@@ -50,10 +50,10 @@ public class CachedChunk {
 					BlockState below = c.getBlockState(new BlockPos(x, y - 1, z));
 					BlockState above = c.getBlockState(new BlockPos(x, y + 1, z));
 					
-					int i = BlockType.fromBlocks(state, below, above).getID();
+					boolean[] bits = BlockType.fromBlocks(state, below, above).getBits();
 					
 					for(int j = 0; j < 2; j++) {
-						boolean b = (i & 1) != 0;
+						boolean b = bits[j];
 						
 						int k = index * 2 + j;
 						
@@ -65,8 +65,6 @@ public class CachedChunk {
 							
 							bitSet.set(k, b);
 						}
-						
-						i >>= 1;
 					}
 					
 					index++;
@@ -85,17 +83,12 @@ public class CachedChunk {
 		x -= this.x * 16;
 		z -= this.z * 16;
 		
-		int index = y * (16 * 16) + x * 16 + z;
+		int index = (y << 9) | (x << 5) | (z << 1);
 		
-		int i = 0;
+		boolean b1 = bitSet.get(index);
+		boolean b2 = bitSet.get(index + 1);
 		
-		for(int j = 0; j < 2; j++) {
-			boolean b = bitSet.get(index * 2 + j);
-			
-			if(b) i |= 1 << j;
-		}
-		
-		return BlockType.fromID(i);
+		return BlockType.fromBits(b1, b2);
 	}
 	
 	public int getX() {

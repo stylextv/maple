@@ -9,27 +9,15 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 
-public class BuildingController {
+public class PlaceController {
 	
 	private static BlockPos target;
 	
-	private static boolean breakTarget;
-	
-	public static void breakBlock(BlockPos pos) {
-		if(!canBreakBlock(pos)) return;
-		
-		target = pos;
-		breakTarget = true;
-	}
-	
-	public static boolean canBreakBlock(BlockPos pos) {
-		BlockState state = WorldContext.getBlockState(pos);
-		
-		return state.getMaterial().blocksMotion();
-	}
+	private static BlockPos support;
 	
 	public static void placeBlock(BlockPos pos, BlockPos supportPos) {
-		
+		target = pos;
+		support = supportPos;
 	}
 	
 	public static void stop() {
@@ -38,6 +26,8 @@ public class BuildingController {
 	
 	public static void onTick() {
 		if(!hasTarget() || !WorldContext.isIngame()) return;
+		
+		BlockState state = WorldContext.getBlockState(target);
 		
 		if(!canBreakBlock(target)) {
 			

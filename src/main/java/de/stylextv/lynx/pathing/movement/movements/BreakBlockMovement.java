@@ -1,7 +1,7 @@
 package de.stylextv.lynx.pathing.movement.movements;
 
 import de.stylextv.lynx.context.PlayerContext;
-import de.stylextv.lynx.input.controller.BuildingController;
+import de.stylextv.lynx.input.controller.BreakController;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.movement.Movement;
 import de.stylextv.lynx.pathing.movement.MovementState;
@@ -23,7 +23,7 @@ public class BreakBlockMovement extends Movement {
 	public void onRenderTick() {
 		if(started || !PlayerContext.isOnGround()) return;
 		
-		BuildingController.breakBlock(pos);
+		BreakController.breakBlock(pos);
 		
 		started = true;
 	}
@@ -32,7 +32,7 @@ public class BreakBlockMovement extends Movement {
 	public MovementState getState() {
 		if(!started) return MovementState.GOING;
 		
-		boolean b = BuildingController.hasTarget();
+		boolean b = BreakController.hasTarget();
 		
 		return b ? MovementState.GOING : MovementState.COMPLETED;
 	}

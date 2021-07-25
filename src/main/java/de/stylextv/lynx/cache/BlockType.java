@@ -10,7 +10,7 @@ import net.minecraft.fluid.Fluids;
 
 public enum BlockType {
 	
-	AIR(0, true), SOLID(1), WATER(2, true), DANGER(3), VOID(-1, true), UNBREAKABLE(-2, false, false);
+	AIR(0, true), SOLID(1), WATER(2, true), DANGER(3), VOID(-1, true), UNBREAKABLE(-1, false, false);
 	
 	private static final Block[] DANGER_BLOCKS = new Block[] {
 			Blocks.LAVA,
@@ -22,28 +22,32 @@ public enum BlockType {
 			Blocks.CACTUS
 	};
 	
-	private int id;
+	private boolean[] bits;
 	
 	private boolean passable;
 	
 	private boolean breakable;
 	
-	private BlockType(int id) {
-		this(id, false);
+	private BlockType(int bits) {
+		this(bits, false);
 	}
 	
-	private BlockType(int id, boolean passable) {
-		this(id, passable, !passable);
+	private BlockType(int bits, boolean passable) {
+		this(bits, passable, !passable);
 	}
 	
-	private BlockType(int id, boolean passable, boolean breakable) {
-		this.id = id;
+	private BlockType(int bits, boolean passable, boolean breakable) {
+		this.bits = new boolean[] {
+				(bits & 2) != 0,
+				(bits & 1) != 0
+		};
+		
 		this.passable = passable;
 		this.breakable = breakable;
 	}
 	
-	public int getID() {
-		return id;
+	public boolean[] getBits() {
+		return bits;
 	}
 	
 	public boolean isPassable() {
@@ -90,8 +94,8 @@ public enum BlockType {
 		return aboveMagma ? DANGER : AIR;
 	}
 	
-	public static BlockType fromID(int id) {
-		return values()[id];
+	public static BlockType fromBits(boolean b1, boolean b2) {
+		return b1 ? b2 ? DANGER : WATER : b2 ? SOLID : AIR;
 	}
 	
 }

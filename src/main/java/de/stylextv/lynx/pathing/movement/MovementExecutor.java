@@ -3,9 +3,11 @@ package de.stylextv.lynx.pathing.movement;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.stylextv.lynx.cache.BlockType;
+import de.stylextv.lynx.cache.CacheManager;
 import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.input.Input;
-import de.stylextv.lynx.input.controller.BuildingController;
+import de.stylextv.lynx.input.controller.BreakController;
 import de.stylextv.lynx.input.controller.InputController;
 import de.stylextv.lynx.input.controller.ViewController;
 import de.stylextv.lynx.pathing.calc.Node;
@@ -16,6 +18,7 @@ import de.stylextv.lynx.pathing.movement.movements.BreakBlockMovement;
 import de.stylextv.lynx.pathing.movement.movements.DescendMovement;
 import de.stylextv.lynx.pathing.movement.movements.DiagonalMovement;
 import de.stylextv.lynx.pathing.movement.movements.FallMovement;
+import de.stylextv.lynx.pathing.movement.movements.PlaceBlockMovement;
 import de.stylextv.lynx.pathing.movement.movements.StraightMovement;
 import de.stylextv.lynx.util.ChatUtil;
 import net.minecraft.util.math.BlockPos;
@@ -106,6 +109,17 @@ public class MovementExecutor {
 		int y = previousNode.getY();
 		int z = previousNode.getZ();
 		
+		pos = blockToPlace(n);
+		
+		if(pos != null) {
+			
+			BlockPos supportPos = new BlockPos(x, y - 1, z);
+			
+			movement = new PlaceBlockMovement(n, pos, supportPos);
+			
+			return;
+		}
+		
 		Movement m = null;
 		
 		if(y != n.getY()) {
@@ -194,9 +208,21 @@ public class MovementExecutor {
 	private static void addBlockToBreak(ArrayList<BlockPos> list, int x, int y, int z) {
 		BlockPos pos = new BlockPos(x, y, z);
 		
-		if(BuildingController.canBreakBlock(pos)) {
+		if(BreakController.canBreakBlock(pos)) {
 			list.add(pos);
 		}
+	}
+	
+	private static BlockPos blockToPlace(Node n) {
+		int x = n.getX();
+		int y = n.getY() - 1;
+		int z = n.getZ();
+		
+		BlockType type = CacheManager.getBlockType(x, y, z);
+		
+		if(type.isPassable()) return new BlockPos(x, y, z);
+		
+		return null;
 	}
 	
 	public static Path getPath() {

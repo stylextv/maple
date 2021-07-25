@@ -1,7 +1,7 @@
 package de.stylextv.lynx.event;
 
 import de.stylextv.lynx.context.WorldContext;
-import de.stylextv.lynx.input.controller.BuildingController;
+import de.stylextv.lynx.input.controller.BreakController;
 import de.stylextv.lynx.input.controller.InputController;
 import net.minecraftforge.event.TickEvent.ClientTickEvent;
 import net.minecraftforge.event.TickEvent.Phase;
@@ -17,7 +17,7 @@ public class TickEvent {
 			
 			if(!WorldContext.isIngame()) return;
 			
-			BuildingController.onTick();
+			BreakController.onTick();
 			InputController.onTick();
 		}
 	}
