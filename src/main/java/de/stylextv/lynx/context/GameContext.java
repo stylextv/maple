@@ -2,12 +2,12 @@ package de.stylextv.lynx.context;
 
 import java.io.File;
 
-import net.minecraft.client.GameSettings;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.IngameGui;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.client.Options;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.components.ChatComponent;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.world.phys.Vec3;
 
 public class GameContext {
 	
@@ -21,19 +21,19 @@ public class GameContext {
 		return MC.gameDirectory;
 	}
 	
-	public static GameSettings settings() {
+	public static Options settings() {
 		return MC.options;
 	}
 	
-	public static IngameGui ingameGui() {
-		return MC.gui;
+	public static ChatComponent chat() {
+		return MC.gui.getChat();
 	}
 	
 	public static Screen screen() {
 		return MC.screen;
 	}
 	
-	public static FontRenderer font() {
+	public static Font font() {
 		return MC.font;
 	}
 	
@@ -41,8 +41,20 @@ public class GameContext {
 		return MC.getDeltaFrameTime();
 	}
 	
-	public static Vector3d cameraPosition() {
+	public static Vec3 cameraPosition() {
 		return MC.gameRenderer.getMainCamera().getPosition();
+	}
+	
+	public static boolean isIngame() {
+		if(!LevelContext.isInLevel()) return false;
+		
+		if(!isInSinglePlayer() || MC.getSingleplayerServer().isPublished()) return true;
+		
+		return !MC.isPaused();
+	}
+	
+	public static boolean isInSinglePlayer() {
+		return MC.hasSingleplayerServer();
 	}
 	
 }

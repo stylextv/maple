@@ -10,7 +10,7 @@ import de.stylextv.lynx.cache.BlockType;
 import de.stylextv.lynx.pathing.calc.cost.Cost;
 import de.stylextv.lynx.pathing.calc.goal.Goal;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 
 public class PathFinder {
 	

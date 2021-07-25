@@ -6,7 +6,7 @@ import java.util.List;
 import de.stylextv.lynx.cache.BlockType;
 import de.stylextv.lynx.cache.CacheManager;
 import de.stylextv.lynx.context.PlayerContext;
-import de.stylextv.lynx.input.Input;
+import de.stylextv.lynx.input.InputAction;
 import de.stylextv.lynx.input.controller.BreakController;
 import de.stylextv.lynx.input.controller.InputController;
 import de.stylextv.lynx.input.controller.ViewController;
@@ -21,7 +21,7 @@ import de.stylextv.lynx.pathing.movement.movements.FallMovement;
 import de.stylextv.lynx.pathing.movement.movements.PlaceBlockMovement;
 import de.stylextv.lynx.pathing.movement.movements.StraightMovement;
 import de.stylextv.lynx.util.ChatUtil;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 
 public class MovementExecutor {
 	
@@ -69,7 +69,7 @@ public class MovementExecutor {
 			
 			movement.onRenderTick();
 			
-			if(PlayerContext.isInWater()) InputController.setPressed(Input.JUMP, true);
+			if(PlayerContext.isInWater()) InputController.setPressed(InputAction.JUMP, true);
 			
 			MovementState state = movement.getState();
 			

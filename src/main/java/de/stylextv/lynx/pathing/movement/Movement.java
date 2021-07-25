@@ -1,11 +1,11 @@
 package de.stylextv.lynx.pathing.movement;
 
 import de.stylextv.lynx.context.PlayerContext;
-import de.stylextv.lynx.input.Input;
+import de.stylextv.lynx.input.InputAction;
 import de.stylextv.lynx.input.controller.InputController;
 import de.stylextv.lynx.input.controller.ViewController;
 import de.stylextv.lynx.pathing.calc.Node;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 
 public abstract class Movement {
 	
@@ -17,7 +17,7 @@ public abstract class Movement {
 	
 	public abstract void onRenderTick();
 	
-	protected void setPressed(Input i, boolean pressed) {
+	protected void setPressed(InputAction i, boolean pressed) {
 		InputController.setPressed(i, pressed);
 	}
 	

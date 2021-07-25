@@ -4,7 +4,7 @@ import de.stylextv.lynx.cache.BlockType;
 import de.stylextv.lynx.cache.CacheManager;
 import de.stylextv.lynx.pathing.calc.cost.Cost;
 import de.stylextv.lynx.pathing.calc.goal.Goal;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 
 public class Node {
 	

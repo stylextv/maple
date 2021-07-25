@@ -1,26 +1,28 @@
 package de.stylextv.lynx.context;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.util.Optional;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.multiplayer.ServerData;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.server.integrated.IntegratedServer;
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.world.World;
-import net.minecraft.world.border.WorldBorder;
+import net.minecraft.client.server.IntegratedServer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.border.WorldBorder;
 
-public class WorldContext {
+public class LevelContext {
 	
 	private static final Minecraft MC = Minecraft.getInstance();
 	
 	private static final int VIEW_DISTANCE = 12;
 	
-	public static ClientWorld world() {
+	public static ClientLevel level() {
 		return MC.level;
 	}
 	
@@ -31,17 +33,21 @@ public class WorldContext {
 	}
 	
 	public static String getDimensionName() {
-		RegistryKey<World> key = world().dimension();
+		ResourceKey<Level> key = level().dimension();
 		
 		return key.location().getPath();
 	}
 	
 	public static String getWorldName() {
-		if(isInSinglePlayer()) {
+		if(GameContext.isInSinglePlayer()) {
 			
 			IntegratedServer server = MC.getSingleplayerServer();
 			
-			File f = server.getWorldScreenshotFile();
+			Optional<Path> optional = server.getWorldScreenshotFile();
+			
+			Path path = optional.get();
+			
+			File f = path.toFile();
 			
 			f = f.getParentFile();
 			
@@ -55,24 +61,12 @@ public class WorldContext {
 		}
 	}
 	
-	public static boolean isIngame() {
-		if(!isInWorld()) return false;
-		
-		if(!isInSinglePlayer() || MC.getSingleplayerServer().isPublished()) return true;
-		
-		return !MC.isPaused();
-	}
-	
-	public static boolean isInWorld() {
-		return PlayerContext.player() != null && world() != null;
-	}
-	
-	public static boolean isInSinglePlayer() {
-		return MC.hasSingleplayerServer();
+	public static boolean isInLevel() {
+		return PlayerContext.player() != null && level() != null;
 	}
 	
 	public static boolean isChunkInView(int cx, int cz) {
-		if(!WorldContext.isIngame()) return false;
+		if(!GameContext.isIngame()) return false;
 		
 		BlockPos p = PlayerContext.player().blockPosition();
 		
@@ -94,11 +88,11 @@ public class WorldContext {
 	}
 	
 	public static BlockState getBlockState(BlockPos pos) {
-		return world().getBlockState(pos);
+		return level().getBlockState(pos);
 	}
 	
 	public static boolean isInsideBorder(BlockPos pos) {
-		WorldBorder border = world().getWorldBorder();
+		WorldBorder border = level().getWorldBorder();
 		
 		return border.isWithinBounds(pos);
 	}

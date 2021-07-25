@@ -2,11 +2,11 @@ package de.stylextv.lynx.cache;
 
 import java.util.BitSet;
 
-import de.stylextv.lynx.context.WorldContext;
-import net.minecraft.block.*;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.chunk.Chunk;
+import de.stylextv.lynx.context.LevelContext;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.LevelChunk;
 
 public class CachedChunk {
 	
@@ -32,11 +32,11 @@ public class CachedChunk {
 	}
 	
 	public boolean update() {
-		ClientWorld w = WorldContext.world();
+		ClientLevel level = LevelContext.level();
 		
-		if(w == null) return false;
+		if(level == null) return false;
 		
-		Chunk c = w.getChunk(x, z);
+		LevelChunk c = level.getChunk(x, z);
 		
 		if(c == null || c.isEmpty()) return false;
 		
@@ -76,7 +76,7 @@ public class CachedChunk {
 	}
 	
 	public boolean isInView() {
-		return WorldContext.isChunkInView(x, z);
+		return LevelContext.isChunkInView(x, z);
 	}
 	
 	public BlockType getBlockType(int x, int y, int z) {

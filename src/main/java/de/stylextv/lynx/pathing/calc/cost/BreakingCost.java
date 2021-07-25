@@ -2,10 +2,10 @@ package de.stylextv.lynx.pathing.calc.cost;
 
 import de.stylextv.lynx.cache.BlockType;
 import de.stylextv.lynx.cache.CacheManager;
-import de.stylextv.lynx.context.WorldContext;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.util.math.BlockPos;
+import de.stylextv.lynx.context.LevelContext;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class BreakingCost {
 	
@@ -22,13 +22,13 @@ public class BreakingCost {
 		
 		if(!type.isBreakable()) return Cost.INFINITY;
 		
-		ClientWorld w = WorldContext.world();
+		ClientLevel level = LevelContext.level();
 		
 		BlockPos pos = new BlockPos(x, y, z);
 		
-		BlockState state = w.getBlockState(pos);
+		BlockState state = level.getBlockState(pos);
 		
-		float hardness = state.getDestroySpeed(w, pos);
+		float hardness = state.getDestroySpeed(level, pos);
 		
 		if(hardness < 0) return Cost.INFINITY;
 		

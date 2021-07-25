@@ -5,13 +5,13 @@ import java.util.Arrays;
 import java.util.List;
 
 import de.stylextv.lynx.config.ConfigHelper;
-import de.stylextv.lynx.context.WorldContext;
+import de.stylextv.lynx.context.LevelContext;
 import de.stylextv.lynx.memory.MemoryManager;
 import de.stylextv.lynx.pathing.calc.SearchExecutor;
 import de.stylextv.lynx.pathing.calc.goal.BlockGoal;
 import de.stylextv.lynx.pathing.calc.goal.Goal;
 import de.stylextv.lynx.util.ChatUtil;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 
 public class Waypoints {
 	
@@ -91,7 +91,7 @@ public class Waypoints {
 	}
 	
 	public static Waypoint getWaypoint(String name) {
-		String levelName = WorldContext.getLevelName();
+		String levelName = LevelContext.getLevelName();
 		
 		return getWaypoint(name, levelName);
 	}

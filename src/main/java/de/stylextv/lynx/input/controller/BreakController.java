@@ -1,13 +1,14 @@
 package de.stylextv.lynx.input.controller;
 
 import de.stylextv.lynx.context.PlayerContext;
-import de.stylextv.lynx.context.WorldContext;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.multiplayer.PlayerController;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.client.multiplayer.MultiPlayerGameMode;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import de.stylextv.lynx.context.GameContext;
+import de.stylextv.lynx.context.LevelContext;
 
 public class BreakController {
 	
@@ -20,7 +21,7 @@ public class BreakController {
 	}
 	
 	public static boolean canBreakBlock(BlockPos pos) {
-		BlockState state = WorldContext.getBlockState(pos);
+		BlockState state = LevelContext.getBlockState(pos);
 		
 		return state.getMaterial().blocksMotion();
 	}
@@ -30,7 +31,7 @@ public class BreakController {
 	}
 	
 	public static void onTick() {
-		if(!hasTarget() || !WorldContext.isIngame()) return;
+		if(!hasTarget() || !GameContext.isIngame()) return;
 		
 		if(!canBreakBlock(target)) {
 			
@@ -42,30 +43,30 @@ public class BreakController {
 		Direction dir = getTargetFace();
 		
 		if(dir != null) {
-			PlayerController controller = PlayerContext.controller();
+			MultiPlayerGameMode gameMode = PlayerContext.gameMode();
 			
-			controller.continueDestroyBlock(target, dir);
+			gameMode.continueDestroyBlock(target, dir);
 			
-			PlayerContext.player().swing(Hand.MAIN_HAND);
+			PlayerContext.player().swing(InteractionHand.MAIN_HAND);
 		}
 	}
 	
 	public static void onRenderTick() {
-		if(!hasTarget() || !WorldContext.isIngame()) return;
+		if(!hasTarget() || !GameContext.isIngame()) return;
 		
 		ViewController.lookAt(target);
 	}
 	
 	private static Direction getTargetFace() {
-		BlockRayTraceResult blockResult = AwarenessController.getBlockUnderCrosshair();
+		BlockHitResult result = AwarenessController.getBlockUnderCrosshair();
 		
-		if(blockResult == null) return null;
+		if(result == null) return null;
 		
-		BlockPos pos = blockResult.getBlockPos();
+		BlockPos pos = result.getBlockPos();
 		
 		if(!pos.equals(target)) return null;
 		
-		return blockResult.getDirection();
+		return result.getDirection();
 	}
 	
 	public static boolean hasTarget() {

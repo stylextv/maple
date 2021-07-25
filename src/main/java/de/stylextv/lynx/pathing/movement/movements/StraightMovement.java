@@ -1,6 +1,6 @@
 package de.stylextv.lynx.pathing.movement.movements;
 
-import de.stylextv.lynx.input.Input;
+import de.stylextv.lynx.input.InputAction;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.movement.Movement;
 
@@ -14,8 +14,8 @@ public class StraightMovement extends Movement {
 	public void onRenderTick() {
 		lookAt(getNode());
 		
-		setPressed(Input.MOVE_FORWARD, true);
-		setPressed(Input.SPRINT, true);
+		setPressed(InputAction.MOVE_FORWARD, true);
+		setPressed(InputAction.SPRINT, true);
 	}
 	
 }

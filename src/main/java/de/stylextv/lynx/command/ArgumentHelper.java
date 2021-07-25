@@ -1,7 +1,7 @@
 package de.stylextv.lynx.command;
 
 import de.stylextv.lynx.context.PlayerContext;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 
 public class ArgumentHelper {
 	

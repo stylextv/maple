@@ -1,25 +1,25 @@
 package de.stylextv.lynx.input.controller;
 
 import de.stylextv.lynx.context.PlayerContext;
-import de.stylextv.lynx.context.WorldContext;
+import de.stylextv.lynx.context.LevelContext;
 import de.stylextv.lynx.input.SmoothLook;
 import de.stylextv.lynx.pathing.calc.Node;
-import net.minecraft.client.entity.player.ClientPlayerEntity;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceContext;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.vector.Vector2f;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult.Type;
+import net.minecraft.world.phys.Vec2;
+import net.minecraft.world.phys.Vec3;
 
 public class ViewController {
 	
 	private static SmoothLook smoothLook = new SmoothLook();
 	
 	public static void lookAt(Entity e) {
-		Vector3d pos = e.position();
+		Vec3 pos = e.position();
 		
 		lookAt(pos.x(), pos.y() + e.getBbHeight() / 2f, pos.z());
 	}
@@ -39,7 +39,7 @@ public class ViewController {
 	}
 	
 	public static void lookAt(double x, double y, double z) {
-		Vector2f v = getViewVector(x, y, z);
+		Vec2 v = getViewVector(x, y, z);
 		
 		smoothLook.feedInput(v.x, v.y);
 	}
@@ -49,15 +49,15 @@ public class ViewController {
 	}
 	
 	public static double getViewDistance(double x, double y, double z) {
-		Vector2f v = getViewVector(x, y, z);
+		Vec2 v = getViewVector(x, y, z);
 		
 		return Math.sqrt(v.x * v.x + v.y * v.y);
 	}
 	
-	public static Vector2f getViewVector(double x, double y, double z) {
-		ClientPlayerEntity p = PlayerContext.player();
+	public static Vec2 getViewVector(double x, double y, double z) {
+		LocalPlayer p = PlayerContext.player();
 		
-		Vector2f v = p.getRotationVector();
+		Vec2 v = p.getRotationVector();
 		
 		float yaw = v.y % 360;
 		float pitch = v.x;
@@ -78,34 +78,34 @@ public class ViewController {
 		float yawDis = Math.abs(yawDis1) < Math.abs(yawDis2) ? yawDis1 : yawDis2;
 		float pitchDis = targetPitch - pitch;
 		
-		return new Vector2f(yawDis, pitchDis);
+		return new Vec2(yawDis, pitchDis);
 	}
 	
 	public static boolean canSee(BlockPos pos) {
-		ClientPlayerEntity p = PlayerContext.player();
+		LocalPlayer p = PlayerContext.player();
 		
-		ClientWorld w = WorldContext.world();
+		ClientLevel level = LevelContext.level();
 		
-		Vector3d v1 = new Vector3d(p.getX(), p.getEyeY(), p.getZ());
-		Vector3d v2 = new Vector3d(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
+		Vec3 v1 = new Vec3(p.getX(), p.getEyeY(), p.getZ());
+		Vec3 v2 = new Vec3(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 		
-		BlockRayTraceResult result = w.clip(new RayTraceContext(v1, v2, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, p));
+		BlockHitResult result = level.clip(new ClipContext(v1, v2, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, p));
 		
-		if(result.getType() == RayTraceResult.Type.MISS) return true;
-		if(result.getType() == RayTraceResult.Type.BLOCK && result.getBlockPos().equals(pos)) return true;
+		if(result.getType() == BlockHitResult.Type.MISS) return true;
+		if(result.getType() == BlockHitResult.Type.BLOCK && result.getBlockPos().equals(pos)) return true;
 		
 		return false;
 	}
 	
 	public static boolean canSee(double x, double y, double z) {
-		ClientPlayerEntity p = PlayerContext.player();
+		LocalPlayer p = PlayerContext.player();
 		
-		ClientWorld w = WorldContext.world();
+		ClientLevel level = LevelContext.level();
 		
-		Vector3d v1 = new Vector3d(p.getX(), p.getEyeY(), p.getZ());
-		Vector3d v2 = new Vector3d(x, y, z);
+		Vec3 v1 = new Vec3(p.getX(), p.getEyeY(), p.getZ());
+		Vec3 v2 = new Vec3(x, y, z);
 		
-		return w.clip(new RayTraceContext(v1, v2, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, p)).getType() == RayTraceResult.Type.MISS;
+		return level.clip(new ClipContext(v1, v2, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, p)).getType() == Type.MISS;
 	}
 	
 	public static void onRenderTick() {

@@ -7,8 +7,8 @@ import com.google.common.collect.Lists;
 
 import de.stylextv.lynx.Constants;
 import de.stylextv.lynx.context.PlayerContext;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.TextComponent;
 
 public class ChatUtil {
 	
@@ -58,7 +58,7 @@ public class ChatUtil {
 		List<String> list = splitLine(line);
 		
 		for(String s : list) {
-			PlayerContext.player().sendMessage(new StringTextComponent(PREFIX + s), null);
+			PlayerContext.player().sendMessage(new TextComponent(PREFIX + s), null);
 		}
 	}
 	
@@ -79,8 +79,8 @@ public class ChatUtil {
 			
 			int l = 1;
 			
-			l += TextFormatting.stripFormatting(s).length();
-			l += TextFormatting.stripFormatting(word).length();
+			l += ChatFormatting.stripFormatting(s).length();
+			l += ChatFormatting.stripFormatting(word).length();
 			
 			if(l <= MAX_LINE_LENGTH) {
 				
@@ -101,13 +101,13 @@ public class ChatUtil {
 	}
 	
 	private static String findLastFormatting(String s, boolean color) {
-		List<TextFormatting> list = getFormattings(s);
+		List<ChatFormatting> list = getFormattings(s);
 		
 		list = Lists.reverse(list);
 		
-		for(TextFormatting format : list) {
+		for(ChatFormatting format : list) {
 			
-			if(format.equals(TextFormatting.RESET)) return "";
+			if(format.equals(ChatFormatting.RESET)) return "";
 			
 			if(format.isColor()) {
 				
@@ -125,8 +125,8 @@ public class ChatUtil {
 		return "";
 	}
 	
-	private static List<TextFormatting> getFormattings(String s) {
-		List<TextFormatting> list = new ArrayList<>();
+	private static List<ChatFormatting> getFormattings(String s) {
+		List<ChatFormatting> list = new ArrayList<>();
 		
 		char[] arr = s.toCharArray();
 		
@@ -140,7 +140,7 @@ public class ChatUtil {
 			}
 			
 			if(b) {
-				TextFormatting format = TextFormatting.getByCode(ch);
+				ChatFormatting format = ChatFormatting.getByCode(ch);
 				
 				if(format != null) list.add(format);
 			}

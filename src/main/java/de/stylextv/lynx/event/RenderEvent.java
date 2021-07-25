@@ -1,6 +1,7 @@
 package de.stylextv.lynx.event;
 
-import de.stylextv.lynx.context.WorldContext;
+import de.stylextv.lynx.context.GameContext;
+import de.stylextv.lynx.context.LevelContext;
 import de.stylextv.lynx.input.controller.BreakController;
 import de.stylextv.lynx.input.controller.ViewController;
 import de.stylextv.lynx.memory.waypoint.Waypoint;
@@ -12,18 +13,20 @@ import de.stylextv.lynx.pathing.movement.MovementExecutor;
 import de.stylextv.lynx.render.ShapeRenderer;
 import de.stylextv.lynx.render.TextRenderer;
 import de.stylextv.lynx.scheme.Colors;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class RenderEvent {
 	
-	private static final int WAYPOINT_RENDER_DISTANCE = 250 * 250;
+	private static final int BEAM_RENDER_DISTANCE = 250 * 250;
+	
+	private static final int BEAM_HEIGHT = 1024;
 	
 	@SubscribeEvent
 	public void onWorldRender(RenderWorldLastEvent event) {
-		if(!WorldContext.isInWorld()) return;
+		if(!LevelContext.isInLevel()) return;
 		
 		drawCurrentPath(event);
 		
@@ -33,7 +36,7 @@ public class RenderEvent {
 		
 		drawWaypoints(event);
 		
-		if(!WorldContext.isIngame()) return;
+		if(!GameContext.isIngame()) return;
 		
 		MovementExecutor.onRenderTick();
 		
@@ -66,9 +69,9 @@ public class RenderEvent {
 			float py = parent.getY() + 0.5f;
 			float pz = parent.getZ() + 0.5f;
 			
-			Vector3f[] vertices = new Vector3f[] {
-					new Vector3f(x, y, z),
-					new Vector3f(px, py, pz)
+			Vec3[] vertices = new Vec3[] {
+					new Vec3(x, y, z),
+					new Vec3(px, py, pz)
 			};
 			
 			ShapeRenderer.drawLine(event, vertices, Colors.PATH_CALCULATION, 2);
@@ -88,7 +91,7 @@ public class RenderEvent {
 		
 		double dis = p.distanceSqr();
 		
-		if(dis > WAYPOINT_RENDER_DISTANCE) return;
+		if(dis > BEAM_RENDER_DISTANCE) return;
 		
 		BlockPos pos = p.getPos();
 		
@@ -96,10 +99,10 @@ public class RenderEvent {
 		float y = pos.getY() + 1.4f;
 		float z = pos.getZ() + 0.5f;
 		
-		Vector3f v1 = new Vector3f(x, pos.getY(), z);
-		Vector3f v2 = new Vector3f(x, 1024, z);
+		Vec3 v1 = new Vec3(x, pos.getY(), z);
+		Vec3 v2 = new Vec3(x, BEAM_HEIGHT, z);
 		
-		Vector3f[] vertices = new Vector3f[] {
+		Vec3[] vertices = new Vec3[] {
 			v1, v2
 		};
 		

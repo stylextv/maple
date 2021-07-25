@@ -2,31 +2,31 @@ package de.stylextv.lynx.cache;
 
 import java.util.HashMap;
 
-import de.stylextv.lynx.context.WorldContext;
-import net.minecraft.util.math.BlockPos;
+import de.stylextv.lynx.context.LevelContext;
+import net.minecraft.core.BlockPos;
 
 public class CacheManager {
 	
-	private static HashMap<String, CachedWorld> worlds = new HashMap<>();
+	private static HashMap<String, CachedLevel> levels = new HashMap<>();
 	
-	private static CachedWorld currentWorld;
+	private static CachedLevel level;
 	
 	public static void enterWorld() {
 		exitWorld();
 		
-		String name = WorldContext.getLevelName();
+		String name = LevelContext.getLevelName();
 		
-		currentWorld = getCache(name);
+		level = getLevel(name);
 		
-		currentWorld.enter();
+		level.enter();
 	}
 	
 	public static void exitWorld() {
-		if(currentWorld == null) return;
+		if(level == null) return;
 		
-		currentWorld.exit();
+		level.exit();
 		
-		currentWorld = null;
+		level = null;
 	}
 	
 	public static BlockType getBlockType(int x, int y, int z) {
@@ -34,18 +34,18 @@ public class CacheManager {
 	}
 	
 	public static BlockType getBlockType(BlockPos pos) {
-		if(!WorldContext.isInsideBorder(pos)) return BlockType.UNBREAKABLE;
+		if(!LevelContext.isInsideBorder(pos)) return BlockType.UNBREAKABLE;
 		
-		return currentWorld.getBlockType(pos);
+		return level.getBlockType(pos);
 	}
 	
-	private static CachedWorld getCache(String name) {
-		CachedWorld cache = worlds.get(name);
+	private static CachedLevel getLevel(String name) {
+		CachedLevel cache = levels.get(name);
 		
 		if(cache == null) {
-			cache = new CachedWorld(name);
+			cache = new CachedLevel(name);
 			
-			worlds.put(name, cache);
+			levels.put(name, cache);
 		}
 		
 		return cache;

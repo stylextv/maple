@@ -3,17 +3,15 @@ package de.stylextv.lynx.input.controller;
 import java.util.ArrayList;
 
 import de.stylextv.lynx.context.PlayerContext;
-import de.stylextv.lynx.context.WorldContext;
-import net.minecraft.block.Block;
-import net.minecraft.client.entity.player.ClientPlayerEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.RayTraceResult.Type;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.HitResult.Type;
 
 public class AwarenessController {
 	
-	private static final float PLAYER_REACH = 4f;
+	private static final float PLAYER_REACH = 4f; // 4.5f
 	private static final float PLAYER_REACH_SQR = PLAYER_REACH * PLAYER_REACH;
 	
 	public static ArrayList<BlockPos> getBlocksInReach() {
@@ -45,7 +43,7 @@ public class AwarenessController {
 	}
 	
 	public static boolean canReach(double x, double y, double z) {
-		ClientPlayerEntity p = PlayerContext.player();
+		LocalPlayer p = PlayerContext.player();
 		
 		double dx = p.getX() - x;
 		double dy = p.getEyeY() - y;
@@ -54,22 +52,18 @@ public class AwarenessController {
 		return dx * dx + dy * dy + dz * dz < PLAYER_REACH_SQR;
 	}
 	
-	public static BlockRayTraceResult getBlockUnderCrosshair() {
-		RayTraceResult result = getObjectUnderCrosshair();
+	public static BlockHitResult getBlockUnderCrosshair() {
+		HitResult result = getObjectUnderCrosshair();
 		
 		if(result == null || result.getType() != Type.BLOCK) return null;
 		
-		BlockRayTraceResult blockResult = (BlockRayTraceResult) result;
+		BlockHitResult blockResult = (BlockHitResult) result;
 		
 		return blockResult;
 	}
 	
-	public static RayTraceResult getObjectUnderCrosshair() {
+	public static HitResult getObjectUnderCrosshair() {
 		return PlayerContext.objectUnderCrosshair();
-	}
-	
-	public static Block getBlock(BlockPos pos) {
-		return WorldContext.world().getBlockState(pos).getBlock();
 	}
 	
 }

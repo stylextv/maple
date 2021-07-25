@@ -1,28 +1,28 @@
 package de.stylextv.lynx.render;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Matrix4f;
+import com.mojang.math.Quaternion;
 
 import de.stylextv.lynx.context.GameContext;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.IRenderTypeBuffer.Impl;
-import net.minecraft.client.renderer.RenderTypeBuffers;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.util.math.vector.Matrix4f;
-import net.minecraft.util.math.vector.Quaternion;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.renderer.MultiBufferSource.BufferSource;
+import net.minecraft.client.renderer.RenderBuffers;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 
 public class TextRenderer {
 	
-	private static final FontRenderer FONT = GameContext.font();
+	private static final Font FONT = GameContext.font();
 	
 	public static void drawText(RenderWorldLastEvent event, String s, float x, float y, float z) {
-		MatrixStack stack = event.getMatrixStack();
+		PoseStack stack = event.getMatrixStack();
 		
-		Vector3d v = GameContext.cameraPosition();
+		Vec3 v = GameContext.cameraPosition();
 		
-		EntityRendererManager dispatcher = GameContext.minecraft().getEntityRenderDispatcher();
+		EntityRenderDispatcher dispatcher = GameContext.minecraft().getEntityRenderDispatcher();
 		
 		Quaternion orientation = dispatcher.cameraOrientation();
 		
@@ -30,9 +30,9 @@ public class TextRenderer {
 		double renderY = y - v.y();
 		double renderZ = z - v.z();
 		
-		RenderTypeBuffers buffers = GameContext.minecraft().renderBuffers();
+		RenderBuffers buffers = GameContext.minecraft().renderBuffers();
 		
-		Impl buffer = buffers.bufferSource();
+		BufferSource source = buffers.bufferSource();
 		
 		stack.pushPose();
 		
@@ -52,9 +52,9 @@ public class TextRenderer {
 		
 		int rgb = (int) (f * 255) << 24;
 		
-		FONT.drawInBatch(s, offX, offY, 0, false, matrix, buffer, false, rgb, 0);
+		FONT.drawInBatch(s, offX, offY, 0, false, matrix, source, false, rgb, 0);
 		
-		buffer.endBatch();
+		source.endBatch();
 		
 		stack.popPose();
 		

@@ -5,7 +5,7 @@ import de.stylextv.lynx.input.controller.BreakController;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.movement.Movement;
 import de.stylextv.lynx.pathing.movement.MovementState;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 
 public class BreakBlockMovement extends Movement {
 	

@@ -1,21 +1,21 @@
 package de.stylextv.lynx.context;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.player.ClientPlayerEntity;
-import net.minecraft.client.multiplayer.PlayerController;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.client.multiplayer.MultiPlayerGameMode;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 
 public class PlayerContext {
 	
 	private static final Minecraft MC = Minecraft.getInstance();
 	
-	public static ClientPlayerEntity player() {
+	public static LocalPlayer player() {
 		return MC.player;
 	}
 	
-	public static Vector3d position() {
+	public static Vec3 position() {
 		return player().position();
 	}
 	
@@ -28,13 +28,13 @@ public class PlayerContext {
 	}
 	
 	public static double horizontalSpeed() {
-		Vector3d v = MC.player.getDeltaMovement();
+		Vec3 v = MC.player.getDeltaMovement();
 		
 		return v.multiply(1, 0, 1).length();
 	}
 	
 	public static double verticalSpeed() {
-		Vector3d v = MC.player.getDeltaMovement();
+		Vec3 v = MC.player.getDeltaMovement();
 		
 		return v.y();
 	}
@@ -60,16 +60,16 @@ public class PlayerContext {
 	}
 	
 	public static double distanceSqr(double x, double y, double z) {
-		Vector3d pos = position();
+		Vec3 pos = position();
 		
 		return pos.distanceToSqr(x, y, z);
 	}
 	
-	public static PlayerController controller() {
+	public static MultiPlayerGameMode gameMode() {
 		return MC.gameMode;
 	}
 	
-	public static RayTraceResult objectUnderCrosshair() {
+	public static HitResult objectUnderCrosshair() {
 		return MC.hitResult;
 	}
 	
@@ -78,7 +78,7 @@ public class PlayerContext {
 	}
 	
 	public static boolean setFlying(boolean b) {
-		return MC.player.abilities.flying = b;
+		return MC.player.getAbilities().flying = b;
 	}
 	
 }

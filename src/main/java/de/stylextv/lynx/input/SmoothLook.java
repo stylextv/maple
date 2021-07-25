@@ -2,7 +2,7 @@ package de.stylextv.lynx.input;
 
 import de.stylextv.lynx.context.GameContext;
 import de.stylextv.lynx.context.PlayerContext;
-import net.minecraft.client.entity.player.ClientPlayerEntity;
+import net.minecraft.client.player.LocalPlayer;
 
 public class SmoothLook {
 	
@@ -33,7 +33,7 @@ public class SmoothLook {
 	}
 	
 	private void apply() {
-		ClientPlayerEntity p = PlayerContext.player();
+		LocalPlayer p = PlayerContext.player();
 		
 		float f = TURN_SPEED * GameContext.deltaTime();
 		
