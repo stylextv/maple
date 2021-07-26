@@ -33,22 +33,22 @@ The bot is mainly controlled by [chat input](https://github.com/StylexTV/LYNX#co
 If you simply want to use LYNX, you can download the latest version from the [download page](https://playlynx.github.io/). With the appropriate version of [Forge](https://files.minecraftforge.net/net/minecraftforge/forge/) installed, you should be good to go.
 
 ## Features
-Coming soon...
+TODO
 
 ### 🌎 Long distance travel
-Coming soon...
+TODO
 
 ### 📚 Caching
-Coming soon...
+TODO
 
 ### 📍 Waypoints
-Coming soon...
+TODO
 
 ### 🧱 Breaking/Placing blocks
-Coming soon...
+TODO
 
 ### 🔥 Avoiding dangers
-Coming soon...
+TODO
 
 ## Commands
 All your interactions with the bot take place via the in-game chat functionality.
@@ -85,4 +85,4 @@ Use the command `#help option` in combination with the table of available option
     Disabling could lead to the possibility of the bot not being able to reach the destination.
 
 ## Installation & setup
-Coming soon...
+TODO
