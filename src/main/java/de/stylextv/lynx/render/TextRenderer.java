@@ -52,7 +52,7 @@ public class TextRenderer {
 		
 		int rgb = (int) (f * 255) << 24;
 		
-		FONT.drawInBatch(s, offX, offY, 0, false, matrix, source, false, rgb, 0);
+		FONT.drawInBatch(s, offX, offY, 0, false, matrix, source, false, rgb, 255);
 		
 		source.endBatch();
 		

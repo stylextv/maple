@@ -86,12 +86,10 @@ public class CachedRegion {
 	public boolean isInView() {
 		if(!LevelContext.isInLevel()) return false;
 		
-		BlockPos pos = PlayerContext.blockPosition();
+		ChunkPos pos = PlayerContext.chunkPosition();
 		
-		ChunkPos p = new ChunkPos(pos);
-		
-		int rx = chunkToRegionPos(p.x);
-		int rz = chunkToRegionPos(p.z);
+		int rx = chunkToRegionPos(pos.x);
+		int rz = chunkToRegionPos(pos.z);
 		
 		int disX = Math.abs(x - rx);
 		int disZ = Math.abs(z - rz);

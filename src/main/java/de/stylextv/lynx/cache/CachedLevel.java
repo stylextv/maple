@@ -54,9 +54,7 @@ public class CachedLevel {
 	private synchronized void collectChunks() {
 		if(!GameContext.isIngame()) return;
 		
-		BlockPos p = PlayerContext.blockPosition();
-		
-		ChunkPos pos = new ChunkPos(p);
+		ChunkPos pos = PlayerContext.chunkPosition();
 		
 		int dis = LevelContext.getViewDistance();
 		

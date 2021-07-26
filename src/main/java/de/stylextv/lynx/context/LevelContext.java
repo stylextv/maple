@@ -68,9 +68,7 @@ public class LevelContext {
 	public static boolean isChunkInView(int cx, int cz) {
 		if(!GameContext.isIngame()) return false;
 		
-		BlockPos p = PlayerContext.player().blockPosition();
-		
-		ChunkPos pos = new ChunkPos(p);
+		ChunkPos pos = PlayerContext.chunkPosition();
 		
 		int dis = Math.abs(pos.x - cx) + Math.abs(pos.z - cz);
 		

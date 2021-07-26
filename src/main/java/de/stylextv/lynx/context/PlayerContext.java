@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.MultiPlayerGameMode;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
@@ -25,6 +26,10 @@ public class PlayerContext {
 	
 	public static BlockPos feetPosition() {
 		return new BlockPos(position().add(0, 0.125f, 0));
+	}
+	
+	public static ChunkPos chunkPosition() {
+		return player().chunkPosition();
 	}
 	
 	public static double horizontalSpeed() {

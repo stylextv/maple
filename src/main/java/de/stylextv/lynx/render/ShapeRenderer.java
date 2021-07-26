@@ -6,6 +6,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.PoseStack.Pose;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat.Mode;
@@ -15,6 +16,7 @@ import de.stylextv.lynx.context.GameContext;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.calc.Path;
 import de.stylextv.lynx.scheme.Color;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
@@ -34,8 +36,6 @@ public class ShapeRenderer {
 	private static Tesselator tesselator;
 	
 	private static BufferBuilder builder;
-	
-	private static PoseStack stack;
 	
 	public static void drawBox(RenderWorldLastEvent event, BlockPos pos, Color color, Color outlineColor, int lineWidth) {
 		drawBox(event, pos, pos, color, outlineColor, lineWidth);
@@ -151,7 +151,7 @@ public class ShapeRenderer {
 	public static void drawLine(RenderWorldLastEvent event, Vec3[] vertices, Color color, float width, boolean joint) {
 		RenderSystem.lineWidth(width);
 		
-		Mode mode = joint ? Mode.LINE_STRIP : Mode.LINES;
+		Mode mode = joint ? Mode.DEBUG_LINE_STRIP : Mode.DEBUG_LINES;
 		
 		beginShape(event, mode, DefaultVertexFormat.POSITION_COLOR);
 		
@@ -164,23 +164,28 @@ public class ShapeRenderer {
 		GL11.glEnable(GL11.GL_LINE_SMOOTH);
 		GL11.glHint(GL11.GL_LINE_SMOOTH_HINT, GL11.GL_NICEST);
 		
-		RenderSystem.enableBlend();
-		RenderSystem.defaultBlendFunc();
+		PoseStack stack = RenderSystem.getModelViewStack();
+		
+		stack.pushPose();
+		
+		Pose pose = event.getMatrixStack().last();
+		
+		stack.mulPoseMatrix(pose.pose());
+		
+		RenderSystem.applyModelViewMatrix();
 		
 		RenderSystem.enableDepthTest();
 		
+		RenderSystem.setShader(GameRenderer::getPositionColorShader);
+		
 		RenderSystem.disableTexture();
+		
+		RenderSystem.enableBlend();
+		RenderSystem.defaultBlendFunc();
 		
 		tesselator = Tesselator.getInstance();
 		
 		builder = tesselator.getBuilder();
-		
-		stack = event.getMatrixStack();
-		
-		Vec3 pos = GameContext.cameraPosition();
-		
-		stack.pushPose();
-		stack.translate(-pos.x(), -pos.y(), -pos.z());
 		
 		builder.begin(mode, format);
 	}
@@ -193,17 +198,26 @@ public class ShapeRenderer {
 		float b = colorVector.z();
 		float a = colorVector.w();
 		
+		Vec3 pos = GameContext.cameraPosition();
+		
 		for(Vec3 v : vertices) {
-			builder.vertex(v.x(), v.y(), v.z()).color(r, g, b, a).endVertex();
+			
+			double x = v.x() - pos.x();
+			double y = v.y() - pos.y();
+			double z = v.z() - pos.z();
+			
+			builder.vertex(x, y, z).color(r, g, b, a).endVertex();
 		}
 		
 		tesselator.end();
 		
+		PoseStack stack = RenderSystem.getModelViewStack();
+		
 		stack.popPose();
 		
-		RenderSystem.enableTexture();
+        RenderSystem.applyModelViewMatrix();
 		
-		RenderSystem.disableBlend();
+		RenderSystem.enableTexture();
 	}
 	
 }
