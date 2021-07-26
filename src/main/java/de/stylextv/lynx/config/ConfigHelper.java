@@ -23,6 +23,8 @@ public class ConfigHelper {
 		
 		String json = FileSystem.readText(access);
 		
+		access.close();
+		
 		return gson.fromJson(json, clazz);
 	}
 	

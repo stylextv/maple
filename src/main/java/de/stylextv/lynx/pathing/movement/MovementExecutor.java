@@ -33,7 +33,7 @@ public class MovementExecutor {
 	
 	public static void followPath(Path p) {
 		if(p == null) {
-			ChatUtil.send("§cPath not found!");
+			ChatUtil.send("§cNo path found!");
 			
 			SearchExecutor.stopSearch();
 			
