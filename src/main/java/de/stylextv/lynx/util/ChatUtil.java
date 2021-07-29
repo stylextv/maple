@@ -19,6 +19,8 @@ public class ChatUtil {
 	private static final char FORMATTING_SYMBOL = '§';
 	
 	public static void sendList(List<String> list, int rows, int page, String command) {
+		page--;
+		
 		int l = list.size();
 		
 		int pages = (int) Math.ceil((double) l / rows);
@@ -32,7 +34,7 @@ public class ChatUtil {
 		int end = Math.min(start + rows, l) - 1;
 		
 		for(int i = start; i <= end; i++) {
-			String s = list.get(start + i);
+			String s = list.get(i);
 			
 			send("- " + s);
 		}

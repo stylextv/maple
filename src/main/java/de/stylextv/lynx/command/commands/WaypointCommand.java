@@ -49,7 +49,7 @@ public class WaypointCommand extends Command {
 				page = ArgumentHelper.toInt(args[1]);
 			}
 			
-			if(page == null) page = 0;
+			if(page == null) page = 1;
 			
 			List<String> list = new ArrayList<>();
 			

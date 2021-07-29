@@ -23,7 +23,7 @@ public class ModifiedCommand extends Command {
 			page = ArgumentHelper.toInt(args[0]);
 		}
 		
-		if(page == null) page = 0;
+		if(page == null) page = 1;
 		
 		ChatUtil.send("Modified options:");
 		

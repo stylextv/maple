@@ -20,7 +20,7 @@ public class HelpCommand extends Command {
 		Integer page = null;
 		
 		if(args.length == 0) {
-			page = 0;
+			page = 1;
 		} else {
 			page = ArgumentHelper.toInt(args[0]);
 		}
