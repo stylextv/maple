@@ -217,7 +217,7 @@ public class ShapeRenderer {
 		
 		stack.popPose();
 		
-        RenderSystem.applyModelViewMatrix();
+		RenderSystem.applyModelViewMatrix();
 		
 		RenderSystem.enableTexture();
 	}
