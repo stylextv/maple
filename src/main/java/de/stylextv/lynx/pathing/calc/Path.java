@@ -20,12 +20,6 @@ public class Path {
 	public void next() {
 		PathSegment s = getSegment();
 		
-		if(s.isFinished()) {
-			nextSegment();
-			
-			return;
-		}
-		
 		s.next();
 	}
 	
@@ -82,7 +76,7 @@ public class Path {
 	}
 	
 	public PathSegment getSegment() {
-		if(segment == null) nextSegment();
+		if(segment == null || segment.isFinished()) nextSegment();
 		
 		return segment;
 	}
