@@ -40,8 +40,6 @@ public class SearchExecutor {
 				
 				PathSegment segment = finder.find(path.lastPosition(), SEARCH_TIMEOUT);
 				
-				System.out.println(segment == null ? -1 : segment.length());
-				
 				boolean paused = finder.wasPaused();
 				
 				finder = null;
