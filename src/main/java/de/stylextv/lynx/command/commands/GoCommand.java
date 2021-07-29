@@ -9,7 +9,7 @@ import de.stylextv.lynx.util.ChatUtil;
 public class GoCommand extends Command {
 	
 	public GoCommand() {
-		super("go", "Starts moving to the set goal.");
+		super("go", "Starts moving to the set goal.", "start");
 	}
 	
 	@Override
