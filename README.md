@@ -61,7 +61,7 @@ Name | Usages | Aliases | Description
 help | help [page]<br/>help [command] | - | Gives useful information about commands.
 goto | goto \<x> \<y> \<z> [radius]<br/>goto \<x> \<z><br/>goto \<y> | - | Sets a new goal and starts moving to it.
 goal | goal \<x> \<y> \<z> [radius]<br/>goal \<x> \<z><br/>goal \<y> | - | Sets a new goal.
-go | - | - | Starts moving to the set goal.
+go | - | start | Starts moving to the set goal.
 stop | - | cancel | Stops all actions.
 waypoint | waypoint create \<name> [x y z]<br/>waypoint delete \<name><br/>waypoint list [page]<br/>waypoint goto \<name> | wp | Used to create and travel to waypoints.
 home | - | h | Travel to the waypoint named *home*.
