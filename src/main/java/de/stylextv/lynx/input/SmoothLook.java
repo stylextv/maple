@@ -6,7 +6,7 @@ import net.minecraft.client.player.LocalPlayer;
 
 public class SmoothLook {
 	
-	private static final float TURN_SPEED = 4f;
+	private static final float TURN_SPEED = 6f;
 	
 	private boolean active;
 	
@@ -36,8 +36,6 @@ public class SmoothLook {
 		LocalPlayer p = PlayerContext.player();
 		
 		float f = TURN_SPEED * GameContext.deltaTime();
-		
-		f = 1;
 		
 		p.turn(turnYawAmount * f, turnPitchAmount * f);
 	}
