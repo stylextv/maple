@@ -10,12 +10,14 @@ public class SearchExecutor {
 	
 	private static final long SEARCH_TIMEOUT = 1000;
 	
-	private static final long SLEEP_TIME = 25;
+	private static final long SLEEP_TIME = 500;
 	
 	private static PathFinder finder;
 	
 	public static void startSearch() {
 		stopSearch();
+		
+		MovementExecutor.stop();
 		
 		AsyncUtil.runAsync(() -> {
 			

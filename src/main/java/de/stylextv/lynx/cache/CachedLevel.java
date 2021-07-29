@@ -123,7 +123,7 @@ public class CachedLevel {
 		
 		CachedChunk chunk = getChunk(cx, cz);
 		
-		if(chunk == null) return BlockType.VOID;
+		if(chunk == null) return BlockType.UNLOADED;
 		
 		return chunk.getBlockType(x, y, z);
 	}

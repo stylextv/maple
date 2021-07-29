@@ -7,7 +7,7 @@ import net.minecraft.core.BlockPos;
 
 public class Path {
 	
-	private static final int MINIMAL_NODE_AMOUNT = 30;
+	private static final int MIN_NODE_AMOUNT = 30;
 	
 	private ArrayList<PathSegment> segments = new ArrayList<>();
 	
@@ -52,15 +52,22 @@ public class Path {
 	public boolean needsNewSegment() {
 		int l = nodesLeft();
 		
-		return l < MINIMAL_NODE_AMOUNT;
+		return l < MIN_NODE_AMOUNT;
 	}
 	
 	public int nodesLeft() {
-		PathSegment s = getSegment();
+		int sum = 0;
 		
-		if(s == null) return 0;
+		PathSegment segment = getSegment();
 		
-		return s.nodesLeft();
+		if(segment != null) sum += segment.nodesLeft();
+		
+		for(PathSegment s : segments) {
+			
+			sum += s.nodesLeft();
+		}
+		
+		return sum;
 	}
 	
 	public boolean isFinished() {

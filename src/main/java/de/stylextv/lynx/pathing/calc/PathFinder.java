@@ -14,6 +14,8 @@ import net.minecraft.core.BlockPos;
 
 public class PathFinder {
 	
+	private static final int MAX_CHUNK_BORDER_HITS = 50;
+	
 	private Long2ObjectOpenHashMap<Node> map;
 	
 	private PriorityQueue<Node> openList;
@@ -21,6 +23,8 @@ public class PathFinder {
 	private Set<Node> closedSet;
 	
 	private Goal goal;
+	
+	private int chunkBorderHits;
 	
 	private boolean stop;
 	
@@ -62,7 +66,8 @@ public class PathFinder {
 				addAdjacentNodes(n);
 			}
 			
-			if(System.currentTimeMillis() - startTime > time) {
+			if(System.currentTimeMillis() - startTime > time || chunkBorderHits > MAX_CHUNK_BORDER_HITS) {
+				
 				pause = true;
 				
 				break;
@@ -259,6 +264,8 @@ public class PathFinder {
 		n.updateHeuristic(goal);
 		
 		map.put(n.getHash(), n);
+		
+		if(n.getType().equals(BlockType.UNLOADED)) chunkBorderHits++;
 		
 		return n;
 	}

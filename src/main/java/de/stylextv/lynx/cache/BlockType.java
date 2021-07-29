@@ -10,7 +10,7 @@ import net.minecraft.world.level.material.Fluids;
 
 public enum BlockType {
 	
-	AIR(0, true), SOLID(1), WATER(2, true), DANGER(3), VOID(-1, true), UNBREAKABLE(-1, false, false);
+	AIR(0, true), SOLID(1), WATER(2, true), DANGER(3), UNLOADED(-1, true), VOID(-1, true), UNBREAKABLE(-1, false, false);
 	
 	private static final Block[] DANGER_BLOCKS = new Block[] {
 			Blocks.LAVA,
