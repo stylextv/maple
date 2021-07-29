@@ -1,35 +1,94 @@
 package de.stylextv.lynx.pathing.calc;
 
-import java.util.List;
+import java.util.ArrayList;
+
+import de.stylextv.lynx.context.PlayerContext;
+import net.minecraft.core.BlockPos;
 
 public class Path {
 	
-	private List<Node> nodes;
+	private static final int MINIMAL_NODE_AMOUNT = 30;
 	
-	private int pointer;
+	private ArrayList<PathSegment> segments = new ArrayList<>();
 	
-	public Path(List<Node> nodes) {
-		this.nodes = nodes;
+	private PathSegment segment;
+	
+	public void add(PathSegment s) {
+		segments.add(s);
 	}
 	
 	public void next() {
-		pointer++;
+		PathSegment s = getSegment();
+		
+		if(s.isFinished()) {
+			nextSegment();
+			
+			return;
+		}
+		
+		s.next();
 	}
 	
-	public Node getCurrentNode() {
-		return getNode(pointer);
+	private void nextSegment() {
+		if(segments.isEmpty()) {
+			
+			segment = null;
+			
+			return;
+		}
+		
+		segment = segments.remove(0);
 	}
 	
-	public Node getNode(int index) {
-		return nodes.get(index);
+	public BlockPos lastPosition() {
+		if(!segments.isEmpty()) {
+			
+			int l = segments.size();
+			
+			PathSegment s = segments.get(l - 1);
+			
+			return s.lastPosition();
+		}
+		
+		if(segment != null) return segment.lastPosition();
+		
+		return PlayerContext.feetPosition();
+	}
+	
+	public boolean needsNewSegment() {
+		int l = nodesLeft();
+		
+		return l < MINIMAL_NODE_AMOUNT;
+	}
+	
+	public int nodesLeft() {
+		PathSegment s = getSegment();
+		
+		if(s == null) return 0;
+		
+		return s.nodesLeft();
 	}
 	
 	public boolean isFinished() {
-		return pointer >= length();
+		return getSegment() == null;
 	}
 	
-	public int length() {
-		return nodes.size();
+	public Node getCurrentNode() {
+		PathSegment s = getSegment();
+		
+		if(s == null) return null;
+		
+		return s.getCurrentNode();
+	}
+	
+	public PathSegment getSegment() {
+		if(segment == null) nextSegment();
+		
+		return segment;
+	}
+	
+	public ArrayList<PathSegment> getQueuedSegments() {
+		return segments;
 	}
 	
 }

@@ -8,8 +8,9 @@ import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.context.GameContext;
 import de.stylextv.lynx.context.LevelContext;
 import de.stylextv.lynx.io.FileSystem;
-import de.stylextv.lynx.util.AsyncUtil;
-import de.stylextv.lynx.util.ThreadInfo;
+import de.stylextv.lynx.util.CoordUtil;
+import de.stylextv.lynx.util.async.AsyncUtil;
+import de.stylextv.lynx.util.async.ThreadInfo;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectCollection;
@@ -114,14 +115,15 @@ public class CachedLevel {
 		
 		if(y < 0 || y > 255) return BlockType.VOID;
 		
-		ChunkPos p = new ChunkPos(pos);
-		
-		CachedChunk chunk = getChunk(p.x, p.z);
-		
-		if(chunk == null) return BlockType.VOID;
-		
 		int x = pos.getX();
 		int z = pos.getZ();
+		
+		int cx = CoordUtil.blockToChunkPos(x);
+		int cz = CoordUtil.blockToChunkPos(z);
+		
+		CachedChunk chunk = getChunk(cx, cz);
+		
+		if(chunk == null) return BlockType.VOID;
 		
 		return chunk.getBlockType(x, y, z);
 	}
@@ -133,8 +135,8 @@ public class CachedLevel {
 	}
 	
 	private CachedRegion getRegion(int cx, int cz) {
-		int rx = CachedRegion.chunkToRegionPos(cx);
-		int rz = CachedRegion.chunkToRegionPos(cz);
+		int rx = CoordUtil.chunkToRegionPos(cx);
+		int rz = CoordUtil.chunkToRegionPos(cz);
 		
 		long hash = CachedRegion.posAsLong(rx, rz);
 		

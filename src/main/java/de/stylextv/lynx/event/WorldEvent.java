@@ -11,14 +11,14 @@ public class WorldEvent {
 	@SubscribeEvent
 	public void onJoin(EntityJoinWorldEvent event) {
 		if(event.getEntity().equals(PlayerContext.player())) {
-			CacheManager.enterWorld();
+			CacheManager.enterLevel();
 		}
 	}
 	
 	@SubscribeEvent
 	public void onLeave(EntityLeaveWorldEvent event) {
 		if(event.getEntity().equals(PlayerContext.player())) {
-			CacheManager.exitWorld();
+			CacheManager.exitLevel();
 		}
 	}
 	

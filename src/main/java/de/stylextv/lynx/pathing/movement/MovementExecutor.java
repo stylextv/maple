@@ -12,7 +12,6 @@ import de.stylextv.lynx.input.controller.InputController;
 import de.stylextv.lynx.input.controller.ViewController;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.calc.Path;
-import de.stylextv.lynx.pathing.calc.SearchExecutor;
 import de.stylextv.lynx.pathing.movement.movements.AscendMovement;
 import de.stylextv.lynx.pathing.movement.movements.BreakBlockMovement;
 import de.stylextv.lynx.pathing.movement.movements.DescendMovement;
@@ -32,14 +31,6 @@ public class MovementExecutor {
 	private static Node previousNode;
 	
 	public static void followPath(Path p) {
-		if(p == null) {
-			ChatUtil.send("§cNo path found!");
-			
-			SearchExecutor.stopSearch();
-			
-			return;
-		}
-		
 		path = p;
 		
 		nextNode();

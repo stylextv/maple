@@ -11,8 +11,8 @@ public class CacheManager {
 	
 	private static CachedLevel level;
 	
-	public static void enterWorld() {
-		exitWorld();
+	public static void enterLevel() {
+		exitLevel();
 		
 		String name = LevelContext.getLevelName();
 		
@@ -21,7 +21,7 @@ public class CacheManager {
 		level.enter();
 	}
 	
-	public static void exitWorld() {
+	public static void exitLevel() {
 		if(level == null) return;
 		
 		level.exit();

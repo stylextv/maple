@@ -24,6 +24,8 @@ public class PathFinder {
 	
 	private boolean stop;
 	
+	private boolean pause;
+	
 	public PathFinder(Goal goal) {
 		this.goal = goal;
 		
@@ -34,12 +36,18 @@ public class PathFinder {
 		this.closedSet = new HashSet<>();
 	}
 	
-	public Path find(BlockPos start) {
-		return find(start.getX(), start.getY(), start.getZ());
+	public PathSegment find(BlockPos start, long time) {
+		return find(start.getX(), start.getY(), start.getZ(), time);
 	}
 	
-	public Path find(int startX, int startY, int startZ) {
-		openList.add(getMapNode(startX, startY, startZ));
+	public PathSegment find(int startX, int startY, int startZ, long time) {
+		pause = false;
+		
+		long startTime = System.currentTimeMillis();
+		
+		Node startNode = getMapNode(startX, startY, startZ);
+		
+		openList.add(startNode);
 		
 		while(!openList.isEmpty() && !stop) {
 			Node n = openList.poll();
@@ -48,23 +56,52 @@ public class PathFinder {
 			
 			if(goal.isFinalNode(n)) {
 				
-				List<Node> nodes = backtrace(n);
-				
-				return new Path(nodes);
+				return backtrace(n);
 				
 			} else {
 				addAdjacentNodes(n);
 			}
+			
+			if(System.currentTimeMillis() - startTime > time) {
+				pause = true;
+				
+				break;
+			}
 		}
 		
-		return null;
+		if(stop) return null;
+		
+		Node closest = null;
+		
+		for(Node n : closedSet) {
+			
+			int hCost = n.getHCost();
+			
+			if(hCost >= startNode.getHCost()) continue;
+			
+			if(closest == null) {
+				closest = n;
+				
+				continue;
+			}
+			
+			int finalCost = n.getFinalCost();
+			
+			boolean closer = hCost < closest.getHCost() || (hCost == closest.getHCost() && finalCost < closest.getFinalCost());
+			
+			if(closer) closest = n;
+		}
+		
+		if(closest == null) return null;
+		
+		return backtrace(closest);
 	}
 	
 	public void stop() {
 		stop = true;
 	}
 	
-	private List<Node> backtrace(Node n) {
+	private PathSegment backtrace(Node n) {
 		List<Node> list = new ArrayList<Node>();
 		
 		while(n != null) {
@@ -73,7 +110,9 @@ public class PathFinder {
 			n = n.getParent();
 		}
 		
-		return list;
+		if(list.size() < 2) return null;
+		
+		return new PathSegment(list);
 	}
 	
 	private void addAdjacentNodes(Node node) {
@@ -234,6 +273,10 @@ public class PathFinder {
 	
 	public boolean wasStopped() {
 		return stop;
+	}
+	
+	public boolean wasPaused() {
+		return pause;
 	}
 	
 }

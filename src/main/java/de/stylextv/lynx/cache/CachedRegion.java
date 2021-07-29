@@ -8,6 +8,7 @@ import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.context.LevelContext;
 import de.stylextv.lynx.io.FileAccess;
 import de.stylextv.lynx.io.FileSystem;
+import de.stylextv.lynx.util.CoordUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.ChunkPos;
 
@@ -88,8 +89,8 @@ public class CachedRegion {
 		
 		ChunkPos pos = PlayerContext.chunkPosition();
 		
-		int rx = chunkToRegionPos(pos.x);
-		int rz = chunkToRegionPos(pos.z);
+		int rx = CoordUtil.chunkToRegionPos(pos.x);
+		int rz = CoordUtil.chunkToRegionPos(pos.z);
 		
 		int disX = Math.abs(x - rx);
 		int disZ = Math.abs(z - rz);
@@ -137,10 +138,6 @@ public class CachedRegion {
 		access.close();
 		
 		return r;
-	}
-	
-	public static int chunkToRegionPos(int i) {
-		return i >> 5;
 	}
 	
 	public static long posAsLong(int x, int z) {

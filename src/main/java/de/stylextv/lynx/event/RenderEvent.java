@@ -8,6 +8,7 @@ import de.stylextv.lynx.memory.waypoint.Waypoint;
 import de.stylextv.lynx.memory.waypoint.Waypoints;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.calc.Path;
+import de.stylextv.lynx.pathing.calc.PathSegment;
 import de.stylextv.lynx.pathing.calc.SearchExecutor;
 import de.stylextv.lynx.pathing.movement.MovementExecutor;
 import de.stylextv.lynx.render.ShapeRenderer;
@@ -28,7 +29,7 @@ public class RenderEvent {
 	public void onWorldRender(RenderWorldLastEvent event) {
 		if(!LevelContext.isInLevel()) return;
 		
-		drawCurrentPath(event);
+		drawPath(event, MovementExecutor.getPath());
 		
 		// draw goals
 		
@@ -44,12 +45,20 @@ public class RenderEvent {
 		ViewController.onRenderTick();
 	}
 	
-	private void drawCurrentPath(RenderWorldLastEvent event) {
-		Path path = MovementExecutor.getPath();
+	private void drawPath(RenderWorldLastEvent event, Path path) {
+		if(path == null) return;
 		
-		if(path != null) {
-			ShapeRenderer.drawPath(event, path, Colors.PATH, Colors.PATH_MARKER, 2);
+		drawPathSegment(event, path.getSegment());
+		
+		for(PathSegment s : path.getQueuedSegments()) {
+			drawPathSegment(event, s);
 		}
+	}
+	
+	private void drawPathSegment(RenderWorldLastEvent event, PathSegment s) {
+		if(s == null) return;
+		
+		ShapeRenderer.drawPathSegment(event, s, Colors.PATH, Colors.PATH_MARKER, 2);
 	}
 	
 	private void drawPathCalculation(RenderWorldLastEvent event) {

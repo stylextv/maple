@@ -1,14 +1,15 @@
 package de.stylextv.lynx.pathing.calc;
 
-import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.memory.MemoryManager;
 import de.stylextv.lynx.pathing.calc.goal.Goal;
 import de.stylextv.lynx.pathing.movement.MovementExecutor;
-import de.stylextv.lynx.util.AsyncUtil;
+import de.stylextv.lynx.util.async.AsyncUtil;
 
 public class SearchExecutor {
 	
-	private static final long SEARCH_TIMEOUT = 10000;
+	private static final long SEARCH_TIMEOUT = 1000;
+	
+	private static final long SLEEP_TIME = 25;
 	
 	private static PathFinder finder;
 	
@@ -19,15 +20,41 @@ public class SearchExecutor {
 			
 			Goal goal = MemoryManager.getGoal();
 			
-			finder = new PathFinder(goal);
+			Path path = new Path();
 			
-			Path path = finder.find(PlayerContext.feetPosition());
+			boolean b = true;
 			
-			boolean b = finder.wasStopped();
-			
-			finder = null;
-			
-			if(!b) MovementExecutor.followPath(path);
+			while(true) {
+				
+				if(!path.needsNewSegment()) {
+					
+					AsyncUtil.sleep(SLEEP_TIME);
+					
+					continue;
+				}
+				
+				finder = new PathFinder(goal);
+				
+				PathSegment segment = finder.find(path.lastPosition(), SEARCH_TIMEOUT);
+				
+				System.out.println(segment == null ? -1 : segment.length());
+				
+				boolean paused = finder.wasPaused();
+				
+				finder = null;
+				
+				if(segment == null) break;
+				
+				path.add(segment);
+				
+				if(b) {
+					MovementExecutor.followPath(path);
+					
+					b = false;
+				}
+				
+				if(!paused) break;
+			}
 		});
 	}
 	

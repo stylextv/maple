@@ -14,7 +14,7 @@ import com.mojang.math.Vector4f;
 
 import de.stylextv.lynx.context.GameContext;
 import de.stylextv.lynx.pathing.calc.Node;
-import de.stylextv.lynx.pathing.calc.Path;
+import de.stylextv.lynx.pathing.calc.PathSegment;
 import de.stylextv.lynx.scheme.Color;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.core.BlockPos;
@@ -111,13 +111,13 @@ public class ShapeRenderer {
 		endShape(vertices, color);
 	}
 	
-	public static void drawPath(RenderWorldLastEvent event, Path path, Color color, Color markerColor, float lineWidth) {
-		int l = path.length();
+	public static void drawPathSegment(RenderWorldLastEvent event, PathSegment s, Color color, Color markerColor, float lineWidth) {
+		int l = s.length();
 		
 		Vec3[] vertices = new Vec3[l];
 		
 		for(int i = 0; i < l; i++) {
-			Node n = path.getNode(i);
+			Node n = s.getNode(i);
 			
 			float x = n.getX() + 0.5f;
 			float y = n.getY() + 0.5f;
@@ -128,10 +128,12 @@ public class ShapeRenderer {
 		
 		drawLine(event, vertices, color, lineWidth);
 		
-		drawNode(event, path.getCurrentNode(), markerColor, lineWidth);
+		drawNodeMarker(event, s.getCurrentNode(), markerColor, lineWidth);
 	}
 	
-	private static void drawNode(RenderWorldLastEvent event, Node n, Color color, float lineWidth) {
+	private static void drawNodeMarker(RenderWorldLastEvent event, Node n, Color color, float lineWidth) {
+		if(n == null) return;
+		
 		float x = n.getX() + 0.5f;
 		float y = n.getY();
 		float z = n.getZ() + 0.5f;

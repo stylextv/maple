@@ -1,4 +1,4 @@
-package de.stylextv.lynx.util;
+package de.stylextv.lynx.util.async;
 
 public class ThreadInfo {
 	

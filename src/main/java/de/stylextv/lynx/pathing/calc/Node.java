@@ -65,6 +65,10 @@ public class Node {
 		gCost = n.getGCost() + cost;
 	}
 	
+	public BlockPos blockPos() {
+		return new BlockPos(x, y, z);
+	}
+	
 	public long getHash() {
 		return posAsLong(x, y, z);
 	}
