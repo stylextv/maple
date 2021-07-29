@@ -3,6 +3,7 @@ package de.stylextv.lynx.pathing.calc;
 import de.stylextv.lynx.memory.MemoryManager;
 import de.stylextv.lynx.pathing.calc.goal.Goal;
 import de.stylextv.lynx.pathing.movement.MovementExecutor;
+import de.stylextv.lynx.util.ChatUtil;
 import de.stylextv.lynx.util.async.AsyncUtil;
 
 public class SearchExecutor {
@@ -43,7 +44,12 @@ public class SearchExecutor {
 				
 				finder = null;
 				
-				if(segment == null) break;
+				if(segment == null) {
+					
+					if(b) ChatUtil.send("§cCan't find any path!");
+					
+					break;
+				}
 				
 				path.add(segment);
 				
