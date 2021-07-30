@@ -22,7 +22,7 @@ public class InvertedGoal extends Goal {
 	
 	@Override
 	public String toString() {
-		return String.format("InvertGoal{goal=%s}", goal);
+		return String.format("InvertedGoal{goal=%s}", goal);
 	}
 	
 }

@@ -1,6 +1,7 @@
 package de.stylextv.lynx.pathing.calc.goal;
 
 import de.stylextv.lynx.pathing.calc.Node;
+import de.stylextv.lynx.util.TextUtil;
 
 public class CompositeGoal extends Goal {
 	
@@ -34,15 +35,7 @@ public class CompositeGoal extends Goal {
 	
 	@Override
 	public String toString() {
-		String s = "";
-		
-		int l = goals.length;
-		
-		for(int i = 0; i < l; i++) {
-			s += goals[i];
-			
-			if(i + 1 < l) s += ",";
-		}
+		String s = TextUtil.combine(goals, ",");
 		
 		return String.format("CompositeGoal{goals=[%s]}", s);
 	}
