@@ -85,7 +85,7 @@ Use the command `#help option` in combination with the table of available option
     Disabling could lead to the possibility of the bot not being able to reach the destination.
 
 ## API
-TOOD
+TODO
 
 ## Installation & setup
 TODO
