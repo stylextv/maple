@@ -33,22 +33,22 @@ The bot is mainly controlled by [chat input](https://github.com/StylexTV/LYNX#co
 If you simply want to use LYNX, you can download the latest version from the [download page](https://playlynx.github.io/). With the appropriate version of [Forge](https://files.minecraftforge.net/net/minecraftforge/forge/) installed, you should be good to go.
 
 ## Features
-TODO
+LYNX is equipped with many useful features that allow it to find the way to any destination and overcome any obstacle.
 
 ### 🌎 Long distance travel
-TODO
+LYNX is able to travel for thousands of blocks without any user input, i.e. completely autonomously. It achieves this by using path segmentation and calculating the next segments when they are needed. Moreover, LYNX is so reliable that it can walk for miles without slipping even once.
 
 ### 📚 Caching
-TODO
+To convert the Minecraft world into a more manageable format and to remember chunks even when they are no longer loaded, LYNX makes use of caching. The software automatically converts the blocks around you into either `AIR, SOLID, WATER` or `DANGER`, making pathfinding much easier, for example.
 
 ### 📍 Waypoints
-TODO
+Waypoints are a way to remember important places in your Minecraft world. You can create them manually using `wp create <name> [x y z]`, but LYNX also automatically generates waypoints when you die or sleep in a bed. When created, a marker will appear showing you the location of the waypoint. If you want to travel back to a specific waypoint, use the command `wp goto <name>`. For more information on waypoints, see the [Commands section](https://github.com/StylexTV/LYNX/#commands).
 
 ### 🧱 Breaking/Placing blocks
-TODO
+LYNX is not only able to traverse the world, but also knows how to interact with it. It will automatically destroy blocks that are in its way or place blocks to create a more efficient path. These functions can be deactivated if desired (see [Options section](https://github.com/StylexTV/LYNX/#options)).
 
 ### 🔥 Avoiding dangers
-TODO
+LYNX knows which blocks are safe to walk on and which blocks can cause damage (e.g. lava, fire, cacti, ...). It will never choose a path that can hurt the player in any way (this includes fall damage).
 
 ## Commands
 All your interactions with the bot take place via the in-game chat functionality.
@@ -83,6 +83,9 @@ Use the command `#help option` in combination with the table of available option
   * #### allowPlace
     Whether or not the bot should be allowed to place blocks in order to get to the specified goal.
     Disabling could lead to the possibility of the bot not being able to reach the destination.
+
+## API
+TOOD
 
 ## Installation & setup
 TODO
