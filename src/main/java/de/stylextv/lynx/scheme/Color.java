@@ -55,15 +55,15 @@ public class Color {
 	}
 	
 	public static Color blend(Color c1, Color c2, float f) {
-		int r = blendChannels(c1.getRed(), c2.getRed(), f);
-		int g = blendChannels(c1.getGreen(), c2.getGreen(), f);
-		int b = blendChannels(c1.getBlue(), c2.getBlue(), f);
-		int a = blendChannels(c1.getAlpha(), c2.getAlpha(), f);
+		int r = blendComponents(c1.getRed(), c2.getRed(), f);
+		int g = blendComponents(c1.getGreen(), c2.getGreen(), f);
+		int b = blendComponents(c1.getBlue(), c2.getBlue(), f);
+		int a = blendComponents(c1.getAlpha(), c2.getAlpha(), f);
 		
 		return new Color(r, g, b, a);
 	}
 	
-	private static int blendChannels(int i1, int i2, float f) {
+	private static int blendComponents(int i1, int i2, float f) {
 		return Math.round(i1 + (i2 - i1) * f);
 	}
 	
