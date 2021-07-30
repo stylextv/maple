@@ -88,9 +88,7 @@ public class PathFinder {
 				continue;
 			}
 			
-			int finalCost = n.getFinalCost();
-			
-			boolean closer = hCost < closest.getHCost() || (hCost == closest.getHCost() && finalCost < closest.getFinalCost());
+			boolean closer = n.getFinalCost() < closest.getHCost();
 			
 			if(closer) closest = n;
 		}
