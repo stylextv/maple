@@ -92,10 +92,10 @@ Before installing the LYNX project on your PC, make sure that you are using at l
 
 > **Note:** This guide is for installing the LYNX project to **modify/build** it. If you just want to use LYNX, you can find the latest build on the [download page](https://playlynx.github.io/).
 
-### Download
+#### Download
 Clone or download the project using the button at the top of this page. Make sure to unzip the contents of the ZIP file if you have chosen to download the project.
 
-### Eclipse
+#### Eclipse
 If your IDE of choice is Eclipse, run the following commands:
 
 ```bat
@@ -105,7 +105,7 @@ gradlew eclipse
 
 Then open Eclipse and select `Import > Existing Gradle Project > Select Folder`. Follow the wizard instructions and click *Finish*.
 
-### IntelliJ
+#### IntelliJ
 If you prefer to use IntelliJ, open IDEA, select `File | Open` and select the `build.gradle` file. After importing, run the following command:
 
 ```bat
