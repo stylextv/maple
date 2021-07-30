@@ -16,6 +16,8 @@ public class PathFinder {
 	
 	private static final int MAX_CHUNK_BORDER_HITS = 50;
 	
+	private static final float PARTIAL_SOLUTION_COEFFICIENT = 1.5f;
+	
 	private Long2ObjectOpenHashMap<Node> map;
 	
 	private PriorityQueue<Node> openList;
@@ -78,19 +80,13 @@ public class PathFinder {
 		
 		for(Node n : closedSet) {
 			
-			int hCost = n.getHCost();
-			
-			if(hCost >= startNode.getHCost()) continue;
-			
 			if(closest == null) {
 				closest = n;
 				
 				continue;
 			}
 			
-			int finalCost = n.getFinalCost();
-			
-			boolean closer = hCost < closest.getHCost() || (hCost == closest.getHCost() && finalCost < closest.getFinalCost());
+			boolean closer = n.getPartialCost(PARTIAL_SOLUTION_COEFFICIENT) < closest.getPartialCost(PARTIAL_SOLUTION_COEFFICIENT);
 			
 			if(closer) closest = n;
 		}

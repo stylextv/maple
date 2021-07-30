@@ -43,6 +43,10 @@ public class Node {
 		return gCost + hCost;
 	}
 	
+	public int getPartialCost(float coefficient) {
+		return (int) (hCost + gCost / coefficient);
+	}
+	
 	public int costToNode(Node n) {
 		return Cost.getCost(n, this);
 	}
