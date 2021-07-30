@@ -176,7 +176,7 @@ public class ShapeRenderer {
 		
 		RenderSystem.applyModelViewMatrix();
 		
-		RenderSystem.enableDepthTest();
+		RenderSystem.disableDepthTest();
 		
 		RenderSystem.setShader(GameRenderer::getPositionColorShader);
 		

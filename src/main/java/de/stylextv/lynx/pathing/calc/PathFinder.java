@@ -45,8 +45,6 @@ public class PathFinder {
 	}
 	
 	public PathSegment find(int startX, int startY, int startZ, long time) {
-		pause = false;
-		
 		long startTime = System.currentTimeMillis();
 		
 		Node startNode = getMapNode(startX, startY, startZ);
