@@ -16,13 +16,17 @@ public class PathFinder {
 	
 	private static final int MAX_CHUNK_BORDER_HITS = 50;
 	
-	private static final float PARTIAL_SOLUTION_COEFFICIENT = 1.5f;
+	private static final float[] PS_COEFFICIENTS = {1.5f, 2, 2.5f, 3, 4, 5, 10};
+	
+	private static final int PS_MIN_DISTANCE = 25;
 	
 	private Long2ObjectOpenHashMap<Node> map;
 	
 	private PriorityQueue<Node> openList;
 	
 	private Set<Node> closedSet;
+	
+	private Node[] partialSolutions;
 	
 	private Goal goal;
 	
@@ -40,6 +44,8 @@ public class PathFinder {
 		this.openList = new PriorityQueue<Node>((Node n1, Node n2) -> Integer.compare(n1.getFinalCost(), n2.getFinalCost()));
 		
 		this.closedSet = new HashSet<>();
+		
+		this.partialSolutions = new Node[PS_COEFFICIENTS.length];
 	}
 	
 	public PathSegment find(BlockPos start, long time) {
@@ -57,6 +63,8 @@ public class PathFinder {
 			Node n = openList.poll();
 			
 			closedSet.add(n);
+			
+			updatePartialSolutions(n);
 			
 			if(goal.isFinalNode(n)) {
 				
@@ -76,28 +84,39 @@ public class PathFinder {
 		
 		if(stop) return null;
 		
-		Node closest = null;
-		
-		for(Node n : closedSet) {
+		for(Node n : partialSolutions) {
 			
-			if(closest == null) {
-				closest = n;
-				
-				continue;
-			}
+			int dis = startNode.distanceSqr(n);
 			
-			boolean closer = n.getPartialCost(PARTIAL_SOLUTION_COEFFICIENT) < closest.getPartialCost(PARTIAL_SOLUTION_COEFFICIENT);
+			boolean b = dis > PS_MIN_DISTANCE;
 			
-			if(closer) closest = n;
+			if(b) return backtrace(n);
 		}
 		
-		if(closest == null) return null;
-		
-		return backtrace(closest);
+		return null;
 	}
 	
 	public void stop() {
 		stop = true;
+	}
+	
+	private void updatePartialSolutions(Node n) {
+		for(int i = 0; i < PS_COEFFICIENTS.length; i++) {
+			
+			Node closest = partialSolutions[i];
+			
+			if(closest == null) {
+				partialSolutions[i] = n;
+				
+				continue;
+			}
+			
+			float f = PS_COEFFICIENTS[i];
+			
+			boolean closer = n.getPartialCost(f) < closest.getPartialCost(f);
+			
+			if(closer) partialSolutions[i] = n;
+		}
 	}
 	
 	private PathSegment backtrace(Node n) {

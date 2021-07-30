@@ -73,6 +73,16 @@ public class Node {
 		return new BlockPos(x, y, z);
 	}
 	
+	public int distanceSqr(Node n) {
+		int dx = n.getX() - x;
+		int dy = n.getY() - y;
+		int dz = n.getZ() - z;
+		
+		int dis = dx * dx + dy * dy + dz * dz;
+		
+		return dis;
+	}
+	
 	public long getHash() {
 		return posAsLong(x, y, z);
 	}
