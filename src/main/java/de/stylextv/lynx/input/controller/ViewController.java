@@ -21,7 +21,7 @@ public class ViewController {
 	public static void lookAt(Entity e) {
 		Vec3 pos = e.position();
 		
-		lookAt(pos.x(), pos.y() + e.getBbHeight() / 2f, pos.z());
+		lookAt(pos.x(), pos.y() + e.getEyeHeight(), pos.z());
 	}
 	
 	public static void lookAt(BlockPos pos) {
