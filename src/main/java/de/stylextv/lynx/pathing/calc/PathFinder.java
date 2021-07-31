@@ -166,7 +166,7 @@ public class PathFinder {
 							}
 						}
 						
-						if(ry >= 0 && ry < 255) {
+						if(ry > 0) {
 							addAdjacentNode(node, rx, ry, rz);
 						}
 					}
