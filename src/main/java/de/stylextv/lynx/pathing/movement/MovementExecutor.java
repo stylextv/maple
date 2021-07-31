@@ -31,14 +31,15 @@ public class MovementExecutor {
 	private static Node previousNode;
 	
 	public static void followPath(Path p) {
-		path = p;
+		stop();
 		
-		nextNode();
+		path = p;
 	}
 	
 	public static void stop() {
 		path = null;
 		movement = null;
+		previousNode = null;
 		
 		clearInputs();
 	}
@@ -52,9 +53,7 @@ public class MovementExecutor {
 		
 		if(movement == null) {
 			
-			Node n = path.getCurrentNode();
-			
-			newMovement(n);
+			newMovement();
 			
 		} else {
 			
@@ -76,16 +75,30 @@ public class MovementExecutor {
 		previousNode = path.getCurrentNode();
 		
 		path.next();
-		
-		if(path.isFinished()) {
-			ChatUtil.send("Destination reached.");
-			
-			stop();
-		}
 	}
 	
-	private static void newMovement(Node n) {
+	private static void newMovement() {
 		clearInputs();
+		
+		Node n = path.getCurrentNode();
+		
+		if(n == null) {
+			
+			if(path.isFinished()) {
+				ChatUtil.send("Destination reached.");
+				
+				stop();
+			}
+			
+			return;
+		}
+		
+		if(previousNode == null) {
+			
+			nextNode();
+			
+			n = path.getCurrentNode();
+		}
 		
 		BlockPos pos = blockToBreak(n);
 		

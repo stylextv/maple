@@ -13,6 +13,8 @@ public class Path {
 	
 	private PathSegment segment;
 	
+	private boolean finished;
+	
 	public void add(PathSegment s) {
 		segments.add(s);
 	}
@@ -70,10 +72,6 @@ public class Path {
 		return sum;
 	}
 	
-	public boolean isFinished() {
-		return getSegment() == null;
-	}
-	
 	public Node getCurrentNode() {
 		PathSegment s = getSegment();
 		
@@ -90,6 +88,14 @@ public class Path {
 	
 	public ArrayList<PathSegment> getQueuedSegments() {
 		return segments;
+	}
+	
+	public boolean isFinished() {
+		return finished;
+	}
+	
+	public void setFinished(boolean finished) {
+		this.finished = finished;
 	}
 	
 }
