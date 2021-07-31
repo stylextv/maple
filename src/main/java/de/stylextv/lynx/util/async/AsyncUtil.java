@@ -1,19 +1,25 @@
 package de.stylextv.lynx.util.async;
 
+import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
 public class AsyncUtil {
 	
-	public static ThreadInfo loopAsync(Runnable r, long delay) {
+	private static final ThreadPoolExecutor THREAD_POOL = new ThreadPoolExecutor(4, Integer.MAX_VALUE, 60, TimeUnit.SECONDS, new SynchronousQueue<>());
+	
+	public static TaskInfo loopAsync(Runnable r, long delay) {
 		return loopAsync(r, 0, delay);
 	}
 	
-	public static ThreadInfo loopAsync(Runnable r, long initialDelay, long delay) {
+	public static TaskInfo loopAsync(Runnable r, long initialDelay, long delay) {
 		return loopAsync(r, null, initialDelay, delay);
 	}
 	
-	public static ThreadInfo loopAsync(Runnable r, Runnable killCallback, long initialDelay, long delay) {
-		ThreadInfo info = new ThreadInfo();
+	public static TaskInfo loopAsync(Runnable r, Runnable killCallback, long initialDelay, long delay) {
+		TaskInfo info = new TaskInfo();
 		
-		Thread thread = runAsync(() -> {
+		info.setTask(() -> {
 			
 			sleep(initialDelay);
 			
@@ -26,13 +32,13 @@ public class AsyncUtil {
 			if(killCallback != null) killCallback.run();
 		});
 		
-		info.setThread(thread);
+		runAsync(info);
 		
 		return info;
 	}
 	
-	public static Thread runLaterAsync(Runnable r, long delay) {
-		return runAsync(() -> {
+	public static void runLaterAsync(Runnable r, long delay) {
+		runAsync(() -> {
 			
 			sleep(delay);
 			
@@ -40,12 +46,8 @@ public class AsyncUtil {
 		});
 	}
 	
-	public static Thread runAsync(Runnable r) {
-		Thread thread = new Thread(r);
-		
-		thread.start();
-		
-		return thread;
+	public static void runAsync(Runnable r) {
+		THREAD_POOL.execute(r);
 	}
 	
 	public static void sleep(long delay) {

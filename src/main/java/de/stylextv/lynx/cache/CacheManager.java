@@ -12,11 +12,15 @@ public class CacheManager {
 	private static CachedLevel level;
 	
 	public static void enterLevel() {
-		exitLevel();
-		
 		String name = LevelContext.getLevelName();
 		
-		level = getLevel(name);
+		CachedLevel l = getLevel(name);
+		
+		if(l.equals(level)) return;
+		
+		exitLevel();
+		
+		level = l;
 		
 		level.enter();
 	}

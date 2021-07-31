@@ -10,7 +10,7 @@ import de.stylextv.lynx.context.LevelContext;
 import de.stylextv.lynx.io.FileSystem;
 import de.stylextv.lynx.util.CoordUtil;
 import de.stylextv.lynx.util.async.AsyncUtil;
-import de.stylextv.lynx.util.async.ThreadInfo;
+import de.stylextv.lynx.util.async.TaskInfo;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectCollection;
@@ -25,8 +25,8 @@ public class CachedLevel {
 	
 	private Long2ObjectMap<CachedRegion> regionMap;
 	
-	private ThreadInfo collectThread;
-	private ThreadInfo saveThread;
+	private TaskInfo collectTask;
+	private TaskInfo saveTask;
 	
 	public CachedLevel(String name) {
 		this.name = name;
@@ -37,13 +37,13 @@ public class CachedLevel {
 	public void enter() {
 		exit();
 		
-		collectThread = AsyncUtil.loopAsync(() -> collectChunks(), 500);
-		saveThread = AsyncUtil.loopAsync(() -> saveChanges(), () -> clear(), 30000, 600000);
+		collectTask = AsyncUtil.loopAsync(() -> collectChunks(), 500);
+		saveTask = AsyncUtil.loopAsync(() -> saveChanges(), () -> clear(), 30000, 600000);
 	}
 	
 	public void exit() {
-		if(collectThread != null) collectThread.kill();
-		if(saveThread != null) saveThread.kill();
+		if(collectTask != null) collectTask.kill();
+		if(saveTask != null) saveTask.kill();
 	}
 	
 	private synchronized void clear() {

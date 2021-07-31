@@ -1,9 +1,9 @@
 package de.stylextv.lynx;
 
 import de.stylextv.lynx.event.ChatEvent;
+import de.stylextv.lynx.event.LevelEvent;
 import de.stylextv.lynx.event.RenderEvent;
 import de.stylextv.lynx.event.TickEvent;
-import de.stylextv.lynx.event.WorldEvent;
 import de.stylextv.lynx.memory.waypoint.Waypoints;
 import de.stylextv.lynx.option.Options;
 import net.minecraftforge.common.MinecraftForge;
@@ -43,7 +43,7 @@ public class Lynx {
 	
 	private void registerEvents() {
 		MinecraftForge.EVENT_BUS.register(new TickEvent());
-		MinecraftForge.EVENT_BUS.register(new WorldEvent());
+		MinecraftForge.EVENT_BUS.register(new LevelEvent());
 		MinecraftForge.EVENT_BUS.register(new RenderEvent());
 		MinecraftForge.EVENT_BUS.register(new ChatEvent());
 	}
