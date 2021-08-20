@@ -4,11 +4,17 @@ import de.stylextv.lynx.input.InputAction;
 import de.stylextv.lynx.pathing.calc.Cost;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.movement.Movement;
+import de.stylextv.lynx.pathing.movement.helper.BreakHelper;
 
 public class AscendMovement extends Movement {
 	
+	private BreakHelper breakHelper = new BreakHelper();
+	
 	public AscendMovement(Node source, Node destination) {
 		super(source, destination);
+		
+		breakHelper.collectBlocks(destination, 2);
+		breakHelper.collectBlocks(source, 2, 1);
 	}
 	
 	@Override
@@ -17,9 +23,7 @@ public class AscendMovement extends Movement {
 		
 		double cost = diagonal ? Cost.SPRINT_DIAGONALLY : Cost.SPRINT_STRAIGHT;
 		
-		cost += Cost.JUMP;
-		
-		// TODO breaking cost
+		cost += Cost.JUMP + breakHelper.cost();
 		
 		return cost;
 	}

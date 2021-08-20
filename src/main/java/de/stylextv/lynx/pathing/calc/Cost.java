@@ -14,16 +14,27 @@ public class Cost {
 	
 	public static final double[] FALL_N_BLOCKS = new double[255];
 	
+	private static final int PLACE_BLOCK = 20;
+	
 	static {
 		for(int i = 0; i < FALL_N_BLOCKS.length; i++) {
 			FALL_N_BLOCKS[i] = fallCost(i);
 		}
 	}
 	
-	private static double fallCost(double dis) {
+	public static double fallCost(double dis) {
 		if(dis == 0) return 0;
 		
 		return Math.sqrt(dis * 100);
+	}
+	
+	public static double breakCost(int x, int y, int z) {
+		return INFINITY;
+	}
+	
+	public static double placeCost() {
+		return INFINITY;
+//		return PLACE_BLOCK;
 	}
 	
 }

@@ -220,7 +220,19 @@ public class PathFinder {
 		
 		boolean diagonally = disX + disZ + disY > 1;
 		
-		if(diagonally && !canStandAt(node)) return false;
+		if(diagonally) {
+			
+			if(!canStandAt(node) || isBlocked(node, 2)) return false;
+			
+			Node higher = node;
+			
+			if(parent.getY() > higher.getY()) higher = parent;
+			
+			boolean b1 = isBlocked(node.getX(), higher.getY(), parent.getZ(), 2);
+			boolean b2 = isBlocked(parent.getX(), higher.getY(), node.getZ(), 2);
+			
+			if(b1 && b2) return false;
+		}
 		
 		Node above = getMapNode(x, y + 1, z);
 		
@@ -229,6 +241,29 @@ public class PathFinder {
 		if(isDangerousNode(node) || isDangerousNode(above)) return false;
 		
 		return true;
+	}
+	
+	private boolean isBlocked(Node n, int height) {
+		int x = n.getX();
+		int y = n.getY();
+		int z = n.getZ();
+		
+		return isBlocked(x, y, z, height);
+	}
+	
+	private boolean isBlocked(int x, int y, int z, int height) {
+		for(int i = 0; i < height; i++) {
+			
+			if(isBlocked(x, y + i, z)) return true;
+		}
+		
+		return false;
+	}
+	
+	private boolean isBlocked(int x, int y, int z) {
+		Node n = getMapNode(x, y, z);
+		
+		return !n.getType().isPassable();
 	}
 	
 	private boolean isDangerousNode(Node node) {

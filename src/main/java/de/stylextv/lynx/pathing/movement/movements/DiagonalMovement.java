@@ -11,7 +11,6 @@ public class DiagonalMovement extends Movement {
 		super(source, destination);
 	}
 	
-	// TODO breaking cost, also check for blockers
 	@Override
 	public double cost() {
 		return Cost.SPRINT_DIAGONALLY;
