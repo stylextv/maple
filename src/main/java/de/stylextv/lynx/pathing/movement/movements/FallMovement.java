@@ -15,11 +15,15 @@ public class FallMovement extends Movement {
 	
 	@Override
 	public double cost() {
+		boolean diagonal = isDiagonal();
+		
+		double cost = diagonal ? Cost.SPRINT_DIAGONALLY : Cost.SPRINT_STRAIGHT;
+		
+		cost /= 2;
+		
 		int dis = getSource().getY() - getDestination().getY();
 		
-		double cost = Cost.FALL_N_BLOCKS[dis];
-		
-		// TODO walking to the edge cost
+		cost += Cost.FALL_N_BLOCKS[dis];
 		
 		return cost;
 	}
