@@ -30,6 +30,13 @@ public class AscendMovement extends Movement {
 	
 	@Override
 	public void onRenderTick() {
+		if(breakHelper.hasBlocks()) {
+			
+			breakHelper.onRenderTick();
+			
+			return;
+		}
+		
 		lookAt(getDestination());
 		
 		setPressed(InputAction.MOVE_FORWARD, true);

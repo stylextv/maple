@@ -5,6 +5,8 @@ import java.util.List;
 
 import de.stylextv.lynx.cache.BlockType;
 import de.stylextv.lynx.cache.CacheManager;
+import de.stylextv.lynx.input.InputAction;
+import de.stylextv.lynx.input.controller.InputController;
 import de.stylextv.lynx.pathing.calc.Cost;
 import de.stylextv.lynx.pathing.calc.Node;
 import net.minecraft.core.BlockPos;
@@ -53,6 +55,16 @@ public class BreakHelper {
 		}
 		
 		return sum;
+	}
+	
+	public void onRenderTick() {
+		InputController.setPressed(InputAction.MOVE_FORWARD, false);
+		
+		
+	}
+	
+	public boolean hasBlocks() {
+		return !blocks.isEmpty();
 	}
 	
 }

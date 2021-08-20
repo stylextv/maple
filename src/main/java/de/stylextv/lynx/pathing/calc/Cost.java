@@ -1,5 +1,10 @@
 package de.stylextv.lynx.pathing.calc;
 
+import de.stylextv.lynx.context.LevelContext;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.state.BlockState;
+
 public class Cost {
 	
 	public static final double INFINITY = 100000000;
@@ -28,10 +33,22 @@ public class Cost {
 		return Math.sqrt(dis * 100);
 	}
 	
+	// TODO factor in tool/effects
 	public static double breakCost(int x, int y, int z) {
-		return INFINITY;
+		ClientLevel level = LevelContext.level();
+		
+		BlockPos pos = new BlockPos(x, y, z);
+		
+		BlockState state = level.getBlockState(pos);
+		
+		float hardness = state.getDestroySpeed(level, pos);
+		
+		if(hardness < 0) return Cost.INFINITY;
+		
+		return hardness * 100;
 	}
 	
+	// TODO if no blocks available return infinity
 	public static double placeCost() {
 		return PLACE_BLOCK;
 	}

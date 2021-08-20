@@ -41,6 +41,13 @@ public class FallMovement extends Movement {
 	
 	@Override
 	public void onRenderTick() {
+		if(breakHelper.hasBlocks()) {
+			
+			breakHelper.onRenderTick();
+			
+			return;
+		}
+		
 		Node n = getDestination();
 		
 		lookAt(n, true);

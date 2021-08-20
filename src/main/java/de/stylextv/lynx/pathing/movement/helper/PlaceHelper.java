@@ -39,4 +39,12 @@ public class PlaceHelper {
 		return l * Cost.placeCost();
 	}
 	
+	public void onRenderTick() {
+		
+	}
+	
+	public boolean hasBlocks() {
+		return !blocks.isEmpty();
+	}
+	
 }
