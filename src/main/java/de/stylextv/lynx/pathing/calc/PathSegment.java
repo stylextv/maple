@@ -2,16 +2,17 @@ package de.stylextv.lynx.pathing.calc;
 
 import java.util.List;
 
+import de.stylextv.lynx.pathing.movement.Movement;
 import net.minecraft.core.BlockPos;
 
 public class PathSegment {
 	
-	private List<Node> nodes;
+	private List<Movement> list;
 	
 	private int pointer;
 	
-	public PathSegment(List<Node> nodes) {
-		this.nodes = nodes;
+	public PathSegment(List<Movement> list) {
+		this.list = list;
 	}
 	
 	public void next() {
@@ -19,9 +20,11 @@ public class PathSegment {
 	}
 	
 	public BlockPos lastPosition() {
-		int l = nodes.size();
+		int l = list.size();
 		
-		Node n = nodes.get(l - 1);
+		Movement m = list.get(l - 1);
+		
+		Node n = m.getDestination();
 		
 		return n.blockPos();
 	}
@@ -37,7 +40,19 @@ public class PathSegment {
 	}
 	
 	public Node getNode(int index) {
-		return nodes.get(index);
+		Movement m = getMovement(index);
+		
+		return m.getDestination();
+	}
+	
+	public Movement getCurrentMovement() {
+		if(isFinished()) return null;
+		
+		return getMovement(pointer);
+	}
+	
+	public Movement getMovement(int index) {
+		return list.get(index);
 	}
 	
 	public boolean isFinished() {
@@ -45,7 +60,7 @@ public class PathSegment {
 	}
 	
 	public int length() {
-		return nodes.size();
+		return list.size();
 	}
 	
 }

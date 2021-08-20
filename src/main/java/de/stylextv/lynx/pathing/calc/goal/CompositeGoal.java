@@ -12,11 +12,11 @@ public class CompositeGoal extends Goal {
 	}
 	
 	@Override
-	public int heuristic(Node n) {
-		int cost = Integer.MAX_VALUE;
+	public double heuristic(Node n) {
+		double cost = Double.MAX_VALUE;
 		
 		for(Goal g : goals) {
-			int h = g.heuristic(n);
+			double h = g.heuristic(n);
 			
 			if(h < cost) cost = h;
 		}

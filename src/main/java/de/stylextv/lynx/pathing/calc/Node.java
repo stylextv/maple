@@ -2,8 +2,8 @@ package de.stylextv.lynx.pathing.calc;
 
 import de.stylextv.lynx.cache.BlockType;
 import de.stylextv.lynx.cache.CacheManager;
-import de.stylextv.lynx.pathing.calc.cost.Cost;
 import de.stylextv.lynx.pathing.calc.goal.Goal;
+import de.stylextv.lynx.pathing.movement.Movement;
 import net.minecraft.core.BlockPos;
 
 public class Node {
@@ -16,8 +16,10 @@ public class Node {
 	
 	private Node parent;
 	
-	private int gCost;
-	private int hCost;
+	private Movement movement;
+	
+	private double gCost;
+	private double hCost;
 	
 	public Node(BlockPos pos) {
 		this(pos.getX(), pos.getY(), pos.getZ());
@@ -39,23 +41,19 @@ public class Node {
 		hCost = goal.heuristic(this);
 	}
 	
-	public int getFinalCost() {
+	public double getFinalCost() {
 		return gCost + hCost;
 	}
 	
-	public int getPartialCost(float coefficient) {
-		return (int) (hCost + gCost / coefficient);
+	public double getPartialCost(float coefficient) {
+		return hCost + gCost / coefficient;
 	}
 	
-	public int costToNode(Node n) {
-		return Cost.getCost(n, this);
-	}
-	
-	public boolean updateParent(Node n, int cost) {
-		int i = n.getGCost() + cost;
+	public boolean updateParent(Node n, Movement m, double cost) {
+		double d = n.getGCost() + cost;
 		
-		if(i < gCost) {
-			setParent(n, cost);
+		if(d < gCost) {
+			setParent(n, m, cost);
 			
 			return true;
 		}
@@ -63,8 +61,9 @@ public class Node {
 		return false;
 	}
 	
-	public void setParent(Node n, int cost) {
+	public void setParent(Node n, Movement m, double cost) {
 		parent = n;
+		movement = m;
 		
 		gCost = n.getGCost() + cost;
 	}
@@ -120,15 +119,19 @@ public class Node {
 		return parent;
 	}
 	
+	public Movement getMovement() {
+		return movement;
+	}
+	
 	public BlockType getType() {
 		return type;
 	}
 	
-	public int getGCost() {
+	public double getGCost() {
 		return gCost;
 	}
 	
-	public int getHCost() {
+	public double getHCost() {
 		return hCost;
 	}
 	

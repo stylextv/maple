@@ -7,8 +7,8 @@ import java.util.PriorityQueue;
 import java.util.Set;
 
 import de.stylextv.lynx.cache.BlockType;
-import de.stylextv.lynx.pathing.calc.cost.Cost;
 import de.stylextv.lynx.pathing.calc.goal.Goal;
+import de.stylextv.lynx.pathing.movement.Movement;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import net.minecraft.core.BlockPos;
 
@@ -41,7 +41,7 @@ public class PathFinder {
 		
 		this.map = new Long2ObjectOpenHashMap<>(1024, 0.75f);
 		
-		this.openList = new PriorityQueue<Node>((Node n1, Node n2) -> Integer.compare(n1.getFinalCost(), n2.getFinalCost()));
+		this.openList = new PriorityQueue<Node>((Node n1, Node n2) -> Double.compare(n1.getFinalCost(), n2.getFinalCost()));
 		
 		this.closedSet = new HashSet<>();
 		
@@ -120,15 +120,19 @@ public class PathFinder {
 	}
 	
 	private PathSegment backtrace(Node n) {
-		List<Node> list = new ArrayList<Node>();
+		List<Movement> list = new ArrayList<Movement>();
 		
-		while(n != null) {
-			list.add(0, n);
+		while(true) {
+			Node parent = n.getParent();
 			
-			n = n.getParent();
+			if(parent == null) break;
+			
+			list.add(0, n.getMovement());
+			
+			n = parent;
 		}
 		
-		if(list.size() < 2) return null;
+		if(list.isEmpty()) return null;
 		
 		return new PathSegment(list);
 	}
@@ -181,20 +185,22 @@ public class PathFinder {
 		if(closedSet.contains(n)) return;
 		
 		if(isValidNode(n, parent)) {
-			int cost = parent.costToNode(n);
+			Movement m = Movement.fromNodes(parent, n);
+			
+			double cost = m.cost();
 			
 			if(cost >= Cost.INFINITY) return;
 			
 			if(openList.contains(n)) {
 				
-				if(n.updateParent(parent, cost)) {
+				if(n.updateParent(parent, m, cost)) {
 					openList.remove(n);
 					openList.add(n);
 				}
 				
 			} else {
 				
-				n.setParent(parent, cost);
+				n.setParent(parent, m, cost);
 				
 				openList.add(n);
 			}

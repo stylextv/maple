@@ -3,6 +3,7 @@ package de.stylextv.lynx.pathing.calc;
 import java.util.ArrayList;
 
 import de.stylextv.lynx.context.PlayerContext;
+import de.stylextv.lynx.pathing.movement.Movement;
 import net.minecraft.core.BlockPos;
 
 public class Path {
@@ -72,12 +73,12 @@ public class Path {
 		return sum;
 	}
 	
-	public Node getCurrentNode() {
+	public Movement getCurrentMovement() {
 		PathSegment s = getSegment();
 		
 		if(s == null) return null;
 		
-		return s.getCurrentNode();
+		return s.getCurrentMovement();
 	}
 	
 	public PathSegment getSegment() {

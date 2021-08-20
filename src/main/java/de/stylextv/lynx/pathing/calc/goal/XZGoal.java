@@ -1,7 +1,7 @@
 package de.stylextv.lynx.pathing.calc.goal;
 
+import de.stylextv.lynx.pathing.calc.Cost;
 import de.stylextv.lynx.pathing.calc.Node;
-import de.stylextv.lynx.pathing.calc.cost.Cost;
 
 public class XZGoal extends Goal {
 	
@@ -14,13 +14,11 @@ public class XZGoal extends Goal {
 	}
 	
 	@Override
-	public int heuristic(Node n) {
-		int disX = Math.abs(n.getX() - x);
-		int disZ = Math.abs(n.getZ() - z);
+	public double heuristic(Node n) {
+		int diffX = n.getX() - x;
+		int diffZ = n.getZ() - z;
 		
-		int dis = disX + disZ;
-		
-		return dis * Cost.COST_PER_UNIT;
+		return cost(diffX, diffZ);
 	}
 	
 	@Override
@@ -31,6 +29,27 @@ public class XZGoal extends Goal {
 	@Override
 	public String toString() {
 		return String.format("XZGoal{x=%s, z=%s}", x, z);
+	}
+	
+	public static double cost(int diffX, int diffZ) {
+		int x = Math.abs(diffX);
+		int z = Math.abs(diffZ);
+		
+		int straight;
+		int diagonal;
+		
+		if(x < z) {
+			
+			straight = z - x;
+			diagonal = x;
+			
+		} else {
+			
+			straight = x - z;
+			diagonal = z;
+		}
+		
+		return Cost.SPRINT_STRAIGHT * straight + Cost.SPRINT_DIAGONALLY * diagonal;
 	}
 	
 }

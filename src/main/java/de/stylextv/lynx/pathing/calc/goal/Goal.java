@@ -13,7 +13,7 @@ public abstract class Goal {
 			"<y>"
 	};
 	
-	public abstract int heuristic(Node n);
+	public abstract double heuristic(Node n);
 	
 	public abstract boolean isFinalNode(Node n);
 	

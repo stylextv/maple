@@ -1,20 +1,20 @@
 package de.stylextv.lynx.pathing.calc.goal;
 
+import de.stylextv.lynx.pathing.calc.Cost;
 import de.stylextv.lynx.pathing.calc.Node;
-import de.stylextv.lynx.pathing.calc.cost.Cost;
 
 public class AxisGoal extends Goal {
 	
 	@Override
-	public int heuristic(Node n) {
+	public double heuristic(Node n) {
 		int x = Math.abs(n.getX());
 		int z = Math.abs(n.getZ());
 		
 		int majorDis = Math.min(x, z);
 		
-		int minorDis = Math.abs(x - z);
+		int minorDis = Math.abs(x - z) / 2;
 		
-		return Math.min(majorDis, minorDis) * Cost.COST_PER_UNIT;
+		return Math.min(majorDis * Cost.SPRINT_STRAIGHT, minorDis * Cost.SPRINT_DIAGONALLY);
 	}
 	
 	@Override

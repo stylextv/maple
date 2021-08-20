@@ -5,24 +5,23 @@ import de.stylextv.lynx.pathing.calc.Cost;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.movement.Movement;
 
-public class DiagonalMovement extends Movement {
+public class PillarMovement extends Movement {
 	
-	public DiagonalMovement(Node source, Node destination) {
+	public PillarMovement(Node source, Node destination) {
 		super(source, destination);
 	}
 	
-	// TODO breaking cost, also check for blockers
+	// TODO breaking/placing cost
 	@Override
 	public double cost() {
-		return Cost.SPRINT_DIAGONALLY;
+		return Cost.JUMP;
 	}
 	
 	@Override
 	public void onRenderTick() {
-		lookAt(getDestination());
+		lookAt(getSource(), true);
 		
-		setPressed(InputAction.MOVE_FORWARD, true);
-		setPressed(InputAction.SPRINT, true);
+		setPressed(InputAction.JUMP, true);
 	}
 	
 }

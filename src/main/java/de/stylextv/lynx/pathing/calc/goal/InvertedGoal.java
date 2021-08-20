@@ -11,7 +11,7 @@ public class InvertedGoal extends Goal {
 	}
 	
 	@Override
-	public int heuristic(Node n) {
+	public double heuristic(Node n) {
 		return -goal.heuristic(n);
 	}
 	

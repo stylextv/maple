@@ -1,7 +1,7 @@
 package de.stylextv.lynx.pathing.calc.goal;
 
+import de.stylextv.lynx.pathing.calc.Cost;
 import de.stylextv.lynx.pathing.calc.Node;
-import de.stylextv.lynx.pathing.calc.cost.Cost;
 
 public class YLevelGoal extends Goal {
 	
@@ -12,10 +12,8 @@ public class YLevelGoal extends Goal {
 	}
 	
 	@Override
-	public int heuristic(Node n) {
-		int dis = Math.abs(n.getY() - y);
-		
-		return dis * Cost.COST_PER_UNIT;
+	public double heuristic(Node n) {
+		return cost(n.getY(), y);
 	}
 	
 	@Override
@@ -26,6 +24,22 @@ public class YLevelGoal extends Goal {
 	@Override
 	public String toString() {
 		return String.format("YGoal{y=%s}", y);
+	}
+	
+	public static double cost(int y, int goalY) {
+		if(y < goalY) {
+			int dis = goalY - y;
+			
+			return dis * Cost.JUMP;
+		}
+		
+		if(y > goalY) {
+			int dis = y - goalY;
+			
+			return Cost.FALL_N_BLOCKS[2] / 2 * dis;
+		}
+		
+		return 0;
 	}
 	
 }

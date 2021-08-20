@@ -2,23 +2,35 @@ package de.stylextv.lynx.pathing.movement.movements;
 
 import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.input.InputAction;
+import de.stylextv.lynx.pathing.calc.Cost;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.movement.Movement;
 import net.minecraft.core.BlockPos;
 
 public class FallMovement extends Movement {
 	
-	public FallMovement(Node n) {
-		super(n);
+	public FallMovement(Node source, Node destination) {
+		super(source, destination);
+	}
+	
+	@Override
+	public double cost() {
+		int dis = getSource().getY() - getDestination().getY();
+		
+		double cost = Cost.FALL_N_BLOCKS[dis];
+		
+		// TODO walking to the edge cost
+		
+		return cost;
 	}
 	
 	@Override
 	public void onRenderTick() {
-		lookAt(getNode(), true);
+		Node n = getDestination();
+		
+		lookAt(n, true);
 		
 		BlockPos pos = PlayerContext.blockPosition();
-		
-		Node n = getNode();
 		
 		int x = pos.getX();
 		int z = pos.getZ();

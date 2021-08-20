@@ -1,7 +1,6 @@
 package de.stylextv.lynx.pathing.calc.goal;
 
 import de.stylextv.lynx.pathing.calc.Node;
-import de.stylextv.lynx.pathing.calc.cost.Cost;
 import net.minecraft.core.BlockPos;
 
 public class BlockGoal extends Goal {
@@ -17,14 +16,12 @@ public class BlockGoal extends Goal {
 	}
 	
 	@Override
-	public int heuristic(Node n) {
-		int disX = Math.abs(n.getX() - pos.getX());
-		int disY = Math.abs(n.getY() - pos.getY());
-		int disZ = Math.abs(n.getZ() - pos.getZ());
+	public double heuristic(Node n) {
+		int diffX = n.getX() - pos.getX();
+		int diffY = n.getY() - pos.getY();
+		int diffZ = n.getZ() - pos.getZ();
 		
-		int dis = disX + disY + disZ;
-		
-		return dis * Cost.COST_PER_UNIT;
+		return cost(diffX, diffY, diffZ);
 	}
 	
 	@Override
@@ -39,6 +36,14 @@ public class BlockGoal extends Goal {
 	@Override
 	public String toString() {
 		return String.format("BlockGoal{pos=%s}", pos);
+	}
+	
+	public static double cost(int diffX, int diffY, int diffZ) {
+		double cost = XZGoal.cost(diffX, diffZ);
+		
+		cost += YLevelGoal.cost(diffY, 0);
+		
+		return cost;
 	}
 	
 }
