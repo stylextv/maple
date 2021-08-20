@@ -43,7 +43,7 @@ public class Cost {
 		
 		float hardness = state.getDestroySpeed(level, pos);
 		
-		if(hardness < 0) return Cost.INFINITY;
+		if(hardness < 0) return INFINITY;
 		
 		return hardness * 100;
 	}
