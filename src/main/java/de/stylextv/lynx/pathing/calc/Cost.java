@@ -33,8 +33,7 @@ public class Cost {
 	}
 	
 	public static double placeCost() {
-		return INFINITY;
-//		return PLACE_BLOCK;
+		return PLACE_BLOCK;
 	}
 	
 }
