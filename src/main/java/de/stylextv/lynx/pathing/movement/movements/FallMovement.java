@@ -16,10 +16,10 @@ public class FallMovement extends Movement {
 		super(source, destination);
 		
 		int x = destination.getX();
-		int y = source.getY() + 1;
+		int y = source.getY();
 		int z = destination.getZ();
 		
-		breakHelper.collectBlock(x, y, z);
+		breakHelper.collectBlocks(x, y, z, 0, 2);
 	}
 	
 	@Override
