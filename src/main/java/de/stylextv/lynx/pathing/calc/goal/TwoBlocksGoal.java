@@ -17,13 +17,13 @@ public class TwoBlocksGoal extends Goal {
 	
 	@Override
 	public double heuristic(Node n) {
-		int diffX = n.getX() - pos.getX();
-		int diffY = n.getY() - pos.getY();
-		int diffZ = n.getZ() - pos.getZ();
+		int dx = n.getX() - pos.getX();
+		int dy = n.getY() - pos.getY();
+		int dz = n.getZ() - pos.getZ();
 		
-		if(diffY < 0) diffY++;
+		if(dy < 0) dy++;
 		
-		return BlockGoal.cost(diffX, diffY, diffZ);
+		return BlockGoal.cost(dx, dy, dz);
 	}
 	
 	@Override

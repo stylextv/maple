@@ -15,10 +15,10 @@ public class XZGoal extends Goal {
 	
 	@Override
 	public double heuristic(Node n) {
-		int diffX = n.getX() - x;
-		int diffZ = n.getZ() - z;
+		int dx = n.getX() - x;
+		int dz = n.getZ() - z;
 		
-		return cost(diffX, diffZ);
+		return cost(dx, dz);
 	}
 	
 	@Override
@@ -31,9 +31,9 @@ public class XZGoal extends Goal {
 		return String.format("XZGoal{x=%s, z=%s}", x, z);
 	}
 	
-	public static double cost(int diffX, int diffZ) {
-		int x = Math.abs(diffX);
-		int z = Math.abs(diffZ);
+	public static double cost(int dx, int dz) {
+		int x = Math.abs(dx);
+		int z = Math.abs(dz);
 		
 		int straight;
 		int diagonal;

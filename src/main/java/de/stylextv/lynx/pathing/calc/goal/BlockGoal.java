@@ -17,11 +17,11 @@ public class BlockGoal extends Goal {
 	
 	@Override
 	public double heuristic(Node n) {
-		int diffX = n.getX() - pos.getX();
-		int diffY = n.getY() - pos.getY();
-		int diffZ = n.getZ() - pos.getZ();
+		int dx = n.getX() - pos.getX();
+		int dy = n.getY() - pos.getY();
+		int dz = n.getZ() - pos.getZ();
 		
-		return cost(diffX, diffY, diffZ);
+		return cost(dx, dy, dz);
 	}
 	
 	@Override
@@ -38,10 +38,10 @@ public class BlockGoal extends Goal {
 		return String.format("BlockGoal{pos=%s}", pos);
 	}
 	
-	public static double cost(int diffX, int diffY, int diffZ) {
-		double cost = XZGoal.cost(diffX, diffZ);
+	public static double cost(int dx, int dy, int dz) {
+		double cost = XZGoal.cost(dx, dz);
 		
-		cost += YLevelGoal.cost(diffY, 0);
+		cost += YLevelGoal.cost(dy, 0);
 		
 		return cost;
 	}

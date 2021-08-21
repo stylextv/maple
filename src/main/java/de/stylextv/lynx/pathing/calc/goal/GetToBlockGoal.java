@@ -17,11 +17,11 @@ public class GetToBlockGoal extends Goal {
 	
 	@Override
 	public double heuristic(Node n) {
-		int diffX = n.getX() - pos.getX();
-		int diffY = n.getY() - pos.getY();
-		int diffZ = n.getZ() - pos.getZ();
+		int dx = n.getX() - pos.getX();
+		int dy = n.getY() - pos.getY();
+		int dz = n.getZ() - pos.getZ();
 		
-		return BlockGoal.cost(diffX, diffY, diffZ);
+		return BlockGoal.cost(dx, dy, dz);
 	}
 	
 	@Override
