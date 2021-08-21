@@ -25,7 +25,7 @@ authors = "the LYNX developers (see AUTHORS file)"
 description = '''
 LYNX is a free and powerful path-finding bot that lets you navigate the vast landscapes of Minecraft without any user intervention.
 
-Additionally, LYNX focuses on an unobtrusive look and feel of being a real person rather than focusing on efficiency and performance. The bot is mainly controlled by chat input and the underlying pathing algorithm is called A*, a perfect algorithm for navigating voxel worlds like Minecraft.
+Additionally, LYNX focuses on efficiency and performance, while also paying attention to reliability and an unobtrusive look. The bot is mainly controlled by chat input and the underlying pathing algorithm is called A*, a perfect algorithm for navigating voxel worlds like Minecraft.
 
 Type '#help' in your in-game chat to get started.
 '''
