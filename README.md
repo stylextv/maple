@@ -84,6 +84,9 @@ Use the command `#help option` in combination with the table of available option
     Whether or not the bot should be allowed to place blocks in order to get to the specified goal.
     Disabling could lead to the possibility of the bot not being able to reach the destination.
 
+## Including
+Feel free to include LYNX in your projects/clients as long as your use of this project complies with our [license](https://github.com/StylexTV/LYNX/blob/main/LICENSE).
+
 ## API
 TODO
 
