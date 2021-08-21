@@ -6,7 +6,9 @@ import java.util.List;
 import de.stylextv.lynx.cache.BlockType;
 import de.stylextv.lynx.cache.CacheManager;
 import de.stylextv.lynx.input.InputAction;
+import de.stylextv.lynx.input.controller.BreakController;
 import de.stylextv.lynx.input.controller.InputController;
+import de.stylextv.lynx.input.controller.ViewController;
 import de.stylextv.lynx.pathing.calc.Cost;
 import de.stylextv.lynx.pathing.calc.Node;
 import net.minecraft.core.BlockPos;
@@ -60,7 +62,35 @@ public class BreakHelper {
 	public void onRenderTick() {
 		InputController.setPressed(InputAction.MOVE_FORWARD, false);
 		
+		if(BreakController.hasTarget()) return;
 		
+		BlockPos target = null;
+		
+		double targetDis = 0;
+		
+		for(BlockPos pos : blocks) {
+			
+			if(!ViewController.canSee(pos)) continue;
+			
+			double dis = ViewController.getViewDistance(pos);
+			
+			if(target == null || dis < targetDis) {
+				
+				target = pos;
+				targetDis = dis;
+			}
+		}
+		
+		if(target == null) return;
+		
+		if(!BreakController.canBreakBlock(target)) {
+			
+			blocks.remove(target);
+			
+			return;
+		}
+		
+		BreakController.breakBlock(target);
 	}
 	
 	public boolean hasBlocks() {
