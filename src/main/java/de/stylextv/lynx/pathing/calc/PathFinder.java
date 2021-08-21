@@ -218,11 +218,17 @@ public class PathFinder {
 		
 		if(disY > 3) return false;
 		
-		boolean diagonally = disX + disZ + disY > 1;
+		int dis = disX + disY + disZ;
+		
+		boolean needsSupport = dis != 1 || disY < 0;
+		
+		if(needsSupport && !canStandAt(node)) return false;
+		
+		boolean diagonally = disX + disZ > 1;
 		
 		if(diagonally) {
 			
-			if(!canStandAt(node) || isBlocked(node, 2)) return false;
+			if(isBlocked(node, 2)) return false;
 			
 			Node higher = node;
 			

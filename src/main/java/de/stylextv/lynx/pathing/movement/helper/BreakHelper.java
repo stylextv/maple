@@ -37,7 +37,7 @@ public class BreakHelper {
 	public void collectBlock(int x, int y, int z) {
 		BlockType type = CacheManager.getBlockType(x, y, z);
 		
-		if(type.isPassable()) return;
+		if(type.isPassable() || !type.isBreakable()) return;
 		
 		blocks.add(new BlockPos(x, y, z));
 	}
