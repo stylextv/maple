@@ -41,6 +41,10 @@ public class GameContext {
 		return MC.getDeltaFrameTime();
 	}
 	
+	public static float frameTime() {
+		return MC.getFrameTime();
+	}
+	
 	public static Vec3 cameraPosition() {
 		return MC.gameRenderer.getMainCamera().getPosition();
 	}

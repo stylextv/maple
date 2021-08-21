@@ -4,6 +4,7 @@ import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.context.LevelContext;
 import de.stylextv.lynx.input.SmoothLook;
 import de.stylextv.lynx.pathing.calc.Node;
+import de.stylextv.lynx.util.world.Rotation;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
@@ -11,7 +12,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult.Type;
-import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 
 public class ViewController {
@@ -33,52 +33,28 @@ public class ViewController {
 	}
 	
 	public static void lookAt(Node n, boolean lookDown) {
-		double y = PlayerContext.player().getEyeY();
+		double y = PlayerContext.eyePosition().y();
 		
 		lookAt(n.getX() + 0.5, lookDown ? n.getY() + 0.5 : y, n.getZ() + 0.5);
 	}
 	
 	public static void lookAt(double x, double y, double z) {
-		Vec2 v = getViewVector(x, y, z);
+		Rotation r = getTargetRotation(x, y, z);
 		
-		smoothLook.feedInput(v.x, v.y);
+		smoothLook.setRotation(r);
 	}
 	
-	public static double getViewDistance(BlockPos pos) {
-		return getViewDistance(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
-	}
-	
-	public static double getViewDistance(double x, double y, double z) {
-		Vec2 v = getViewVector(x, y, z);
+	public static Rotation getTargetRotation(double x, double y, double z) {
+		Vec3 v = PlayerContext.eyePosition();
 		
-		return Math.sqrt(v.x * v.x + v.y * v.y);
-	}
-	
-	public static Vec2 getViewVector(double x, double y, double z) {
-		LocalPlayer p = PlayerContext.player();
+		double dx = v.x() - x;
+		double dy = v.y() - y;
+		double dz = v.z() - z;
 		
-		Vec2 v = p.getRotationVector();
+		float yaw = (float) Math.toDegrees(Math.atan2(dz, dx) + Math.PI / 2) % 360;
+		float pitch = (float) Math.toDegrees(-Math.atan2(Math.sqrt(dz * dz + dx * dx), dy) + Math.PI / 2);
 		
-		float yaw = v.y % 360;
-		float pitch = v.x;
-		
-		double dx = p.getX() - x;
-		double dy = p.getEyeY() - y;
-		double dz = p.getZ() - z;
-		
-		float targetYaw = (float) Math.toDegrees(Math.atan2(dz, dx) + Math.PI / 2) % 360;
-		float targetPitch = (float) Math.toDegrees(-Math.atan2(Math.sqrt(dz * dz + dx * dx), dy) + Math.PI / 2);
-		
-		if(yaw < 0) yaw += 360;
-		if(targetYaw < 0) targetYaw += 360;
-		
-		float yawDis1 = targetYaw - yaw;
-		float yawDis2 = yaw < targetYaw ? -yaw - 360 + targetYaw : targetYaw + 360 - yaw;
-		
-		float yawDis = Math.abs(yawDis1) < Math.abs(yawDis2) ? yawDis1 : yawDis2;
-		float pitchDis = targetPitch - pitch;
-		
-		return new Vec2(yawDis, pitchDis);
+		return new Rotation(yaw, pitch);
 	}
 	
 	public static boolean canSee(BlockPos pos) {

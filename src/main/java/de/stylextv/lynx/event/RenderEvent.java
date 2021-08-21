@@ -1,9 +1,6 @@
 package de.stylextv.lynx.event;
 
-import de.stylextv.lynx.context.GameContext;
 import de.stylextv.lynx.context.LevelContext;
-import de.stylextv.lynx.input.controller.BreakController;
-import de.stylextv.lynx.input.controller.ViewController;
 import de.stylextv.lynx.memory.waypoint.Waypoint;
 import de.stylextv.lynx.memory.waypoint.Waypoints;
 import de.stylextv.lynx.pathing.calc.Node;
@@ -31,18 +28,11 @@ public class RenderEvent {
 		
 		drawPath(event, MovementExecutor.getPath());
 		
-		// draw goals
+		// TODO draw goals
 		
 		drawPathCalculation(event);
 		
 		drawWaypoints(event);
-		
-		if(!GameContext.isIngame()) return;
-		
-		MovementExecutor.onRenderTick();
-		
-		BreakController.onRenderTick();
-		ViewController.onRenderTick();
 	}
 	
 	private void drawPath(RenderWorldLastEvent event, Path path) {

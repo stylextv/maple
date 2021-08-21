@@ -66,19 +66,13 @@ public class BreakHelper {
 		
 		BlockPos target = null;
 		
-		double targetDis = 0;
-		
 		for(BlockPos pos : blocks) {
 			
 			if(!ViewController.canSee(pos)) continue;
 			
-			double dis = ViewController.getViewDistance(pos);
+			target = pos;
 			
-			if(target == null || dis < targetDis) {
-				
-				target = pos;
-				targetDis = dis;
-			}
+			break;
 		}
 		
 		if(target == null) return;

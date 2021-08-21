@@ -17,11 +17,19 @@ public class PlayerContext {
 	}
 	
 	public static Vec3 position() {
-		return player().position();
+		float time = GameContext.frameTime();
+		
+		return player().getPosition(time);
 	}
 	
 	public static BlockPos blockPosition() {
 		return player().blockPosition();
+	}
+	
+	public static Vec3 eyePosition() {
+		float time = GameContext.frameTime();
+		
+		return player().getEyePosition(time);
 	}
 	
 	public static BlockPos feetPosition() {

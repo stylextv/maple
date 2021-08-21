@@ -1,23 +1,19 @@
 package de.stylextv.lynx.input;
 
-import de.stylextv.lynx.context.GameContext;
 import de.stylextv.lynx.context.PlayerContext;
+import de.stylextv.lynx.util.world.Rotation;
 import net.minecraft.client.player.LocalPlayer;
 
 public class SmoothLook {
 	
-	private static final float TURN_SPEED = 6f;
-	
 	private boolean active;
 	
-	private double turnYawAmount;
-	private double turnPitchAmount;
+	private Rotation rotation;
 	
-	public void feedInput(double turnYaw, double turnPitch) {
+	public void setRotation(Rotation r) {
 		active = true;
 		
-		turnYawAmount = turnYaw;
-		turnPitchAmount = turnPitch;
+		rotation = r;
 	}
 	
 	public void update() {
@@ -35,14 +31,12 @@ public class SmoothLook {
 	private void apply() {
 		LocalPlayer p = PlayerContext.player();
 		
-		float f = TURN_SPEED * GameContext.deltaTime();
-		
-		p.turn(turnYawAmount * f, turnPitchAmount * f);
+		p.setXRot(rotation.getPitch());
+		p.setYRot(rotation.getYaw());
 	}
 	
 	private void reset() {
-		turnYawAmount = 0;
-		turnPitchAmount = 0;
+		rotation = null;
 	}
 	
 }
