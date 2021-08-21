@@ -27,7 +27,7 @@
 ## Overview
 [LYNX](https://playlynx.github.io/) is a free and powerful path-finding bot that lets you navigate the vast landscapes of [Minecraft](https://www.minecraft.net/) without any user intervention.
 
-Additionally, LYNX focuses on an unobtrusive look and feel of being a real person rather than focusing on efficiency and performance.
+Additionally, LYNX focuses on efficiency and performance, while also paying attention to reliability and an unobtrusive look.
 The bot is mainly controlled by [chat input](https://github.com/StylexTV/LYNX#commands) and the underlying pathing algorithm is called [A*](https://en.wikipedia.org/wiki/A*_search_algorithm), a perfect algorithm for navigating voxel worlds like Minecraft.
 
 If you simply want to use LYNX, you can download the latest version from the [download page](https://playlynx.github.io/). With the appropriate version of [Forge](https://files.minecraftforge.net/net/minecraftforge/forge/) installed, you should be good to go.
