@@ -89,7 +89,7 @@ public enum BlockType {
 		
 		boolean isSolid = state.getMaterial().blocksMotion();
 		
-		if(isSolid) return SOLID; 
+		if(isSolid) return SOLID;
 		
 		return aboveMagma ? DANGER : AIR;
 	}
