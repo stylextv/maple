@@ -13,7 +13,11 @@ public class DescendMovement extends Movement {
 	public DescendMovement(Node source, Node destination) {
 		super(source, destination);
 		
-		breakHelper.collectBlocks(destination, 3);
+		int height = 3;
+		
+		if(isVerticalOnly()) height = 1;
+		
+		breakHelper.collectBlocks(destination, height);
 	}
 	
 	@Override
