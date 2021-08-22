@@ -50,7 +50,7 @@ public class Cost {
 	
 	// TODO if no blocks available return infinity
 	public static double placeCost() {
-		return PLACE_BLOCK;
+		return INFINITY; // PLACE_BLOCK;
 	}
 	
 }
