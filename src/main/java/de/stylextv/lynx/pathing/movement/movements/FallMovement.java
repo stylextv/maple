@@ -24,11 +24,16 @@ public class FallMovement extends Movement {
 	
 	@Override
 	public double cost() {
-		boolean diagonal = isDiagonal();
+		double cost = 0;
 		
-		double cost = diagonal ? Cost.SPRINT_DIAGONALLY : Cost.SPRINT_STRAIGHT;
-		
-		cost /= 2;
+		if(!isVerticalOnly()) {
+			
+			boolean diagonal = isDiagonal();
+			
+			cost = diagonal ? Cost.SPRINT_DIAGONALLY : Cost.SPRINT_STRAIGHT;
+			
+			cost /= 2;
+		}
 		
 		int dis = getSource().getY() - getDestination().getY();
 		

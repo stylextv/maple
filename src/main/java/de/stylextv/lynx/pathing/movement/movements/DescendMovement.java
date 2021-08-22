@@ -18,9 +18,18 @@ public class DescendMovement extends Movement {
 	
 	@Override
 	public double cost() {
-		boolean diagonal = isDiagonal();
+		double cost;
 		
-		double cost = diagonal ? Cost.SPRINT_DIAGONALLY : Cost.SPRINT_STRAIGHT;
+		if(isVerticalOnly()) {
+			
+			cost = Cost.FALL_N_BLOCKS[1];
+			
+		} else {
+			
+			boolean diagonal = isDiagonal();
+			
+			cost = diagonal ? Cost.SPRINT_DIAGONALLY : Cost.SPRINT_STRAIGHT;
+		}
 		
 		cost += breakHelper.cost();
 		

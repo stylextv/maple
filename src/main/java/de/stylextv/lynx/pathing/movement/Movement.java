@@ -51,6 +51,10 @@ public abstract class Movement {
 		return n.equals(pos) ? MovementState.REACHED_NODE : MovementState.GOING;
 	}
 	
+	public boolean isVerticalOnly() {
+		return source.getX() == destination.getX() && source.getZ() == destination.getZ();
+	}
+	
 	public boolean isDiagonal() {
 		int diffX = source.getX() - destination.getX();
 		int diffZ = source.getZ() - destination.getZ();
