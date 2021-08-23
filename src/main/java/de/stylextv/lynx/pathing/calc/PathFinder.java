@@ -311,7 +311,7 @@ public class PathFinder {
 		
 		Node below = getMapNode(x, y - 1, z);
 		
-		return !below.getType().isPassable();
+		return below.getType() == BlockType.SOLID;
 	}
 	
 	private Node getMapNode(int x, int y, int z) {
