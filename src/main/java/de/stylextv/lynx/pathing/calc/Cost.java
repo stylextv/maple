@@ -15,6 +15,9 @@ public class Cost {
 	public static final double SPRINT_STRAIGHT = 3.5638;
 	public static final double SPRINT_DIAGONALLY = 5.04;
 	
+	public static final double SWIM_STRAIGHT = 9.0909;
+	public static final double SWIM_DIAGONALLY = 12.8565;
+	
 	public static final double JUMP = fallCost(1.25) - fallCost(0.25);
 	
 	public static final double[] FALL_N_BLOCKS = new double[255];
