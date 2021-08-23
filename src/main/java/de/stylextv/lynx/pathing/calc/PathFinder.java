@@ -220,7 +220,9 @@ public class PathFinder {
 		
 		int dis = disX + disY + disZ;
 		
-		boolean needsSupport = dis != 1 || disY < 0;
+		boolean downwards = node.getY() < parent.getY();
+		
+		boolean needsSupport = dis != 1 || downwards;
 		
 		if(needsSupport && !canStandAt(node)) return false;
 		
