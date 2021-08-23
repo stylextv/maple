@@ -30,7 +30,7 @@ public class Cost {
 	public static double fallCost(double dis) {
 		if(dis == 0) return 0;
 		
-		return Math.sqrt(dis * 100);
+		return Math.sqrt(dis * 25.5102);
 	}
 	
 	// TODO factor in tool/effects
