@@ -36,14 +36,14 @@ public class ArgumentHelper {
 		return Integer.parseInt(s);
 	}
 	
-	private static boolean isInt(String s) {
-		return s.matches(INT_REGEX);
-	}
-	
 	public static Float toFloat(String s) {
 		if(!isNumeric(s)) return null;
 		
 		return Float.parseFloat(s);
+	}
+	
+	private static boolean isInt(String s) {
+		return s.matches(INT_REGEX);
 	}
 	
 	private static boolean isNumeric(String s) {
