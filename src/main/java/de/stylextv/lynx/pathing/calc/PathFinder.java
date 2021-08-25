@@ -250,7 +250,7 @@ public class PathFinder {
 		
 		if(above.getType() == BlockType.WATER) return false;
 		
-		if(isDangerousNode(node) || isDangerousNode(above)) return false;
+		if(isDangerous(node) || isDangerous(above)) return false;
 		
 		return true;
 	}
@@ -278,7 +278,7 @@ public class PathFinder {
 		return !n.getType().isPassable();
 	}
 	
-	private boolean isDangerousNode(Node node) {
+	private boolean isDangerous(Node node) {
 		for(int x = -1; x <= 1; x++) {
 			for(int y = -1; y <= 1; y++) {
 				for(int z = -1; z <= 1; z++) {
