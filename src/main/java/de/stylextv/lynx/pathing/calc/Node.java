@@ -72,10 +72,18 @@ public class Node {
 		return new BlockPos(x, y, z);
 	}
 	
+	public int distanceSqr(BlockPos pos) {
+		return distanceSqr(pos.getX(), pos.getY(), pos.getZ());
+	}
+	
 	public int distanceSqr(Node n) {
-		int dx = n.getX() - x;
-		int dy = n.getY() - y;
-		int dz = n.getZ() - z;
+		return distanceSqr(n.getX(), n.getY(), n.getZ());
+	}
+	
+	public int distanceSqr(int x, int y, int z) {
+		int dx = x - this.x;
+		int dy = y - this.y;
+		int dz = z - this.z;
 		
 		int dis = dx * dx + dy * dy + dz * dz;
 		

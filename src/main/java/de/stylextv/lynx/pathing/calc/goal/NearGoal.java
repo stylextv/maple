@@ -29,13 +29,7 @@ public class NearGoal extends Goal {
 	
 	@Override
 	public boolean isFinalNode(Node n) {
-		int disX = n.getX() - pos.getX();
-		int disY = n.getY() - pos.getY();
-		int disZ = n.getZ() - pos.getZ();
-		
-		int d = disX * disX + disY * disY + disZ * disZ;
-		
-		return d <= dis;
+		return n.distanceSqr(pos) <= dis;
 	}
 	
 	@Override
