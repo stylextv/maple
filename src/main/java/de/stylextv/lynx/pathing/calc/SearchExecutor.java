@@ -26,6 +26,10 @@ public class SearchExecutor {
 			
 			while(true) {
 				
+				boolean required = path.equals(MovementExecutor.getPath());
+				
+				if(!required) break;
+				
 				if(!path.needsNewSegment()) {
 					
 					AsyncUtil.sleep(SLEEP_TIME);
