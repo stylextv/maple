@@ -48,7 +48,7 @@ public abstract class Movement {
 		
 		Node n = getDestination();
 		
-		return n.equals(pos) ? MovementState.REACHED_NODE : MovementState.GOING;
+		return n.equals(pos) ? MovementState.DONE : MovementState.GOING;
 	}
 	
 	public boolean isVerticalOnly() {

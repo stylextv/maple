@@ -75,17 +75,15 @@ public enum BlockType {
 			return SOLID;
 		}
 		
-		boolean isWater = block.equals(Blocks.WATER);
+		Fluid fluid = state.getFluidState().getType();
 		
-		Fluid fluidType = state.getFluidState().getType();
+		if(fluid.equals(Fluids.FLOWING_WATER)) return DANGER;
 		
-		boolean inWater = fluidType.equals(Fluids.WATER) || fluidType.equals(Fluids.FLOWING_WATER);
+		boolean isWater = fluid.equals(Fluids.WATER);
 		
 		boolean aboveMagma = blockBelow.equals(Blocks.MAGMA_BLOCK);
 		
-		if(isWater || inWater) {
-			return aboveMagma ? DANGER : WATER;
-		}
+		if(isWater) return aboveMagma ? DANGER : WATER;
 		
 		boolean isSolid = state.getMaterial().blocksMotion();
 		
