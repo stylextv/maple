@@ -329,7 +329,7 @@ public class PathFinder {
 		
 		n.updateHeuristic(goal);
 		
-		map.put(n.getHash(), n);
+		map.put(hash, n);
 		
 		if(n.getType().equals(BlockType.UNLOADED)) chunkBorderHits++;
 		
