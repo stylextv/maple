@@ -10,7 +10,7 @@ public class Constants {
 	
 	public static final String COLORED_NAME = NAME_COLOR + NAME;
 	
-	public static final String VERSION = "v1.2.0";
+	public static final String VERSION = "v1.2.1";
 	
 	public static final String AUTHOR = "the LYNX developers §7(see AUTHORS file)";
 	
