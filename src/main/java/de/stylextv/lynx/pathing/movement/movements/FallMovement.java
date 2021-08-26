@@ -19,7 +19,7 @@ public class FallMovement extends Movement {
 		int y = source.getY();
 		int z = destination.getZ();
 		
-		breakHelper.collectBlocks(x, y, z, 0, 2);
+		breakHelper.collectBlocks(x, y, z, -1, 3);
 	}
 	
 	@Override

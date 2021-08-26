@@ -158,19 +158,17 @@ public class PathFinder {
 							
 							BlockType type = getMapNode(rx, ry, rz).getType();
 							
-							if(type.isPassable()) {
-								while(ry > 0) {
-									
-									if(type != BlockType.AIR) break;
-									
-									Node n = getMapNode(rx, ry - 1, rz);
-									
-									type = n.getType();
-									
-									if(!type.isPassable()) break;
-									
-									ry--;
-								}
+							while(ry > 0) {
+								
+								if(type == BlockType.WATER) break;
+								
+								Node n = getMapNode(rx, ry - 1, rz);
+								
+								type = n.getType();
+								
+								if(!type.isPassable()) break;
+								
+								ry--;
 							}
 						}
 						
