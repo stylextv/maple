@@ -9,6 +9,7 @@ import java.util.Set;
 import de.stylextv.lynx.cache.BlockType;
 import de.stylextv.lynx.pathing.calc.goal.Goal;
 import de.stylextv.lynx.pathing.movement.Movement;
+import de.stylextv.lynx.util.world.Offset;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import net.minecraft.core.BlockPos;
 
@@ -138,45 +139,36 @@ public class PathFinder {
 	}
 	
 	private void addAdjacentNodes(Node node) {
-		for(int x = -1; x <= 1; x++) {
-			for(int y = -1; y <= 1; y++) {
-				for(int z = -1; z <= 1; z++) {
+		for(Offset o : Offset.BLOCK_NEIGHBOURS) {
+			
+			int ox = o.getBlockX();
+			int oy = o.getBlockY();
+			int oz = o.getBlockZ();
+			
+			int x = node.getX() + ox;
+			int y = node.getY() + oy;
+			int z = node.getZ() + oz;
+			
+			if(oy == -1) {
+				
+				BlockType type = getMapNode(x, y, z).getType();
+				
+				while(y > 0) {
 					
-					int disX = Math.abs(x);
-					int disY = Math.abs(y);
-					int disZ = Math.abs(z);
+					if(type == BlockType.WATER) break;
 					
-					int dis = disX + disY + disZ;
+					Node n = getMapNode(x, y - 1, z);
 					
-					if(dis != 0) {
-						
-						int rx = node.getX() + x;
-						int ry = node.getY() + y;
-						int rz = node.getZ() + z;
-						
-						if(y == -1) {
-							
-							BlockType type = getMapNode(rx, ry, rz).getType();
-							
-							while(ry > 0) {
-								
-								if(type == BlockType.WATER) break;
-								
-								Node n = getMapNode(rx, ry - 1, rz);
-								
-								type = n.getType();
-								
-								if(!type.isPassable()) break;
-								
-								ry--;
-							}
-						}
-						
-						if(ry > 0) {
-							addAdjacentNode(node, rx, ry, rz);
-						}
-					}
+					type = n.getType();
+					
+					if(!type.isPassable()) break;
+					
+					y--;
 				}
+			}
+			
+			if(y > 0) {
+				addAdjacentNode(node, x, y, z);
 			}
 		}
 	}

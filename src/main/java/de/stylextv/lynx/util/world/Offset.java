@@ -2,25 +2,85 @@ package de.stylextv.lynx.util.world;
 
 public class Offset {
 	
-	public static final Offset[] BLOCK_CORNERS = {
-			new Offset(0, 0, 0),
-			new Offset(1, 0, 0),
-			new Offset(0, 0, 1),
-			new Offset(1, 0, 1),
+	public static final Offset[] TRIPLED_BLOCK_CORNERS = {
+			new Offset(  0, 0.1, 0.1),
+			new Offset(  0, 0.9, 0.1),
+			new Offset(  0, 0.1, 0.9),
+			new Offset(  0, 0.9, 0.9),
+			new Offset(  1, 0.1, 0.1),
+			new Offset(  1, 0.9, 0.1),
+			new Offset(  1, 0.1, 0.9),
+			new Offset(  1, 0.9, 0.9),
 			
-			new Offset(0, 1, 0),
-			new Offset(1, 1, 0),
-			new Offset(0, 1, 1),
-			new Offset(1, 1, 1)
+			new Offset(0.1,   0, 0.1),
+			new Offset(0.9,   0, 0.1),
+			new Offset(0.1,   0, 0.9),
+			new Offset(0.9,   0, 0.9),
+			new Offset(0.1,   1, 0.1),
+			new Offset(0.9,   1, 0.1),
+			new Offset(0.1,   1, 0.9),
+			new Offset(0.9,   1, 0.9),
+			
+			new Offset(0.1, 0.1,   0),
+			new Offset(0.9, 0.1,   0),
+			new Offset(0.1, 0.9,   0),
+			new Offset(0.9, 0.9,   0),
+			new Offset(0.1, 0.1,   1),
+			new Offset(0.9, 0.1,   1),
+			new Offset(0.1, 0.9,   1),
+			new Offset(0.9, 0.9,   1),
+	};
+	
+	public static final Offset[] BLOCK_CORNERS = {
+			new Offset(  0,   0,   0),
+			new Offset(  1,   0,   0),
+			new Offset(  0,   0,   1),
+			new Offset(  1,   0,   1),
+			
+			new Offset(  0,   1,   0),
+			new Offset(  1,   1,   0),
+			new Offset(  0,   1,   1),
+			new Offset(  1,   1,   1)
 	};
 	
 	public static final Offset[] BLOCK_NEIGHBOURS = {
-			new Offset(1, 0, 0),
-			new Offset(-1, 0, 0),
-			new Offset(0, 1, 0),
-			new Offset(0, -1, 0),
-			new Offset(0, 0, 1),
-			new Offset(0, 0, -1),
+			new Offset(  0,  -1,   0),
+			new Offset(  1,  -1,   0),
+			new Offset( -1,  -1,   0),
+			new Offset(  0,  -1,   1),
+			new Offset(  0,  -1,  -1),
+			new Offset(  1,  -1,   1),
+			new Offset( -1,  -1,   1),
+			new Offset(  1,  -1,  -1),
+			new Offset( -1,  -1,  -1),
+			
+			new Offset(  1,   0,   0),
+			new Offset( -1,   0,   0),
+			new Offset(  0,   0,   1),
+			new Offset(  0,   0,  -1),
+			new Offset(  1,   0,   1),
+			new Offset( -1,   0,   1),
+			new Offset(  1,   0,  -1),
+			new Offset( -1,   0,  -1),
+			
+			new Offset(  0,   1,   0),
+			new Offset(  1,   1,   0),
+			new Offset( -1,   1,   0),
+			new Offset(  0,   1,   1),
+			new Offset(  0,   1,  -1),
+			new Offset(  1,   1,   1),
+			new Offset( -1,   1,   1),
+			new Offset(  1,   1,  -1),
+			new Offset( -1,   1,  -1),
+	};
+	
+	public static final Offset[] DIRECT_BLOCK_NEIGHBOURS = {
+			new Offset(  1,   0,   0),
+			new Offset( -1,   0,   0),
+			new Offset(  0,   1,   0),
+			new Offset(  0,  -1,   0),
+			new Offset(  0,   0,   1),
+			new Offset(  0,   0,  -1)
 	};
 	
 	private double x;
@@ -87,6 +147,18 @@ public class Offset {
 		z = 1 / z;
 		
 		return multiply(x, y, z);
+	}
+	
+	public int getBlockX() {
+		return (int) x;
+	}
+	
+	public int getBlockY() {
+		return (int) y;
+	}
+	
+	public int getBlockZ() {
+		return (int) z;
 	}
 	
 	@Override

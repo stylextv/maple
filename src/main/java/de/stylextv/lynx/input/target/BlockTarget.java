@@ -58,11 +58,11 @@ public class BlockTarget {
 	}
 	
 	public Offset visibleNeighbour() {
-		for(Offset o : Offset.BLOCK_NEIGHBOURS) {
+		for(Offset o : Offset.DIRECT_BLOCK_NEIGHBOURS) {
 			
-			int x = (int) (pos.getX() + o.getX());
-			int y = (int) (pos.getY() + o.getY());
-			int z = (int) (pos.getZ() + o.getZ());
+			int x = pos.getX() + o.getBlockX();
+			int y = pos.getY() + o.getBlockY();
+			int z = pos.getZ() + o.getBlockZ();
 			
 			if(PlaceController.canPlaceAgainst(x, y, z)) {
 				
@@ -90,7 +90,7 @@ public class BlockTarget {
 		
 		int n = 0;
 		
-		for(Offset o : Offset.BLOCK_CORNERS) {
+		for(Offset o : Offset.TRIPLED_BLOCK_CORNERS) {
 			
 			double x = pos.getX() + o.getX();
 			double y = pos.getY() + o.getY();
