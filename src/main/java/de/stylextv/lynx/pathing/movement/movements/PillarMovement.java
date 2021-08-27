@@ -4,6 +4,7 @@ import de.stylextv.lynx.input.InputAction;
 import de.stylextv.lynx.pathing.calc.Cost;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.movement.Movement;
+import de.stylextv.lynx.pathing.movement.MovementState;
 import de.stylextv.lynx.pathing.movement.helper.BreakHelper;
 import de.stylextv.lynx.pathing.movement.helper.PlaceHelper;
 
@@ -43,6 +44,13 @@ public class PillarMovement extends Movement {
 		if(placeHelper.hasTargets()) placeHelper.onRenderTick();
 		
 		setPressed(InputAction.JUMP, true);
+	}
+	
+	@Override
+	public MovementState getState() {
+		if(placeHelper.hasTargets()) return MovementState.GOING;
+		
+		return super.getState();
 	}
 	
 }

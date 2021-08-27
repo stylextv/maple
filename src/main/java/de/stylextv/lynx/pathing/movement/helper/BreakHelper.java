@@ -68,7 +68,7 @@ public class BreakHelper {
 				continue;
 			}
 			
-			if(target.continueBreaking()) return;
+			if(target.continueTransforming()) return;
 		}
 	}
 	

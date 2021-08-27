@@ -78,6 +78,10 @@ public class ViewController {
 		return false;
 	}
 	
+	public static boolean canSee(Offset o) {
+		return canSee(o.getX(), o.getY(), o.getZ());
+	}
+	
 	public static boolean canSee(double x, double y, double z) {
 		LocalPlayer p = PlayerContext.player();
 		

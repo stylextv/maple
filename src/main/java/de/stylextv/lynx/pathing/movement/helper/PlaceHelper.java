@@ -1,7 +1,7 @@
 package de.stylextv.lynx.pathing.movement.helper;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import de.stylextv.lynx.cache.BlockType;
 import de.stylextv.lynx.cache.CacheManager;
@@ -11,7 +11,7 @@ import de.stylextv.lynx.pathing.calc.Node;
 
 public class PlaceHelper {
 	
-	private List<BlockTarget> targets = new ArrayList<>();
+	private List<BlockTarget> targets = new CopyOnWriteArrayList<>();
 	
 	public void collectBlock(Node n) {
 		collectBlock(n, 0);
@@ -40,7 +40,17 @@ public class PlaceHelper {
 	}
 	
 	public void onRenderTick() {
-		
+		for(BlockTarget target : targets) {
+			
+			if(!target.isPlaceable()) {
+				
+				targets.remove(target);
+				
+				continue;
+			}
+			
+			if(target.continueTransforming()) return;
+		}
 	}
 	
 	public boolean hasTargets() {
