@@ -57,7 +57,7 @@ public class BlockTarget {
 		return true;
 	}
 	
-	public Offset visibleNeighbour() {
+	private Offset visibleNeighbour() {
 		for(Offset o : Offset.DIRECT_BLOCK_NEIGHBOURS) {
 			
 			int x = pos.getX() + o.getBlockX();
@@ -85,7 +85,7 @@ public class BlockTarget {
 		return null;
 	}
 	
-	public Offset visiblePoint() {
+	private Offset visiblePoint() {
 		Offset sum = new Offset();
 		
 		int n = 0;
