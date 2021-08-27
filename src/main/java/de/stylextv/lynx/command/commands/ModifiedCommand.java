@@ -7,7 +7,7 @@ import de.stylextv.lynx.command.ArgumentHelper;
 import de.stylextv.lynx.command.Command;
 import de.stylextv.lynx.option.Option;
 import de.stylextv.lynx.option.Options;
-import de.stylextv.lynx.util.ChatUtil;
+import de.stylextv.lynx.util.chat.ChatUtil;
 
 public class ModifiedCommand extends Command {
 	

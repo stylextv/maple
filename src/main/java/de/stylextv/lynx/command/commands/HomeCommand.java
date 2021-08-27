@@ -3,7 +3,7 @@ package de.stylextv.lynx.command.commands;
 import de.stylextv.lynx.command.Command;
 import de.stylextv.lynx.memory.waypoint.Waypoint;
 import de.stylextv.lynx.memory.waypoint.Waypoints;
-import de.stylextv.lynx.util.ChatUtil;
+import de.stylextv.lynx.util.chat.ChatUtil;
 
 public class HomeCommand extends Command {
 	

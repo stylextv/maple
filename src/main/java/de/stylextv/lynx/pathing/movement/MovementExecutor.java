@@ -4,7 +4,7 @@ import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.input.InputAction;
 import de.stylextv.lynx.input.controller.InputController;
 import de.stylextv.lynx.pathing.calc.Path;
-import de.stylextv.lynx.util.ChatUtil;
+import de.stylextv.lynx.util.chat.ChatUtil;
 
 public class MovementExecutor {
 	

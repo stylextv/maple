@@ -9,7 +9,7 @@ import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.context.LevelContext;
 import de.stylextv.lynx.memory.waypoint.Waypoint;
 import de.stylextv.lynx.memory.waypoint.Waypoints;
-import de.stylextv.lynx.util.ChatUtil;
+import de.stylextv.lynx.util.chat.ChatUtil;
 import net.minecraft.core.BlockPos;
 
 public class WaypointCommand extends Command {

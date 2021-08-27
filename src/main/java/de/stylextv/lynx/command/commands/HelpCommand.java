@@ -6,8 +6,8 @@ import java.util.List;
 import de.stylextv.lynx.command.ArgumentHelper;
 import de.stylextv.lynx.command.Command;
 import de.stylextv.lynx.command.CommandManager;
-import de.stylextv.lynx.util.ChatUtil;
 import de.stylextv.lynx.util.TextUtil;
+import de.stylextv.lynx.util.chat.ChatUtil;
 
 public class HelpCommand extends Command {
 	

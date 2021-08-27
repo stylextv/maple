@@ -10,7 +10,7 @@ import de.stylextv.lynx.memory.MemoryManager;
 import de.stylextv.lynx.pathing.calc.SearchExecutor;
 import de.stylextv.lynx.pathing.calc.goal.BlockGoal;
 import de.stylextv.lynx.pathing.calc.goal.Goal;
-import de.stylextv.lynx.util.ChatUtil;
+import de.stylextv.lynx.util.chat.ChatUtil;
 import net.minecraft.core.BlockPos;
 
 public class Waypoints {

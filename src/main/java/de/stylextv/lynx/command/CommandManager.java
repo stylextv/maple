@@ -12,7 +12,7 @@ import de.stylextv.lynx.command.commands.ModifiedCommand;
 import de.stylextv.lynx.command.commands.StopCommand;
 import de.stylextv.lynx.command.commands.VersionCommand;
 import de.stylextv.lynx.command.commands.WaypointCommand;
-import de.stylextv.lynx.util.ChatUtil;
+import de.stylextv.lynx.util.chat.ChatUtil;
 
 public class CommandManager {
 	

@@ -1,4 +1,4 @@
-package de.stylextv.lynx.util;
+package de.stylextv.lynx.util.chat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +7,7 @@ import com.google.common.collect.Lists;
 
 import de.stylextv.lynx.Constants;
 import de.stylextv.lynx.context.PlayerContext;
+import de.stylextv.lynx.util.MathUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.TextComponent;
 
