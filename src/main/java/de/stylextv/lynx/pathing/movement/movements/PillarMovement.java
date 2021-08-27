@@ -33,14 +33,14 @@ public class PillarMovement extends Movement {
 	
 	@Override
 	public void onRenderTick() {
-		if(breakHelper.hasBlocks()) {
+		if(breakHelper.hasTargets()) {
 			
 			breakHelper.onRenderTick();
 			
 			return;
 		}
 		
-		if(placeHelper.hasBlocks()) placeHelper.onRenderTick();
+		if(placeHelper.hasTargets()) placeHelper.onRenderTick();
 		
 		setPressed(InputAction.JUMP, true);
 	}

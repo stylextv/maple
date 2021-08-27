@@ -5,6 +5,7 @@ import java.util.HashSet;
 import de.stylextv.lynx.context.GameContext;
 import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.input.InputAction;
+import de.stylextv.lynx.input.MouseButton;
 import de.stylextv.lynx.input.PlayerMovementInput;
 import net.minecraft.client.player.KeyboardInput;
 import net.minecraft.client.player.LocalPlayer;
@@ -27,7 +28,7 @@ public class InputController {
 	}
 	
 	public static void onTick() {
-		// handle left and right clicks and unpress them
+		MouseButton.updateAll();
 		
 		LocalPlayer p = PlayerContext.player();
 		

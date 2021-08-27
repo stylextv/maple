@@ -1,21 +1,20 @@
 package de.stylextv.lynx.pathing.movement.helper;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import de.stylextv.lynx.cache.BlockType;
 import de.stylextv.lynx.cache.CacheManager;
 import de.stylextv.lynx.input.InputAction;
-import de.stylextv.lynx.input.controller.BreakController;
 import de.stylextv.lynx.input.controller.InputController;
-import de.stylextv.lynx.input.controller.ViewController;
+import de.stylextv.lynx.input.target.BlockTarget;
 import de.stylextv.lynx.pathing.calc.Cost;
 import de.stylextv.lynx.pathing.calc.Node;
 import net.minecraft.core.BlockPos;
 
 public class BreakHelper {
 	
-	private List<BlockPos> blocks = new ArrayList<>();
+	private List<BlockTarget> targets = new CopyOnWriteArrayList<>();
 	
 	public void collectBlocks(Node n, int height) {
 		collectBlocks(n, 0, height);
@@ -41,19 +40,17 @@ public class BreakHelper {
 		
 		if(type.isPassable() || !type.isBreakable()) return;
 		
-		blocks.add(new BlockPos(x, y, z));
+		targets.add(new BlockTarget(x, y, z));
 	}
 	
 	public double cost() {
 		int sum = 0;
 		
-		for(BlockPos pos : blocks) {
+		for(BlockTarget target : targets) {
 			
-			int x = pos.getX();
-			int y = pos.getY();
-			int z = pos.getZ();
+			BlockPos pos = target.getPos();
 			
-			sum += Cost.breakCost(x, y, z);
+			sum += Cost.breakCost(pos);
 		}
 		
 		return sum;
@@ -62,33 +59,21 @@ public class BreakHelper {
 	public void onRenderTick() {
 		InputController.setPressed(InputAction.MOVE_FORWARD, false);
 		
-		if(BreakController.hasTarget()) return;
-		
-		BlockPos target = null;
-		
-		for(BlockPos pos : blocks) {
+		for(BlockTarget target : targets) {
 			
-			if(!ViewController.canSee(pos)) continue;
+			if(!target.isBreakable()) {
+				
+				targets.remove(target);
+				
+				continue;
+			}
 			
-			target = pos;
-			
-			break;
+			if(target.continueBreaking()) return;
 		}
-		
-		if(target == null) return;
-		
-		if(!BreakController.canBreakBlock(target)) {
-			
-			blocks.remove(target);
-			
-			return;
-		}
-		
-		BreakController.breakBlock(target);
 	}
 	
-	public boolean hasBlocks() {
-		return !blocks.isEmpty();
+	public boolean hasTargets() {
+		return !targets.isEmpty();
 	}
 	
 }

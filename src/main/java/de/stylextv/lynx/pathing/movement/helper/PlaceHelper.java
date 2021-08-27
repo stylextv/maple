@@ -5,13 +5,13 @@ import java.util.List;
 
 import de.stylextv.lynx.cache.BlockType;
 import de.stylextv.lynx.cache.CacheManager;
+import de.stylextv.lynx.input.target.BlockTarget;
 import de.stylextv.lynx.pathing.calc.Cost;
 import de.stylextv.lynx.pathing.calc.Node;
-import net.minecraft.core.BlockPos;
 
 public class PlaceHelper {
 	
-	private List<BlockPos> blocks = new ArrayList<>();
+	private List<BlockTarget> targets = new ArrayList<>();
 	
 	public void collectBlock(Node n) {
 		collectBlock(n, 0);
@@ -30,11 +30,11 @@ public class PlaceHelper {
 		
 		if(!type.isPassable()) return;
 		
-		blocks.add(new BlockPos(x, y, z));
+		targets.add(new BlockTarget(x, y, z));
 	}
 	
 	public double cost() {
-		int l = blocks.size();
+		int l = targets.size();
 		
 		return l * Cost.placeCost();
 	}
@@ -43,8 +43,8 @@ public class PlaceHelper {
 		
 	}
 	
-	public boolean hasBlocks() {
-		return !blocks.isEmpty();
+	public boolean hasTargets() {
+		return !targets.isEmpty();
 	}
 	
 }

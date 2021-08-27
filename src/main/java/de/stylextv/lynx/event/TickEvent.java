@@ -1,7 +1,6 @@
 package de.stylextv.lynx.event;
 
 import de.stylextv.lynx.context.GameContext;
-import de.stylextv.lynx.input.controller.BreakController;
 import de.stylextv.lynx.input.controller.InputController;
 import de.stylextv.lynx.input.controller.ViewController;
 import de.stylextv.lynx.pathing.movement.MovementExecutor;
@@ -16,7 +15,6 @@ public class TickEvent {
 	public void onClientTick(ClientTickEvent event) {
 		if(event.phase != Phase.START || !GameContext.isIngame()) return;
 		
-		BreakController.onTick();
 		InputController.onTick();
 	}
 	
@@ -26,7 +24,6 @@ public class TickEvent {
 		
 		MovementExecutor.onRenderTick();
 		
-		BreakController.onRenderTick();
 		ViewController.onRenderTick();
 	}
 	

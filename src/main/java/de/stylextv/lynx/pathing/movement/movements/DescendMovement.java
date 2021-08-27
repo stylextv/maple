@@ -42,7 +42,7 @@ public class DescendMovement extends Movement {
 	
 	@Override
 	public void onRenderTick() {
-		if(breakHelper.hasBlocks()) {
+		if(breakHelper.hasTargets()) {
 			
 			breakHelper.onRenderTick();
 			

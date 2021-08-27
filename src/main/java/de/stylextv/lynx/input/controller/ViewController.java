@@ -4,6 +4,7 @@ import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.context.LevelContext;
 import de.stylextv.lynx.input.SmoothLook;
 import de.stylextv.lynx.pathing.calc.Node;
+import de.stylextv.lynx.util.world.Offset;
 import de.stylextv.lynx.util.world.Rotation;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
@@ -26,6 +27,10 @@ public class ViewController {
 	
 	public static void lookAt(BlockPos pos) {
 		lookAt(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
+	}
+	
+	public static void lookAt(Offset o) {
+		lookAt(o.getX(), o.getY(), o.getZ());
 	}
 	
 	public static void lookAt(Node n) {
