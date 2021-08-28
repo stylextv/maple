@@ -6,12 +6,8 @@ import java.util.List;
 import de.stylextv.lynx.command.ArgumentHelper;
 import de.stylextv.lynx.command.Command;
 import de.stylextv.lynx.command.CommandManager;
-import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.util.TextUtil;
 import de.stylextv.lynx.util.chat.ChatUtil;
-import net.minecraft.network.chat.ClickEvent;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
 
 public class HelpCommand extends Command {
 	
@@ -21,14 +17,6 @@ public class HelpCommand extends Command {
 	
 	@Override
 	public boolean execute(String[] args) {
-		MutableComponent comp = new TextComponent("hi");
-		
-		comp.withStyle((style) -> {
-			return style.withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "#ok"));
-		});
-		
-		PlayerContext.player().sendMessage(comp, null);
-		
 		Integer page = null;
 		
 		if(args.length == 0) {

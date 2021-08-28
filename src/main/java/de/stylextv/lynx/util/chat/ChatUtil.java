@@ -5,11 +5,11 @@ import java.util.List;
 import de.stylextv.lynx.Constants;
 import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.util.MathUtil;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.MutableComponent;
 
 public class ChatUtil {
 	
-	private static final String PREFIX = Constants.COLORED_NAME + " §8| §7";
+	private static final Message PREFIX = new Message(Constants.COLORED_NAME + " §8| §7");
 	
 	public static void sendList(List<String> list, int rows, int page, String command) {
 		page--;
@@ -50,7 +50,17 @@ public class ChatUtil {
 	}
 	
 	public static void send(String line) {
-		PlayerContext.player().sendMessage(new TextComponent(PREFIX + line), null);
+		Message m = new Message(line);
+		
+		send(m);
+	}
+	
+	public static void send(Message m) {
+		m = PREFIX.append(m);
+		
+		MutableComponent comp = m.asComponent();
+		
+		PlayerContext.player().sendMessage(comp, null);
 	}
 	
 }
