@@ -20,7 +20,9 @@ public class ChatUtil {
 		
 		if(pages == 0) pages = 1;
 		
-		page = MathUtil.clamp(page, 0, pages - 1);
+		int maxPage = pages - 1;
+		
+		page = MathUtil.clamp(page, 0, maxPage);
 		
 		int start = page * rows;
 		
@@ -38,7 +40,13 @@ public class ChatUtil {
 			send("§8--");
 		}
 		
-		String s = String.format("§8<< §7¦ §b>> §7%s/%s", page + 1, pages);
+		String s = page == 0 ? "§8<< " : String.format("§x[§b<<]{#%s %s} ", command, page);
+		
+		s += "§7¦ ";
+		
+		s += page == maxPage ? "§8>> " : String.format("§x[§b>>]{#%s %s} ", command, page + 2);
+		
+		s += String.format("§7%s/%s", page + 1, pages);
 		
 		send(s);
 	}
