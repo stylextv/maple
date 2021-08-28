@@ -10,4 +10,8 @@ public class CoordUtil {
 		return i >> 4;
 	}
 	
+	public static int unitToBlockPos(double d) {
+		return (int) Math.floor(d);
+	}
+	
 }

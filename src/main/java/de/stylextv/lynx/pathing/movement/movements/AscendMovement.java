@@ -30,12 +30,7 @@ public class AscendMovement extends Movement {
 	
 	@Override
 	public void onRenderTick() {
-		if(breakHelper.hasTargets()) {
-			
-			breakHelper.onRenderTick();
-			
-			return;
-		}
+		if(breakHelper.onRenderTick()) return;
 		
 		lookAt(getDestination());
 		

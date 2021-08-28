@@ -5,6 +5,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import de.stylextv.lynx.cache.BlockType;
 import de.stylextv.lynx.cache.CacheManager;
+import de.stylextv.lynx.input.InputAction;
+import de.stylextv.lynx.input.controller.InputController;
 import de.stylextv.lynx.input.target.BlockTarget;
 import de.stylextv.lynx.pathing.calc.Cost;
 import de.stylextv.lynx.pathing.calc.Node;
@@ -39,7 +41,9 @@ public class PlaceHelper {
 		return l * Cost.placeCost();
 	}
 	
-	public void onRenderTick() {
+	public boolean onRenderTick() {
+		if(!hasTargets()) return false;
+		
 		for(BlockTarget target : targets) {
 			
 			if(!target.isPlaceable()) {
@@ -49,8 +53,16 @@ public class PlaceHelper {
 				continue;
 			}
 			
-			if(target.continueTransforming()) return;
+			if(target.continueTransforming()) {
+				
+				InputController.setPressed(InputAction.MOVE_FORWARD, false);
+				InputController.setPressed(InputAction.SNEAK, true);
+				
+				return true;
+			}
 		}
+		
+		return false;
 	}
 	
 	public boolean hasTargets() {

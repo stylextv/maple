@@ -1,5 +1,7 @@
 package de.stylextv.lynx.util.world;
 
+import de.stylextv.lynx.util.CoordUtil;
+
 public class Offset {
 	
 	public static final Offset[] TRIPLED_BLOCK_CORNERS = {
@@ -150,15 +152,15 @@ public class Offset {
 	}
 	
 	public int getBlockX() {
-		return (int) x;
+		return CoordUtil.unitToBlockPos(x);
 	}
 	
 	public int getBlockY() {
-		return (int) y;
+		return CoordUtil.unitToBlockPos(y);
 	}
 	
 	public int getBlockZ() {
-		return (int) z;
+		return CoordUtil.unitToBlockPos(z);
 	}
 	
 	@Override

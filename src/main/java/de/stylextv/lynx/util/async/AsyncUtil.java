@@ -47,7 +47,17 @@ public class AsyncUtil {
 	}
 	
 	public static void runAsync(Runnable r) {
-		THREAD_POOL.execute(r);
+		Runnable wrapped = () -> {
+			try {
+				
+				r.run();
+				
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			}
+		};
+		
+		THREAD_POOL.execute(wrapped);
 	}
 	
 	public static void sleep(long delay) {

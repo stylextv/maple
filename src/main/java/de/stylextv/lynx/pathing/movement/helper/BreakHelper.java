@@ -56,8 +56,8 @@ public class BreakHelper {
 		return sum;
 	}
 	
-	public void onRenderTick() {
-		InputController.setPressed(InputAction.MOVE_FORWARD, false);
+	public boolean onRenderTick() {
+		if(!hasTargets()) return false;
 		
 		for(BlockTarget target : targets) {
 			
@@ -68,8 +68,15 @@ public class BreakHelper {
 				continue;
 			}
 			
-			if(target.continueTransforming()) return;
+			if(target.continueTransforming()) {
+				
+				InputController.setPressed(InputAction.MOVE_FORWARD, false);
+				
+				return true;
+			}
 		}
+		
+		return false;
 	}
 	
 	public boolean hasTargets() {

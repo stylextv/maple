@@ -34,19 +34,15 @@ public class StraightMovement extends Movement {
 	
 	@Override
 	public void onRenderTick() {
-		if(breakHelper.hasTargets()) {
+		if(breakHelper.onRenderTick()) return;
+		
+		if(!placeHelper.onRenderTick()) {
 			
-			breakHelper.onRenderTick();
+			lookAt(getDestination());
 			
-			return;
+			setPressed(InputAction.MOVE_FORWARD, true);
+			setPressed(InputAction.SPRINT, true);
 		}
-		
-		lookAt(getDestination());
-		
-		if(placeHelper.hasTargets()) placeHelper.onRenderTick();
-		
-		setPressed(InputAction.MOVE_FORWARD, true);
-		setPressed(InputAction.SPRINT, true);
 	}
 	
 	@Override
