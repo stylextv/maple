@@ -269,28 +269,17 @@ public class PathFinder {
 	}
 	
 	private boolean isDangerous(Node node) {
-		for(int x = -1; x <= 1; x++) {
-			for(int y = -1; y <= 1; y++) {
-				for(int z = -1; z <= 1; z++) {
-					
-					int disX = Math.abs(x);
-					int disY = Math.abs(y);
-					int disZ = Math.abs(z);
-					
-					int dis = disX + disY + disZ;
-					
-					if(dis <= 1) {
-						
-						int rx = node.getX() + x;
-						int ry = node.getY() + y;
-						int rz = node.getZ() + z;
-						
-						Node n = getMapNode(rx, ry, rz);
-						
-						if(n.getType() == BlockType.DANGER) return true;
-					}
-				}
-			}
+		if(node.getType() == BlockType.DANGER) return true;
+		
+		for(Offset o : Offset.DIRECT_BLOCK_NEIGHBOURS) {
+			
+			int x = node.getX() + o.getBlockX();
+			int y = node.getY() + o.getBlockY();
+			int z = node.getZ() + o.getBlockZ();
+			
+			Node n = getMapNode(x, y, z);
+			
+			if(n.getType() == BlockType.DANGER) return true;
 		}
 		
 		return false;
