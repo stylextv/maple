@@ -89,6 +89,10 @@ public class Offset {
 	private double y;
 	private double z;
 	
+	private int blockX;
+	private int blockY;
+	private int blockZ;
+	
 	public Offset() {
 		this(0, 0, 0);
 	}
@@ -97,6 +101,10 @@ public class Offset {
 		this.x = x;
 		this.y = y;
 		this.z = z;
+		
+		this.blockX = CoordUtil.unitToBlockPos(x);
+		this.blockY = CoordUtil.unitToBlockPos(y);
+		this.blockZ = CoordUtil.unitToBlockPos(z);
 	}
 	
 	public Offset add(Offset o) {
@@ -152,15 +160,15 @@ public class Offset {
 	}
 	
 	public int getBlockX() {
-		return CoordUtil.unitToBlockPos(x);
+		return blockX;
 	}
 	
 	public int getBlockY() {
-		return CoordUtil.unitToBlockPos(y);
+		return blockY;
 	}
 	
 	public int getBlockZ() {
-		return CoordUtil.unitToBlockPos(z);
+		return blockZ;
 	}
 	
 	@Override
