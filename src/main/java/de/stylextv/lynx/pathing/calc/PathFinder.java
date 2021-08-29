@@ -218,7 +218,7 @@ public class PathFinder {
 		
 		boolean needsSupport = dis != 1 || downwards;
 		
-		if(needsSupport && !canStandAt(node)) return false;
+		if(!canStandAt(node, needsSupport)) return false;
 		
 		boolean diagonally = disX + disZ > 1;
 		
@@ -292,7 +292,7 @@ public class PathFinder {
 		return n.getType() == BlockType.DANGER;
 	}
 	
-	private boolean canStandAt(Node n) {
+	private boolean canStandAt(Node n, boolean needsSupport) {
 		if(n.getType() == BlockType.WATER) return true;
 		
 		int x = n.getX();
@@ -301,7 +301,9 @@ public class PathFinder {
 		
 		Node below = getMapNode(x, y - 1, z);
 		
-		return below.getType() == BlockType.SOLID;
+		if(isDangerous(below)) return false;
+		
+		return !needsSupport || below.getType() == BlockType.SOLID;
 	}
 	
 	private Node getMapNode(int x, int y, int z) {
