@@ -1,5 +1,6 @@
 package de.stylextv.lynx.pathing.movement.movements;
 
+import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.input.InputAction;
 import de.stylextv.lynx.pathing.calc.Cost;
 import de.stylextv.lynx.pathing.calc.Node;
@@ -40,7 +41,7 @@ public class PillarMovement extends Movement {
 	
 	@Override
 	public MovementState getState() {
-		if(getPlaceHelper().hasTargets()) return MovementState.GOING;
+		if(!PlayerContext.isOnGround()) return MovementState.GOING;
 		
 		return super.getState();
 	}
