@@ -7,7 +7,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class LevelEvent {
 	
-	private static final int LOAD_DELAY = 1000;
+	private static final int LOAD_DELAY = 1250;
 	
 	@SubscribeEvent
 	public void onLoad(WorldEvent.Load event) {
