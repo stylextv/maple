@@ -10,6 +10,7 @@ import de.stylextv.lynx.input.controller.InputController;
 import de.stylextv.lynx.input.target.BlockTarget;
 import de.stylextv.lynx.pathing.calc.Cost;
 import de.stylextv.lynx.pathing.calc.Node;
+import net.minecraft.core.BlockPos;
 
 public class PlaceHelper {
 	
@@ -32,7 +33,7 @@ public class PlaceHelper {
 		
 		if(!type.isPassable()) return;
 		
-		targets.add(new BlockTarget(x, y, z));
+		if(!hasTarget(x, y, z)) targets.add(new BlockTarget(x, y, z));
 	}
 	
 	public double cost() {
@@ -60,6 +61,17 @@ public class PlaceHelper {
 				
 				return true;
 			}
+		}
+		
+		return false;
+	}
+	
+	public boolean hasTarget(int x, int y, int z) {
+		for(BlockTarget target : targets) {
+			
+			BlockPos pos = target.getPos();
+			
+			if(pos.getX() == x && pos.getY() == y && pos.getZ() == z) return true;
 		}
 		
 		return false;

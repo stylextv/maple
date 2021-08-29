@@ -42,6 +42,8 @@ public class MovementExecutor {
 			return;
 		}
 		
+		m.updateHelpers();
+		
 		m.onRenderTick();
 		
 		if(PlayerContext.isInWater()) InputController.setPressed(InputAction.JUMP, true);

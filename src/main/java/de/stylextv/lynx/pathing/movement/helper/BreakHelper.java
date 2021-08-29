@@ -40,7 +40,7 @@ public class BreakHelper {
 		
 		if(type.isPassable() || !type.isBreakable()) return;
 		
-		targets.add(new BlockTarget(x, y, z));
+		if(!hasTarget(x, y, z)) targets.add(new BlockTarget(x, y, z));
 	}
 	
 	public double cost() {
@@ -74,6 +74,17 @@ public class BreakHelper {
 				
 				return true;
 			}
+		}
+		
+		return false;
+	}
+	
+	public boolean hasTarget(int x, int y, int z) {
+		for(BlockTarget target : targets) {
+			
+			BlockPos pos = target.getPos();
+			
+			if(pos.getX() == x && pos.getY() == y && pos.getZ() == z) return true;
 		}
 		
 		return false;

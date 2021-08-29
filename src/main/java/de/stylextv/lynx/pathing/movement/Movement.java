@@ -5,6 +5,8 @@ import de.stylextv.lynx.input.InputAction;
 import de.stylextv.lynx.input.controller.InputController;
 import de.stylextv.lynx.input.controller.ViewController;
 import de.stylextv.lynx.pathing.calc.Node;
+import de.stylextv.lynx.pathing.movement.helper.BreakHelper;
+import de.stylextv.lynx.pathing.movement.helper.PlaceHelper;
 import de.stylextv.lynx.pathing.movement.movements.AscendMovement;
 import de.stylextv.lynx.pathing.movement.movements.DescendMovement;
 import de.stylextv.lynx.pathing.movement.movements.DiagonalMovement;
@@ -18,10 +20,18 @@ public abstract class Movement {
 	private Node source;
 	private Node destination;
 	
+	private BreakHelper breakHelper = new BreakHelper();
+	
+	private PlaceHelper placeHelper = new PlaceHelper();
+	
 	public Movement(Node source, Node destination) {
 		this.source = source;
 		this.destination = destination;
+		
+		updateHelpers();
 	}
+	
+	public void updateHelpers() {}
 	
 	public abstract double cost();
 	
@@ -56,12 +66,7 @@ public abstract class Movement {
 	}
 	
 	public boolean isDiagonal() {
-		int diffX = source.getX() - destination.getX();
-		int diffZ = source.getZ() - destination.getZ();
-		
-		int dis = Math.abs(diffX) + Math.abs(diffZ);
-		
-		return dis > 1;
+		return source.getX() != destination.getX() && source.getZ() != destination.getZ();
 	}
 	
 	public Node getSource() {
@@ -70,6 +75,14 @@ public abstract class Movement {
 	
 	public Node getDestination() {
 		return destination;
+	}
+	
+	public BreakHelper getBreakHelper() {
+		return breakHelper;
+	}
+	
+	public PlaceHelper getPlaceHelper() {
+		return placeHelper;
 	}
 	
 	public static Movement fromNodes(Node n1, Node n2) {
