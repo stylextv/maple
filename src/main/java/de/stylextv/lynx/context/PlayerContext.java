@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.MultiPlayerGameMode;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
@@ -14,6 +15,10 @@ public class PlayerContext {
 	
 	public static LocalPlayer player() {
 		return MC.player;
+	}
+	
+	public static Inventory inventory() {
+		return player().getInventory();
 	}
 	
 	public static Vec3 position() {

@@ -1,8 +1,10 @@
 package de.stylextv.lynx.pathing.calc;
 
 import de.stylextv.lynx.context.LevelContext;
+import de.stylextv.lynx.input.controller.GuiController;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class Cost {
@@ -44,7 +46,7 @@ public class Cost {
 		return breakCost(x, y, z);
 	}
 	
-	// TODO factor in tool/effects
+	// TODO factor in potion effects, enchantments, ...
 	public static double breakCost(int x, int y, int z) {
 		ClientLevel level = LevelContext.level();
 		
@@ -56,11 +58,20 @@ public class Cost {
 		
 		if(hardness < 0) return INFINITY;
 		
-		return hardness * 100;
+		ItemStack stack = GuiController.bestTool(state);
+		
+		float f = 1;
+		
+		if(stack != null) f = stack.getDestroySpeed(state);
+		
+		float damage = f / hardness;
+		
+		return 100 / damage;
 	}
 	
-	// TODO if no blocks available return infinity
 	public static double placeCost() {
+		if(!GuiController.hasBuildingMaterial()) return INFINITY;
+		
 		return PLACE_BLOCK;
 	}
 	

@@ -234,6 +234,11 @@ public class PathFinder {
 			boolean b2 = isBlocked(parent.getX(), higher.getY(), node.getZ(), 2);
 			
 			if(b1 && b2) return false;
+			
+			b1 = isDangerous(node.getX(), higher.getY(), parent.getZ(), -1, 3);
+			b2 = isDangerous(parent.getX(), higher.getY(), node.getZ(), -1, 3);
+			
+			if(b1 || b2) return false;
 		}
 		
 		Node above = getMapNode(x, y + 1, z);
@@ -268,21 +273,23 @@ public class PathFinder {
 		return !n.getType().isPassable();
 	}
 	
-	private boolean isDangerous(Node node) {
-		if(node.getType() == BlockType.DANGER) return true;
-		
-		for(Offset o : Offset.DIRECT_BLOCK_NEIGHBOURS) {
+	private boolean isDangerous(int x, int y, int z, int offset, int height) {
+		for(int i = 0; i < height; i++) {
 			
-			int x = node.getX() + o.getBlockX();
-			int y = node.getY() + o.getBlockY();
-			int z = node.getZ() + o.getBlockZ();
-			
-			Node n = getMapNode(x, y, z);
-			
-			if(n.getType() == BlockType.DANGER) return true;
+			if(isDangerous(x, y + offset + i, z)) return true;
 		}
 		
 		return false;
+	}
+	
+	private boolean isDangerous(int x, int y, int z) {
+		Node n = getMapNode(x, y, z);
+		
+		return isDangerous(n);
+	}
+	
+	private boolean isDangerous(Node n) {
+		return n.getType() == BlockType.DANGER;
 	}
 	
 	private boolean canStandAt(Node n) {
