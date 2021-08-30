@@ -91,6 +91,10 @@ public class Path {
 		return segments;
 	}
 	
+	public boolean isEmpty() {
+		return getSegment() == null;
+	}
+	
 	public boolean isFinished() {
 		return finished;
 	}

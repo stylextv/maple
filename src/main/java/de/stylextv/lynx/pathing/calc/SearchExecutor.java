@@ -7,7 +7,9 @@ import de.stylextv.lynx.util.async.AsyncUtil;
 
 public class SearchExecutor {
 	
-	private static final long SEARCH_TIMEOUT = 1000;
+	private static final long INITIAL_TIMEOUT = 1000;
+	
+	private static final long SEARCH_AHEAD_TIMEOUT = 4000;
 	
 	private static final long SLEEP_TIME = 500;
 	
@@ -39,7 +41,9 @@ public class SearchExecutor {
 				
 				finder = new PathFinder(goal);
 				
-				PathSegment segment = finder.find(path.lastPosition(), SEARCH_TIMEOUT);
+				boolean initial = path.isEmpty();
+				
+				PathSegment segment = finder.find(path.lastPosition(), initial ? INITIAL_TIMEOUT : SEARCH_AHEAD_TIMEOUT);
 				
 				boolean paused = finder.wasPaused();
 				
