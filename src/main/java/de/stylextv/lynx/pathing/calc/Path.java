@@ -87,12 +87,12 @@ public class Path {
 		return segment;
 	}
 	
-	public ArrayList<PathSegment> getQueuedSegments() {
-		return segments;
-	}
-	
 	public boolean isEmpty() {
 		return getSegment() == null;
+	}
+	
+	public ArrayList<PathSegment> getQueuedSegments() {
+		return segments;
 	}
 	
 	public boolean isFinished() {
