@@ -4,6 +4,7 @@ import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.context.LevelContext;
 import de.stylextv.lynx.input.SmoothLook;
 import de.stylextv.lynx.pathing.calc.Node;
+import de.stylextv.lynx.util.RotationUtil;
 import de.stylextv.lynx.util.world.Offset;
 import de.stylextv.lynx.util.world.Rotation;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -44,22 +45,15 @@ public class ViewController {
 	}
 	
 	public static void lookAt(double x, double y, double z) {
-		Rotation r = getTargetRotation(x, y, z);
-		
-		smoothLook.setRotation(r);
-	}
-	
-	public static Rotation getTargetRotation(double x, double y, double z) {
 		Vec3 v = PlayerContext.eyePosition();
 		
 		double dx = v.x() - x;
 		double dy = v.y() - y;
 		double dz = v.z() - z;
 		
-		float yaw = (float) Math.toDegrees(Math.atan2(dz, dx) + Math.PI / 2) % 360;
-		float pitch = (float) Math.toDegrees(-Math.atan2(Math.sqrt(dz * dz + dx * dx), dy) + Math.PI / 2);
+		Rotation r = RotationUtil.vecToRotation(dx, dy, dz);
 		
-		return new Rotation(yaw, pitch);
+		smoothLook.setRotation(r);
 	}
 	
 	public static boolean canSee(BlockPos pos) {

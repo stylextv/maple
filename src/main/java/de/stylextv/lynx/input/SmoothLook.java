@@ -31,6 +31,15 @@ public class SmoothLook {
 	private void apply() {
 		LocalPlayer p = PlayerContext.player();
 		
+//		Vec2 v = p.getRotationVector();
+//		
+//		float yaw = v.y;
+//		float pitch = v.x;
+//		
+//		Rotation r = new Rotation(yaw, pitch);
+//		
+//		r = r.normalizeYaw().nudgeToMatch(rotation, TURN_SPEED);
+		
 		p.setXRot(rotation.getPitch());
 		p.setYRot(rotation.getYaw());
 	}
