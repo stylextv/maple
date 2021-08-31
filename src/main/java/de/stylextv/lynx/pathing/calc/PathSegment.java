@@ -29,7 +29,9 @@ public class PathSegment {
 	public double ticksLeft() {
 		double sum = 0;
 		
-		for(Movement m : list) {
+		for(int i = pointer; i < list.size(); i++) {
+			
+			Movement m = list.get(i);
 			
 			sum += m.cost();
 		}

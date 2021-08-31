@@ -11,6 +11,8 @@ public class SearchExecutor {
 	
 	private static final long SEARCH_AHEAD_TIMEOUT = 4000;
 	
+	private static final long CALCULATION_TIME_BUFFER = 2000;
+	
 	private static final long SLEEP_TIME = 500;
 	
 	private static PathFinder finder;
@@ -36,7 +38,9 @@ public class SearchExecutor {
 				
 				long time = initial ? INITIAL_TIMEOUT : SEARCH_AHEAD_TIMEOUT;
 				
-				if(path.timeLeft() > time) {
+				long requiredTime = time + CALCULATION_TIME_BUFFER;
+				
+				if(path.timeLeft() > requiredTime) {
 					
 					AsyncUtil.sleep(SLEEP_TIME);
 					
