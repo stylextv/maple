@@ -68,6 +68,7 @@ home | - | h | Travel to the waypoint named *home*.
 lost | - | - | Travel to the nearest waypoint.
 axis | - | - | Travel to the nearest axis.
 invert | - | - | Inverts the set goal.
+eta | - | - | Displays the estimated time to reach the current destination.
 modified | modified [page] | - | Shows all modified options.
 version | - | ver, v | Shows the installed version of LYNX.
 
