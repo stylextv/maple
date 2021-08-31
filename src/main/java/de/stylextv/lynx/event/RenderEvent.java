@@ -44,8 +44,6 @@ public class RenderEvent {
 	}
 	
 	private void drawPathSegment(RenderWorldLastEvent event, PathSegment s) {
-		if(s == null) return;
-		
 		ShapeRenderer.drawPathSegment(event, s, Colors.PATH, Colors.PATH_MARKER, 2);
 	}
 	

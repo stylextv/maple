@@ -32,7 +32,11 @@ public class SearchExecutor {
 				
 				if(!required) break;
 				
-				if(!path.needsNewSegment()) {
+				boolean initial = path.isEmpty();
+				
+				long time = initial ? INITIAL_TIMEOUT : SEARCH_AHEAD_TIMEOUT;
+				
+				if(path.timeLeft() > time) {
 					
 					AsyncUtil.sleep(SLEEP_TIME);
 					
@@ -41,9 +45,7 @@ public class SearchExecutor {
 				
 				finder = new PathFinder(goal);
 				
-				boolean initial = path.isEmpty();
-				
-				PathSegment segment = finder.find(path.lastPosition(), initial ? INITIAL_TIMEOUT : SEARCH_AHEAD_TIMEOUT);
+				PathSegment segment = finder.find(path.lastPosition(), time);
 				
 				boolean paused = finder.wasPaused();
 				

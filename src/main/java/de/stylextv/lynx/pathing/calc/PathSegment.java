@@ -3,7 +3,6 @@ package de.stylextv.lynx.pathing.calc;
 import java.util.List;
 
 import de.stylextv.lynx.pathing.movement.Movement;
-import net.minecraft.core.BlockPos;
 
 public class PathSegment {
 	
@@ -19,14 +18,12 @@ public class PathSegment {
 		pointer++;
 	}
 	
-	public BlockPos lastPosition() {
+	public Node lastNode() {
 		int l = list.size();
 		
 		Movement m = list.get(l - 1);
 		
-		Node n = m.getDestination();
-		
-		return n.blockPos();
+		return m.getDestination();
 	}
 	
 	public double ticksLeft() {

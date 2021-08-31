@@ -57,6 +57,10 @@ public class MovementExecutor {
 		}
 	}
 	
+	public static boolean hasPath() {
+		return path != null;
+	}
+	
 	public static Path getPath() {
 		return path;
 	}

@@ -4,11 +4,10 @@ import java.util.ArrayList;
 
 import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.pathing.movement.Movement;
+import de.stylextv.lynx.util.TimeUtil;
 import net.minecraft.core.BlockPos;
 
 public class Path {
-	
-	private static final int MIN_NODE_AMOUNT = 30;
 	
 	private ArrayList<PathSegment> segments = new ArrayList<>();
 	
@@ -29,7 +28,7 @@ public class Path {
 	private void nextSegment() {
 		if(segment != null) segments.remove(0);
 		
-		if(segments.isEmpty()) {
+		if(isEmpty()) {
 			
 			segment = null;
 			
@@ -39,20 +38,23 @@ public class Path {
 		segment = segments.get(0);
 	}
 	
-	public BlockPos lastPosition() {
-		if(segments.isEmpty()) return PlayerContext.feetPosition();
+	// TODO if path is empty give estimate based on goal
+	public long timeToGoal() {
+		if(isEmpty()) return 0;
 		
-		int l = segments.size();
+		long time = timeLeft();
 		
-		PathSegment s = segments.get(l - 1);
+		Node n = lastNode();
 		
-		return s.lastPosition();
+		time += TimeUtil.ticksToMS(n.getHCost());
+		
+		return time;
 	}
 	
-	public boolean needsNewSegment() {
-		int l = nodesLeft();
+	public long timeLeft() {
+		double ticks = ticksLeft();
 		
-		return l < MIN_NODE_AMOUNT;
+		return TimeUtil.ticksToMS(ticks);
 	}
 	
 	public double ticksLeft() {
@@ -77,6 +79,20 @@ public class Path {
 		return sum;
 	}
 	
+	public BlockPos lastPosition() {
+		if(isEmpty()) return PlayerContext.feetPosition();
+		
+		return lastNode().blockPos();
+	}
+	
+	public Node lastNode() {
+		int l = segments.size();
+		
+		PathSegment s = segments.get(l - 1);
+		
+		return s.lastNode();
+	}
+	
 	public Movement getCurrentMovement() {
 		PathSegment s = getSegment();
 		
@@ -92,7 +108,7 @@ public class Path {
 	}
 	
 	public boolean isEmpty() {
-		return getSegment() == null;
+		return segments.isEmpty();
 	}
 	
 	public ArrayList<PathSegment> getAllSegments() {
