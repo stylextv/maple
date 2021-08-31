@@ -26,7 +26,7 @@ public class ETACommand extends Command {
 		
 		String s = TimeUtil.format(time);
 		
-		ChatUtil.send("§cEstimated time until arrival: " + s);
+		ChatUtil.send("Estimated time until arrival: " + s);
 		
 		return true;
 	}
