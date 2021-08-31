@@ -89,6 +89,10 @@ public class LevelContext {
 		return level().getBlockState(pos);
 	}
 	
+	public static boolean isBlockLoaded(BlockPos pos) {
+		return level().isLoaded(pos);
+	}
+	
 	public static boolean isInsideBorder(BlockPos pos) {
 		WorldBorder border = level().getWorldBorder();
 		

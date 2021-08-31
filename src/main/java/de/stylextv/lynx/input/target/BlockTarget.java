@@ -1,6 +1,5 @@
 package de.stylextv.lynx.input.target;
 
-import de.stylextv.lynx.context.LevelContext;
 import de.stylextv.lynx.input.InputAction;
 import de.stylextv.lynx.input.controller.AwarenessController;
 import de.stylextv.lynx.input.controller.BreakController;
@@ -9,6 +8,7 @@ import de.stylextv.lynx.input.controller.InputController;
 import de.stylextv.lynx.input.controller.PlaceController;
 import de.stylextv.lynx.input.controller.ViewController;
 import de.stylextv.lynx.util.world.Offset;
+import de.stylextv.lynx.world.BlockInterface;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
@@ -47,7 +47,7 @@ public class BlockTarget {
 	public void selectTool() {
 		if(isBreakable()) {
 			
-			BlockState state = LevelContext.getBlockState(pos);
+			BlockState state = BlockInterface.getState(pos);
 			
 			ItemStack stack = GuiController.bestTool(state);
 			

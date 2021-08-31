@@ -38,8 +38,6 @@ public class CacheManager {
 	}
 	
 	public static BlockType getBlockType(BlockPos pos) {
-		if(!LevelContext.isInsideBorder(pos)) return BlockType.UNBREAKABLE;
-		
 		return level.getBlockType(pos);
 	}
 	

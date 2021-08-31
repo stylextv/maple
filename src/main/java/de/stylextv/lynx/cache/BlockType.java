@@ -10,7 +10,13 @@ import net.minecraft.world.level.material.Fluids;
 
 public enum BlockType {
 	
-	AIR(0, true), SOLID(1), WATER(2, true), DANGER(3), UNLOADED(-1, true), VOID(-1, true), UNBREAKABLE(-1, false, false);
+	AIR(0, Blocks.AIR, true),
+	SOLID(1, Blocks.STONE),
+	WATER(2, Blocks.WATER, true),
+	DANGER(3, Blocks.LAVA),
+	UNLOADED(-1, Blocks.AIR, true),
+	VOID(-1, Blocks.AIR, true),
+	UNBREAKABLE(-1, Blocks.BEDROCK, false, false);
 	
 	private static final Block[] DANGER_BLOCKS = new Block[] {
 			Blocks.LAVA,
@@ -24,23 +30,27 @@ public enum BlockType {
 	
 	private boolean[] bits;
 	
+	private BlockState state;
+	
 	private boolean passable;
 	
 	private boolean breakable;
 	
-	private BlockType(int bits) {
-		this(bits, false);
+	private BlockType(int bits, Block block) {
+		this(bits, block, false);
 	}
 	
-	private BlockType(int bits, boolean passable) {
-		this(bits, passable, !passable);
+	private BlockType(int bits, Block block, boolean passable) {
+		this(bits, block, passable, !passable);
 	}
 	
-	private BlockType(int bits, boolean passable, boolean breakable) {
+	private BlockType(int bits, Block block, boolean passable, boolean breakable) {
 		this.bits = new boolean[] {
 				(bits & 2) != 0,
 				(bits & 1) != 0
 		};
+		
+		this.state = block.defaultBlockState();
 		
 		this.passable = passable;
 		this.breakable = breakable;
@@ -48,6 +58,10 @@ public enum BlockType {
 	
 	public boolean[] getBits() {
 		return bits;
+	}
+	
+	public BlockState getState() {
+		return state;
 	}
 	
 	public boolean isPassable() {

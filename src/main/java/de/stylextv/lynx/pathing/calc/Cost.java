@@ -2,6 +2,7 @@ package de.stylextv.lynx.pathing.calc;
 
 import de.stylextv.lynx.context.LevelContext;
 import de.stylextv.lynx.input.controller.GuiController;
+import de.stylextv.lynx.world.BlockInterface;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
@@ -52,7 +53,7 @@ public class Cost {
 		
 		BlockPos pos = new BlockPos(x, y, z);
 		
-		BlockState state = level.getBlockState(pos);
+		BlockState state = BlockInterface.getState(pos);
 		
 		float hardness = state.getDestroySpeed(level, pos);
 		

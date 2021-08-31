@@ -1,6 +1,6 @@
 package de.stylextv.lynx.input.controller;
 
-import de.stylextv.lynx.context.LevelContext;
+import de.stylextv.lynx.world.BlockInterface;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -13,7 +13,7 @@ public class BreakController {
 	}
 	
 	public static boolean isBreakable(BlockPos pos) {
-		BlockState state = LevelContext.getBlockState(pos);
+		BlockState state = BlockInterface.getState(pos);
 		
 		return state.getMaterial().blocksMotion();
 	}
