@@ -27,6 +27,8 @@ public class Path {
 	}
 	
 	private void nextSegment() {
+		if(segment != null) segments.remove(0);
+		
 		if(segments.isEmpty()) {
 			
 			segment = null;
@@ -34,22 +36,17 @@ public class Path {
 			return;
 		}
 		
-		segment = segments.remove(0);
+		segment = segments.get(0);
 	}
 	
 	public BlockPos lastPosition() {
-		if(!segments.isEmpty()) {
-			
-			int l = segments.size();
-			
-			PathSegment s = segments.get(l - 1);
-			
-			return s.lastPosition();
-		}
+		if(segments.isEmpty()) return PlayerContext.feetPosition();
 		
-		if(segment != null) return segment.lastPosition();
+		int l = segments.size();
 		
-		return PlayerContext.feetPosition();
+		PathSegment s = segments.get(l - 1);
+		
+		return s.lastPosition();
 	}
 	
 	public boolean needsNewSegment() {
@@ -58,12 +55,19 @@ public class Path {
 		return l < MIN_NODE_AMOUNT;
 	}
 	
+	public double ticksLeft() {
+		double sum = 0;
+		
+		for(PathSegment s : segments) {
+			
+			sum += s.ticksLeft();
+		}
+		
+		return sum;
+	}
+	
 	public int nodesLeft() {
 		int sum = 0;
-		
-		PathSegment segment = getSegment();
-		
-		if(segment != null) sum += segment.nodesLeft();
 		
 		for(PathSegment s : segments) {
 			
@@ -91,7 +95,7 @@ public class Path {
 		return getSegment() == null;
 	}
 	
-	public ArrayList<PathSegment> getQueuedSegments() {
+	public ArrayList<PathSegment> getAllSegments() {
 		return segments;
 	}
 	

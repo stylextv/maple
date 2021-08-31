@@ -38,9 +38,7 @@ public class RenderEvent {
 	private void drawPath(RenderWorldLastEvent event, Path path) {
 		if(path == null) return;
 		
-		drawPathSegment(event, path.getSegment());
-		
-		for(PathSegment s : path.getQueuedSegments()) {
+		for(PathSegment s : path.getAllSegments()) {
 			drawPathSegment(event, s);
 		}
 	}

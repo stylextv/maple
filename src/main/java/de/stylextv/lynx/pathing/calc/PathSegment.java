@@ -29,6 +29,17 @@ public class PathSegment {
 		return n.blockPos();
 	}
 	
+	public double ticksLeft() {
+		double sum = 0;
+		
+		for(Movement m : list) {
+			
+			sum += m.cost();
+		}
+		
+		return sum;
+	}
+	
 	public int nodesLeft() {
 		return length() - pointer;
 	}
