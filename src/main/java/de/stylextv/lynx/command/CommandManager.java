@@ -1,6 +1,7 @@
 package de.stylextv.lynx.command;
 
 import de.stylextv.lynx.command.commands.AxisCommand;
+import de.stylextv.lynx.command.commands.ETACommand;
 import de.stylextv.lynx.command.commands.GoCommand;
 import de.stylextv.lynx.command.commands.GoalCommand;
 import de.stylextv.lynx.command.commands.GotoCommand;
@@ -29,6 +30,7 @@ public class CommandManager {
 			new LostCommand(),
 			new AxisCommand(),
 			new InvertCommand(),
+			new ETACommand(),
 			new ModifiedCommand(),
 			new VersionCommand()
 	};
