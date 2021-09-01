@@ -43,7 +43,7 @@ public class CacheManager {
 	}
 	
 	public static BlockType getBlockType(int x, int y, int z) {
-		if(!WorldBorderInterface.isInside(x, z)) return BlockType.UNBREAKABLE;
+		if(!WorldBorderInterface.isInside(x, z)) return BlockType.BORDER;
 		
 		return level.getBlockType(x, y, z);
 	}

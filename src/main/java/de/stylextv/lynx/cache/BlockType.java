@@ -16,7 +16,7 @@ public enum BlockType {
 	DANGER(3, Blocks.LAVA),
 	UNLOADED(-1, Blocks.AIR, true),
 	VOID(-1, Blocks.AIR, true),
-	UNBREAKABLE(-1, Blocks.BEDROCK, false, false);
+	BORDER(-1, Blocks.BEDROCK, false, false);
 	
 	private static final Block[] DANGER_BLOCKS = new Block[] {
 			Blocks.LAVA,
