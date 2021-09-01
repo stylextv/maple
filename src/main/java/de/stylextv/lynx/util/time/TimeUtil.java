@@ -1,10 +1,9 @@
-package de.stylextv.lynx.util;
+package de.stylextv.lynx.util.time;
 
 public class TimeUtil {
 	
-	// TODO enhance
 	public static String format(long time) {
-		return time + "ms";
+		return TimeFormat.format(time);
 	}
 	
 	public static long ticksToMS(double ticks) {

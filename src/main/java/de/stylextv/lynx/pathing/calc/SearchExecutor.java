@@ -7,9 +7,9 @@ import de.stylextv.lynx.util.async.AsyncUtil;
 
 public class SearchExecutor {
 	
-	private static final long INITIAL_TIMEOUT = 1000;
+	private static final long INITIAL_TIMEOUT = 500;
 	
-	private static final long SEARCH_AHEAD_TIMEOUT = 4000;
+	private static final long PLAN_AHEAD_TIMEOUT = 4000;
 	
 	private static final long CALCULATION_TIME_BUFFER = 5000;
 	
@@ -36,7 +36,7 @@ public class SearchExecutor {
 				
 				boolean initial = path.isEmpty();
 				
-				long time = initial ? INITIAL_TIMEOUT : SEARCH_AHEAD_TIMEOUT;
+				long time = initial ? INITIAL_TIMEOUT : PLAN_AHEAD_TIMEOUT;
 				
 				long requiredTime = time + CALCULATION_TIME_BUFFER;
 				

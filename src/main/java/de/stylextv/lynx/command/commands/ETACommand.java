@@ -3,13 +3,13 @@ package de.stylextv.lynx.command.commands;
 import de.stylextv.lynx.command.Command;
 import de.stylextv.lynx.pathing.calc.Path;
 import de.stylextv.lynx.pathing.movement.MovementExecutor;
-import de.stylextv.lynx.util.TimeUtil;
 import de.stylextv.lynx.util.chat.ChatUtil;
+import de.stylextv.lynx.util.time.TimeUtil;
 
 public class ETACommand extends Command {
 	
 	public ETACommand() {
-		super("eta", "Displays estimated time to reach the current destination.");
+		super("eta", "Displays the estimated time to reach the current destination.");
 	}
 	
 	@Override

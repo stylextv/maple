@@ -13,9 +13,9 @@ public class BlockInterface {
 	}
 	
 	public static BlockState getState(BlockPos pos) {
-		if(!LevelContext.isInsideBorder(pos)) return BlockType.UNBREAKABLE.getState();
+		boolean loaded = LevelContext.isInsideBorder(pos) && LevelContext.isBlockLoaded(pos);
 		
-		if(LevelContext.isBlockLoaded(pos)) return LevelContext.getBlockState(pos);
+		if(loaded) return LevelContext.getBlockState(pos);
 		
 		BlockType type = CacheManager.getBlockType(pos);
 		
