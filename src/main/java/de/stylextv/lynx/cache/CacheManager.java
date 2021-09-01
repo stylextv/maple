@@ -3,6 +3,7 @@ package de.stylextv.lynx.cache;
 import java.util.HashMap;
 
 import de.stylextv.lynx.context.LevelContext;
+import de.stylextv.lynx.world.WorldBorderInterface;
 import net.minecraft.core.BlockPos;
 
 public class CacheManager {
@@ -33,14 +34,18 @@ public class CacheManager {
 		level = null;
 	}
 	
-	public static BlockType getBlockType(int x, int y, int z) {
-		return getBlockType(new BlockPos(x, y, z));
+	public static BlockType getBlockType(BlockPos pos) {
+		int x = pos.getX();
+		int y = pos.getY();
+		int z = pos.getZ();
+		
+		return getBlockType(x, y, z);
 	}
 	
-	public static BlockType getBlockType(BlockPos pos) {
-		if(!LevelContext.isInsideBorder(pos)) return BlockType.UNBREAKABLE;
+	public static BlockType getBlockType(int x, int y, int z) {
+		if(!WorldBorderInterface.isInside(x, z)) return BlockType.UNBREAKABLE;
 		
-		return level.getBlockType(pos);
+		return level.getBlockType(x, y, z);
 	}
 	
 	private static CachedLevel getLevel(String name) {

@@ -14,7 +14,6 @@ import de.stylextv.lynx.util.async.TaskInfo;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectCollection;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.ChunkPos;
 
 public class CachedLevel {
@@ -110,13 +109,8 @@ public class CachedLevel {
 		}
 	}
 	
-	public BlockType getBlockType(BlockPos pos) {
-		int y = pos.getY();
-		
+	public BlockType getBlockType(int x, int y, int z) {
 		if(y < 0 || y > 255) return BlockType.VOID;
-		
-		int x = pos.getX();
-		int z = pos.getZ();
 		
 		int cx = CoordUtil.blockToChunkPos(x);
 		int cz = CoordUtil.blockToChunkPos(z);

@@ -14,7 +14,6 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.border.WorldBorder;
 
 public class LevelContext {
 	
@@ -91,12 +90,6 @@ public class LevelContext {
 	
 	public static boolean isBlockLoaded(BlockPos pos) {
 		return level().isLoaded(pos);
-	}
-	
-	public static boolean isInsideBorder(BlockPos pos) {
-		WorldBorder border = level().getWorldBorder();
-		
-		return border.isWithinBounds(pos);
 	}
 	
 }
