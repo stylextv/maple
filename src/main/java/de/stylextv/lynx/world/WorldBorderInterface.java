@@ -10,6 +10,7 @@ public class WorldBorderInterface {
 		return isInside(pos.getX(), pos.getZ());
 	}
 	
+	// TODO getMinX, getMaxX, ... are too slow!
 	public static boolean isInside(int x, int z) {
 		WorldBorder border = getBorder();
 		
