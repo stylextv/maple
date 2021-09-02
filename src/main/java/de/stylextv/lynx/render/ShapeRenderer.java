@@ -18,7 +18,6 @@ import de.stylextv.lynx.pathing.calc.PathSegment;
 import de.stylextv.lynx.scheme.Color;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 
@@ -26,22 +25,15 @@ public class ShapeRenderer {
 	
 	private static final float BOX_VERTEX_OFFSET = 0.0075f;
 	
-	private static final Vec2[] RECT_VERTICES = new Vec2[] {
-			new Vec2(0, 0),
-			new Vec2(1, 0),
-			new Vec2(1, 1),
-			new Vec2(0, 1)
-	};
-	
 	private static Tesselator tesselator;
 	
 	private static BufferBuilder builder;
 	
-	public static void drawBox(RenderWorldLastEvent event, BlockPos pos, Color color, Color outlineColor, int lineWidth) {
-		drawBox(event, pos, pos, color, outlineColor, lineWidth);
+	public static void drawBox(RenderWorldLastEvent event, BlockPos pos, Color color, int lineWidth) {
+		drawBox(event, pos, pos, color, lineWidth);
 	}
 	
-	public static void drawBox(RenderWorldLastEvent event, BlockPos pos1, BlockPos pos2, Color color, Color outlineColor, int lineWidth) {
+	public static void drawBox(RenderWorldLastEvent event, BlockPos pos1, BlockPos pos2, Color color, int lineWidth) {
 		float x1 = Math.min(pos1.getX(), pos2.getX()) - BOX_VERTEX_OFFSET;
 		float y1 = Math.min(pos1.getY(), pos2.getY()) - BOX_VERTEX_OFFSET;
 		float z1 = Math.min(pos1.getZ(), pos2.getZ()) - BOX_VERTEX_OFFSET;
@@ -72,43 +64,6 @@ public class ShapeRenderer {
 				drawLine(event, new Vec3[] {vertices[i][j][0], vertices[i][j][1]}, color, lineWidth);
 			}
 		}
-		
-		for(int dir = 0; dir < 3; dir++) {
-			for(int side = 0; side < 2; side++) {
-				
-				Vec3[] arr = new Vec3[4];
-				
-				boolean b = side == 1;
-				
-				if(dir != 1) b = !b;
-				
-				int index = b ? 3 : 0;
-				int a = b ? -1 : 1;
-				
-				for(Vec2 v : RECT_VERTICES) {
-					Vec3 vertex = null;
-					
-					int i = (int) v.x;
-					int j = (int) v.y;
-					
-					if(dir == 0) vertex = vertices[side][i][j];
-					else if(dir == 1) vertex = vertices[i][side][j];
-					else if(dir == 2) vertex = vertices[i][j][side];
-					
-					arr[index] = vertex;
-					
-					index += a;
-				}
-				
-				fillRect(event, arr, outlineColor);
-			}
-		}
-	}
-	
-	public static void fillRect(RenderWorldLastEvent event, Vec3[] vertices, Color color) {
-		beginShape(event, Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
-		
-		endShape(vertices, color);
 	}
 	
 	public static void drawPathSegment(RenderWorldLastEvent event, PathSegment s, Color color, Color markerColor, float lineWidth) {
@@ -164,7 +119,6 @@ public class ShapeRenderer {
 	
 	private static void beginShape(RenderWorldLastEvent event, Mode mode, VertexFormat format) {
 		GL11.glEnable(GL11.GL_LINE_SMOOTH);
-		GL11.glHint(GL11.GL_LINE_SMOOTH_HINT, GL11.GL_NICEST);
 		
 		PoseStack stack = RenderSystem.getModelViewStack();
 		
@@ -181,9 +135,7 @@ public class ShapeRenderer {
 		RenderSystem.setShader(GameRenderer::getPositionColorShader);
 		
 		RenderSystem.disableTexture();
-		
-		RenderSystem.enableBlend();
-		RenderSystem.defaultBlendFunc();
+		RenderSystem.disableBlend();
 		
 		tesselator = Tesselator.getInstance();
 		
@@ -219,6 +171,7 @@ public class ShapeRenderer {
 		
 		RenderSystem.applyModelViewMatrix();
 		
+		RenderSystem.enableBlend();
 		RenderSystem.enableTexture();
 	}
 	
