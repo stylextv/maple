@@ -201,6 +201,7 @@ public class PathFinder {
 		}
 	}
 	
+	// TODO outsource this method
 	private boolean isValidNode(Node node, Node parent) {
 		int x = node.getX();
 		int y = node.getY();
