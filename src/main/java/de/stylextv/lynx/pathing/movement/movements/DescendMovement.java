@@ -46,6 +46,8 @@ public class DescendMovement extends Movement {
 		
 		lookAt(getDestination());
 		
+		if(isVerticalOnly()) return;
+		
 		setPressed(InputAction.MOVE_FORWARD, true);
 		setPressed(InputAction.SPRINT, true);
 	}
