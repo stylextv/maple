@@ -25,18 +25,14 @@ public class MouseButton {
 		
 		if(b) {
 			
-			InputController.setPressed(action, false);
-			
 			keyBind.setDown(true);
-			
-			pressed = true;
 			
 		} else if(pressed) {
 			
 			keyBind.setDown(false);
-			
-			pressed = false;
 		}
+		
+		pressed = b;
 	}
 	
 	public InputAction getAction() {

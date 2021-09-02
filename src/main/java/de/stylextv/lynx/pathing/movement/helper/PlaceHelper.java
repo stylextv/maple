@@ -56,7 +56,6 @@ public class PlaceHelper {
 			
 			if(target.continueTransforming()) {
 				
-				InputController.setPressed(InputAction.MOVE_FORWARD, false);
 				InputController.setPressed(InputAction.SNEAK, true);
 				
 				return true;

@@ -18,12 +18,6 @@ public class MovementExecutor {
 	
 	public static void stop() {
 		path = null;
-		
-		clearInputs();
-	}
-	
-	private static void clearInputs() {
-		InputController.releaseAll();
 	}
 	
 	public static void onRenderTick() {
@@ -50,11 +44,7 @@ public class MovementExecutor {
 		
 		MovementState state = m.getState();
 		
-		if(state != MovementState.GOING) {
-			clearInputs();
-			
-			path.next();
-		}
+		if(state != MovementState.GOING) path.next();
 	}
 	
 	public static boolean hasPath() {

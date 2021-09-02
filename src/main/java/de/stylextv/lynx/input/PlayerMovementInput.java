@@ -23,6 +23,8 @@ public class PlayerMovementInput extends Input {
 		jumping = InputController.isPressed(InputAction.JUMP);
 		
 		shiftKeyDown = InputController.isPressed(InputAction.SNEAK);
+		
+		InputController.releaseAll();
 	}
 	
 }

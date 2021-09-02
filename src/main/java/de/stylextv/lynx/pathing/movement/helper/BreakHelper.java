@@ -5,8 +5,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import de.stylextv.lynx.cache.BlockType;
 import de.stylextv.lynx.cache.CacheManager;
-import de.stylextv.lynx.input.InputAction;
-import de.stylextv.lynx.input.controller.InputController;
 import de.stylextv.lynx.input.target.BlockTarget;
 import de.stylextv.lynx.pathing.calc.Cost;
 import de.stylextv.lynx.pathing.calc.Node;
@@ -68,12 +66,7 @@ public class BreakHelper {
 				continue;
 			}
 			
-			if(target.continueTransforming()) {
-				
-				InputController.setPressed(InputAction.MOVE_FORWARD, false);
-				
-				return true;
-			}
+			if(target.continueTransforming()) return true;
 		}
 		
 		return false;
