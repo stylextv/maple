@@ -1,5 +1,6 @@
 package de.stylextv.lynx.pathing.movement.movements;
 
+import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.input.InputAction;
 import de.stylextv.lynx.pathing.calc.Cost;
 import de.stylextv.lynx.pathing.calc.Node;
@@ -37,7 +38,7 @@ public class DescendMovement extends Movement {
 		
 		cost += getBreakHelper().cost();
 		
-		return cost;
+		return cost + super.cost();
 	}
 	
 	@Override
@@ -46,7 +47,7 @@ public class DescendMovement extends Movement {
 		
 		lookAt(getDestination());
 		
-		if(isVerticalOnly()) return;
+		if(isVerticalOnly() && !PlayerContext.isOnGround()) return;
 		
 		setPressed(InputAction.MOVE_FORWARD, true);
 		setPressed(InputAction.SPRINT, true);

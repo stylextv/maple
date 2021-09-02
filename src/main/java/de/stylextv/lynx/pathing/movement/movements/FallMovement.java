@@ -41,7 +41,7 @@ public class FallMovement extends Movement {
 		
 		cost += getBreakHelper().cost();
 		
-		return cost;
+		return cost + super.cost();
 	}
 	
 	@Override

@@ -27,7 +27,7 @@ public class PillarMovement extends Movement {
 		cost += getBreakHelper().cost();
 		cost += getPlaceHelper().cost();
 		
-		return cost;
+		return cost + super.cost();
 	}
 	
 	@Override

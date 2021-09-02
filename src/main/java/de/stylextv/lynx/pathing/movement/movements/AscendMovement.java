@@ -25,7 +25,7 @@ public class AscendMovement extends Movement {
 		
 		cost += Cost.JUMP + getBreakHelper().cost();
 		
-		return cost;
+		return cost + super.cost();
 	}
 	
 	@Override

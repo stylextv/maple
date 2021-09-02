@@ -6,6 +6,7 @@ import de.stylextv.lynx.input.controller.InputController;
 import de.stylextv.lynx.input.controller.ViewController;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.movement.helper.BreakHelper;
+import de.stylextv.lynx.pathing.movement.helper.DangerHelper;
 import de.stylextv.lynx.pathing.movement.helper.PlaceHelper;
 import de.stylextv.lynx.pathing.movement.movements.AscendMovement;
 import de.stylextv.lynx.pathing.movement.movements.DescendMovement;
@@ -21,8 +22,9 @@ public abstract class Movement {
 	private Node destination;
 	
 	private BreakHelper breakHelper = new BreakHelper();
-	
 	private PlaceHelper placeHelper = new PlaceHelper();
+	
+	private DangerHelper dangerHelper = new DangerHelper(this);
 	
 	public Movement(Node source, Node destination) {
 		this.source = source;
@@ -33,7 +35,9 @@ public abstract class Movement {
 	
 	public void updateHelpers() {}
 	
-	public abstract double cost();
+	public double cost() {
+		return dangerHelper.cost();
+	}
 	
 	public abstract void onRenderTick();
 	
@@ -83,6 +87,10 @@ public abstract class Movement {
 	
 	public PlaceHelper getPlaceHelper() {
 		return placeHelper;
+	}
+	
+	public DangerHelper getDangerHelper() {
+		return dangerHelper;
 	}
 	
 	public static Movement fromNodes(Node n1, Node n2) {

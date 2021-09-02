@@ -13,7 +13,7 @@ public class DiagonalMovement extends Movement {
 	
 	@Override
 	public double cost() {
-		return Cost.SPRINT_DIAGONALLY;
+		return Cost.SPRINT_DIAGONALLY + super.cost();
 	}
 	
 	@Override
