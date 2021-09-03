@@ -12,7 +12,6 @@ public class BumpHelper extends MovementHelper {
 		super(m);
 	}
 	
-	// TODO cost for bumping into corner
 	@Override
 	public double cost() {
 		Movement m = getMovement();
@@ -31,7 +30,7 @@ public class BumpHelper extends MovementHelper {
 		
 		if(b1 && b2) return Cost.INFINITY;
 		
-		return 0;
+		return b1 || b2 ? Cost.BUMP : 0;
 	}
 	
 	private static boolean isBlocked(Node n, int height) {

@@ -178,60 +178,25 @@ public class PathFinder {
 		
 		if(closedSet.contains(n)) return;
 		
-		if(isValidNode(n, parent)) {
-			Movement m = Movement.fromNodes(parent, n);
+		Movement m = Movement.fromNodes(parent, n);
+		
+		double cost = m.cost();
+		
+		if(cost >= Cost.INFINITY) return;
+		
+		if(openList.contains(n)) {
 			
-			double cost = m.cost();
-			
-			if(cost >= Cost.INFINITY) return;
-			
-			if(openList.contains(n)) {
-				
-				if(n.updateParent(parent, m, cost)) {
-					openList.remove(n);
-					openList.add(n);
-				}
-				
-			} else {
-				
-				n.setParent(parent, m, cost);
-				
+			if(n.updateParent(parent, m, cost)) {
+				openList.remove(n);
 				openList.add(n);
 			}
+			
+		} else {
+			
+			n.setParent(parent, m, cost);
+			
+			openList.add(n);
 		}
-	}
-	
-	// TODO outsource this method
-	private boolean isValidNode(Node node, Node parent) {
-		int x = node.getX();
-		int y = node.getY();
-		int z = node.getZ();
-		
-		int disX = Math.abs(parent.getX() - x);
-		int disY = Math.abs(parent.getY() - y);
-		int disZ = Math.abs(parent.getZ() - z);
-		
-		int dis = disX + disY + disZ;
-		
-		boolean downwards = node.getY() < parent.getY();
-		
-		boolean needsSupport = dis != 1 || downwards;
-		
-		if(!canStandAt(node, needsSupport)) return false;
-		
-		return true;
-	}
-	
-	private boolean canStandAt(Node n, boolean needsSupport) {
-		if(n.getType() == BlockType.WATER) return true;
-		
-		int x = n.getX();
-		int y = n.getY();
-		int z = n.getZ();
-		
-		Node below = getMapNode(x, y - 1, z);
-		
-		return !needsSupport || below.getType() == BlockType.SOLID;
 	}
 	
 	private Node getMapNode(int x, int y, int z) {

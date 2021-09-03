@@ -80,6 +80,10 @@ public abstract class Movement {
 		return source.getX() == destination.getX() && source.getZ() == destination.getZ();
 	}
 	
+	public boolean isDownwards() {
+		return destination.getY() < source.getY();
+	}
+	
 	public boolean isDiagonal() {
 		return source.getX() != destination.getX() && source.getZ() != destination.getZ();
 	}

@@ -7,7 +7,6 @@ import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.movement.Movement;
 import de.stylextv.lynx.world.BlockInterface;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class SpeedHelper extends MovementHelper {
@@ -22,23 +21,35 @@ public class SpeedHelper extends MovementHelper {
 		
 		if(m.isVerticalOnly()) return 0;
 		
-		Node n = m.getDestination();
+		Node destination = m.getDestination();
+		Node source = m.getSource();
 		
-		boolean inWater = n.getType() == BlockType.WATER;
+		boolean inWater = destination.getType() == BlockType.WATER;
 		
-		if(!inWater && needsSupport) {
+		int x = destination.getX();
+		int y = destination.getY();
+		int z = destination.getZ();
+		
+		int disX = Math.abs(source.getX() - x);
+		int disY = Math.abs(source.getY() - y);
+		int disZ = Math.abs(source.getZ() - z);
+		
+		int dis = disX + disY + disZ;
+		
+		boolean needsSupport = dis != 1 || m.isDownwards();
+		
+		if(needsSupport && !inWater) {
 			
+			BlockType type = CacheManager.getBlockType(x, y - 1, z);
+			
+			if(type != BlockType.SOLID) return Cost.INFINITY;
 		}
 		
 		boolean isDiagonal = m.isDiagonal();
 		
 		if(inWater) return isDiagonal ? Cost.SWIM_DIAGONALLY : Cost.SWIM_STRAIGHT;
 		
-		int x = n.getX();
-		int y = n.getY() - 1;
-		int z = n.getZ();
-		
-		BlockState state = BlockInterface.getState(x, y, z);
+		BlockState state = BlockInterface.getState(x, y - 1, z);
 		
 		Block block = state.getBlock();
 		

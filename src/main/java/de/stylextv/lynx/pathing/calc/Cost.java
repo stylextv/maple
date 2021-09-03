@@ -25,6 +25,8 @@ public class Cost {
 	
 	public static final double[] FALL_N_BLOCKS = new double[255];
 	
+	public static final double BUMP = 3.2;
+	
 	private static final int PLACE_BLOCK = 20;
 	
 	static {
