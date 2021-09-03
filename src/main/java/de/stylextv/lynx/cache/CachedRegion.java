@@ -8,8 +8,7 @@ import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.context.LevelContext;
 import de.stylextv.lynx.io.FileAccess;
 import de.stylextv.lynx.io.FileSystem;
-import de.stylextv.lynx.util.CoordUtil;
-import net.minecraft.core.BlockPos;
+import de.stylextv.lynx.util.world.CoordUtil;
 import net.minecraft.world.level.ChunkPos;
 
 public class CachedRegion {
@@ -141,7 +140,7 @@ public class CachedRegion {
 	}
 	
 	public static long posAsLong(int x, int z) {
-		return BlockPos.asLong(x, 0, z);
+		return CoordUtil.posAsLong(x, 0, z);
 	}
 	
 }

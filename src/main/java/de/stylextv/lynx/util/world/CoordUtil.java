@@ -1,4 +1,6 @@
-package de.stylextv.lynx.util;
+package de.stylextv.lynx.util.world;
+
+import net.minecraft.core.BlockPos;
 
 public class CoordUtil {
 	
@@ -12,6 +14,10 @@ public class CoordUtil {
 	
 	public static int unitToBlockPos(double d) {
 		return (int) Math.floor(d);
+	}
+	
+	public static long posAsLong(int x, int y, int z) {
+		return BlockPos.asLong(x, y, z);
 	}
 	
 }

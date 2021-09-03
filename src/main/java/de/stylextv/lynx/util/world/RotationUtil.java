@@ -1,6 +1,4 @@
-package de.stylextv.lynx.util;
-
-import de.stylextv.lynx.util.world.Rotation;
+package de.stylextv.lynx.util.world;
 
 public class RotationUtil {
 	

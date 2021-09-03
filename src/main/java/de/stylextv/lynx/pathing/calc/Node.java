@@ -4,6 +4,7 @@ import de.stylextv.lynx.cache.BlockType;
 import de.stylextv.lynx.cache.CacheManager;
 import de.stylextv.lynx.pathing.calc.goal.Goal;
 import de.stylextv.lynx.pathing.movement.Movement;
+import de.stylextv.lynx.util.world.CoordUtil;
 import net.minecraft.core.BlockPos;
 
 public class Node {
@@ -144,7 +145,7 @@ public class Node {
 	}
 	
 	public static long posAsLong(int x, int y, int z) {
-		return BlockPos.asLong(x, y, z);
+		return CoordUtil.posAsLong(x, y, z);
 	}
 	
 }
