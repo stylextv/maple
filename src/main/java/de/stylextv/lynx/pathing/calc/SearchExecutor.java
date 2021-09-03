@@ -40,7 +40,9 @@ public class SearchExecutor {
 				
 				long requiredTime = time + CALCULATION_TIME_BUFFER;
 				
-				if(path.timeLeft() > requiredTime) {
+				boolean sleep = path.isFinished() || path.timeLeft() > requiredTime;
+				
+				if(sleep) {
 					
 					AsyncUtil.sleep(SLEEP_TIME);
 					
@@ -55,14 +57,17 @@ public class SearchExecutor {
 				
 				finder = null;
 				
-				if(segment == null) break;
+				if(segment == null) {
+					
+					path.setFinished(true);
+					
+					continue;
+				}
 				
 				path.add(segment);
 				
-				if(!paused) break;
+				if(!paused) path.setFinished(true);
 			}
-			
-			path.setFinished(true);
 		});
 	}
 	

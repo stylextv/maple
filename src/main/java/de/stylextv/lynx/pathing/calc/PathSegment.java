@@ -73,4 +73,8 @@ public class PathSegment {
 		return list.size();
 	}
 	
+	public int getPointer() {
+		return pointer;
+	}
+	
 }

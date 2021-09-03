@@ -20,8 +20,14 @@ public class MovementExecutor {
 		path = null;
 	}
 	
+	public static void recalc() {
+		path.clear();
+	}
+	
 	public static void onRenderTick() {
 		if(path == null) return;
+		
+		if(needsToRecalc()) recalc();
 		
 		Movement m = path.getCurrentMovement();
 		
@@ -45,6 +51,10 @@ public class MovementExecutor {
 		MovementState state = m.getState();
 		
 		if(state != MovementState.GOING) path.next();
+	}
+	
+	private static boolean needsToRecalc() {
+		return path.isImpossible();
 	}
 	
 	public static boolean hasPath() {

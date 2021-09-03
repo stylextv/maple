@@ -9,6 +9,8 @@ import net.minecraft.core.BlockPos;
 
 public class Path {
 	
+	private static final int OBSTACLE_LOOKAHEAD = 5;
+	
 	private ArrayList<PathSegment> segments = new ArrayList<>();
 	
 	private PathSegment segment;
@@ -36,6 +38,14 @@ public class Path {
 		}
 		
 		segment = segments.get(0);
+	}
+	
+	public void clear() {
+		segments.clear();
+		
+		segment = null;
+		
+		finished = false;
 	}
 	
 	// TODO if path is empty give estimate based on goal
@@ -101,10 +111,42 @@ public class Path {
 		return s.getCurrentMovement();
 	}
 	
+	public Movement getNextMovement(int offset) {
+		for(PathSegment s : segments) {
+			
+			int k = s.getPointer();
+			
+			int l = s.length() - k;
+			
+			if(offset >= l) {
+				offset -= l;
+				
+				continue;
+			}
+			
+			return s.getMovement(offset + k);
+		}
+		
+		return null;
+	}
+	
 	public PathSegment getSegment() {
 		if(segment == null || segment.isFinished()) nextSegment();
 		
 		return segment;
+	}
+	
+	public boolean isImpossible() {
+		for(int i = 0; i < OBSTACLE_LOOKAHEAD; i++) {
+			
+			Movement m = getNextMovement(i);
+			
+			if(m == null) break;
+			
+			if(m.isImpossible()) return true;
+		}
+		
+		return false;
 	}
 	
 	public boolean isEmpty() {
