@@ -30,7 +30,7 @@ public class BumpHelper extends MovementHelper {
 		
 		if(b1 && b2) return Cost.INFINITY;
 		
-		return b1 || b2 ? Cost.BUMP : 0;
+		return b1 || b2 ? Cost.BUMP_INTO_CORNER : 0;
 	}
 	
 	private static boolean isBlocked(Node n, int height) {

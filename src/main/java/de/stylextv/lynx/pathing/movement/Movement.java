@@ -72,6 +72,10 @@ public abstract class Movement {
 		return n.equals(pos) ? MovementState.DONE : MovementState.GOING;
 	}
 	
+	public double distanceSqr(BlockPos pos) {
+		return destination.distanceSqr(pos);
+	}
+	
 	public boolean isImpossible() {
 		return cost() >= Cost.INFINITY;
 	}

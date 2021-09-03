@@ -46,27 +46,33 @@ public class PlayerContext {
 	}
 	
 	public static double horizontalSpeed() {
-		Vec3 v = MC.player.getDeltaMovement();
+		Vec3 v = player().getDeltaMovement();
 		
 		return v.multiply(1, 0, 1).length();
 	}
 	
 	public static double verticalSpeed() {
-		Vec3 v = MC.player.getDeltaMovement();
+		Vec3 v = player().getDeltaMovement();
 		
 		return v.y();
 	}
 	
 	public static double speed() {
-		return MC.player.getDeltaMovement().length();
+		return player().getDeltaMovement().length();
+	}
+	
+	public static boolean isFalling() {
+		if(isOnGround()) return false;
+		
+		return MC.player.getDeltaMovement().y() < 0;
 	}
 	
 	public static boolean isOnGround() {
-		return MC.player.isOnGround();
+		return player().isOnGround();
 	}
 	
 	public static boolean isInWater() {
-		return MC.player.isInWater();
+		return player().isInWater();
 	}
 	
 	public static double distanceSqr(BlockPos pos) {
@@ -96,7 +102,7 @@ public class PlayerContext {
 	}
 	
 	public static boolean setFlying(boolean b) {
-		return MC.player.getAbilities().flying = b;
+		return player().getAbilities().flying = b;
 	}
 	
 }

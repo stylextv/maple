@@ -103,6 +103,14 @@ public class Path {
 		return s.lastNode();
 	}
 	
+	public double distanceSqr(BlockPos pos) {
+		Movement m = getCurrentMovement();
+		
+		if(m == null) return 0;
+		
+		return m.distanceSqr(pos);
+	}
+	
 	public Movement getCurrentMovement() {
 		PathSegment s = getSegment();
 		
