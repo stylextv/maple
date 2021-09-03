@@ -5,6 +5,7 @@ import de.stylextv.lynx.cache.CacheManager;
 import de.stylextv.lynx.pathing.calc.Cost;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.movement.Movement;
+import de.stylextv.lynx.world.avoidance.Avoidance;
 
 public class DangerHelper extends MovementHelper {
 	
@@ -26,23 +27,27 @@ public class DangerHelper extends MovementHelper {
 		
 		if(isNearDanger(destination)) return Cost.INFINITY;
 		
-		int x1 = destination.getX();
-		int z1 = destination.getZ();
+		int x = destination.getX();
+		int y = destination.getY();
+		int z = destination.getZ();
 		
-		BlockType type = CacheManager.getBlockType(x1, destination.getY() + 1, z1);
+		BlockType type = CacheManager.getBlockType(x, y + 1, z);
 		
 		if(type == BlockType.WATER) return Cost.INFINITY;
 		
-		if(!m.isDiagonal()) return 0;
+		if(m.isDiagonal()) {
+			
+			int x2 = source.getX();
+			int z2 = source.getZ();
+			
+			int y2 = Math.max(source.getY(), destination.getY());
+			
+			boolean b = isNearDanger(x, y2, z2) || isNearDanger(x2, y2, z);
+			
+			if(b) return Cost.INFINITY;
+		}
 		
-		int x2 = source.getX();
-		int z2 = source.getZ();
-		
-		int y = Math.max(source.getY(), destination.getY());
-		
-		boolean b = isNearDanger(x1, y, z2) || isNearDanger(x2, y, z1);
-		
-		return b ? Cost.INFINITY : 0;
+		return Avoidance.getCost(x, y, z);
 	}
 	
 	private static boolean isNearDanger(Node n) {

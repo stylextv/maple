@@ -9,7 +9,7 @@ import net.minecraft.core.BlockPos;
 
 public class Path {
 	
-	private static final int OBSTACLE_LOOKAHEAD = 5;
+	private static final int OBSTACLE_LOOKAHEAD = 6;
 	
 	private ArrayList<PathSegment> segments = new ArrayList<>();
 	
