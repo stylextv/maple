@@ -10,6 +10,7 @@ import de.stylextv.lynx.pathing.movement.helper.BreakHelper;
 import de.stylextv.lynx.pathing.movement.helper.BumpHelper;
 import de.stylextv.lynx.pathing.movement.helper.DangerHelper;
 import de.stylextv.lynx.pathing.movement.helper.PlaceHelper;
+import de.stylextv.lynx.pathing.movement.helper.SpeedHelper;
 import de.stylextv.lynx.pathing.movement.movements.AscendMovement;
 import de.stylextv.lynx.pathing.movement.movements.DescendMovement;
 import de.stylextv.lynx.pathing.movement.movements.DiagonalMovement;
@@ -23,12 +24,14 @@ public abstract class Movement {
 	private Node source;
 	private Node destination;
 	
+	private SpeedHelper speedHelper = new SpeedHelper(this);
+	
+	private BumpHelper bumpHelper = new BumpHelper(this);
+	
 	private BreakHelper breakHelper = new BreakHelper(this);
 	private PlaceHelper placeHelper = new PlaceHelper(this);
 	
 	private DangerHelper dangerHelper = new DangerHelper(this);
-	
-	private BumpHelper bumpHelper = new BumpHelper(this);
 	
 	public Movement(Node source, Node destination) {
 		this.source = source;
@@ -40,7 +43,7 @@ public abstract class Movement {
 	public void updateHelpers() {}
 	
 	public double cost() {
-		return dangerHelper.cost() + bumpHelper.cost();
+		return speedHelper.cost() + bumpHelper.cost() + dangerHelper.cost();
 	}
 	
 	public abstract void onRenderTick();
@@ -89,6 +92,14 @@ public abstract class Movement {
 		return destination;
 	}
 	
+	public SpeedHelper getSpeedHelper() {
+		return speedHelper;
+	}
+	
+	public BumpHelper getBumpHelper() {
+		return bumpHelper;
+	}
+	
 	public BreakHelper getBreakHelper() {
 		return breakHelper;
 	}
@@ -99,10 +110,6 @@ public abstract class Movement {
 	
 	public DangerHelper getDangerHelper() {
 		return dangerHelper;
-	}
-	
-	public BumpHelper getBumpHelper() {
-		return bumpHelper;
 	}
 	
 	public static Movement fromNodes(Node n1, Node n2) {

@@ -19,11 +19,7 @@ public class AscendMovement extends Movement {
 	
 	@Override
 	public double cost() {
-		boolean diagonal = isDiagonal();
-		
-		double cost = diagonal ? Cost.SPRINT_DIAGONALLY : Cost.SPRINT_STRAIGHT;
-		
-		cost += Cost.JUMP + getBreakHelper().cost();
+		double cost = Cost.JUMP + getBreakHelper().cost();
 		
 		return cost + super.cost();
 	}

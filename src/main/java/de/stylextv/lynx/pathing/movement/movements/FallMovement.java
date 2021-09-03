@@ -24,20 +24,9 @@ public class FallMovement extends Movement {
 	
 	@Override
 	public double cost() {
-		double cost = 0;
-		
-		if(!isVerticalOnly()) {
-			
-			boolean diagonal = isDiagonal();
-			
-			cost = diagonal ? Cost.SPRINT_DIAGONALLY : Cost.SPRINT_STRAIGHT;
-			
-			cost /= 2;
-		}
-		
 		int dis = getSource().getY() - getDestination().getY();
 		
-		cost += Cost.FALL_N_BLOCKS[dis];
+		double cost = Cost.FALL_N_BLOCKS[dis];
 		
 		cost += getBreakHelper().cost();
 		
