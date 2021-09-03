@@ -73,7 +73,10 @@ public abstract class Movement {
 	}
 	
 	public double distanceSqr(BlockPos pos) {
-		return destination.distanceSqr(pos);
+		int dis1 = source.distanceSqr(pos);
+		int dis2 = destination.distanceSqr(pos);
+		
+		return Math.min(dis1, dis2);
 	}
 	
 	public boolean isImpossible() {
