@@ -4,9 +4,14 @@ import de.stylextv.lynx.cache.BlockType;
 import de.stylextv.lynx.cache.CacheManager;
 import de.stylextv.lynx.input.target.BlockTarget;
 import de.stylextv.lynx.pathing.calc.Cost;
+import de.stylextv.lynx.pathing.movement.Movement;
 import net.minecraft.core.BlockPos;
 
 public class BreakHelper extends TargetHelper {
+	
+	public BreakHelper(Movement m) {
+		super(m);
+	}
 	
 	@Override
 	public void collectBlock(int x, int y, int z) {
@@ -17,6 +22,7 @@ public class BreakHelper extends TargetHelper {
 		if(!hasTarget(x, y, z)) addTarget(x, y, z);
 	}
 	
+	@Override
 	public double cost() {
 		int sum = 0;
 		

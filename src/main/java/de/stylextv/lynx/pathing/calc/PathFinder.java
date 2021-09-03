@@ -211,8 +211,6 @@ public class PathFinder {
 		int disY = Math.abs(parent.getY() - y);
 		int disZ = Math.abs(parent.getZ() - z);
 		
-		if(disY > 3 && node.getType() != BlockType.WATER) return false;
-		
 		int dis = disX + disY + disZ;
 		
 		boolean downwards = node.getY() < parent.getY();
@@ -221,46 +219,7 @@ public class PathFinder {
 		
 		if(!canStandAt(node, needsSupport)) return false;
 		
-		boolean diagonally = disX + disZ > 1;
-		
-		if(diagonally) {
-			
-			if(isBlocked(node, 2)) return false;
-			
-			Node higher = node;
-			
-			if(parent.getY() > higher.getY()) higher = parent;
-			
-			boolean b1 = isBlocked(node.getX(), higher.getY(), parent.getZ(), 2);
-			boolean b2 = isBlocked(parent.getX(), higher.getY(), node.getZ(), 2);
-			
-			if(b1 && b2) return false;
-		}
-		
 		return true;
-	}
-	
-	private boolean isBlocked(Node n, int height) {
-		int x = n.getX();
-		int y = n.getY();
-		int z = n.getZ();
-		
-		return isBlocked(x, y, z, height);
-	}
-	
-	private boolean isBlocked(int x, int y, int z, int height) {
-		for(int i = 0; i < height; i++) {
-			
-			if(isBlocked(x, y + i, z)) return true;
-		}
-		
-		return false;
-	}
-	
-	private boolean isBlocked(int x, int y, int z) {
-		Node n = getMapNode(x, y, z);
-		
-		return !n.getType().isPassable();
 	}
 	
 	private boolean canStandAt(Node n, boolean needsSupport) {

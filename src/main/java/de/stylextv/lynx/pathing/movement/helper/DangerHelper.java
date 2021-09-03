@@ -6,18 +6,23 @@ import de.stylextv.lynx.pathing.calc.Cost;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.movement.Movement;
 
-public class DangerHelper {
-	
-	private Movement movement;
+public class DangerHelper extends MovementHelper {
 	
 	public DangerHelper(Movement m) {
-		this.movement = m;
+		super(m);
 	}
 	
 	// TODO cost for walking close to monsters
+	@Override
 	public double cost() {
-		Node source = movement.getSource();
-		Node destination = movement.getDestination();
+		Movement m = getMovement();
+		
+		Node source = m.getSource();
+		Node destination = m.getDestination();
+		
+		int dy = source.getY() - destination.getY();
+		
+		if(dy > 3 && destination.getType() != BlockType.WATER) return Cost.INFINITY;
 		
 		if(isNearDanger(destination)) return Cost.INFINITY;
 		
@@ -28,7 +33,7 @@ public class DangerHelper {
 		
 		if(type == BlockType.WATER) return Cost.INFINITY;
 		
-		if(!movement.isDiagonal()) return 0;
+		if(!m.isDiagonal()) return 0;
 		
 		int x2 = source.getX();
 		int z2 = source.getZ();

@@ -4,8 +4,10 @@ import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.input.InputAction;
 import de.stylextv.lynx.input.controller.InputController;
 import de.stylextv.lynx.input.controller.ViewController;
+import de.stylextv.lynx.pathing.calc.Cost;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.movement.helper.BreakHelper;
+import de.stylextv.lynx.pathing.movement.helper.BumpHelper;
 import de.stylextv.lynx.pathing.movement.helper.DangerHelper;
 import de.stylextv.lynx.pathing.movement.helper.PlaceHelper;
 import de.stylextv.lynx.pathing.movement.movements.AscendMovement;
@@ -21,10 +23,12 @@ public abstract class Movement {
 	private Node source;
 	private Node destination;
 	
-	private BreakHelper breakHelper = new BreakHelper();
-	private PlaceHelper placeHelper = new PlaceHelper();
+	private BreakHelper breakHelper = new BreakHelper(this);
+	private PlaceHelper placeHelper = new PlaceHelper(this);
 	
 	private DangerHelper dangerHelper = new DangerHelper(this);
+	
+	private BumpHelper bumpHelper = new BumpHelper(this);
 	
 	public Movement(Node source, Node destination) {
 		this.source = source;
@@ -36,7 +40,7 @@ public abstract class Movement {
 	public void updateHelpers() {}
 	
 	public double cost() {
-		return dangerHelper.cost();
+		return dangerHelper.cost() + bumpHelper.cost();
 	}
 	
 	public abstract void onRenderTick();
@@ -65,6 +69,10 @@ public abstract class Movement {
 		return n.equals(pos) ? MovementState.DONE : MovementState.GOING;
 	}
 	
+	public boolean isImpossible() {
+		return cost() >= Cost.INFINITY;
+	}
+	
 	public boolean isVerticalOnly() {
 		return source.getX() == destination.getX() && source.getZ() == destination.getZ();
 	}
@@ -91,6 +99,10 @@ public abstract class Movement {
 	
 	public DangerHelper getDangerHelper() {
 		return dangerHelper;
+	}
+	
+	public BumpHelper getBumpHelper() {
+		return bumpHelper;
 	}
 	
 	public static Movement fromNodes(Node n1, Node n2) {

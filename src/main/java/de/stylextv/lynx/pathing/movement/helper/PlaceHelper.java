@@ -6,8 +6,13 @@ import de.stylextv.lynx.input.InputAction;
 import de.stylextv.lynx.input.controller.InputController;
 import de.stylextv.lynx.input.target.BlockTarget;
 import de.stylextv.lynx.pathing.calc.Cost;
+import de.stylextv.lynx.pathing.movement.Movement;
 
 public class PlaceHelper extends TargetHelper {
+	
+	public PlaceHelper(Movement m) {
+		super(m);
+	}
 	
 	@Override
 	public void collectBlock(int x, int y, int z) {
@@ -18,6 +23,7 @@ public class PlaceHelper extends TargetHelper {
 		if(!hasTarget(x, y, z)) addTarget(x, y, z);
 	}
 	
+	@Override
 	public double cost() {
 		int l = getTargets().size();
 		

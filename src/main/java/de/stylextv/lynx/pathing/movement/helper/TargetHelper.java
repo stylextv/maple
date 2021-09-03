@@ -5,11 +5,16 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import de.stylextv.lynx.input.target.BlockTarget;
 import de.stylextv.lynx.pathing.calc.Node;
+import de.stylextv.lynx.pathing.movement.Movement;
 import net.minecraft.core.BlockPos;
 
-public abstract class TargetHelper {
+public abstract class TargetHelper extends MovementHelper {
 	
 	private List<BlockTarget> targets = new CopyOnWriteArrayList<>();
+	
+	public TargetHelper(Movement m) {
+		super(m);
+	}
 	
 	public void collectBlocks(Node n, int height) {
 		collectBlocks(n, 0, height);
