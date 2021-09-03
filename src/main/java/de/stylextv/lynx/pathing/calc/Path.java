@@ -54,9 +54,12 @@ public class Path {
 		
 		long time = timeLeft();
 		
-		Node n = lastNode();
-		
-		time += TimeUtil.ticksToMS(n.getHCost());
+		if(!isFinished()) {
+			
+			Node n = lastNode();
+			
+			time += TimeUtil.ticksToMS(n.getHCost());
+		}
 		
 		return time;
 	}
