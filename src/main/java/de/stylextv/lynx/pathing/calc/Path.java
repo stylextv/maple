@@ -1,6 +1,7 @@
 package de.stylextv.lynx.pathing.calc;
 
-import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.pathing.movement.Movement;
@@ -11,7 +12,7 @@ public class Path {
 	
 	private static final int OBSTACLE_LOOKAHEAD = 6;
 	
-	private ArrayList<PathSegment> segments = new ArrayList<>();
+	private List<PathSegment> segments = new CopyOnWriteArrayList<>();
 	
 	private PathSegment segment;
 	
@@ -248,7 +249,7 @@ public class Path {
 		return segments.isEmpty();
 	}
 	
-	public ArrayList<PathSegment> getAllSegments() {
+	public List<PathSegment> getAllSegments() {
 		return segments;
 	}
 	
