@@ -47,7 +47,10 @@ public class RenderEvent {
 	}
 	
 	private void drawPathSegment(RenderWorldLastEvent event, PathSegment s) {
-		for(Movement m : s.getMovements()) {
+		for(int i = s.getPointer(); i < s.length(); i++) {
+			
+			Movement m = s.getMovement(i);
+			
 			m.render(event);
 		}
 	}

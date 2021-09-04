@@ -95,6 +95,9 @@ public abstract class Movement {
 	
 	public void render(RenderWorldLastEvent event) {
 		ShapeRenderer.drawNodeChain(event, destination, 2, Colors.PATH);
+		
+		breakHelper.render(event);
+		placeHelper.render(event);
 	}
 	
 	public double distanceSqr(BlockPos pos) {
