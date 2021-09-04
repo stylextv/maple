@@ -6,7 +6,7 @@ public class Colors {
 	
 	public static final Color PATH = new Color(225, 58, 67);
 	
-	public static final Color PATH_CALCULATION = new Color(28, 255, 255);
+	public static final Color PATH_CALCULATION = new Color(51, 58, 224);
 	
 	public static final Color BOX = new Color(255, 216, 83);
 	
