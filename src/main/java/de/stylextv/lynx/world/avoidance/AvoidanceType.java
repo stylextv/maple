@@ -48,17 +48,23 @@ public class AvoidanceType<T> {
 	private static HashMap<Class<?>, AvoidanceType<?>> map = new HashMap<>();
 	
 	public static final AvoidanceType<Zombie> ZOMBIE = new AvoidanceType<>(Zombie.class, 8, 1.5);
+	
 	public static final AvoidanceType<ZombieVillager> ZOMBIE_VILLAGER = new AvoidanceType<>(ZombieVillager.class, 8, 1.5);
+	
 	public static final AvoidanceType<Drowned> DROWNED = new AvoidanceType<>(Drowned.class, 8, 1.5);
+	
 	public static final AvoidanceType<Husk> HUSK = new AvoidanceType<>(Husk.class, 8, 1.5);
 	
 	public static final AvoidanceType<Skeleton> SKELETON = new AvoidanceType<>(Skeleton.class, 12, 1.5);
+	
 	public static final AvoidanceType<Stray> STRAY = new AvoidanceType<>(Stray.class, 12, 1.5);
+	
 	public static final AvoidanceType<WitherSkeleton> WITHER_SKELETON = new AvoidanceType<>(WitherSkeleton.class, 10, 1.8);
 	
 	public static final AvoidanceType<Creeper> CREEPER = new AvoidanceType<>(Creeper.class, 9, 1.5);
 	
 	public static final AvoidanceType<Spider> SPIDER = new AvoidanceType<>(Spider.class, 10, 1.5, (spider) -> spider.getBrightness() < 0.5f);
+	
 	public static final AvoidanceType<CaveSpider> CAVE_SPIDER = new AvoidanceType<>(CaveSpider.class, 10, 1.6);
 	
 	public static final AvoidanceType<EnderMan> ENDER_MAN = new AvoidanceType<>(EnderMan.class, 12, 2.0, (enderMan) -> {
@@ -70,30 +76,41 @@ public class AvoidanceType<T> {
 	public static final AvoidanceType<Witch> WITCH = new AvoidanceType<>(Witch.class, 10, 1.7);
 	
 	public static final AvoidanceType<Slime> SLIME = new AvoidanceType<>(Slime.class, 10, 1.8);
+	
 	public static final AvoidanceType<MagmaCube> MAGMA_CUBE = new AvoidanceType<>(MagmaCube.class, 12, 1.8);
 	
 	public static final AvoidanceType<Silverfish> SILVERFISH = new AvoidanceType<>(Silverfish.class, 6, 1.1);
+	
 	public static final AvoidanceType<Endermite> ENDERMITE = new AvoidanceType<>(Endermite.class, 6, 1.2);
 	
 	public static final AvoidanceType<Guardian> GUARDIAN = new AvoidanceType<>(Guardian.class, 10, 1.6);
+	
 	public static final AvoidanceType<ElderGuardian> ELDER_GUARDIAN = new AvoidanceType<>(ElderGuardian.class, 25, 2.5);
 	
 	public static final AvoidanceType<Blaze> BLAZE = new AvoidanceType<>(Blaze.class, 12, 1.5);
+	
 	public static final AvoidanceType<Ghast> GHAST = new AvoidanceType<>(Ghast.class, 15, 1.5);
 	
 	public static final AvoidanceType<Shulker> SHULKER = new AvoidanceType<>(Shulker.class, 13, 2.0);
 	
 	public static final AvoidanceType<Vex> VEX = new AvoidanceType<>(Vex.class, 6, 1.3);
+	
 	public static final AvoidanceType<Phantom> PHANTOM = new AvoidanceType<>(Phantom.class, 10, 1.7);
 	
 	public static final AvoidanceType<Pillager> PILLAGER = new AvoidanceType<>(Pillager.class, 9, 1.6);
+	
 	public static final AvoidanceType<Vindicator> VINDICATOR = new AvoidanceType<>(Vindicator.class, 10, 1.7);
+	
 	public static final AvoidanceType<Illusioner> ILLUSIONER = new AvoidanceType<>(Illusioner.class, 10, 1.7);
+	
 	public static final AvoidanceType<SpellcasterIllager> SPELLCASTER_ILLAGER = new AvoidanceType<>(SpellcasterIllager.class, 11, 1.8);
+	
 	public static final AvoidanceType<Evoker> EVOKER = new AvoidanceType<>(Evoker.class, 13, 2.0);
 	
 	public static final AvoidanceType<Piglin> PIGLIN = new AvoidanceType<>(Piglin.class, 11, 1.7);
+	
 	public static final AvoidanceType<PiglinBrute> PIGLIN_BRUTE = new AvoidanceType<>(PiglinBrute.class, 11, 1.7);
+	
 	public static final AvoidanceType<ZombifiedPiglin> ZOMBIFIED_PIGLIN = new AvoidanceType<>(ZombifiedPiglin.class, 11, 1.7, (piglin) -> {
 		LocalPlayer p = PlayerContext.player();
 		
@@ -101,10 +118,13 @@ public class AvoidanceType<T> {
 	});
 	
 	public static final AvoidanceType<Ravager> RAVAGER = new AvoidanceType<>(Ravager.class, 16, 2.5);
+	
 	public static final AvoidanceType<Hoglin> HOGLIN = new AvoidanceType<>(Hoglin.class, 13, 2.0);
+	
 	public static final AvoidanceType<Zoglin> ZOGLIN = new AvoidanceType<>(Zoglin.class, 13, 2.0);
 	
 	public static final AvoidanceType<EnderDragon> ENDER_DRAGON = new AvoidanceType<>(EnderDragon.class, 20, 3.0);
+	
 	public static final AvoidanceType<WitherBoss> WITHER = new AvoidanceType<>(WitherBoss.class, 30, 3.0);
 	
 	private Class<T> entityClass;
