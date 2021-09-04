@@ -18,7 +18,16 @@ public class Path {
 	private boolean finished;
 	
 	public void add(PathSegment s) {
-		segments.add(s);
+		Node n = s.lastMatch(this);
+		
+		if(n != null) {
+			
+			s.trimToNode(n);
+			
+			trimFromNode(n);
+		}
+		
+		if(!s.isEmpty()) segments.add(s);
 	}
 	
 	public void next() {
@@ -105,7 +114,7 @@ public class Path {
 	}
 	
 	public PathSegment lastSegment() {
-		int l = segments.size();
+		int l = length();
 		
 		if(l == 0) return null;
 		
@@ -120,6 +129,58 @@ public class Path {
 		if(m == null) return 0;
 		
 		return m.distanceSqr(pos);
+	}
+	
+	public void trimFromNode(Node n) {
+		int i = indexOf(n);
+		
+		trim(lengthInNodes() - i);
+	}
+	
+	public void trim(int amount) {
+		while(!isEmpty() && amount > 0) {
+			
+			int i = length() - 1;
+			
+			PathSegment s = segments.get(i);
+			
+			amount -= s.trim(amount);
+			
+			if(!s.isEmpty()) return;
+			
+			segments.remove(i);
+		}
+	}
+	
+	public int indexOf(Node n) {
+		int i = 0;
+		
+		for(PathSegment s : segments) {
+			
+			int index = s.indexOf(n);
+			
+			if(index != -1) return i + index;
+			
+			i += s.length();
+		}
+		
+		return -1;
+	}
+	
+	public int getCurrentIndex() {
+		Node n = getCurrentNode();
+		
+		if(n == null) return -1;
+		
+		return indexOf(n);
+	}
+	
+	public Node getCurrentNode() {
+		PathSegment s = getSegment();
+		
+		if(s == null) return null;
+		
+		return s.getCurrentNode();
 	}
 	
 	public Movement getCurrentMovement() {
@@ -153,6 +214,21 @@ public class Path {
 		if(segment == null || segment.isFinished()) nextSegment();
 		
 		return segment;
+	}
+	
+	public int lengthInNodes() {
+		int sum = 0;
+		
+		for(PathSegment s : segments) {
+			
+			sum += s.length();
+		}
+		
+		return sum;
+	}
+	
+	public int length() {
+		return segments.size();
 	}
 	
 	public boolean isImpossible() {
