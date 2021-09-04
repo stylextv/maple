@@ -14,7 +14,7 @@ public class PathSegment {
 		this.list = list;
 	}
 	
-	public Node lastMatch(Path path) {
+	public Node findMatch(Path path) {
 		int index = path.getCurrentIndex();
 		
 		int start = length() - 1;

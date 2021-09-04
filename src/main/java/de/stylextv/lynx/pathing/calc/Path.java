@@ -19,7 +19,7 @@ public class Path {
 	private boolean finished;
 	
 	public void add(PathSegment s) {
-		Node n = s.lastMatch(this);
+		Node n = s.findMatch(this);
 		
 		if(n != null) {
 			
@@ -135,7 +135,9 @@ public class Path {
 	public void trimFromNode(Node n) {
 		int i = indexOf(n);
 		
-		trim(lengthInNodes() - i);
+		int amount = lengthInNodes() - 1 - i;
+		
+		trim(amount);
 	}
 	
 	public void trim(int amount) {

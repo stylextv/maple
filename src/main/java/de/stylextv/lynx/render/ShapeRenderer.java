@@ -72,7 +72,7 @@ public class ShapeRenderer {
 	public static void drawNodeChain(RenderWorldLastEvent event, Node n, int length, Color color, float width) {
 		if(n == null) return;
 		
-		int i = 0;
+		int i = 1;
 		
 		while(n.getParent() != null && i < length) {
 			
