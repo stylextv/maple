@@ -123,12 +123,15 @@ public class AvoidanceType<T> {
 		this.entityClass = entityClass;
 		this.radius = radius;
 		this.coefficient = coefficient;
+		this.predicate = predicate;
 		
 		registerType(this);
 	}
 	
 	public boolean shouldIgnore(Entity e) {
 		T t = entityClass.cast(e);
+		
+		if(predicate == null) return false;
 		
 		return !predicate.test(t);
 	}
