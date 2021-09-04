@@ -65,16 +65,10 @@ public class ShapeRenderer {
 		}
 	}
 	
-	public static void drawNodeChain(RenderWorldLastEvent event, Node n, Color color) {
-		drawNodeChain(event, n, Integer.MAX_VALUE, color);
-	}
-	
-	public static void drawNodeChain(RenderWorldLastEvent event, Node n, int length, Color color) {
+	public static void drawNodeChain(RenderWorldLastEvent event, Node n, Color color, float width) {
 		if(n == null) return;
 		
-		int i = 0;
-		
-		while(n.getParent() != null && i < length) {
+		while(n.getParent() != null) {
 			
 			Node parent = n.getParent();
 			
@@ -91,11 +85,9 @@ public class ShapeRenderer {
 					new Vec3(px, py, pz)
 			};
 			
-			ShapeRenderer.drawLine(event, vertices, color, 2);
+			ShapeRenderer.drawLine(event, vertices, color, width);
 			
 			n = parent;
-			
-			i++;
 		}
 	}
 	

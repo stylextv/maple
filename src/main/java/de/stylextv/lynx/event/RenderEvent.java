@@ -33,7 +33,7 @@ public class RenderEvent {
 		
 		Node n = SearchExecutor.getCurrentNode();
 		
-		ShapeRenderer.drawNodeChain(event, n, Colors.PATH_CALCULATION);
+		ShapeRenderer.drawNodeChain(event, n, Colors.PATH_CALCULATION, 2);
 		
 		drawWaypoints(event);
 	}
@@ -47,6 +47,10 @@ public class RenderEvent {
 	}
 	
 	private void drawPathSegment(RenderWorldLastEvent event, PathSegment s) {
+		Node n = s.lastNode();
+		
+		ShapeRenderer.drawNodeChain(event, n, Colors.PATH, 2);
+		
 		for(int i = s.getPointer(); i < s.length(); i++) {
 			
 			Movement m = s.getMovement(i);

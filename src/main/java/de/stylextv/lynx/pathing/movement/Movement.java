@@ -17,8 +17,6 @@ import de.stylextv.lynx.pathing.movement.movements.DiagonalMovement;
 import de.stylextv.lynx.pathing.movement.movements.FallMovement;
 import de.stylextv.lynx.pathing.movement.movements.PillarMovement;
 import de.stylextv.lynx.pathing.movement.movements.StraightMovement;
-import de.stylextv.lynx.render.ShapeRenderer;
-import de.stylextv.lynx.scheme.Colors;
 import net.minecraft.core.BlockPos;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 
@@ -94,8 +92,6 @@ public abstract class Movement {
 	}
 	
 	public void render(RenderWorldLastEvent event) {
-		ShapeRenderer.drawNodeChain(event, destination, 2, Colors.PATH);
-		
 		breakHelper.render(event);
 		placeHelper.render(event);
 	}
