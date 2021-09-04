@@ -66,9 +66,15 @@ public class ShapeRenderer {
 	}
 	
 	public static void drawNodeChain(RenderWorldLastEvent event, Node n, Color color, float width) {
+		drawNodeChain(event, n, Integer.MAX_VALUE, color, width);
+	}
+	
+	public static void drawNodeChain(RenderWorldLastEvent event, Node n, int length, Color color, float width) {
 		if(n == null) return;
 		
-		while(n.getParent() != null) {
+		int i = 0;
+		
+		while(n.getParent() != null && i < length) {
 			
 			Node parent = n.getParent();
 			
@@ -88,6 +94,8 @@ public class ShapeRenderer {
 			ShapeRenderer.drawLine(event, vertices, color, width);
 			
 			n = parent;
+			
+			i++;
 		}
 	}
 	

@@ -49,7 +49,9 @@ public class RenderEvent {
 	private void drawPathSegment(RenderWorldLastEvent event, PathSegment s) {
 		Node n = s.lastNode();
 		
-		ShapeRenderer.drawNodeChain(event, n, Colors.PATH, 2);
+		int l = s.nodesLeft();
+		
+		ShapeRenderer.drawNodeChain(event, n, l, Colors.PATH, 2);
 		
 		for(int i = s.getPointer(); i < s.length(); i++) {
 			
