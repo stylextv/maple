@@ -27,13 +27,13 @@ public class RenderEvent {
 	public void onWorldRender(RenderWorldLastEvent event) {
 		if(!LevelContext.isInLevel()) return;
 		
-		drawPath(event, MovementExecutor.getPath());
-		
-		// TODO draw goals
-		
 		Node n = SearchExecutor.getCurrentNode();
 		
 		ShapeRenderer.drawNodeChain(event, n, Colors.PATH_CALCULATION, 2);
+		
+		// TODO draw goals
+		
+		drawPath(event, MovementExecutor.getPath());
 		
 		drawWaypoints(event);
 	}
