@@ -4,7 +4,6 @@ import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.input.InputAction;
 import de.stylextv.lynx.input.controller.InputController;
 import de.stylextv.lynx.input.controller.ViewController;
-import de.stylextv.lynx.pathing.calc.Cost;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.calc.favoring.Favoring;
 import de.stylextv.lynx.pathing.movement.helper.BreakHelper;
