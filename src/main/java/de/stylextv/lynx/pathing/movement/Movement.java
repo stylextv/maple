@@ -21,7 +21,7 @@ import net.minecraft.core.BlockPos;
 
 public abstract class Movement {
 	
-	private static final float IMPOSSIBLE_COST_RATIO = 1.5f;
+	private static final float IMPOSSIBLE_COST_RATIO = 2.0f;
 	
 	private Node source;
 	private Node destination;
