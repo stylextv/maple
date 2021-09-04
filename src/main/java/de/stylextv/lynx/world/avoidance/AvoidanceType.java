@@ -2,7 +2,6 @@ package de.stylextv.lynx.world.avoidance;
 
 import java.util.HashMap;
 
-import de.stylextv.lynx.pathing.calc.Cost;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
