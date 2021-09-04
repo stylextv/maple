@@ -7,6 +7,7 @@ import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.calc.Path;
 import de.stylextv.lynx.pathing.calc.PathSegment;
 import de.stylextv.lynx.pathing.calc.SearchExecutor;
+import de.stylextv.lynx.pathing.movement.Movement;
 import de.stylextv.lynx.pathing.movement.MovementExecutor;
 import de.stylextv.lynx.render.ShapeRenderer;
 import de.stylextv.lynx.render.TextRenderer;
@@ -30,7 +31,9 @@ public class RenderEvent {
 		
 		// TODO draw goals
 		
-		drawPathCalculation(event);
+		Node n = SearchExecutor.getCurrentNode();
+		
+		ShapeRenderer.drawNodeChain(event, n, Colors.PATH_CALCULATION);
 		
 		drawWaypoints(event);
 	}
@@ -44,34 +47,8 @@ public class RenderEvent {
 	}
 	
 	private void drawPathSegment(RenderWorldLastEvent event, PathSegment s) {
-		ShapeRenderer.drawPathSegment(event, s, Colors.PATH, Colors.PATH_MARKER, 2);
-	}
-	
-	private void drawPathCalculation(RenderWorldLastEvent event) {
-		Node n = SearchExecutor.getCurrentNode();
-		
-		if(n == null) return;
-		
-		while(n.getParent() != null) {
-			
-			Node parent = n.getParent();
-			
-			float x = n.getX() + 0.5f;
-			float y = n.getY() + 0.5f;
-			float z = n.getZ() + 0.5f;
-			
-			float px = parent.getX() + 0.5f;
-			float py = parent.getY() + 0.5f;
-			float pz = parent.getZ() + 0.5f;
-			
-			Vec3[] vertices = new Vec3[] {
-					new Vec3(x, y, z),
-					new Vec3(px, py, pz)
-			};
-			
-			ShapeRenderer.drawLine(event, vertices, Colors.PATH_CALCULATION, 2);
-			
-			n = parent;
+		for(Movement m : s.getMovements()) {
+			m.render(event);
 		}
 	}
 	

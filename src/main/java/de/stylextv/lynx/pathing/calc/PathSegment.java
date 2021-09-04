@@ -136,6 +136,10 @@ public class PathSegment {
 		return list.size();
 	}
 	
+	public List<Movement> getMovements() {
+		return list;
+	}
+	
 	public int getPointer() {
 		return pointer;
 	}

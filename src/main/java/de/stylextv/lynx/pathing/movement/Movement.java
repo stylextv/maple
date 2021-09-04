@@ -17,7 +17,10 @@ import de.stylextv.lynx.pathing.movement.movements.DiagonalMovement;
 import de.stylextv.lynx.pathing.movement.movements.FallMovement;
 import de.stylextv.lynx.pathing.movement.movements.PillarMovement;
 import de.stylextv.lynx.pathing.movement.movements.StraightMovement;
+import de.stylextv.lynx.render.ShapeRenderer;
+import de.stylextv.lynx.scheme.Colors;
 import net.minecraft.core.BlockPos;
+import net.minecraftforge.client.event.RenderWorldLastEvent;
 
 public abstract class Movement {
 	
@@ -88,6 +91,10 @@ public abstract class Movement {
 		Node n = getDestination();
 		
 		return n.equals(pos) ? MovementState.DONE : MovementState.GOING;
+	}
+	
+	public void render(RenderWorldLastEvent event) {
+		ShapeRenderer.drawNodeChain(event, destination, 2, Colors.PATH);
 	}
 	
 	public double distanceSqr(BlockPos pos) {

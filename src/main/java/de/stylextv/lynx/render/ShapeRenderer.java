@@ -14,7 +14,6 @@ import com.mojang.math.Vector4f;
 
 import de.stylextv.lynx.context.GameContext;
 import de.stylextv.lynx.pathing.calc.Node;
-import de.stylextv.lynx.pathing.calc.PathSegment;
 import de.stylextv.lynx.scheme.Color;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.core.BlockPos;
@@ -66,39 +65,38 @@ public class ShapeRenderer {
 		}
 	}
 	
-	public static void drawPathSegment(RenderWorldLastEvent event, PathSegment s, Color color, Color markerColor, float lineWidth) {
-		int l = s.length();
+	public static void drawNodeChain(RenderWorldLastEvent event, Node n, Color color) {
+		drawNodeChain(event, n, Integer.MAX_VALUE, color);
+	}
+	
+	public static void drawNodeChain(RenderWorldLastEvent event, Node n, int length, Color color) {
+		if(n == null) return;
 		
-		Vec3[] vertices = new Vec3[l];
+		int i = 0;
 		
-		for(int i = 0; i < l; i++) {
-			Node n = s.getNode(i);
+		while(n.getParent() != null && i < length) {
+			
+			Node parent = n.getParent();
 			
 			float x = n.getX() + 0.5f;
 			float y = n.getY() + 0.5f;
 			float z = n.getZ() + 0.5f;
 			
-			vertices[i] = new Vec3(x, y, z);
+			float px = parent.getX() + 0.5f;
+			float py = parent.getY() + 0.5f;
+			float pz = parent.getZ() + 0.5f;
+			
+			Vec3[] vertices = new Vec3[] {
+					new Vec3(x, y, z),
+					new Vec3(px, py, pz)
+			};
+			
+			ShapeRenderer.drawLine(event, vertices, color, 2);
+			
+			n = parent;
+			
+			i++;
 		}
-		
-		drawLine(event, vertices, color, lineWidth);
-		
-		drawNodeMarker(event, s.getCurrentNode(), markerColor, lineWidth);
-	}
-	
-	private static void drawNodeMarker(RenderWorldLastEvent event, Node n, Color color, float lineWidth) {
-		if(n == null) return;
-		
-		float x = n.getX() + 0.5f;
-		float y = n.getY();
-		float z = n.getZ() + 0.5f;
-		
-		Vec3[] vertices = new Vec3[] {
-				new Vec3(x, y, z),
-				new Vec3(x, y + 1, z)
-		};
-		
-		drawLine(event, vertices, color, lineWidth);
 	}
 	
 	public static void drawLine(RenderWorldLastEvent event, Vec3[] vertices, Color color, float width) {

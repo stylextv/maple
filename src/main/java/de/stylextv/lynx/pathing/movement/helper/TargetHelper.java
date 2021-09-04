@@ -6,7 +6,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import de.stylextv.lynx.input.target.BlockTarget;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.movement.Movement;
+import de.stylextv.lynx.render.ShapeRenderer;
+import de.stylextv.lynx.scheme.Colors;
 import net.minecraft.core.BlockPos;
+import net.minecraftforge.client.event.RenderWorldLastEvent;
 
 public abstract class TargetHelper extends MovementHelper {
 	
@@ -48,6 +51,15 @@ public abstract class TargetHelper extends MovementHelper {
 	}
 	
 	public abstract void collectBlock(int x, int y, int z);
+	
+	public void render(RenderWorldLastEvent event) {
+		for(BlockTarget target : targets) {
+			
+			BlockPos pos = target.getPos();
+			
+			ShapeRenderer.drawBox(event, pos, Colors.BOX, 2);
+		}
+	}
 	
 	public void addTarget(int x, int y, int z) {
 		targets.add(new BlockTarget(x, y, z));
