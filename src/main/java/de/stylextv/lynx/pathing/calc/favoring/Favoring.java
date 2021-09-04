@@ -77,9 +77,16 @@ public class Favoring {
 	}
 	
 	public static Favoring getDefault() {
-		long dt = System.currentTimeMillis() - lastUpdate;
+		long time = System.currentTimeMillis();
 		
-		if(dt > UPDATE_DELAY) defaultFavoring = new Favoring();
+		long dt = time - lastUpdate;
+		
+		if(dt > UPDATE_DELAY) {
+			
+			lastUpdate = time;
+			
+			defaultFavoring = new Favoring();
+		}
 		
 		return defaultFavoring;
 	}
