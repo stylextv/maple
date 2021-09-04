@@ -7,6 +7,7 @@ import java.util.PriorityQueue;
 import java.util.Set;
 
 import de.stylextv.lynx.cache.BlockType;
+import de.stylextv.lynx.pathing.calc.favoring.Favoring;
 import de.stylextv.lynx.pathing.calc.goal.Goal;
 import de.stylextv.lynx.pathing.movement.Movement;
 import de.stylextv.lynx.util.world.Offset;
@@ -31,14 +32,17 @@ public class PathFinder {
 	
 	private Goal goal;
 	
+	private Favoring favoring;
+	
 	private int chunkBorderHits;
 	
 	private boolean stop;
 	
 	private boolean pause;
 	
-	public PathFinder(Goal goal) {
+	public PathFinder(Goal goal, Favoring favoring) {
 		this.goal = goal;
+		this.favoring = favoring;
 		
 		this.map = new Long2ObjectOpenHashMap<>(1024, 0.75f);
 		
@@ -180,7 +184,7 @@ public class PathFinder {
 		
 		Movement m = Movement.fromNodes(parent, n);
 		
-		double cost = m.cost();
+		double cost = m.favoredCost(favoring);
 		
 		if(cost >= Cost.INFINITY) return;
 		
@@ -223,6 +227,10 @@ public class PathFinder {
 	
 	public Goal getGoal() {
 		return goal;
+	}
+	
+	public Favoring getFavoring() {
+		return favoring;
 	}
 	
 	public boolean wasStopped() {

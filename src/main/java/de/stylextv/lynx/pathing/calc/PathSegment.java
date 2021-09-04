@@ -33,7 +33,7 @@ public class PathSegment {
 			
 			Movement m = list.get(i);
 			
-			sum += m.cost();
+			sum += m.favoredCost();
 		}
 		
 		return sum;

@@ -99,11 +99,19 @@ public class Path {
 	}
 	
 	public Node lastNode() {
+		PathSegment s = lastSegment();
+		
+		return s.lastNode();
+	}
+	
+	public PathSegment lastSegment() {
 		int l = segments.size();
+		
+		if(l == 0) return null;
 		
 		PathSegment s = segments.get(l - 1);
 		
-		return s.lastNode();
+		return s;
 	}
 	
 	public double distanceSqr(BlockPos pos) {

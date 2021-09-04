@@ -8,7 +8,7 @@ public class AvoidanceType<T> {
 	
 	private static final AvoidanceType<?>[] TYPES = new AvoidanceType[1];
 	
-	public static final AvoidanceType<Zombie> ZOMBIE = new AvoidanceType<>(Zombie.class, 5, Cost.INFINITY);
+	public static final AvoidanceType<Zombie> ZOMBIE = new AvoidanceType<>(Zombie.class, 6, Cost.INFINITY);
 	
 	private static int pointer;
 	
@@ -16,12 +16,12 @@ public class AvoidanceType<T> {
 	
 	private int radius;
 	
-	private double cost;
+	private double coefficient;
 	
-	public AvoidanceType(Class<T> entityClass, int radius, double cost) {
+	public AvoidanceType(Class<T> entityClass, int radius, double coefficient) {
 		this.entityClass = entityClass;
 		this.radius = radius;
-		this.cost = cost;
+		this.coefficient = coefficient;
 		
 		registerType(this);
 	}
@@ -50,8 +50,8 @@ public class AvoidanceType<T> {
 		return radius;
 	}
 	
-	public double getCost() {
-		return cost;
+	public double getCoefficient() {
+		return coefficient;
 	}
 	
 	private static void registerType(AvoidanceType<?> type) {

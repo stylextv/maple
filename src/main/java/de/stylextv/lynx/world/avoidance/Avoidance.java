@@ -1,5 +1,8 @@
 package de.stylextv.lynx.world.avoidance;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.stylextv.lynx.context.LevelContext;
 import de.stylextv.lynx.util.world.CoordUtil;
 import it.unimi.dsi.fastutil.longs.Long2DoubleOpenHashMap;
@@ -8,16 +11,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 
 public class Avoidance {
-	
-	private static final long UPDATE_DELAY = 5000;
-	
-	private static Long2DoubleOpenHashMap map = new Long2DoubleOpenHashMap(512);
-	
-	private static long lastUpdate;
-	
-	static {
-		map.defaultReturnValue(1);
-	}
 	
 	private BlockPos pos;
 	
@@ -28,7 +21,7 @@ public class Avoidance {
 		this.type = type;
 	}
 	
-	public void apply() {
+	public void apply(Long2DoubleOpenHashMap map) {
 		int r = type.getRadius();
 		
 		for(int x = -r; x <= r; x++) {
@@ -45,11 +38,11 @@ public class Avoidance {
 						
 						long hash = CoordUtil.posAsLong(rx, ry, rz);
 						
-						double cost = type.getCost();
+						double d = type.getCoefficient();
 						
-						cost *= map.get(hash);
+						d *= map.get(hash);
 						
-						map.put(hash, cost);
+						map.put(hash, d);
 					}
 				}
 			}
@@ -64,10 +57,8 @@ public class Avoidance {
 		return type;
 	}
 	
-	public static void update() {
-		lastUpdate = System.currentTimeMillis();
-		
-		map.clear();
+	public static List<Avoidance> list() {
+		List<Avoidance> list = new ArrayList<>();
 		
 		ClientLevel level = LevelContext.level();
 		
@@ -81,18 +72,10 @@ public class Avoidance {
 			
 			Avoidance a = new Avoidance(pos, type);
 			
-			a.apply();
+			list.add(a);
 		}
-	}
-	
-	public static double getCost(int x, int y, int z) {
-		long dt = System.currentTimeMillis() - lastUpdate;
 		
-		if(dt > UPDATE_DELAY) update();
-		
-		long hash = CoordUtil.posAsLong(x, y, z);
-		
-		return map.get(hash);
+		return list;
 	}
 	
 }

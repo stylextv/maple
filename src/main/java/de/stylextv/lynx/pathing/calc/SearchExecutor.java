@@ -1,6 +1,7 @@
 package de.stylextv.lynx.pathing.calc;
 
 import de.stylextv.lynx.memory.MemoryManager;
+import de.stylextv.lynx.pathing.calc.favoring.Favoring;
 import de.stylextv.lynx.pathing.calc.goal.Goal;
 import de.stylextv.lynx.pathing.movement.MovementExecutor;
 import de.stylextv.lynx.util.async.AsyncUtil;
@@ -49,7 +50,9 @@ public class SearchExecutor {
 					continue;
 				}
 				
-				finder = new PathFinder(goal);
+				Favoring favoring = new Favoring(path.lastSegment());
+				
+				finder = new PathFinder(goal, favoring);
 				
 				PathSegment segment = finder.find(path.lastPosition(), time);
 				

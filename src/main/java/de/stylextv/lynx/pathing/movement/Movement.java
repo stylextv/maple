@@ -6,6 +6,7 @@ import de.stylextv.lynx.input.controller.InputController;
 import de.stylextv.lynx.input.controller.ViewController;
 import de.stylextv.lynx.pathing.calc.Cost;
 import de.stylextv.lynx.pathing.calc.Node;
+import de.stylextv.lynx.pathing.calc.favoring.Favoring;
 import de.stylextv.lynx.pathing.movement.helper.BreakHelper;
 import de.stylextv.lynx.pathing.movement.helper.BumpHelper;
 import de.stylextv.lynx.pathing.movement.helper.DangerHelper;
@@ -41,6 +42,16 @@ public abstract class Movement {
 	}
 	
 	public void updateHelpers() {}
+	
+	public double favoredCost() {
+		return favoredCost(Favoring.getDefault());
+	}
+	
+	public double favoredCost(Favoring favoring) {
+		double d = favoring.getCoefficient(destination);
+		
+		return cost() * d;
+	}
 	
 	public double cost() {
 		return speedHelper.cost() + bumpHelper.cost() + dangerHelper.cost();
@@ -80,7 +91,7 @@ public abstract class Movement {
 	}
 	
 	public boolean isImpossible() {
-		return cost() >= Cost.INFINITY;
+		return favoredCost() >= Cost.INFINITY;
 	}
 	
 	public boolean isVerticalOnly() {
