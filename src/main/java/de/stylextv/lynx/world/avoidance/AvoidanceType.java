@@ -1,7 +1,10 @@
 package de.stylextv.lynx.world.avoidance;
 
 import java.util.HashMap;
+import java.util.function.Predicate;
 
+import de.stylextv.lynx.context.PlayerContext;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
@@ -10,6 +13,7 @@ import net.minecraft.world.entity.monster.CaveSpider;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Drowned;
 import net.minecraft.world.entity.monster.ElderGuardian;
+import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Endermite;
 import net.minecraft.world.entity.monster.Evoker;
 import net.minecraft.world.entity.monster.Ghast;
@@ -54,10 +58,14 @@ public class AvoidanceType<T> {
 	
 	public static final AvoidanceType<Creeper> CREEPER = new AvoidanceType<>(Creeper.class, 8, 1.5);
 	
-	public static final AvoidanceType<Spider> SPIDER = new AvoidanceType<>(Spider.class, 8, 1.5);
+	public static final AvoidanceType<Spider> SPIDER = new AvoidanceType<>(Spider.class, 8, 1.5, (spider) -> spider.getBrightness() < 0.5f);
 	public static final AvoidanceType<CaveSpider> CAVE_SPIDER = new AvoidanceType<>(CaveSpider.class, 8, 1.6);
 	
-	public static final AvoidanceType<Spider> ENDER_MAN = new AvoidanceType<>(Spider.class, 10, 2.0);
+	public static final AvoidanceType<EnderMan> ENDER_MAN = new AvoidanceType<>(EnderMan.class, 10, 2.0, (enderMan) -> {
+		LocalPlayer p = PlayerContext.player();
+		
+		return enderMan.isAngryAt(p);
+	});
 	
 	public static final AvoidanceType<Witch> WITCH = new AvoidanceType<>(Witch.class, 8, 1.7);
 	
@@ -86,7 +94,11 @@ public class AvoidanceType<T> {
 	
 	public static final AvoidanceType<Piglin> PIGLIN = new AvoidanceType<>(Piglin.class, 11, 1.7);
 	public static final AvoidanceType<PiglinBrute> PIGLIN_BRUTE = new AvoidanceType<>(PiglinBrute.class, 11, 1.7);
-	public static final AvoidanceType<ZombifiedPiglin> ZOMBIFIED_PIGLIN = new AvoidanceType<>(ZombifiedPiglin.class, 11, 1.7);
+	public static final AvoidanceType<ZombifiedPiglin> ZOMBIFIED_PIGLIN = new AvoidanceType<>(ZombifiedPiglin.class, 11, 1.7, (piglin) -> {
+		LocalPlayer p = PlayerContext.player();
+		
+		return piglin.isAngryAt(p);
+	});
 	
 	public static final AvoidanceType<Ravager> RAVAGER = new AvoidanceType<>(Ravager.class, 13, 2.5);
 	public static final AvoidanceType<Hoglin> HOGLIN = new AvoidanceType<>(Hoglin.class, 11, 2.0);
@@ -101,7 +113,13 @@ public class AvoidanceType<T> {
 	
 	private double coefficient;
 	
+	private Predicate<T> predicate;
+	
 	public AvoidanceType(Class<T> entityClass, int radius, double coefficient) {
+		this(entityClass, radius, coefficient, null);
+	}
+	
+	public AvoidanceType(Class<T> entityClass, int radius, double coefficient, Predicate<T> predicate) {
 		this.entityClass = entityClass;
 		this.radius = radius;
 		this.coefficient = coefficient;
@@ -110,13 +128,9 @@ public class AvoidanceType<T> {
 	}
 	
 	public boolean shouldIgnore(Entity e) {
-		T o = entityClass.cast(e);
+		T t = entityClass.cast(e);
 		
-		return shouldIgnore(o);
-	}
-	
-	public boolean shouldIgnore(T e) {
-		return false;
+		return !predicate.test(t);
 	}
 	
 	public T castEntity(Object o) {
