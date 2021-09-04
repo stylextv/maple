@@ -22,6 +22,8 @@ import net.minecraft.core.BlockPos;
 
 public abstract class Movement {
 	
+	private static final float IMPOSSIBLE_COST_RATIO = 1.5f;
+	
 	private Node source;
 	private Node destination;
 	
@@ -33,6 +35,8 @@ public abstract class Movement {
 	private PlaceHelper placeHelper = new PlaceHelper(this);
 	
 	private DangerHelper dangerHelper = new DangerHelper(this);
+	
+	private double initialCost;
 	
 	public Movement(Node source, Node destination) {
 		this.source = source;
@@ -50,7 +54,11 @@ public abstract class Movement {
 	public double favoredCost(Favoring favoring) {
 		double d = favoring.getCoefficient(destination);
 		
-		return cost() * d;
+		double cost = cost() * d;
+		
+		if(initialCost == 0) initialCost = cost;
+		
+		return cost;
 	}
 	
 	public double cost() {
@@ -91,7 +99,9 @@ public abstract class Movement {
 	}
 	
 	public boolean isImpossible() {
-		return favoredCost() >= Cost.INFINITY;
+		double r = favoredCost() / initialCost;
+		
+		return r >= IMPOSSIBLE_COST_RATIO;
 	}
 	
 	public boolean isVerticalOnly() {

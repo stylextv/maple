@@ -10,7 +10,7 @@ public class Favoring {
 	
 	private static final double BACKTRACKING_COEFFICIENT = 0.5;
 	
-	private static final long UPDATE_DELAY = 2500;
+	private static final long UPDATE_DELAY = 2000;
 	
 	private static Favoring defaultFavoring;
 	
