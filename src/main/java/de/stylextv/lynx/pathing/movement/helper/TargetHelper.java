@@ -57,7 +57,7 @@ public abstract class TargetHelper extends MovementHelper {
 			
 			BlockPos pos = target.getPos();
 			
-			ShapeRenderer.drawBox(event, pos, Colors.BOX, 2);
+			ShapeRenderer.drawBox(event, pos, Colors.BLOCK_TARGET, 2);
 		}
 	}
 	
