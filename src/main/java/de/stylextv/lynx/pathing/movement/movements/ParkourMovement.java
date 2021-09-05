@@ -41,20 +41,22 @@ public class ParkourMovement extends Movement {
 		int dx = getDirectionX();
 		int dz = getDirectionZ();
 		
-		boolean jump;
+		double disToJump;
 		
 		if(dz == 0) {
 			
 			double x = n.getX() + 0.5 + dx * JUMP_OFFSET;
 			
-			jump = (x - v.x()) * dx < 0;
+			disToJump = (x - v.x()) * dx;
 			
 		} else {
 			
 			double z = n.getZ() + 0.5 + dz * JUMP_OFFSET;
 			
-			jump = (z - v.z()) * dz < 0;
+			disToJump = (z - v.z()) * dz;
 		}
+		
+		boolean jump = disToJump < 0 && disToJump > -0.5;
 		
 		setPressed(InputAction.JUMP, jump);
 	}
