@@ -5,6 +5,7 @@ import de.stylextv.lynx.input.InputAction;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.movement.Movement;
 import de.stylextv.lynx.pathing.movement.helper.ParkourHelper;
+import net.minecraft.core.BlockPos;
 
 public class ParkourMovement extends Movement {
 	
@@ -25,13 +26,23 @@ public class ParkourMovement extends Movement {
 	public void onRenderTick() {
 		lookAt(getDestination());
 		
-		int dis = horizontalDistance();
-		
 		setPressed(InputAction.MOVE_FORWARD, true);
+		
+		int dis = horizontalDistance();
 		
 		if(dis > 3) setPressed(InputAction.SPRINT, true);
 		
-		if(!PlayerContext.isOnGround()) setPressed(InputAction.JUMP, true);
+		BlockPos pos = getSource().blockPos();
+		
+		int dx = getDirectionX();
+		int dy = getDirectionY();
+		int dz = getDirectionZ();
+		
+		pos = pos.offset(dx, dy, dz);
+		
+		BlockPos feet = PlayerContext.feetPosition();
+		
+		if(feet.equals(pos)) setPressed(InputAction.JUMP, true);
 	}
 	
 }

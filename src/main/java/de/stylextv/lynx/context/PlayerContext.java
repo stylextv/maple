@@ -64,7 +64,7 @@ public class PlayerContext {
 	public static boolean isFalling() {
 		if(isOnGround()) return false;
 		
-		return MC.player.getDeltaMovement().y() < 0;
+		return player().getDeltaMovement().y() < 0;
 	}
 	
 	public static boolean isOnGround() {
