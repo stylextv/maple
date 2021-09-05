@@ -1,5 +1,6 @@
 package de.stylextv.lynx.pathing.movement.movements;
 
+import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.input.InputAction;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.movement.Movement;
@@ -27,9 +28,10 @@ public class ParkourMovement extends Movement {
 		int dis = horizontalDistance();
 		
 		setPressed(InputAction.MOVE_FORWARD, true);
-		setPressed(InputAction.SPRINT, true);
 		
-		setPressed(InputAction.JUMP, true);
+		if(dis > 3) setPressed(InputAction.SPRINT, true);
+		
+		if(!PlayerContext.isOnGround()) setPressed(InputAction.JUMP, true);
 	}
 	
 }
