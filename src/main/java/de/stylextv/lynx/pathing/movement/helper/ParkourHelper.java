@@ -12,7 +12,13 @@ public class ParkourHelper extends MovementHelper {
 	// TODO check if blocks are in the way or if jump is too far
 	@Override
 	public double cost() {
-		return Cost.INFINITY;
+		Movement m = getMovement();
+		
+		int dis = m.horizontalDistance();
+		
+		if(dis > 5) return Cost.INFINITY;
+		
+		return Cost.JUMP + dis * Cost.SPRINT_STRAIGHT;
 	}
 	
 }

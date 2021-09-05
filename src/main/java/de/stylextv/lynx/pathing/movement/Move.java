@@ -65,13 +65,13 @@ public abstract class Move {
 	
 	public static final Move DESCEND_DOWN = new DescendMove(0, -1, 0);
 	
-	public static final Move PARKOUR_NORTH = new ParkourMove(0, 0, -2);
+	public static final Move PARKOUR_NORTH = new ParkourMove(0, 0, -1);
 	
-	public static final Move PARKOUR_SOUTH = new ParkourMove(0, 0, 2);
+	public static final Move PARKOUR_SOUTH = new ParkourMove(0, 0, 1);
 	
-	public static final Move PARKOUR_EAST = new ParkourMove(2, 0, 0);
+	public static final Move PARKOUR_EAST = new ParkourMove(1, 0, 0);
 	
-	public static final Move PARKOUR_WEST = new ParkourMove(-2, 0, 0);
+	public static final Move PARKOUR_WEST = new ParkourMove(-1, 0, 0);
 	
 	private static int pointer;
 	
