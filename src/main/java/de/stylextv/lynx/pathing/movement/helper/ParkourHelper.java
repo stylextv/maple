@@ -21,8 +21,8 @@ public class ParkourHelper extends MovementHelper {
 		Node source = m.getSource();
 		
 		int startX = source.getX();
-		int startY = source.getX();
-		int startZ = source.getX();
+		int startY = source.getY();
+		int startZ = source.getZ();
 		
 		int dx = m.getDirectionX();
 		int dz = m.getDirectionZ();

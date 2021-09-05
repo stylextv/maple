@@ -24,8 +24,12 @@ public class ParkourMovement extends Movement {
 	public void onRenderTick() {
 		lookAt(getDestination());
 		
+		int dis = horizontalDistance();
+		
 		setPressed(InputAction.MOVE_FORWARD, true);
 		setPressed(InputAction.SPRINT, true);
+		
+		setPressed(InputAction.JUMP, true);
 	}
 	
 }
