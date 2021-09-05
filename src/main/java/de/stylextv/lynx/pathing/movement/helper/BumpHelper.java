@@ -42,9 +42,13 @@ public class BumpHelper extends MovementHelper {
 	}
 	
 	public static boolean isBlocked(int x, int y, int z, int height) {
+		return isBlocked(x, y, z, 0, height);
+	}
+	
+	public static boolean isBlocked(int x, int y, int z, int offset, int height) {
 		for(int i = 0; i < height; i++) {
 			
-			if(isBlocked(x, y + i, z)) return true;
+			if(isBlocked(x, y + offset + i, z)) return true;
 		}
 		
 		return false;

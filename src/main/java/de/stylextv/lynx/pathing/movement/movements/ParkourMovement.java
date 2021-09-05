@@ -5,9 +5,11 @@ import de.stylextv.lynx.input.InputAction;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.movement.Movement;
 import de.stylextv.lynx.pathing.movement.helper.ParkourHelper;
-import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.Vec3;
 
 public class ParkourMovement extends Movement {
+	
+	private static final double JUMP_OFFSET = 0.75;
 	
 	private ParkourHelper parkourHelper = new ParkourHelper(this);
 	
@@ -32,17 +34,29 @@ public class ParkourMovement extends Movement {
 		
 		if(dis > 3) setPressed(InputAction.SPRINT, true);
 		
-		BlockPos pos = getSource().blockPos();
+		Node n = getSource();
+		
+		Vec3 v = PlayerContext.position();
 		
 		int dx = getDirectionX();
-		int dy = getDirectionY();
 		int dz = getDirectionZ();
 		
-		pos = pos.offset(dx, dy, dz);
+		boolean jump;
 		
-		BlockPos feet = PlayerContext.feetPosition();
+		if(dz == 0) {
+			
+			double x = n.getX() + 0.5 + dx * JUMP_OFFSET;
+			
+			jump = (x - v.x()) * dx < 0;
+			
+		} else {
+			
+			double z = n.getZ() + 0.5 + dz * JUMP_OFFSET;
+			
+			jump = (z - v.z()) * dz < 0;
+		}
 		
-		if(feet.equals(pos)) setPressed(InputAction.JUMP, true);
+		setPressed(InputAction.JUMP, jump);
 	}
 	
 }
