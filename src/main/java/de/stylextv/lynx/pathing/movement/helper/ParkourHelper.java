@@ -1,6 +1,7 @@
 package de.stylextv.lynx.pathing.movement.helper;
 
 import de.stylextv.lynx.pathing.calc.Cost;
+import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.movement.Movement;
 
 public class ParkourHelper extends MovementHelper {
@@ -9,7 +10,6 @@ public class ParkourHelper extends MovementHelper {
 		super(m);
 	}
 	
-	// TODO check if blocks are in the way
 	@Override
 	public double cost() {
 		Movement m = getMovement();
@@ -18,7 +18,23 @@ public class ParkourHelper extends MovementHelper {
 		
 		if(dis > 5) return Cost.INFINITY;
 		
+		Node source = m.getSource();
 		
+		int startX = source.getX();
+		int startY = source.getX();
+		int startZ = source.getX();
+		
+		int dx = m.getDirectionX();
+		int dz = m.getDirectionZ();
+		
+		for(int i = 0; i <= dis; i++) {
+			
+			int x = startX + dx * i;
+			int y = startY;
+			int z = startZ + dz * i;
+			
+			if(BumpHelper.isBlocked(x, y, z, 3)) return Cost.INFINITY;
+		}
 		
 		return Cost.JUMP + dis * Cost.SPRINT_STRAIGHT;
 	}

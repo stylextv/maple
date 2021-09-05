@@ -33,7 +33,7 @@ public class BumpHelper extends MovementHelper {
 		return b1 || b2 ? Cost.BUMP_INTO_CORNER : 0;
 	}
 	
-	private static boolean isBlocked(Node n, int height) {
+	public static boolean isBlocked(Node n, int height) {
 		int x = n.getX();
 		int y = n.getY();
 		int z = n.getZ();
@@ -41,7 +41,7 @@ public class BumpHelper extends MovementHelper {
 		return isBlocked(x, y, z, height);
 	}
 	
-	private static boolean isBlocked(int x, int y, int z, int height) {
+	public static boolean isBlocked(int x, int y, int z, int height) {
 		for(int i = 0; i < height; i++) {
 			
 			if(isBlocked(x, y + i, z)) return true;

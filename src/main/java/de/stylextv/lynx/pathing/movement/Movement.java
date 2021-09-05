@@ -126,6 +126,18 @@ public abstract class Movement {
 		return source.getX() != destination.getX() && source.getZ() != destination.getZ();
 	}
 	
+	public int getDirectionX() {
+		return Integer.compare(destination.getX(), source.getX());
+	}
+	
+	public int getDirectionY() {
+		return Integer.compare(destination.getY(), source.getY());
+	}
+	
+	public int getDirectionZ() {
+		return Integer.compare(destination.getZ(), source.getZ());
+	}
+	
 	public Node getSource() {
 		return source;
 	}
