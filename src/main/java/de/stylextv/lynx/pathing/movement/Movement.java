@@ -11,12 +11,6 @@ import de.stylextv.lynx.pathing.movement.helper.BumpHelper;
 import de.stylextv.lynx.pathing.movement.helper.DangerHelper;
 import de.stylextv.lynx.pathing.movement.helper.PlaceHelper;
 import de.stylextv.lynx.pathing.movement.helper.SpeedHelper;
-import de.stylextv.lynx.pathing.movement.movements.AscendMovement;
-import de.stylextv.lynx.pathing.movement.movements.DescendMovement;
-import de.stylextv.lynx.pathing.movement.movements.DiagonalMovement;
-import de.stylextv.lynx.pathing.movement.movements.FallMovement;
-import de.stylextv.lynx.pathing.movement.movements.PillarMovement;
-import de.stylextv.lynx.pathing.movement.movements.StraightMovement;
 import de.stylextv.lynx.render.ShapeRenderer;
 import de.stylextv.lynx.scheme.Colors;
 import net.minecraft.core.BlockPos;
@@ -107,6 +101,13 @@ public abstract class Movement {
 		return Math.min(dis1, dis2);
 	}
 	
+	public int horizontalDistance() {
+		int disX = Math.abs(destination.getX() - source.getX());
+		int disZ = Math.abs(destination.getZ() - source.getZ());
+		
+		return Math.max(disX, disZ);
+	}
+	
 	public boolean isImpossible() {
 		double r = favoredCost() / initialCost;
 		
@@ -151,42 +152,6 @@ public abstract class Movement {
 	
 	public DangerHelper getDangerHelper() {
 		return dangerHelper;
-	}
-	
-	public static Movement fromNodes(Node n1, Node n2) {
-		int x = n1.getX();
-		int y = n1.getY();
-		int z = n1.getZ();
-		
-		int disX = Math.abs(x - n2.getX());
-		int disZ = Math.abs(z - n2.getZ());
-		
-		int dis = disX + disZ;
-		
-		if(y != n2.getY()) {
-			
-			boolean ascend = n2.getY() > y;
-			
-			if(ascend) {
-				if(dis == 0) return new PillarMovement(n1, n2);
-				
-				return new AscendMovement(n1, n2);
-			}
-			
-			int fallDistance = y - n2.getY();
-			
-			if(fallDistance == 1) return new DescendMovement(n1, n2);
-			
-			return new FallMovement(n1, n2);
-			
-		} else {
-			
-			boolean diagonally = dis > 1;
-			
-			if(diagonally) return new DiagonalMovement(n1, n2);
-			
-			return new StraightMovement(n1, n2);
-		}
 	}
 	
 }

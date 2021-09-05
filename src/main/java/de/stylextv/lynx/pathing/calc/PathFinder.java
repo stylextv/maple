@@ -9,8 +9,8 @@ import java.util.Set;
 import de.stylextv.lynx.cache.BlockType;
 import de.stylextv.lynx.pathing.calc.favoring.Favoring;
 import de.stylextv.lynx.pathing.calc.goal.Goal;
+import de.stylextv.lynx.pathing.movement.Move;
 import de.stylextv.lynx.pathing.movement.Movement;
-import de.stylextv.lynx.util.world.Offset;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import net.minecraft.core.BlockPos;
 
@@ -143,46 +143,18 @@ public class PathFinder {
 	}
 	
 	private void addAdjacentNodes(Node node) {
-		for(Offset o : Offset.BLOCK_NEIGHBOURS) {
+		for(Move move : Move.getAllMoves()) {
 			
-			int ox = o.getBlockX();
-			int oy = o.getBlockY();
-			int oz = o.getBlockZ();
+			Movement m = move.apply(node, this);
 			
-			int x = node.getX() + ox;
-			int y = node.getY() + oy;
-			int z = node.getZ() + oz;
-			
-			if(oy == -1) {
-				
-				BlockType type = getMapNode(x, y, z).getType();
-				
-				while(y > 0) {
-					
-					if(type == BlockType.WATER) break;
-					
-					Node n = getMapNode(x, y - 1, z);
-					
-					type = n.getType();
-					
-					if(!type.isPassable()) break;
-					
-					y--;
-				}
-			}
-			
-			if(y > 0) {
-				addAdjacentNode(node, x, y, z);
-			}
+			addAdjacentNode(node, m);
 		}
 	}
 	
-	private void addAdjacentNode(Node parent, int x, int y, int z) {
-		Node n = getMapNode(x, y, z);
+	private void addAdjacentNode(Node parent, Movement m) {
+		Node n = m.getDestination();
 		
 		if(closedSet.contains(n)) return;
-		
-		Movement m = Movement.fromNodes(parent, n);
 		
 		double cost = m.favoredCost(favoring);
 		
@@ -201,6 +173,14 @@ public class PathFinder {
 			
 			openList.add(n);
 		}
+	}
+	
+	public Node getAdjacentNode(Node n, int dx, int dy, int dz) {
+		int x = n.getX() + dx;
+		int y = n.getY() + dy;
+		int z = n.getZ() + dz;
+		
+		return getMapNode(x, y, z);
 	}
 	
 	private Node getMapNode(int x, int y, int z) {
