@@ -20,11 +20,13 @@ public class DescendMove extends Move {
 		int dy = getDeltaY();
 		int dz = getDeltaZ();
 		
-		Node destination = finder.getAdjacentNode(n, dx, dy, dz);
+		Node destination;
 		
-		while(destination.getY() > 0) {
+		while(true) {
 			
-			if(destination.getType() == BlockType.WATER) break;
+			destination = finder.getAdjacentNode(n, dx, dy, dz);
+			
+			if(destination.getY() <= 0 || destination.getType() == BlockType.WATER) break;
 			
 			Node below = finder.getAdjacentNode(n, dx, dy - 1, dz);
 			
@@ -33,8 +35,6 @@ public class DescendMove extends Move {
 			if(!type.isPassable()) break;
 			
 			dy--;
-			
-			destination = finder.getAdjacentNode(n, dx, dy, dz);
 		}
 		
 		int fallDistance = n.getY() - destination.getY();
