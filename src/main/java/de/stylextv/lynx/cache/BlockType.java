@@ -8,15 +8,16 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 
-public enum BlockType {
+public class BlockType {
 	
-	AIR(0, Blocks.AIR, true),
-	SOLID(1, Blocks.STONE),
-	WATER(2, Blocks.WATER, true),
-	DANGER(3, Blocks.LAVA),
-	UNLOADED(-1, Blocks.AIR, true),
-	VOID(-1, Blocks.AIR, true),
-	BORDER(-1, Blocks.BEDROCK, false, false);
+	public static final BlockType AIR = new BlockType(0, Blocks.AIR).passable(true).air(true);
+	public static final BlockType SOLID = new BlockType(1, Blocks.STONE).breakable(true);
+	public static final BlockType WATER = new BlockType(2, Blocks.WATER).passable(true);
+	public static final BlockType DANGER = new BlockType(3, Blocks.LAVA);
+	
+	public static final BlockType UNLOADED = new BlockType(Blocks.AIR).passable(true).air(true);
+	public static final BlockType VOID = new BlockType(Blocks.AIR).passable(true).air(true);
+	public static final BlockType BORDER = new BlockType(Blocks.BEDROCK);
 	
 	private static final Block[] DANGER_BLOCKS = new Block[] {
 			Blocks.LAVA,
@@ -36,24 +37,37 @@ public enum BlockType {
 	
 	private boolean breakable;
 	
+	private boolean air;
+	
+	private BlockType(Block block) {
+		this(-1, block);
+	}
+	
 	private BlockType(int bits, Block block) {
-		this(bits, block, false);
-	}
-	
-	private BlockType(int bits, Block block, boolean passable) {
-		this(bits, block, passable, !passable);
-	}
-	
-	private BlockType(int bits, Block block, boolean passable, boolean breakable) {
 		this.bits = new boolean[] {
 				(bits & 2) != 0,
 				(bits & 1) != 0
 		};
 		
 		this.state = block.defaultBlockState();
+	}
+	
+	public BlockType passable(boolean b) {
+		this.passable = b;
 		
-		this.passable = passable;
-		this.breakable = breakable;
+		return this;
+	}
+	
+	public BlockType breakable(boolean b) {
+		this.breakable = b;
+		
+		return this;
+	}
+	
+	public BlockType air(boolean b) {
+		this.air = b;
+		
+		return this;
 	}
 	
 	public boolean[] getBits() {
@@ -70,6 +84,10 @@ public enum BlockType {
 	
 	public boolean isBreakable() {
 		return breakable;
+	}
+	
+	public boolean isAir() {
+		return air;
 	}
 	
 	public static BlockType fromBlocks(BlockState state, BlockState below, BlockState above) {

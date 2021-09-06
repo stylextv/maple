@@ -9,7 +9,7 @@ import net.minecraft.world.phys.Vec3;
 
 public class ParkourMovement extends Movement {
 	
-	private static final double JUMP_OFFSET = 0.75;
+	private static final double JUMP_OFFSET = 0.79;
 	
 	private ParkourHelper parkourHelper = new ParkourHelper(this);
 	

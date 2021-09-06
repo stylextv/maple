@@ -41,7 +41,7 @@ public class ParkourHelper extends MovementHelper {
 			}
 		}
 		
-		return Cost.JUMP + dis * Cost.SPRINT_STRAIGHT;
+		return dis * Cost.SPRINT_STRAIGHT;
 	}
 	
 }
