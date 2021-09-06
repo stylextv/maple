@@ -1,5 +1,6 @@
 package de.stylextv.lynx.pathing.movement.movements;
 
+import de.stylextv.lynx.cache.BlockType;
 import de.stylextv.lynx.input.InputAction;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.movement.Movement;
@@ -13,9 +14,13 @@ public class StraightMovement extends Movement {
 	
 	@Override
 	public void updateHelpers() {
-		getBreakHelper().collectBlocks(getDestination(), 2);
+		Node destination = getDestination();
 		
-		getPlaceHelper().collectBlock(getDestination(), -1);
+		getBreakHelper().collectBlocks(destination, 2);
+		
+		BlockType type = destination.getType();
+		
+		if(type != BlockType.WATER) getPlaceHelper().collectBlock(destination, -1);
 	}
 	
 	@Override

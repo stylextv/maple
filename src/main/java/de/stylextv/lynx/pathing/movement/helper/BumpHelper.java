@@ -57,7 +57,7 @@ public class BumpHelper extends MovementHelper {
 	private static boolean isBlocked(int x, int y, int z) {
 		BlockType type = CacheManager.getBlockType(x, y, z);
 		
-		return !type.isPassable();
+		return !type.isAir();
 	}
 	
 }

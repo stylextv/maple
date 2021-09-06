@@ -10,7 +10,7 @@ import de.stylextv.lynx.pathing.movement.helper.BreakHelper;
 import de.stylextv.lynx.pathing.movement.helper.BumpHelper;
 import de.stylextv.lynx.pathing.movement.helper.DangerHelper;
 import de.stylextv.lynx.pathing.movement.helper.PlaceHelper;
-import de.stylextv.lynx.pathing.movement.helper.SpeedHelper;
+import de.stylextv.lynx.pathing.movement.helper.StepHelper;
 import de.stylextv.lynx.render.ShapeRenderer;
 import de.stylextv.lynx.scheme.Colors;
 import net.minecraft.core.BlockPos;
@@ -23,7 +23,7 @@ public abstract class Movement {
 	private Node source;
 	private Node destination;
 	
-	private SpeedHelper speedHelper = new SpeedHelper(this);
+	private StepHelper speedHelper = new StepHelper(this);
 	
 	private BumpHelper bumpHelper = new BumpHelper(this);
 	
@@ -146,7 +146,7 @@ public abstract class Movement {
 		return destination;
 	}
 	
-	public SpeedHelper getSpeedHelper() {
+	public StepHelper getSpeedHelper() {
 		return speedHelper;
 	}
 	
