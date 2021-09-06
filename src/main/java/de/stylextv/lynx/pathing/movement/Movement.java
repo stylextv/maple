@@ -23,7 +23,7 @@ public abstract class Movement {
 	private Node source;
 	private Node destination;
 	
-	private StepHelper speedHelper = new StepHelper(this);
+	private StepHelper stepHelper = new StepHelper(this);
 	
 	private BumpHelper bumpHelper = new BumpHelper(this);
 	
@@ -58,7 +58,7 @@ public abstract class Movement {
 	}
 	
 	public double cost() {
-		return speedHelper.cost() + bumpHelper.cost() + dangerHelper.cost();
+		return stepHelper.cost() + bumpHelper.cost() + dangerHelper.cost();
 	}
 	
 	public abstract void onRenderTick();
@@ -146,8 +146,8 @@ public abstract class Movement {
 		return destination;
 	}
 	
-	public StepHelper getSpeedHelper() {
-		return speedHelper;
+	public StepHelper getStepHelper() {
+		return stepHelper;
 	}
 	
 	public BumpHelper getBumpHelper() {
