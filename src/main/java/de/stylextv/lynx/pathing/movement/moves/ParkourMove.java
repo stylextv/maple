@@ -1,5 +1,7 @@
 package de.stylextv.lynx.pathing.movement.moves;
 
+import de.stylextv.lynx.cache.BlockType;
+import de.stylextv.lynx.cache.CacheManager;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.calc.PathFinder;
 import de.stylextv.lynx.pathing.movement.Move;
@@ -29,7 +31,13 @@ public class ParkourMove extends Move {
 			
 			if(BumpHelper.isBlocked(destination, 3)) return null;
 			
-			if(BumpHelper.isBlocked(destination, -1, 1)) {
+			int x = destination.getX();
+			int y = destination.getY() - 1;
+			int z = destination.getZ();
+			
+			BlockType type = CacheManager.getBlockType(x, y, z);
+			
+			if(!type.isPassable()) {
 				
 				if(i == 1) return null;
 				
