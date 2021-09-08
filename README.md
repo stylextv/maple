@@ -97,7 +97,7 @@ Breaking blocks | 🟢 Stable | ✔️
 Placing blocks | 🟢 (somewhat) Stable | ✔️
 Avoiding blocks | 🟢 Stable | ✔️
 Avoiding mobs | 🟡 Unstable | ✔️
-Parkour | 🟡 Unstable | ❌
+Parkour | 🟡 Unstable | ✔️
 Path segmentation | 🟢 Implemented | ✔️
 Backtracking | 🟢 Implemented | ✔️
 
