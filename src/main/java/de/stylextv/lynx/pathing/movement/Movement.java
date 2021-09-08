@@ -13,6 +13,7 @@ import de.stylextv.lynx.pathing.movement.helper.PlaceHelper;
 import de.stylextv.lynx.pathing.movement.helper.StepHelper;
 import de.stylextv.lynx.render.ShapeRenderer;
 import de.stylextv.lynx.scheme.Colors;
+import de.stylextv.lynx.util.time.TimeUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 
@@ -96,7 +97,9 @@ public abstract class Movement {
 			
 			double cost = favoredCost();
 			
-			if(dt >= cost + EXECUTION_TIME_BUFFER) {
+			long allowedTime = TimeUtil.ticksToMS(cost) + EXECUTION_TIME_BUFFER;
+			
+			if(dt > allowedTime) {
 				
 				return MovementState.FAILED;
 			}
