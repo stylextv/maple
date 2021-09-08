@@ -58,7 +58,14 @@ public class MovementExecutor {
 		
 		MovementState state = m.getState();
 		
-		if(state != MovementState.GOING) path.next();
+		if(state == MovementState.FAILED) {
+			
+			recalc();
+			
+		} else if(state == MovementState.DONE) {
+			
+			path.next();
+		}
 	}
 	
 	private static boolean needsToRecalc() {

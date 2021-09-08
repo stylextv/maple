@@ -18,7 +18,9 @@ import net.minecraftforge.client.event.RenderWorldLastEvent;
 
 public abstract class Movement {
 	
-	private static final float IMPOSSIBLE_COST_RATIO = 2.0f;
+	private static final long MAX_EXECUTION_TIME = 5000;
+	
+	private static final double MAX_COST_INCREASE = 10;
 	
 	private Node source;
 	private Node destination;
@@ -33,6 +35,8 @@ public abstract class Movement {
 	private DangerHelper dangerHelper = new DangerHelper(this);
 	
 	private double initialCost;
+	
+	private long startTime;
 	
 	public Movement(Node source, Node destination) {
 		this.source = source;
@@ -80,6 +84,17 @@ public abstract class Movement {
 	}
 	
 	public MovementState getState() {
+		long now = System.currentTimeMillis();
+		
+		if(startTime == 0) {
+			
+			startTime = now;
+			
+		} else if(now - startTime >= MAX_EXECUTION_TIME) {
+			
+			return MovementState.FAILED;
+		}
+		
 		BlockPos pos = PlayerContext.feetPosition();
 		
 		Node n = getDestination();
@@ -109,9 +124,9 @@ public abstract class Movement {
 	}
 	
 	public boolean isImpossible() {
-		double r = favoredCost() / initialCost;
+		double d = favoredCost() - initialCost;
 		
-		return r >= IMPOSSIBLE_COST_RATIO;
+		return d > MAX_COST_INCREASE;
 	}
 	
 	public boolean isVerticalOnly() {

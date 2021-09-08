@@ -14,7 +14,7 @@ public class SearchExecutor {
 	
 	private static final long CALCULATION_TIME_BUFFER = 6000;
 	
-	private static final long SLEEP_TIME = 500;
+	private static final long SLEEP_TIME = 100;
 	
 	private static PathFinder finder;
 	
