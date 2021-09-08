@@ -93,7 +93,7 @@ Name | Progress | Included in latest build
 Walking | 🟢 Stable | ✔️
 Jumping | 🟢 Stable | ✔️
 Breaking blocks | 🟢 Stable | ✔️
-Placing blocks | 🟢 (somewhat) stable | ✔️
+Placing blocks | 🟢 (somewhat) Stable | ✔️
 Avoiding blocks | 🟢 Stable | ✔️
 Avoiding mobs | 🟡 Unstable | ✔️
 Parkour | 🟡 Unstable | ❌
