@@ -34,11 +34,6 @@ public class ParkourHelper extends MovementHelper {
 			int z = startZ + dz * i;
 			
 			if(BumpHelper.isBlocked(x, y, z, 3)) return Cost.INFINITY;
-			
-			if(i != 0 && i != dis) {
-				
-				if(BumpHelper.isBlocked(x, y, z, -1, 1)) return Cost.INFINITY;
-			}
 		}
 		
 		return dis * Cost.SPRINT_STRAIGHT;

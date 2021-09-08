@@ -147,7 +147,7 @@ public class PathFinder {
 			
 			Movement m = move.apply(node, this);
 			
-			addAdjacentNode(node, m);
+			if(m != null) addAdjacentNode(node, m);
 		}
 	}
 	

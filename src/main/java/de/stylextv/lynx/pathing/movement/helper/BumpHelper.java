@@ -34,11 +34,15 @@ public class BumpHelper extends MovementHelper {
 	}
 	
 	public static boolean isBlocked(Node n, int height) {
+		return isBlocked(n, 0, height);
+	}
+	
+	public static boolean isBlocked(Node n, int offset, int height) {
 		int x = n.getX();
 		int y = n.getY();
 		int z = n.getZ();
 		
-		return isBlocked(x, y, z, height);
+		return isBlocked(x, y, z, offset, height);
 	}
 	
 	public static boolean isBlocked(int x, int y, int z, int height) {

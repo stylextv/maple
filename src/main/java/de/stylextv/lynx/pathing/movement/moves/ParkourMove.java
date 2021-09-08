@@ -1,10 +1,10 @@
 package de.stylextv.lynx.pathing.movement.moves;
 
-import de.stylextv.lynx.pathing.calc.Cost;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.calc.PathFinder;
 import de.stylextv.lynx.pathing.movement.Move;
 import de.stylextv.lynx.pathing.movement.Movement;
+import de.stylextv.lynx.pathing.movement.helper.BumpHelper;
 import de.stylextv.lynx.pathing.movement.movements.ParkourMovement;
 
 public class ParkourMove extends Move {
@@ -17,30 +17,27 @@ public class ParkourMove extends Move {
 	
 	@Override
 	public Movement apply(Node n, PathFinder finder) {
-		int l = 2;
+		if(BumpHelper.isBlocked(n, 2, 1)) return null;
 		
-		Movement movement = null;
-		
-		while(l <= MAX_DISTANCE) {
+		for(int i = 1; i <= MAX_DISTANCE; i++) {
 			
-			int dx = getDeltaX() * l;
+			int dx = getDeltaX() * i;
 			int dy = getDeltaY();
-			int dz = getDeltaZ() * l;
+			int dz = getDeltaZ() * i;
 			
 			Node destination = finder.getAdjacentNode(n, dx, dy, dz);
 			
-			Movement m = new ParkourMovement(n, destination);
+			if(BumpHelper.isBlocked(destination, 3)) return null;
 			
-			if(movement == null) movement = m;
-			
-			double cost = m.favoredCost(finder.getFavoring());
-			
-			if(cost < Cost.INFINITY) return m;
-			
-			l++;
+			if(BumpHelper.isBlocked(destination, -1, 1)) {
+				
+				if(i == 1) return null;
+				
+				return new ParkourMovement(n, destination);
+			}
 		}
 		
-		return movement;
+		return null;
 	}
 	
 }
