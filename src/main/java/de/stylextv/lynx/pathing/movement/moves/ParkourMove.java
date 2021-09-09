@@ -19,7 +19,7 @@ public class ParkourMove extends Move {
 	
 	@Override
 	public Movement apply(Node n, PathFinder finder) {
-		if(ParkourHelper.isAir(n, 2, 1)) return null;
+		if(ParkourHelper.isObstructed(n, 2, 1)) return null;
 		
 		for(int i = 1; i <= MAX_DISTANCE; i++) {
 			
@@ -29,7 +29,7 @@ public class ParkourMove extends Move {
 			
 			Node destination = finder.getAdjacentNode(n, dx, dy, dz);
 			
-			if(ParkourHelper.isAir(destination, 3)) return null;
+			if(ParkourHelper.isObstructed(destination, 3)) return null;
 			
 			int x = destination.getX();
 			int y = destination.getY() - 1;

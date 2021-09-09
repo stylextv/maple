@@ -35,41 +35,41 @@ public class ParkourHelper extends MovementHelper {
 			int y = startY;
 			int z = startZ + dz * i;
 			
-			if(isAir(x, y, z, 3)) return Cost.INFINITY;
+			if(isObstructed(x, y, z, 3)) return Cost.INFINITY;
 		}
 		
 		return dis * Cost.SPRINT_STRAIGHT;
 	}
 	
-	public static boolean isAir(Node n, int height) {
-		return isAir(n, 0, height);
+	public static boolean isObstructed(Node n, int height) {
+		return isObstructed(n, 0, height);
 	}
 	
-	public static boolean isAir(Node n, int offset, int height) {
+	public static boolean isObstructed(Node n, int offset, int height) {
 		int x = n.getX();
 		int y = n.getY();
 		int z = n.getZ();
 		
-		return isAir(x, y, z, offset, height);
+		return isObstructed(x, y, z, offset, height);
 	}
 	
-	public static boolean isAir(int x, int y, int z, int height) {
-		return isAir(x, y, z, 0, height);
+	public static boolean isObstructed(int x, int y, int z, int height) {
+		return isObstructed(x, y, z, 0, height);
 	}
 	
-	public static boolean isAir(int x, int y, int z, int offset, int height) {
+	public static boolean isObstructed(int x, int y, int z, int offset, int height) {
 		for(int i = 0; i < height; i++) {
 			
-			if(!isAir(x, y + offset + i, z)) return false;
+			if(!isObstructed(x, y + offset + i, z)) return true;
 		}
 		
-		return true;
+		return false;
 	}
 	
-	public static boolean isAir(int x, int y, int z) {
+	public static boolean isObstructed(int x, int y, int z) {
 		BlockType type = CacheManager.getBlockType(x, y, z);
 		
-		return type.isAir();
+		return !type.isAir();
 	}
 	
 }
