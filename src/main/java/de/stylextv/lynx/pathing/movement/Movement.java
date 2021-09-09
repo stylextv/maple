@@ -99,10 +99,7 @@ public abstract class Movement {
 			
 			long allowedTime = TimeUtil.ticksToMS(cost) + EXECUTION_TIME_BUFFER;
 			
-			if(dt > allowedTime) {
-				
-				return MovementState.FAILED;
-			}
+			if(dt > allowedTime) return MovementState.FAILED;
 		}
 		
 		BlockPos pos = PlayerContext.feetPosition();

@@ -22,8 +22,6 @@ import net.minecraftforge.client.event.RenderWorldLastEvent;
 
 public class ShapeRenderer {
 	
-	private static final float BOX_VERTEX_OFFSET = 0.0075f;
-	
 	private static Tesselator tesselator;
 	
 	private static BufferBuilder builder;
@@ -33,13 +31,13 @@ public class ShapeRenderer {
 	}
 	
 	public static void drawBox(RenderWorldLastEvent event, BlockPos pos1, BlockPos pos2, Color color, int lineWidth) {
-		float x1 = Math.min(pos1.getX(), pos2.getX()) - BOX_VERTEX_OFFSET;
-		float y1 = Math.min(pos1.getY(), pos2.getY()) - BOX_VERTEX_OFFSET;
-		float z1 = Math.min(pos1.getZ(), pos2.getZ()) - BOX_VERTEX_OFFSET;
+		float x1 = Math.min(pos1.getX(), pos2.getX());
+		float y1 = Math.min(pos1.getY(), pos2.getY());
+		float z1 = Math.min(pos1.getZ(), pos2.getZ());
 		
-		float x2 = Math.max(pos1.getX(), pos2.getX()) + 1 + BOX_VERTEX_OFFSET;
-		float y2 = Math.max(pos1.getY(), pos2.getY()) + 1 + BOX_VERTEX_OFFSET;
-		float z2 = Math.max(pos1.getZ(), pos2.getZ()) + 1 + BOX_VERTEX_OFFSET;
+		float x2 = Math.max(pos1.getX(), pos2.getX()) + 1;
+		float y2 = Math.max(pos1.getY(), pos2.getY()) + 1;
+		float z2 = Math.max(pos1.getZ(), pos2.getZ()) + 1;
 		
 		Vec3[][][] vertices = new Vec3[2][2][2];
 		
