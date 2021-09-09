@@ -33,23 +33,19 @@ public class BumpHelper extends MovementHelper {
 		return b1 || b2 ? Cost.BUMP_INTO_CORNER : 0;
 	}
 	
-	public static boolean isBlocked(Node n, int height) {
-		return isBlocked(n, 0, height);
-	}
-	
-	public static boolean isBlocked(Node n, int offset, int height) {
+	private static boolean isBlocked(Node n, int height) {
 		int x = n.getX();
 		int y = n.getY();
 		int z = n.getZ();
 		
-		return isBlocked(x, y, z, offset, height);
+		return isBlocked(x, y, z, height);
 	}
 	
-	public static boolean isBlocked(int x, int y, int z, int height) {
+	private static boolean isBlocked(int x, int y, int z, int height) {
 		return isBlocked(x, y, z, 0, height);
 	}
 	
-	public static boolean isBlocked(int x, int y, int z, int offset, int height) {
+	private static boolean isBlocked(int x, int y, int z, int offset, int height) {
 		for(int i = 0; i < height; i++) {
 			
 			if(isBlocked(x, y + offset + i, z)) return true;
@@ -61,7 +57,7 @@ public class BumpHelper extends MovementHelper {
 	private static boolean isBlocked(int x, int y, int z) {
 		BlockType type = CacheManager.getBlockType(x, y, z);
 		
-		return !type.isAir();
+		return !type.isPassable();
 	}
 	
 }

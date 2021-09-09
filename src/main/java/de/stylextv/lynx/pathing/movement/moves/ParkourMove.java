@@ -6,7 +6,7 @@ import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.calc.PathFinder;
 import de.stylextv.lynx.pathing.movement.Move;
 import de.stylextv.lynx.pathing.movement.Movement;
-import de.stylextv.lynx.pathing.movement.helper.BumpHelper;
+import de.stylextv.lynx.pathing.movement.helper.ParkourHelper;
 import de.stylextv.lynx.pathing.movement.movements.ParkourMovement;
 
 public class ParkourMove extends Move {
@@ -19,7 +19,7 @@ public class ParkourMove extends Move {
 	
 	@Override
 	public Movement apply(Node n, PathFinder finder) {
-		if(BumpHelper.isBlocked(n, 2, 1)) return null;
+		if(ParkourHelper.isAir(n, 2, 1)) return null;
 		
 		for(int i = 1; i <= MAX_DISTANCE; i++) {
 			
@@ -29,7 +29,7 @@ public class ParkourMove extends Move {
 			
 			Node destination = finder.getAdjacentNode(n, dx, dy, dz);
 			
-			if(BumpHelper.isBlocked(destination, 3)) return null;
+			if(ParkourHelper.isAir(destination, 3)) return null;
 			
 			int x = destination.getX();
 			int y = destination.getY() - 1;
