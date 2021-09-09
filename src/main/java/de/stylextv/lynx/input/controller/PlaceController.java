@@ -1,17 +1,25 @@
 package de.stylextv.lynx.input.controller;
 
+import de.stylextv.lynx.util.world.Offset;
 import net.minecraft.core.BlockPos;
 
 public class PlaceController {
 	
-	public static boolean canPlaceAgainst(int x, int y, int z) {
-		BlockPos pos = new BlockPos(x, y, z);
+	public static boolean canPlaceAt(BlockPos pos) {
+		for(Offset o : Offset.DIRECT_BLOCK_NEIGHBOURS) {
+			
+			int x = pos.getX() + o.getBlockX();
+			int y = pos.getY() + o.getBlockY();
+			int z = pos.getZ() + o.getBlockZ();
+			
+			if(canPlaceAgainst(x, y, z)) return true;
+		}
 		
-		return canPlaceAgainst(pos);
+		return false;
 	}
 	
-	public static boolean canPlaceAgainst(BlockPos pos) {
-		return BreakController.isBreakable(pos);
+	public static boolean canPlaceAgainst(int x, int y, int z) {
+		return BreakController.isBreakable(x, y, z);
 	}
 	
 }

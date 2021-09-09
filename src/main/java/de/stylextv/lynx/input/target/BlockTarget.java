@@ -151,7 +151,9 @@ public class BlockTarget {
 	}
 	
 	public boolean isPlaceable() {
-		return !isBreakable();
+		if(isBreakable()) return false;
+		
+		return PlaceController.canPlaceAt(pos);
 	}
 	
 	public BlockPos getPos() {

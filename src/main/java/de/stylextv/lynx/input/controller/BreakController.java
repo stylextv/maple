@@ -6,14 +6,16 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class BreakController {
 	
-	public static boolean isBreakable(int x, int y, int z) {
-		BlockPos pos = new BlockPos(x, y, z);
+	public static boolean isBreakable(BlockPos pos) {
+		int x = pos.getX();
+		int y = pos.getY();
+		int z = pos.getZ();
 		
-		return isBreakable(pos);
+		return isBreakable(x, y, z);
 	}
 	
-	public static boolean isBreakable(BlockPos pos) {
-		BlockState state = BlockInterface.getState(pos);
+	public static boolean isBreakable(int x, int y, int z) {
+		BlockState state = BlockInterface.getState(x, y, z);
 		
 		return state.getMaterial().blocksMotion();
 	}
