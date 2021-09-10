@@ -22,8 +22,8 @@ public class ParkourMove extends Move {
 		if(ParkourHelper.isObstructed(n, 2, 1)) return null;
 		
 		int dx = getDeltaX();
-		int dy = getDeltaX();
-		int dz = getDeltaX();
+		int dy = getDeltaY();
+		int dz = getDeltaZ();
 		
 		for(int i = 1; i <= MAX_DISTANCE; i++) {
 			
