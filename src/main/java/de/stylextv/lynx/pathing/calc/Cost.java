@@ -41,19 +41,9 @@ public class Cost {
 		return Math.sqrt(dis * 25.5102);
 	}
 	
-	public static double breakCost(BlockPos pos) {
-		int x = pos.getX();
-		int y = pos.getY();
-		int z = pos.getZ();
-		
-		return breakCost(x, y, z);
-	}
-	
 	// TODO factor in potion effects, enchantments, ...
-	public static double breakCost(int x, int y, int z) {
+	public static double breakCost(BlockPos pos) {
 		ClientLevel level = LevelContext.level();
-		
-		BlockPos pos = new BlockPos(x, y, z);
 		
 		BlockState state = BlockInterface.getState(pos);
 		
