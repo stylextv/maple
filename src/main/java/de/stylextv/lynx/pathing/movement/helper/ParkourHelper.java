@@ -60,7 +60,7 @@ public class ParkourHelper extends MovementHelper {
 	public static boolean isObstructed(int x, int y, int z, int offset, int height) {
 		for(int i = 0; i < height; i++) {
 			
-			if(!isObstructed(x, y + offset + i, z)) return true;
+			if(isObstructed(x, y + offset + i, z)) return true;
 		}
 		
 		return false;
