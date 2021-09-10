@@ -9,8 +9,12 @@ import net.minecraft.core.BlockPos;
 
 public class FallMovement extends Movement {
 	
-	public FallMovement(Node source, Node destination) {
+	private int fallDistance;
+	
+	public FallMovement(Node source, Node destination, int fallDistance) {
 		super(source, destination);
+		
+		this.fallDistance = fallDistance;
 	}
 	
 	@Override
@@ -24,9 +28,7 @@ public class FallMovement extends Movement {
 	
 	@Override
 	public double cost() {
-		int dis = getSource().getY() - getDestination().getY();
-		
-		double cost = Cost.FALL_N_BLOCKS[dis];
+		double cost = Cost.FALL_N_BLOCKS[fallDistance];
 		
 		cost += getBreakHelper().cost();
 		
@@ -52,6 +54,10 @@ public class FallMovement extends Movement {
 		
 		setPressed(InputAction.MOVE_FORWARD, !aboveDestination || onGround);
 		setPressed(InputAction.SPRINT, true);
+	}
+	
+	public int getFallDistance() {
+		return fallDistance;
 	}
 	
 }

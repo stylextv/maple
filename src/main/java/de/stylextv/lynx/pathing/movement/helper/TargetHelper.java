@@ -11,7 +11,7 @@ import de.stylextv.lynx.scheme.Colors;
 import net.minecraft.core.BlockPos;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 
-public abstract class TargetHelper extends MovementHelper {
+public abstract class TargetHelper extends MovementHelper<Movement> {
 	
 	private List<BlockTarget> targets = new CopyOnWriteArrayList<>();
 	

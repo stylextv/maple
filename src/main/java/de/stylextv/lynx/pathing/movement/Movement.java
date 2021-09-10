@@ -123,13 +123,6 @@ public abstract class Movement {
 		return Math.min(dis1, dis2);
 	}
 	
-	public int horizontalDistance() {
-		int disX = Math.abs(destination.getX() - source.getX());
-		int disZ = Math.abs(destination.getZ() - source.getZ());
-		
-		return Math.max(disX, disZ);
-	}
-	
 	public boolean isImpossible() {
 		double d = favoredCost() - initialCost;
 		
@@ -146,18 +139,6 @@ public abstract class Movement {
 	
 	public boolean isDiagonal() {
 		return source.getX() != destination.getX() && source.getZ() != destination.getZ();
-	}
-	
-	public int getDirectionX() {
-		return Integer.compare(destination.getX(), source.getX());
-	}
-	
-	public int getDirectionY() {
-		return Integer.compare(destination.getY(), source.getY());
-	}
-	
-	public int getDirectionZ() {
-		return Integer.compare(destination.getZ(), source.getZ());
 	}
 	
 	public Node getSource() {

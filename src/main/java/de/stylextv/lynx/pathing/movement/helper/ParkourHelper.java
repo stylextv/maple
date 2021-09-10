@@ -4,19 +4,19 @@ import de.stylextv.lynx.cache.BlockType;
 import de.stylextv.lynx.cache.CacheManager;
 import de.stylextv.lynx.pathing.calc.Cost;
 import de.stylextv.lynx.pathing.calc.Node;
-import de.stylextv.lynx.pathing.movement.Movement;
+import de.stylextv.lynx.pathing.movement.movements.ParkourMovement;
 
-public class ParkourHelper extends MovementHelper {
+public class ParkourHelper extends MovementHelper<ParkourMovement> {
 	
-	public ParkourHelper(Movement m) {
+	public ParkourHelper(ParkourMovement m) {
 		super(m);
 	}
 	
 	@Override
 	public double cost() {
-		Movement m = getMovement();
+		ParkourMovement m = getMovement();
 		
-		int dis = m.horizontalDistance();
+		int dis = m.getDistance();
 		
 		if(dis > 5) return Cost.INFINITY;
 		
@@ -26,8 +26,8 @@ public class ParkourHelper extends MovementHelper {
 		int startY = source.getY();
 		int startZ = source.getZ();
 		
-		int dx = m.getDirectionX();
-		int dz = m.getDirectionZ();
+		int dx = m.getDeltaX();
+		int dz = m.getDeltaZ();
 		
 		for(int i = 0; i <= dis; i++) {
 			

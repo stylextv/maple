@@ -9,7 +9,7 @@ import de.stylextv.lynx.world.BlockInterface;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class StepHelper extends MovementHelper {
+public class StepHelper extends MovementHelper<Movement> {
 	
 	public StepHelper(Movement m) {
 		super(m);

@@ -6,7 +6,7 @@ import de.stylextv.lynx.pathing.calc.Cost;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.movement.Movement;
 
-public class DangerHelper extends MovementHelper {
+public class DangerHelper extends MovementHelper<Movement> {
 	
 	public DangerHelper(Movement m) {
 		super(m);

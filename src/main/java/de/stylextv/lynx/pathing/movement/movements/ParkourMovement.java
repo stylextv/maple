@@ -11,10 +11,19 @@ public class ParkourMovement extends Movement {
 	
 	private static final double JUMP_OFFSET = 0.79;
 	
+	private int dx;
+	private int dz;
+	
+	private int distance;
+	
 	private ParkourHelper parkourHelper = new ParkourHelper(this);
 	
-	public ParkourMovement(Node source, Node destination) {
+	public ParkourMovement(Node source, Node destination, int dx, int dz, int distance) {
 		super(source, destination);
+		
+		this.dx = dx;
+		this.dz = dz;
+		this.distance = distance;
 	}
 	
 	@Override
@@ -30,16 +39,11 @@ public class ParkourMovement extends Movement {
 		
 		setPressed(InputAction.MOVE_FORWARD, true);
 		
-		int dis = horizontalDistance();
-		
-		if(dis > 3) setPressed(InputAction.SPRINT, true);
+		if(distance > 3) setPressed(InputAction.SPRINT, true);
 		
 		Node n = getSource();
 		
 		Vec3 v = PlayerContext.position();
-		
-		int dx = getDirectionX();
-		int dz = getDirectionZ();
 		
 		double disToJump;
 		
@@ -59,6 +63,18 @@ public class ParkourMovement extends Movement {
 		boolean jump = disToJump < 0 && disToJump > -0.5;
 		
 		setPressed(InputAction.JUMP, jump);
+	}
+	
+	public int getDeltaX() {
+		return dx;
+	}
+	
+	public int getDeltaZ() {
+		return dz;
+	}
+	
+	public int getDistance() {
+		return distance;
 	}
 	
 }

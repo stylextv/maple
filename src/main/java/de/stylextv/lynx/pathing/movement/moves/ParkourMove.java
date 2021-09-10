@@ -21,13 +21,16 @@ public class ParkourMove extends Move {
 	public Movement apply(Node n, PathFinder finder) {
 		if(ParkourHelper.isObstructed(n, 2, 1)) return null;
 		
+		int dx = getDeltaX();
+		int dy = getDeltaX();
+		int dz = getDeltaX();
+		
 		for(int i = 1; i <= MAX_DISTANCE; i++) {
 			
-			int dx = getDeltaX() * i;
-			int dy = getDeltaY();
-			int dz = getDeltaZ() * i;
+			int ox = dx * i;
+			int oz = dz * i;
 			
-			Node destination = finder.getAdjacentNode(n, dx, dy, dz);
+			Node destination = finder.getAdjacentNode(n, ox, dy, oz);
 			
 			if(ParkourHelper.isObstructed(destination, 3)) return null;
 			
@@ -41,7 +44,7 @@ public class ParkourMove extends Move {
 				
 				if(i == 1) return null;
 				
-				return new ParkourMovement(n, destination);
+				return new ParkourMovement(n, destination, dx, dz, i);
 			}
 		}
 		

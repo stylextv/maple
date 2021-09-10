@@ -41,7 +41,7 @@ public class DescendMove extends Move {
 		
 		if(fallDistance == 1) return new DescendMovement(n, destination);
 		
-		return new FallMovement(n, destination);
+		return new FallMovement(n, destination, fallDistance);
 	}
 	
 }

@@ -6,7 +6,7 @@ import de.stylextv.lynx.pathing.calc.Cost;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.movement.Movement;
 
-public class BumpHelper extends MovementHelper {
+public class BumpHelper extends MovementHelper<Movement> {
 	
 	public BumpHelper(Movement m) {
 		super(m);
