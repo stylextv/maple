@@ -91,7 +91,7 @@ Below is a table showing the progress of systems, functions and features in LYNX
 Name | Progress | Included in latest build
 --- | --- | ---
 Walking | 🟢 Stable | ✔️
-Swimming | 🔴 (somewhat) Broken | ✔️
+Swimming | 🟢 Stable | ✔️
 Jumping | 🟢 Stable | ✔️
 Breaking blocks | 🟢 Stable | ✔️
 Placing blocks | 🟢 (somewhat) Stable | ✔️
