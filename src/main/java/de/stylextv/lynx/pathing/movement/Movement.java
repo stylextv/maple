@@ -19,7 +19,7 @@ import net.minecraftforge.client.event.RenderWorldLastEvent;
 
 public abstract class Movement {
 	
-	private static final long EXECUTION_TIME_BUFFER = 1000;
+	private static final long EXECUTION_TIME_BUFFER = 3000;
 	
 	private static final double MAX_COST_INCREASE = 10;
 	
