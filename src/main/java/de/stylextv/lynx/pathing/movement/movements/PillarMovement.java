@@ -41,7 +41,7 @@ public class PillarMovement extends Movement {
 	
 	@Override
 	public MovementState getState() {
-		if(!PlayerContext.isOnGround()) return MovementState.GOING;
+		if(!PlayerContext.isOnGround()) return MovementState.PROCEEDING;
 		
 		return super.getState();
 	}

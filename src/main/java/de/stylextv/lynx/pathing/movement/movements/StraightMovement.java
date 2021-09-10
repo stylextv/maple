@@ -47,7 +47,7 @@ public class StraightMovement extends Movement {
 	
 	@Override
 	public MovementState getState() {
-		if(getPlaceHelper().hasTargets()) return MovementState.GOING;
+		if(getPlaceHelper().hasTargets()) return MovementState.PROCEEDING;
 		
 		return super.getState();
 	}

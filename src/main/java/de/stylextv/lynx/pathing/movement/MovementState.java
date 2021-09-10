@@ -2,6 +2,6 @@ package de.stylextv.lynx.pathing.movement;
 
 public enum MovementState {
 	
-	GOING, DONE, FAILED;
+	PROCEEDING, DONE, FAILED;
 	
 }

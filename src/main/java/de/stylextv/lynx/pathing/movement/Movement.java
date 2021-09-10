@@ -106,7 +106,7 @@ public abstract class Movement {
 		
 		Node n = getDestination();
 		
-		return n.equals(pos) ? MovementState.DONE : MovementState.GOING;
+		return n.equals(pos) ? MovementState.DONE : MovementState.PROCEEDING;
 	}
 	
 	public void render(RenderWorldLastEvent event) {
