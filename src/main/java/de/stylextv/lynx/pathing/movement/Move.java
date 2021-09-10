@@ -87,6 +87,8 @@ public abstract class Move {
 		registerMove(this);
 	}
 	
+	public abstract Movement apply(Node n, PathFinder finder);
+	
 	public int getDeltaX() {
 		return dx;
 	}
@@ -98,8 +100,6 @@ public abstract class Move {
 	public int getDeltaZ() {
 		return dz;
 	}
-	
-	public abstract Movement apply(Node n, PathFinder finder);
 	
 	private static void registerMove(Move m) {
 		MOVES[pointer] = m;
