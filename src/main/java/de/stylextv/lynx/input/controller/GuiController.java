@@ -5,6 +5,8 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class GuiController {
@@ -20,7 +22,7 @@ public class GuiController {
 			
 			ItemStack stack = inv.getItem(i);
 			
-			float f = stack.getDestroySpeed(state);
+			float f = digSpeed(stack, state);
 			
 			if(stack.isDamageableItem() && f <= 1) {
 				
@@ -35,6 +37,18 @@ public class GuiController {
 		}
 		
 		return best;
+	}
+	
+	public static float digSpeed(ItemStack stack, BlockState state) {
+		float f = stack.getDestroySpeed(state);
+		
+		if(f <= 1) return f;
+		
+		int level = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, stack);
+		
+		if(level > 0) f += level * level + 1;
+		
+		return f;
 	}
 	
 	// TODO check for full blocks only (or maybe just DIRT, STONE, ...)

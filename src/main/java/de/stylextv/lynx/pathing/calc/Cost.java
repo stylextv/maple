@@ -41,7 +41,6 @@ public class Cost {
 		return Math.sqrt(dis * 25.5102);
 	}
 	
-	// TODO factor in potion effects, enchantments, ...
 	public static double breakCost(BlockPos pos) {
 		ClientLevel level = LevelContext.level();
 		
@@ -53,7 +52,7 @@ public class Cost {
 		
 		ItemStack stack = GuiController.bestTool(state);
 		
-		float f = stack.getDestroySpeed(state);
+		float f = GuiController.digSpeed(stack, state);
 		
 		float damage = f / hardness;
 		
