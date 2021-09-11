@@ -117,7 +117,9 @@ public class HeapOpenSet {
 			
 			index = childIndex;
 			
-			if((index <<= 1) <= size) break;
+			childIndex <<= 1;
+			
+			if(childIndex > size) break;
 		}
 		
 		return node;
