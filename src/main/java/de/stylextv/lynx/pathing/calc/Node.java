@@ -25,7 +25,7 @@ public class Node {
 	private double hCost;
 	private double fCost;
 	
-	private int heapPosition;
+	private int heapPosition = -1;
 	
 	public Node(BlockPos pos) {
 		this(pos.getX(), pos.getY(), pos.getZ());
@@ -35,8 +35,6 @@ public class Node {
 		this.x = x;
 		this.y = y;
 		this.z = z;
-		
-		this.heapPosition = -1;
 		
 		updateBlockType();
 	}
