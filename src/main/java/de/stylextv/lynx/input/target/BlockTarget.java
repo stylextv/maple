@@ -51,7 +51,7 @@ public class BlockTarget {
 			
 			ItemStack stack = GuiController.bestTool(state);
 			
-			if(stack != null) GuiController.selectItem(stack);
+			GuiController.selectItem(stack);
 			
 			return;
 		}

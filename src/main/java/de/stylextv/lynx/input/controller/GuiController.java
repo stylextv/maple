@@ -14,7 +14,7 @@ public class GuiController {
 		
 		ItemStack best = null;
 		
-		float score = 0;
+		float score = Float.NEGATIVE_INFINITY;
 		
 		for(int i = 0; i < 9; i++) {
 			
@@ -27,7 +27,7 @@ public class GuiController {
 				f = -stack.getBaseRepairCost() - 1;
 			}
 			
-			if(best == null || f > score) {
+			if(f > score) {
 				
 				best = stack;
 				score = f;

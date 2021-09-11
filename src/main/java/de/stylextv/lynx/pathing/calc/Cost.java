@@ -53,9 +53,7 @@ public class Cost {
 		
 		ItemStack stack = GuiController.bestTool(state);
 		
-		float f = 1;
-		
-		if(stack != null) f = stack.getDestroySpeed(state);
+		float f = stack.getDestroySpeed(state);
 		
 		float damage = f / hardness;
 		
