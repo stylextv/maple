@@ -19,8 +19,6 @@ public class StepHelper extends MovementHelper<Movement> {
 	public double cost() {
 		Movement m = getMovement();
 		
-		if(m.isVerticalOnly()) return 0;
-		
 		Node destination = m.getDestination();
 		Node source = m.getSource();
 		
@@ -44,6 +42,8 @@ public class StepHelper extends MovementHelper<Movement> {
 			
 			if(type != BlockType.SOLID) return Cost.INFINITY;
 		}
+		
+		if(m.isVerticalOnly()) return 0;
 		
 		boolean isDiagonal = m.isDiagonal();
 		
