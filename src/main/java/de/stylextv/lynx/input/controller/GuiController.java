@@ -22,7 +22,10 @@ public class GuiController {
 			
 			float f = stack.getDestroySpeed(state);
 			
-			if(stack.isDamageableItem() && f <= 1) f = -1;
+			if(stack.isDamageableItem() && f <= 1) {
+				
+				f = -stack.getBaseRepairCost() - 1;
+			}
 			
 			if(best == null || f > score) {
 				
