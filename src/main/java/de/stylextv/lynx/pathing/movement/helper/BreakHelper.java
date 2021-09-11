@@ -5,7 +5,7 @@ import de.stylextv.lynx.cache.CacheManager;
 import de.stylextv.lynx.input.target.BlockTarget;
 import de.stylextv.lynx.pathing.calc.Cost;
 import de.stylextv.lynx.pathing.movement.Movement;
-import net.minecraft.core.BlockPos;
+import net.minecraft.util.math.BlockPos;
 
 public class BreakHelper extends TargetHelper {
 	

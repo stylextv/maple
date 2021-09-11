@@ -12,7 +12,7 @@ import de.stylextv.lynx.pathing.calc.openset.HeapOpenSet;
 import de.stylextv.lynx.pathing.movement.Move;
 import de.stylextv.lynx.pathing.movement.Movement;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
-import net.minecraft.core.BlockPos;
+import net.minecraft.util.math.BlockPos;
 
 public class PathFinder {
 	
@@ -95,7 +95,7 @@ public class PathFinder {
 		
 		for(Node n : partialSolutions) {
 			
-			int dis = startNode.distanceSqr(n);
+			int dis = startNode.squaredDistanceTo(n);
 			
 			boolean b = dis > PS_MIN_DISTANCE;
 			

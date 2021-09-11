@@ -1,12 +1,12 @@
 package de.stylextv.lynx.cache;
 
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.FenceBlock;
-import net.minecraft.world.level.block.FenceGateBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.level.material.Fluids;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.FenceBlock;
+import net.minecraft.block.FenceGateBlock;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.Fluids;
 
 public class BlockType {
 	
@@ -49,7 +49,7 @@ public class BlockType {
 				(bits & 1) != 0
 		};
 		
-		this.state = block.defaultBlockState();
+		this.state = block.getDefaultState();
 	}
 	
 	public BlockType passable(boolean b) {
@@ -107,7 +107,7 @@ public class BlockType {
 			return SOLID;
 		}
 		
-		Fluid fluid = state.getFluidState().getType();
+		Fluid fluid = state.getFluidState().getFluid();
 		
 		if(fluid.equals(Fluids.FLOWING_WATER)) return DANGER;
 		
@@ -117,7 +117,7 @@ public class BlockType {
 		
 		if(isWater) return aboveMagma ? DANGER : WATER;
 		
-		boolean isSolid = state.getMaterial().blocksMotion();
+		boolean isSolid = state.getMaterial().blocksMovement();
 		
 		if(isSolid) return SOLID;
 		

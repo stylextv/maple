@@ -8,8 +8,7 @@ import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.movement.Movement;
 import de.stylextv.lynx.render.ShapeRenderer;
 import de.stylextv.lynx.scheme.Colors;
-import net.minecraft.core.BlockPos;
-import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraft.util.math.BlockPos;
 
 public abstract class TargetHelper extends MovementHelper<Movement> {
 	

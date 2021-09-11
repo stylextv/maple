@@ -1,7 +1,7 @@
 package de.stylextv.lynx.input.controller;
 
 import de.stylextv.lynx.util.world.Offset;
-import net.minecraft.core.BlockPos;
+import net.minecraft.util.math.BlockPos;
 
 public class PlaceController {
 	

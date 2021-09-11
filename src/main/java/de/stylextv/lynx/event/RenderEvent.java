@@ -1,6 +1,6 @@
 package de.stylextv.lynx.event;
 
-import de.stylextv.lynx.context.LevelContext;
+import de.stylextv.lynx.context.WorldContext;
 import de.stylextv.lynx.memory.waypoint.Waypoint;
 import de.stylextv.lynx.memory.waypoint.Waypoints;
 import de.stylextv.lynx.pathing.calc.Node;
@@ -25,7 +25,7 @@ public class RenderEvent {
 	
 	@SubscribeEvent
 	public void onWorldRender(RenderWorldLastEvent event) {
-		if(!LevelContext.isInLevel()) return;
+		if(!WorldContext.isInLevel()) return;
 		
 		Node n = SearchExecutor.getCurrentNode();
 		

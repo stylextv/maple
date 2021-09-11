@@ -1,33 +1,48 @@
 package de.stylextv.lynx.input.controller;
 
 import de.stylextv.lynx.context.PlayerContext;
-import de.stylextv.lynx.context.LevelContext;
+import de.stylextv.lynx.context.WorldContext;
 import de.stylextv.lynx.input.SmoothLook;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.util.world.Offset;
 import de.stylextv.lynx.util.world.Rotation;
 import de.stylextv.lynx.util.world.RotationUtil;
-import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.level.ClipContext;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.HitResult.Type;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.world.ClientWorld;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityPose;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult.Type;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.RaycastContext;
+import net.minecraft.world.RaycastContext.FluidHandling;
+import net.minecraft.world.RaycastContext.ShapeType;
 
 public class ViewController {
 	
 	private static SmoothLook smoothLook = new SmoothLook();
 	
 	public static void lookAt(Entity e) {
-		Vec3 pos = e.position();
+		Vec3d pos = e.getPos();
 		
-		lookAt(pos.x(), pos.y() + e.getEyeHeight(), pos.z());
+		EntityPose pose = e.getPose();
+		
+		float eyeHeight = e.getEyeHeight(pose);
+		
+		double x = pos.getX();
+		double y = pos.getY() + eyeHeight;
+		double z = pos.getZ();
+		
+		lookAt(x, y, z);
 	}
 	
 	public static void lookAt(BlockPos pos) {
-		lookAt(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
+		double x = pos.getX() + 0.5;
+		double y = pos.getY() + 0.5;
+		double z = pos.getZ() + 0.5;
+		
+		lookAt(x, y, z);
 	}
 	
 	public static void lookAt(Offset o) {
@@ -39,17 +54,28 @@ public class ViewController {
 	}
 	
 	public static void lookAt(Node n, boolean lookDown) {
-		double y = PlayerContext.eyePosition().y();
+		double x = n.getX() + 0.5;
+		double y = n.getY() + 0.5;
+		double z = n.getZ() + 0.5;
 		
-		lookAt(n.getX() + 0.5, lookDown ? n.getY() + 0.5 : y, n.getZ() + 0.5);
+		if(lookDown) lookAt(x, y, z);
+		else lookAt(x, z);
+	}
+	
+	public static void lookAt(double x, double z) {
+		Vec3d v = PlayerContext.eyePosition();
+		
+		double y = v.getY();
+		
+		lookAt(x, y, z);
 	}
 	
 	public static void lookAt(double x, double y, double z) {
-		Vec3 v = PlayerContext.eyePosition();
+		Vec3d v = PlayerContext.eyePosition();
 		
-		double dx = v.x() - x;
-		double dy = v.y() - y;
-		double dz = v.z() - z;
+		double dx = v.getX() - x;
+		double dy = v.getY() - y;
+		double dz = v.getZ() - z;
 		
 		Rotation r = RotationUtil.vecToRotation(dx, dy, dz);
 		
@@ -57,19 +83,22 @@ public class ViewController {
 	}
 	
 	public static boolean canSee(BlockPos pos) {
-		LocalPlayer p = PlayerContext.player();
+		double x = pos.getX() + 0.5;
+		double y = pos.getY() + 0.5;
+		double z = pos.getZ() + 0.5;
 		
-		ClientLevel level = LevelContext.level();
+		Vec3d v = new Vec3d(x, y, z);
 		
-		Vec3 v1 = new Vec3(p.getX(), p.getEyeY(), p.getZ());
-		Vec3 v2 = new Vec3(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
+		BlockHitResult result = raycastFromPlayer(v);
 		
-		BlockHitResult result = level.clip(new ClipContext(v1, v2, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, p));
+		Type type = result.getType();
 		
-		if(result.getType() == BlockHitResult.Type.MISS) return true;
-		if(result.getType() == BlockHitResult.Type.BLOCK && result.getBlockPos().equals(pos)) return true;
+		if(type == Type.MISS) return true;
+		if(type != Type.BLOCK) return false;
 		
-		return false;
+		BlockPos p = result.getBlockPos();
+		
+		return pos.equals(p);
 	}
 	
 	public static boolean canSee(Offset o) {
@@ -77,14 +106,29 @@ public class ViewController {
 	}
 	
 	public static boolean canSee(double x, double y, double z) {
-		LocalPlayer p = PlayerContext.player();
+		Vec3d v = new Vec3d(x, y, z);
 		
-		ClientLevel level = LevelContext.level();
+		BlockHitResult result = raycastFromPlayer(v);
 		
-		Vec3 v1 = new Vec3(p.getX(), p.getEyeY(), p.getZ());
-		Vec3 v2 = new Vec3(x, y, z);
+		Type type = result.getType();
 		
-		return level.clip(new ClipContext(v1, v2, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, p)).getType() == Type.MISS;
+		return type == Type.MISS;
+	}
+	
+	private static BlockHitResult raycastFromPlayer(Vec3d end) {
+		ClientPlayerEntity p = PlayerContext.player();
+		
+		Vec3d eyePos = p.getEyePos();
+		
+		return raycast(eyePos, end, p);
+	}
+	
+	private static BlockHitResult raycast(Vec3d start, Vec3d end, Entity e) {
+		ClientWorld world = WorldContext.world();
+		
+		RaycastContext context = new RaycastContext(start, end, ShapeType.COLLIDER, FluidHandling.NONE, e);
+		
+		return world.raycast(context);
 	}
 	
 	public static void onRenderTick() {

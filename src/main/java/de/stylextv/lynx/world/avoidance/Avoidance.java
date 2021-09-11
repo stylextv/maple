@@ -3,12 +3,12 @@ package de.stylextv.lynx.world.avoidance;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.stylextv.lynx.context.LevelContext;
+import de.stylextv.lynx.context.WorldContext;
 import de.stylextv.lynx.util.world.CoordUtil;
 import it.unimi.dsi.fastutil.longs.Long2DoubleOpenHashMap;
-import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.Entity;
+import net.minecraft.client.world.ClientWorld;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.math.BlockPos;
 
 public class Avoidance {
 	
@@ -60,15 +60,15 @@ public class Avoidance {
 	public static List<Avoidance> list() {
 		List<Avoidance> list = new ArrayList<>();
 		
-		ClientLevel level = LevelContext.level();
+		ClientWorld world = WorldContext.world();
 		
-		for(Entity e : level.entitiesForRendering()) {
+		for(Entity e : world.getEntities()) {
 			
 			AvoidanceType<?> type = AvoidanceType.fromEntity(e);
 			
 			if(type == null) continue;
 			
-			BlockPos pos = e.blockPosition();
+			BlockPos pos = e.getBlockPos();
 			
 			Avoidance a = new Avoidance(pos, type);
 			

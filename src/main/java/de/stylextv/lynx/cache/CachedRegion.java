@@ -5,17 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.stylextv.lynx.context.PlayerContext;
-import de.stylextv.lynx.context.LevelContext;
+import de.stylextv.lynx.context.WorldContext;
 import de.stylextv.lynx.io.FileAccess;
 import de.stylextv.lynx.io.FileSystem;
 import de.stylextv.lynx.util.world.CoordUtil;
-import net.minecraft.world.level.ChunkPos;
+import net.minecraft.util.math.ChunkPos;
 
 public class CachedRegion {
 	
 	private static final int SIZE = 32;
 	
-	private CachedLevel world;
+	private CachedWorld world;
 	
 	private int x;
 	private int z;
@@ -27,7 +27,7 @@ public class CachedRegion {
 	
 	private boolean modified;
 	
-	public CachedRegion(CachedLevel world, int x, int z) {
+	public CachedRegion(CachedWorld world, int x, int z) {
 		this.world = world;
 		this.x = x;
 		this.z = z;
@@ -84,7 +84,7 @@ public class CachedRegion {
 	}
 	
 	public boolean isInView() {
-		if(!LevelContext.isInLevel()) return false;
+		if(!WorldContext.isInWorld()) return false;
 		
 		ChunkPos pos = PlayerContext.chunkPosition();
 		
@@ -105,7 +105,7 @@ public class CachedRegion {
 		return posAsLong(x, z);
 	}
 	
-	public CachedLevel getWorld() {
+	public CachedWorld getWorld() {
 		return world;
 	}
 	
@@ -125,7 +125,7 @@ public class CachedRegion {
 		this.modified = modified;
 	}
 	
-	public static CachedRegion loadFromDisk(CachedLevel world, int x, int z) {
+	public static CachedRegion loadFromDisk(CachedWorld world, int x, int z) {
 		CachedRegion r = new CachedRegion(world, x, z);
 		
 		File f = world.getSaveFile(r);

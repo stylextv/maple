@@ -5,7 +5,7 @@ import de.stylextv.lynx.input.InputAction;
 import de.stylextv.lynx.input.controller.InputController;
 import de.stylextv.lynx.pathing.calc.Path;
 import de.stylextv.lynx.util.chat.ChatUtil;
-import net.minecraft.core.BlockPos;
+import net.minecraft.util.math.BlockPos;
 
 public class MovementExecutor {
 	

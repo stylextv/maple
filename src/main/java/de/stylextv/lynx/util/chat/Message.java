@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.stylextv.lynx.util.TextUtil;
-import net.minecraft.network.chat.ClickEvent;
-import net.minecraft.network.chat.HoverEvent;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.text.ClickEvent;
+import net.minecraft.text.HoverEvent;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.MutableText;
 
 public class Message {
 	
@@ -27,8 +27,8 @@ public class Message {
 		return new Message(text + s);
 	}
 	
-	public MutableComponent asComponent() {
-		List<MutableComponent> comps = new ArrayList<>();
+	public MutableText asText() {
+		List<MutableText> texts = new ArrayList<>();
 		
 		List<String> list = new ArrayList<>();
 		
@@ -48,7 +48,7 @@ public class Message {
 			String s = list.remove(0);
 			
 			if(!s.startsWith(EVENT_INDICATOR)) {
-				comps.add(new TextComponent(s));
+				texts.add(new LiteralText(s));
 				
 				continue;
 			}
@@ -69,34 +69,34 @@ public class Message {
 			
 			if(!s.isEmpty()) list.add(0, s);
 			
-			MutableComponent comp = new TextComponent(visible);
+			MutableText text = new LiteralText(visible);
 			
 			if(hover != null) {
 				
-				TextComponent c = new TextComponent(hover);
+				LiteralText t = new LiteralText(hover);
 				
-				comp.withStyle((style) -> {
-					return style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, c));
+				text.styled((style) -> {
+					return style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, t));
 				});
 			}
 			
 			if(command != null) {
 				
-				comp.withStyle((style) -> {
+				text.styled((style) -> {
 					return style.withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, command));
 				});
 			}
 			
-			comps.add(comp);
+			texts.add(text);
 		}
 		
-		MutableComponent comp = new TextComponent("");
+		MutableText text = new LiteralText("");
 		
-		for(MutableComponent c : comps) {
-			comp = comp.append(c);
+		for(MutableText t : texts) {
+			text = text.append(t);
 		}
 		
-		return comp;
+		return text;
 	}
 	
 	public String getText() {

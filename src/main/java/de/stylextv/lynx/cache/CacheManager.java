@@ -2,36 +2,36 @@ package de.stylextv.lynx.cache;
 
 import java.util.HashMap;
 
-import de.stylextv.lynx.context.LevelContext;
+import de.stylextv.lynx.context.WorldContext;
 import de.stylextv.lynx.world.WorldBorderInterface;
-import net.minecraft.core.BlockPos;
+import net.minecraft.util.math.BlockPos;
 
 public class CacheManager {
 	
-	private static HashMap<String, CachedLevel> levels = new HashMap<>();
+	private static HashMap<String, CachedWorld> worlds = new HashMap<>();
 	
-	private static CachedLevel level;
+	private static CachedWorld world;
 	
-	public static void enterLevel() {
-		String name = LevelContext.getLevelName();
+	public static void enterWorld() {
+		String name = WorldContext.getLevelName();
 		
-		CachedLevel l = getLevel(name);
+		CachedWorld w = getWorld(name);
 		
-		if(l.equals(level)) return;
+		if(w.equals(world)) return;
 		
-		exitLevel();
+		exitWorld();
 		
-		level = l;
+		world = w;
 		
-		level.enter();
+		world.enter();
 	}
 	
-	public static void exitLevel() {
-		if(level == null) return;
+	public static void exitWorld() {
+		if(world == null) return;
 		
-		level.exit();
+		world.exit();
 		
-		level = null;
+		world = null;
 	}
 	
 	public static BlockType getBlockType(BlockPos pos) {
@@ -45,16 +45,16 @@ public class CacheManager {
 	public static BlockType getBlockType(int x, int y, int z) {
 		if(!WorldBorderInterface.isInside(x, z)) return BlockType.BORDER;
 		
-		return level.getBlockType(x, y, z);
+		return world.getBlockType(x, y, z);
 	}
 	
-	private static CachedLevel getLevel(String name) {
-		CachedLevel cache = levels.get(name);
+	private static CachedWorld getWorld(String name) {
+		CachedWorld cache = worlds.get(name);
 		
 		if(cache == null) {
-			cache = new CachedLevel(name);
+			cache = new CachedWorld(name);
 			
-			levels.put(name, cache);
+			worlds.put(name, cache);
 		}
 		
 		return cache;

@@ -2,7 +2,7 @@ package de.stylextv.lynx.input;
 
 import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.util.world.Rotation;
-import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.network.ClientPlayerEntity;
 
 public class SmoothLook {
 	
@@ -29,7 +29,7 @@ public class SmoothLook {
 	}
 	
 	private void apply() {
-		LocalPlayer p = PlayerContext.player();
+		ClientPlayerEntity p = PlayerContext.player();
 		
 //		Vec2 v = p.getRotationVector();
 //		
@@ -40,8 +40,8 @@ public class SmoothLook {
 //		
 //		r = r.normalizeYaw().nudgeToMatch(rotation, TURN_SPEED);
 		
-		p.setXRot(rotation.getPitch());
-		p.setYRot(rotation.getYaw());
+		p.setYaw(rotation.getYaw());
+		p.setPitch(rotation.getPitch());
 	}
 	
 	private void reset() {

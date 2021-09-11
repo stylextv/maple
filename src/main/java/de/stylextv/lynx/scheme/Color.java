@@ -1,6 +1,6 @@
 package de.stylextv.lynx.scheme;
 
-import com.mojang.math.Vector4f;
+import net.minecraft.util.math.Vector4f;
 
 public class Color {
 	

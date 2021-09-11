@@ -1,8 +1,8 @@
 package de.stylextv.lynx.world;
 
-import de.stylextv.lynx.context.LevelContext;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.border.WorldBorder;
+import de.stylextv.lynx.context.WorldContext;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.border.WorldBorder;
 
 public class WorldBorderInterface {
 	
@@ -10,15 +10,15 @@ public class WorldBorderInterface {
 		return isInside(pos.getX(), pos.getZ());
 	}
 	
-	// TODO getMinX, getMaxX, ... are too slow!
+	// TODO don't use native methods (too slow)!
 	public static boolean isInside(int x, int z) {
 		WorldBorder border = getBorder();
 		
-		return x + 1 > border.getMinX() && x < border.getMaxX() && z + 1 > border.getMinZ() && z < border.getMaxZ();
+		return border.contains(x, z);
 	}
 	
 	public static WorldBorder getBorder() {
-		return LevelContext.level().getWorldBorder();
+		return WorldContext.world().getWorldBorder();
 	}
 	
 }

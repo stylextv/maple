@@ -1,7 +1,7 @@
 package de.stylextv.lynx.pathing.calc.goal;
 
 import de.stylextv.lynx.pathing.calc.Node;
-import net.minecraft.core.BlockPos;
+import net.minecraft.util.math.BlockPos;
 
 public class BlockGoal extends Goal {
 	

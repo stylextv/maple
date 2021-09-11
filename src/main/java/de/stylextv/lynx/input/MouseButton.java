@@ -2,22 +2,22 @@ package de.stylextv.lynx.input;
 
 import de.stylextv.lynx.context.GameContext;
 import de.stylextv.lynx.input.controller.InputController;
-import net.minecraft.client.KeyMapping;
+import net.minecraft.client.option.KeyBinding;
 
 public class MouseButton {
 	
-	public static final MouseButton LEFT_CLICK = new MouseButton(InputAction.LEFT_CLICK, GameContext.settings().keyAttack);
-	public static final MouseButton RIGHT_CLICK = new MouseButton(InputAction.RIGHT_CLICK, GameContext.settings().keyUse);
+	public static final MouseButton LEFT_CLICK = new MouseButton(InputAction.LEFT_CLICK, GameContext.options().keyAttack);
+	public static final MouseButton RIGHT_CLICK = new MouseButton(InputAction.RIGHT_CLICK, GameContext.options().keyUse);
 	
 	private InputAction action;
 	
-	private KeyMapping keyBind;
+	private KeyBinding binding;
 	
 	private boolean pressed;
 	
-	public MouseButton(InputAction i, KeyMapping keyBind) {
+	public MouseButton(InputAction i, KeyBinding binding) {
 		this.action = i;
-		this.keyBind = keyBind;
+		this.binding = binding;
 	}
 	
 	public void update() {
@@ -25,11 +25,11 @@ public class MouseButton {
 		
 		if(b) {
 			
-			keyBind.setDown(true);
+			binding.setPressed(true);
 			
 		} else if(pressed) {
 			
-			keyBind.setDown(false);
+			binding.setPressed(false);
 		}
 		
 		pressed = b;
@@ -39,8 +39,8 @@ public class MouseButton {
 		return action;
 	}
 	
-	public KeyMapping getKeyBind() {
-		return keyBind;
+	public KeyBinding getKeyBind() {
+		return binding;
 	}
 	
 	public static void updateAll() {

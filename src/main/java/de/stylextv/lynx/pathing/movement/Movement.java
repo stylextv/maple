@@ -14,8 +14,7 @@ import de.stylextv.lynx.pathing.movement.helper.StepHelper;
 import de.stylextv.lynx.render.ShapeRenderer;
 import de.stylextv.lynx.scheme.Colors;
 import de.stylextv.lynx.util.time.TimeUtil;
-import net.minecraft.core.BlockPos;
-import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraft.util.math.BlockPos;
 
 public abstract class Movement {
 	
@@ -116,9 +115,9 @@ public abstract class Movement {
 		placeHelper.render(event);
 	}
 	
-	public double distanceSqr(BlockPos pos) {
-		int dis1 = source.distanceSqr(pos);
-		int dis2 = destination.distanceSqr(pos);
+	public double squaredDistanceTo(BlockPos pos) {
+		int dis1 = source.squaredDistanceTo(pos);
+		int dis2 = destination.squaredDistanceTo(pos);
 		
 		return Math.min(dis1, dis2);
 	}

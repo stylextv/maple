@@ -9,11 +9,11 @@ import de.stylextv.lynx.input.controller.PlaceController;
 import de.stylextv.lynx.input.controller.ViewController;
 import de.stylextv.lynx.util.world.Offset;
 import de.stylextv.lynx.world.BlockInterface;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.block.BlockState;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 
 public class BlockTarget {
 	
@@ -133,7 +133,7 @@ public class BlockTarget {
 	}
 	
 	public boolean isSelected() {
-		BlockHitResult result = AwarenessController.getBlockUnderCrosshair();
+		BlockHitResult result = AwarenessController.getBlockTarget();
 		
 		if(result == null) return false;
 		
@@ -141,9 +141,9 @@ public class BlockTarget {
 		
 		if(p.equals(pos)) return true;
 		
-		Direction dir = result.getDirection();
+		Direction dir = result.getSide();
 		
-		return p.relative(dir).equals(pos);
+		return p.offset(dir).equals(pos);
 	}
 	
 	public boolean isBreakable() {

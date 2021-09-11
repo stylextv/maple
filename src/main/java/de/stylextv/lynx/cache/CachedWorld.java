@@ -6,7 +6,7 @@ import java.util.List;
 
 import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.context.GameContext;
-import de.stylextv.lynx.context.LevelContext;
+import de.stylextv.lynx.context.WorldContext;
 import de.stylextv.lynx.io.FileSystem;
 import de.stylextv.lynx.util.async.AsyncUtil;
 import de.stylextv.lynx.util.async.TaskInfo;
@@ -14,9 +14,9 @@ import de.stylextv.lynx.util.world.CoordUtil;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectCollection;
-import net.minecraft.world.level.ChunkPos;
+import net.minecraft.util.math.ChunkPos;
 
-public class CachedLevel {
+public class CachedWorld {
 	
 	private static final File SAVE_FOLDER = new File(FileSystem.ROOT_FOLDER, "cache");
 	
@@ -27,7 +27,7 @@ public class CachedLevel {
 	private TaskInfo collectTask;
 	private TaskInfo saveTask;
 	
-	public CachedLevel(String name) {
+	public CachedWorld(String name) {
 		this.name = name;
 		
 		this.regionMap = new Long2ObjectOpenHashMap<>(16, 0.75f);
@@ -56,7 +56,7 @@ public class CachedLevel {
 		
 		ChunkPos pos = PlayerContext.chunkPosition();
 		
-		int dis = LevelContext.getViewDistance();
+		int dis = WorldContext.getViewDistance();
 		
 		for(int x = -dis; x <= dis; x++) {
 			for(int z = -dis; z <= dis; z++) {
@@ -64,7 +64,7 @@ public class CachedLevel {
 				int cx = pos.x + x;
 				int cz = pos.z + z;
 				
-				if(LevelContext.isChunkInView(cx, cz)) {
+				if(WorldContext.isChunkInView(cx, cz)) {
 					
 					if(getChunk(cx, cz) == null) {
 						

@@ -6,7 +6,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.pathing.movement.Movement;
 import de.stylextv.lynx.util.time.TimeUtil;
-import net.minecraft.core.BlockPos;
+import net.minecraft.util.math.BlockPos;
 
 public class Path {
 	
@@ -129,7 +129,7 @@ public class Path {
 		
 		if(m == null) return 0;
 		
-		return m.distanceSqr(pos);
+		return m.squaredDistanceTo(pos);
 	}
 	
 	public void trimFromNode(Node n) {

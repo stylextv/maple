@@ -6,8 +6,8 @@ import de.stylextv.lynx.pathing.calc.Cost;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.movement.Movement;
 import de.stylextv.lynx.world.BlockInterface;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 
 public class StepHelper extends MovementHelper<Movement> {
 	
@@ -53,7 +53,7 @@ public class StepHelper extends MovementHelper<Movement> {
 		
 		Block block = state.getBlock();
 		
-		float f = block.getSpeedFactor();
+		float f = block.getVelocityMultiplier();
 		
 		double cost = isDiagonal ? Cost.WALK_DIAGONALLY : Cost.WALK_STRAIGHT;
 		

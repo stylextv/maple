@@ -5,7 +5,7 @@ import java.util.List;
 import de.stylextv.lynx.Constants;
 import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.util.MathUtil;
-import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.text.MutableText;
 
 public class ChatUtil {
 	
@@ -66,9 +66,9 @@ public class ChatUtil {
 	public static void send(Message m) {
 		m = PREFIX.append(m);
 		
-		MutableComponent comp = m.asComponent();
+		MutableText text = m.asText();
 		
-		PlayerContext.player().sendMessage(comp, null);
+		PlayerContext.player().sendMessage(text, false);
 	}
 	
 }

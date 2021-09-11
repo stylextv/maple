@@ -4,11 +4,11 @@ import java.util.HashSet;
 
 import de.stylextv.lynx.context.GameContext;
 import de.stylextv.lynx.context.PlayerContext;
+import de.stylextv.lynx.input.InjectedInput;
 import de.stylextv.lynx.input.InputAction;
 import de.stylextv.lynx.input.MouseButton;
-import de.stylextv.lynx.input.PlayerMovementInput;
-import net.minecraft.client.player.KeyboardInput;
-import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.input.KeyboardInput;
+import net.minecraft.client.network.ClientPlayerEntity;
 
 public class InputController {
 	
@@ -30,9 +30,9 @@ public class InputController {
 	public static void onTick() {
 		MouseButton.updateAll();
 		
-		LocalPlayer p = PlayerContext.player();
+		ClientPlayerEntity p = PlayerContext.player();
 		
-		boolean injected = p.input.getClass() == PlayerMovementInput.class;
+		boolean injected = p.input.getClass() == InjectedInput.class;
 		
 		if(isInControl()) {
 			
@@ -41,13 +41,13 @@ public class InputController {
 			PlayerContext.setFlying(false);
 			
 			if(!injected) {
-				p.input = new PlayerMovementInput();
+				p.input = new InjectedInput();
 			}
 			
 		} else {
 			
 			if(injected) {
-				p.input = new KeyboardInput(GameContext.settings());
+				p.input = new KeyboardInput(GameContext.options());
 			}
 		}
 	}

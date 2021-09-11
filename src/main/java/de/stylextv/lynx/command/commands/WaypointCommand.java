@@ -6,11 +6,11 @@ import java.util.List;
 import de.stylextv.lynx.command.ArgumentHelper;
 import de.stylextv.lynx.command.Command;
 import de.stylextv.lynx.context.PlayerContext;
-import de.stylextv.lynx.context.LevelContext;
+import de.stylextv.lynx.context.WorldContext;
 import de.stylextv.lynx.memory.waypoint.Waypoint;
 import de.stylextv.lynx.memory.waypoint.Waypoints;
 import de.stylextv.lynx.util.chat.ChatUtil;
-import net.minecraft.core.BlockPos;
+import net.minecraft.util.math.BlockPos;
 
 public class WaypointCommand extends Command {
 	
@@ -78,7 +78,7 @@ public class WaypointCommand extends Command {
 		
 		String name = args[1];
 		
-		String levelName = LevelContext.getLevelName();
+		String levelName = WorldContext.getLevelName();
 		
 		Waypoint p = Waypoints.getWaypoint(name, levelName);
 		

@@ -5,7 +5,7 @@ import de.stylextv.lynx.cache.CacheManager;
 import de.stylextv.lynx.pathing.calc.goal.Goal;
 import de.stylextv.lynx.pathing.movement.Movement;
 import de.stylextv.lynx.util.world.CoordUtil;
-import net.minecraft.core.BlockPos;
+import net.minecraft.util.math.BlockPos;
 
 public class Node {
 	
@@ -84,15 +84,15 @@ public class Node {
 		return new BlockPos(x, y, z);
 	}
 	
-	public int distanceSqr(BlockPos pos) {
-		return distanceSqr(pos.getX(), pos.getY(), pos.getZ());
+	public int squaredDistanceTo(BlockPos pos) {
+		return squaredDistanceTo(pos.getX(), pos.getY(), pos.getZ());
 	}
 	
-	public int distanceSqr(Node n) {
-		return distanceSqr(n.getX(), n.getY(), n.getZ());
+	public int squaredDistanceTo(Node n) {
+		return squaredDistanceTo(n.getX(), n.getY(), n.getZ());
 	}
 	
-	public int distanceSqr(int x, int y, int z) {
+	public int squaredDistanceTo(int x, int y, int z) {
 		int dx = x - this.x;
 		int dy = y - this.y;
 		int dz = z - this.z;

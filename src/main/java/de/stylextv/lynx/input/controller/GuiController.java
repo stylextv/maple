@@ -1,18 +1,18 @@
 package de.stylextv.lynx.input.controller;
 
 import de.stylextv.lynx.context.PlayerContext;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
 public class GuiController {
 	
 	public static ItemStack bestTool(BlockState state) {
-		Inventory inv = PlayerContext.inventory();
+		PlayerInventory inv = PlayerContext.inventory();
 		
 		ItemStack best = null;
 		
@@ -20,13 +20,13 @@ public class GuiController {
 		
 		for(int i = 0; i < 9; i++) {
 			
-			ItemStack stack = inv.getItem(i);
+			ItemStack stack = inv.getStack(i);
 			
 			float f = digSpeed(stack, state);
 			
-			if(stack.isDamageableItem() && f <= 1) {
+			if(stack.isDamageable() && f <= 1) {
 				
-				f = -stack.getBaseRepairCost() - 1;
+				f = -stack.getRepairCost() - 1;
 			}
 			
 			if(f > score) {
@@ -40,11 +40,11 @@ public class GuiController {
 	}
 	
 	public static float digSpeed(ItemStack stack, BlockState state) {
-		float f = stack.getDestroySpeed(state);
+		float f = stack.getMiningSpeedMultiplier(state);
 		
 		if(f <= 1) return f;
 		
-		int level = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, stack);
+		int level = EnchantmentHelper.getLevel(Enchantments.EFFICIENCY, stack);
 		
 		if(level > 0) f += level * level + 1;
 		
@@ -53,11 +53,11 @@ public class GuiController {
 	
 	// TODO check for full blocks only (or maybe just DIRT, STONE, ...)
 	public static ItemStack buildingMaterial() {
-		Inventory inv = PlayerContext.inventory();
+		PlayerInventory inv = PlayerContext.inventory();
 		
 		for(int i = 0; i < 9; i++) {
 			
-			ItemStack stack = inv.getItem(i);
+			ItemStack stack = inv.getStack(i);
 			
 			Item item = stack.getItem();
 			
@@ -80,19 +80,19 @@ public class GuiController {
 	}
 	
 	public static void selectSlot(int slot) {
-		Inventory inv = PlayerContext.inventory();
+		PlayerInventory inv = PlayerContext.inventory();
 		
-		inv.selected = slot;
+		inv.selectedSlot = slot;
 	}
 	
 	public static int slotOf(ItemStack stack) {
-		Inventory inv = PlayerContext.inventory();
+		PlayerInventory inv = PlayerContext.inventory();
 		
 		for(int i = 0; i < 9; i++) {
 			
-			ItemStack other = inv.getItem(i);
+			ItemStack other = inv.getStack(i);
 			
-			if(stack.equals(other, false)) return i;
+			if(stack.isItemEqual(other)) return i;
 		}
 		
 		return -1;

@@ -13,14 +13,14 @@ public class LevelEvent {
 	public void onLoad(WorldEvent.Load event) {
 		if(!event.getWorld().isClientSide()) return;
 		
-		AsyncUtil.runLaterAsync(() -> CacheManager.enterLevel(), LOAD_DELAY);
+		AsyncUtil.runLaterAsync(() -> CacheManager.enterWorld(), LOAD_DELAY);
 	}
 	
 	@SubscribeEvent
 	public void onUnload(WorldEvent.Unload event) {
 		if(!event.getWorld().isClientSide()) return;
 		
-		CacheManager.exitLevel();
+		CacheManager.exitWorld();
 	}
 	
 }

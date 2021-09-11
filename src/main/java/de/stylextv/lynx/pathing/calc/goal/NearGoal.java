@@ -1,7 +1,7 @@
 package de.stylextv.lynx.pathing.calc.goal;
 
 import de.stylextv.lynx.pathing.calc.Node;
-import net.minecraft.core.BlockPos;
+import net.minecraft.util.math.BlockPos;
 
 public class NearGoal extends Goal {
 	
@@ -29,7 +29,7 @@ public class NearGoal extends Goal {
 	
 	@Override
 	public boolean isFinalNode(Node n) {
-		return n.distanceSqr(pos) <= dis;
+		return n.squaredDistanceTo(pos) <= dis;
 	}
 	
 	@Override

@@ -1,6 +1,6 @@
 package de.stylextv.lynx.util.world;
 
-import net.minecraft.core.BlockPos;
+import net.minecraft.util.math.BlockPos;
 
 public class CoordUtil {
 	

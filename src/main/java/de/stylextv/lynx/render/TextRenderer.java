@@ -48,7 +48,7 @@ public class TextRenderer {
 		int offX = -width / 2;
 		int offY = 0;
 		
-		float f = GameContext.settings().getBackgroundOpacity(0.25F);
+		float f = GameContext.options().getBackgroundOpacity(0.25F);
 		
 		int rgb = (int) (f * 255) << 24;
 		

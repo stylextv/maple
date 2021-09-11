@@ -2,9 +2,9 @@ package de.stylextv.lynx.world;
 
 import de.stylextv.lynx.cache.BlockType;
 import de.stylextv.lynx.cache.CacheManager;
-import de.stylextv.lynx.context.LevelContext;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.block.state.BlockState;
+import de.stylextv.lynx.context.WorldContext;
+import net.minecraft.block.BlockState;
+import net.minecraft.util.math.BlockPos;
 
 public class BlockInterface {
 	
@@ -13,9 +13,9 @@ public class BlockInterface {
 	}
 	
 	public static BlockState getState(BlockPos pos) {
-		boolean loaded = WorldBorderInterface.isInside(pos) && LevelContext.isBlockLoaded(pos);
+		boolean loaded = WorldBorderInterface.isInside(pos) && WorldContext.isPosLoaded(pos);
 		
-		if(loaded) return LevelContext.getBlockState(pos);
+		if(loaded) return WorldContext.getBlockState(pos);
 		
 		BlockType type = CacheManager.getBlockType(pos);
 		

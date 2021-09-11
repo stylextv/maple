@@ -3,7 +3,7 @@ package de.stylextv.lynx.pathing.calc.goal;
 import de.stylextv.lynx.command.ArgumentHelper;
 import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.pathing.calc.Node;
-import net.minecraft.core.BlockPos;
+import net.minecraft.util.math.BlockPos;
 
 public abstract class Goal {
 	

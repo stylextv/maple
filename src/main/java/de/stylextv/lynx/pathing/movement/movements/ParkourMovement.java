@@ -5,7 +5,7 @@ import de.stylextv.lynx.input.InputAction;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.movement.Movement;
 import de.stylextv.lynx.pathing.movement.helper.ParkourHelper;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.util.math.Vec3d;
 
 public class ParkourMovement extends Movement {
 	
@@ -43,7 +43,7 @@ public class ParkourMovement extends Movement {
 		
 		Node n = getSource();
 		
-		Vec3 v = PlayerContext.position();
+		Vec3d v = PlayerContext.position();
 		
 		double disToJump;
 		
@@ -51,13 +51,13 @@ public class ParkourMovement extends Movement {
 			
 			double x = n.getX() + 0.5 + dx * JUMP_OFFSET;
 			
-			disToJump = (x - v.x()) * dx;
+			disToJump = (x - v.getX()) * dx;
 			
 		} else {
 			
 			double z = n.getZ() + 0.5 + dz * JUMP_OFFSET;
 			
-			disToJump = (z - v.z()) * dz;
+			disToJump = (z - v.getZ()) * dz;
 		}
 		
 		boolean jump = disToJump < 0 && disToJump > -0.5;

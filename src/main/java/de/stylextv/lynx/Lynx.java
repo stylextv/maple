@@ -1,19 +1,10 @@
 package de.stylextv.lynx;
 
-import de.stylextv.lynx.event.ChatEvent;
-import de.stylextv.lynx.event.LevelEvent;
-import de.stylextv.lynx.event.RenderEvent;
-import de.stylextv.lynx.event.TickEvent;
 import de.stylextv.lynx.memory.waypoint.Waypoints;
 import de.stylextv.lynx.option.Options;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.fabricmc.api.ModInitializer;
 
-@Mod(Constants.MOD_ID)
-public class Lynx {
+public class Lynx implements ModInitializer {
 	
 	private static Lynx instance;
 	
@@ -21,31 +12,22 @@ public class Lynx {
 	
 	public Lynx() {
 		instance = this;
-		
-		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-		
-		bus.addListener(this::setup);
-		
-		init(bus);
 	}
 	
-	private void init(IEventBus bus) {
-		MinecraftForge.EVENT_BUS.register(this);
-		
+	@Override
+	public void onInitialize() {
 		registerEvents();
 		
 		loadConfigs();
 		
 		// init
-		
-		Runtime.getRuntime().addShutdownHook(new Thread(this::shutdown));
 	}
 	
 	private void registerEvents() {
-		MinecraftForge.EVENT_BUS.register(new TickEvent());
-		MinecraftForge.EVENT_BUS.register(new LevelEvent());
-		MinecraftForge.EVENT_BUS.register(new RenderEvent());
-		MinecraftForge.EVENT_BUS.register(new ChatEvent());
+//		MinecraftForge.EVENT_BUS.register(new TickEvent());
+//		MinecraftForge.EVENT_BUS.register(new LevelEvent());
+//		MinecraftForge.EVENT_BUS.register(new RenderEvent());
+//		MinecraftForge.EVENT_BUS.register(new ChatEvent());
 	}
 	
 	private void loadConfigs() {
@@ -58,14 +40,6 @@ public class Lynx {
 		}
 		
 		Waypoints.load();
-	}
-	
-	private void setup(final FMLCommonSetupEvent event) {
-		
-	}
-	
-	private void shutdown() {
-		
 	}
 	
 	public Options getOptions() {
