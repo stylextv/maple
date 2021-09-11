@@ -3,12 +3,12 @@ package de.stylextv.lynx.pathing.calc;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.PriorityQueue;
 import java.util.Set;
 
 import de.stylextv.lynx.cache.BlockType;
 import de.stylextv.lynx.pathing.calc.favoring.Favoring;
 import de.stylextv.lynx.pathing.calc.goal.Goal;
+import de.stylextv.lynx.pathing.calc.openset.HeapOpenSet;
 import de.stylextv.lynx.pathing.movement.Move;
 import de.stylextv.lynx.pathing.movement.Movement;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
@@ -24,7 +24,7 @@ public class PathFinder {
 	
 	private Long2ObjectOpenHashMap<Node> map;
 	
-	private PriorityQueue<Node> openList;
+	private HeapOpenSet openList;
 	
 	private Set<Node> closedSet;
 	
@@ -36,6 +36,8 @@ public class PathFinder {
 	
 	private int chunkBorderHits;
 	
+	private Node lastConsideration;
+	
 	private boolean stop;
 	
 	private boolean pause;
@@ -46,7 +48,7 @@ public class PathFinder {
 		
 		this.map = new Long2ObjectOpenHashMap<>(1024, 0.75f);
 		
-		this.openList = new PriorityQueue<Node>((Node n1, Node n2) -> Double.compare(n1.getFinalCost(), n2.getFinalCost()));
+		this.openList = new HeapOpenSet();
 		
 		this.closedSet = new HashSet<>();
 		
@@ -66,6 +68,8 @@ public class PathFinder {
 		
 		while(!openList.isEmpty() && !stop) {
 			Node n = openList.poll();
+			
+			lastConsideration = n;
 			
 			closedSet.add(n);
 			
@@ -160,11 +164,10 @@ public class PathFinder {
 		
 		if(cost >= Cost.INFINITY) return;
 		
-		if(openList.contains(n)) {
+		if(n.isOpen()) {
 			
 			if(n.updateParent(parent, m, cost)) {
-				openList.remove(n);
-				openList.add(n);
+				openList.update(n);
 			}
 			
 		} else {
@@ -202,7 +205,7 @@ public class PathFinder {
 	}
 	
 	public Node getCurrentNode() {
-		return openList.peek();
+		return lastConsideration;
 	}
 	
 	public Goal getGoal() {

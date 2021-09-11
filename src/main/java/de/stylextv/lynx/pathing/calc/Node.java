@@ -22,6 +22,8 @@ public class Node {
 	private double gCost;
 	private double hCost;
 	
+	private int heapPosition;
+	
 	public Node(BlockPos pos) {
 		this(pos.getX(), pos.getY(), pos.getZ());
 	}
@@ -30,6 +32,8 @@ public class Node {
 		this.x = x;
 		this.y = y;
 		this.z = z;
+		
+		this.heapPosition = -1;
 		
 		updateBlockType();
 	}
@@ -91,6 +95,10 @@ public class Node {
 		return dis;
 	}
 	
+	public boolean isOpen() {
+		return heapPosition != -1;
+	}
+	
 	public long getHash() {
 		return posAsLong(x, y, z);
 	}
@@ -144,8 +152,17 @@ public class Node {
 		return hCost;
 	}
 	
+	public int getHeapPosition() {
+		return heapPosition;
+	}
+	
+	public void setHeapPosition(int heapPosition) {
+		this.heapPosition = heapPosition;
+	}
+	
 	public static long posAsLong(int x, int y, int z) {
 		return CoordUtil.posAsLong(x, y, z);
 	}
+	
 	
 }
