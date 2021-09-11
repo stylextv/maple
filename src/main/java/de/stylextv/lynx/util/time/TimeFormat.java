@@ -15,15 +15,13 @@ public class TimeFormat {
 			
 			String s2 = amount + " " + u.getName(amount);
 			
-			if(s == null) {
-				s = s2;
+			if(s != null) {
+				s += " and " + s2;
 				
-				continue;
+				break;
 			}
 			
-			s += " and " + s2;
-			
-			break;
+			s = s2;
 		}
 		
 		return s;
