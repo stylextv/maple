@@ -9,6 +9,8 @@ import net.minecraft.core.BlockPos;
 
 public class Node {
 	
+	private static final double MIN_COST_IMPROVEMENT = 0.01;
+	
 	private int x;
 	private int y;
 	private int z;
@@ -56,7 +58,9 @@ public class Node {
 	public boolean updateParent(Node n, Movement m, double cost) {
 		double d = n.getGCost() + cost;
 		
-		if(d < gCost) {
+		double improvement = gCost - d;
+		
+		if(improvement > MIN_COST_IMPROVEMENT) {
 			setParent(n, m, cost);
 			
 			return true;
