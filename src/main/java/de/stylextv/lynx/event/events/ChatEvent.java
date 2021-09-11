@@ -14,7 +14,7 @@ public class ChatEvent {
 		if(CommandManager.isCommandMessage(msg)) {
 			event.setCanceled(true);
 			
-			GameContext.chat().addRecentChat(msg);
+			GameContext.chatHud().addToMessageHistory(msg);
 			
 			CommandManager.parseMessage(msg);
 		}
