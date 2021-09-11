@@ -40,11 +40,11 @@ public class HeapOpenSet {
 	public void update(Node n) {
 		int index = n.getHeapPosition();
 		
+		double cost = n.getFinalCost();
+		
 		int parentIndex = index >>> 1;
 		
 		Node parent = array[parentIndex];
-		
-		double cost = n.getFinalCost();
 		
 		while(index > 1 && parent.getFinalCost() > cost) {
 			
