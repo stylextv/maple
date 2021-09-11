@@ -24,7 +24,7 @@ public class PathFinder {
 	
 	private Long2ObjectOpenHashMap<Node> map;
 	
-	private HeapOpenSet openList;
+	private HeapOpenSet openSet;
 	
 	private Set<Node> closedSet;
 	
@@ -48,7 +48,7 @@ public class PathFinder {
 		
 		this.map = new Long2ObjectOpenHashMap<>(1024, 0.75f);
 		
-		this.openList = new HeapOpenSet();
+		this.openSet = new HeapOpenSet();
 		
 		this.closedSet = new HashSet<>();
 		
@@ -64,10 +64,10 @@ public class PathFinder {
 		
 		Node startNode = getMapNode(startX, startY, startZ);
 		
-		openList.add(startNode);
+		openSet.add(startNode);
 		
-		while(!openList.isEmpty() && !stop) {
-			Node n = openList.poll();
+		while(!openSet.isEmpty() && !stop) {
+			Node n = openSet.poll();
 			
 			lastConsideration = n;
 			
@@ -167,14 +167,14 @@ public class PathFinder {
 		if(n.isOpen()) {
 			
 			if(n.updateParent(parent, m, cost)) {
-				openList.update(n);
+				openSet.update(n);
 			}
 			
 		} else {
 			
 			n.setParent(parent, m, cost);
 			
-			openList.add(n);
+			openSet.add(n);
 		}
 	}
 	

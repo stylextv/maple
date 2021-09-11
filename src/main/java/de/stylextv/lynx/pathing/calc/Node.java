@@ -21,6 +21,7 @@ public class Node {
 	
 	private double gCost;
 	private double hCost;
+	private double fCost;
 	
 	private int heapPosition;
 	
@@ -44,14 +45,12 @@ public class Node {
 	
 	public void updateHeuristic(Goal goal) {
 		hCost = goal.heuristic(this);
+		
+		updateFinalCost();
 	}
 	
-	public double getFinalCost() {
-		return gCost + hCost;
-	}
-	
-	public double getPartialCost(float coefficient) {
-		return hCost + gCost / coefficient;
+	public void updateFinalCost() {
+		fCost = gCost + hCost;
 	}
 	
 	public boolean updateParent(Node n, Movement m, double cost) {
@@ -71,6 +70,12 @@ public class Node {
 		movement = m;
 		
 		gCost = n.getGCost() + cost;
+		
+		updateFinalCost();
+	}
+	
+	public double getPartialCost(float coefficient) {
+		return hCost + gCost / coefficient;
 	}
 	
 	public BlockPos blockPos() {
@@ -150,6 +155,10 @@ public class Node {
 	
 	public double getHCost() {
 		return hCost;
+	}
+	
+	public double getFinalCost() {
+		return fCost;
 	}
 	
 	public int getHeapPosition() {
