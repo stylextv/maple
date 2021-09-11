@@ -3,6 +3,7 @@ package de.stylextv.lynx.context;
 import java.io.File;
 
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.hud.ChatHud;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.option.GameOptions;
@@ -33,8 +34,8 @@ public class GameContext {
 		return MC.inGameHud;
 	}
 	
-	public static Font font() {
-		return MC.font;
+	public static TextRenderer textRenderer() {
+		return MC.textRenderer;
 	}
 	
 	public static float tickDelta() {

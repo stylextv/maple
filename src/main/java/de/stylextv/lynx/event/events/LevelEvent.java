@@ -1,4 +1,4 @@
-package de.stylextv.lynx.event;
+package de.stylextv.lynx.event.events;
 
 import de.stylextv.lynx.cache.CacheManager;
 import de.stylextv.lynx.util.async.AsyncUtil;

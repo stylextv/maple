@@ -1,4 +1,4 @@
-package de.stylextv.lynx.event;
+package de.stylextv.lynx.event.events;
 
 import de.stylextv.lynx.context.WorldContext;
 import de.stylextv.lynx.memory.waypoint.Waypoint;

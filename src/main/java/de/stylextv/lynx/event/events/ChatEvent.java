@@ -1,4 +1,4 @@
-package de.stylextv.lynx.event;
+package de.stylextv.lynx.event.events;
 
 import de.stylextv.lynx.command.CommandManager;
 import de.stylextv.lynx.context.GameContext;
