@@ -37,7 +37,7 @@ public class ModifiedCommand extends Command {
 				String name = option.getName();
 				String type = "Boolean";
 				
-				String s = String.format("ง7%s ง8(%s)", name, type);
+				String s = String.format("ยง7%s ยง8(%s)", name, type);
 				
 				list.add(s);
 			}

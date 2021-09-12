@@ -15,7 +15,7 @@ public class ETACommand extends Command {
 	@Override
 	public boolean execute(String[] args) {
 		if(!MovementExecutor.hasPath()) {
-			ChatUtil.send("§cNot actively pathing!");
+			ChatUtil.send("Â§cNot actively pathing!");
 			
 			return true;
 		}

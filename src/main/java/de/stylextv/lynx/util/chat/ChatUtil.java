@@ -9,7 +9,7 @@ import net.minecraft.text.MutableText;
 
 public class ChatUtil {
 	
-	private static final Message PREFIX = new Message(Constants.COLORED_NAME + " ง8| ง7");
+	private static final Message PREFIX = new Message(Constants.COLORED_NAME + " ยง8| ยง7");
 	
 	public static void sendList(List<String> list, int rows, int page, String command) {
 		page--;
@@ -37,16 +37,16 @@ public class ChatUtil {
 		int remaining = rows - (end - start + 1);
 		
 		for(int i = 0; i < remaining; i++) {
-			send("ง8--");
+			send("ยง8--");
 		}
 		
-		String s = page == 0 ? "ง8<< " : String.format("งx[งb<<]{#%s %s} ", command, page);
+		String s = page == 0 ? "ยง8<< " : String.format("ยงx[ยงb<<]{#%s %s} ", command, page);
 		
-		s += "ง7ฆ ";
+		s += "ยง7ยง ";
 		
-		s += page == maxPage ? "ง8>> " : String.format("งx[งb>>]{#%s %s} ", command, page + 2);
+		s += page == maxPage ? "ยง8>> " : String.format("ยงx[ยงb>>]{#%s %s} ", command, page + 2);
 		
-		s += String.format("ง7%s/%s", page + 1, pages);
+		s += String.format("ยง7%s/%s", page + 1, pages);
 		
 		send(s);
 	}

@@ -16,7 +16,7 @@ public class LostCommand extends Command {
 		Waypoint p = Waypoints.nearest();
 		
 		if(p == null) {
-			ChatUtil.send("§cNo waypoints available!");
+			ChatUtil.send("Â§cNo waypoints available!");
 			
 			return true;
 		}

@@ -83,7 +83,7 @@ public class RenderListener implements EventListener {
 		
 		ShapeRenderer.drawLine(event, vertices, Colors.WAYPOINT, 2);
 		
-		String s = "§f" + p.getName();
+		String s = "Â§f" + p.getName();
 		
 		NameTagRenderer.drawTag(event, s, x, y, z);
 	}

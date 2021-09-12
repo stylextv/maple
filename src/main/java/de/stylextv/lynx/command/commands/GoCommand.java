@@ -17,14 +17,14 @@ public class GoCommand extends Command {
 		Goal goal = MemoryManager.getGoal();
 		
 		if(goal == null) {
-			ChatUtil.send("§cNo goal present!");
+			ChatUtil.send("Â§cNo goal present!");
 			
 			return true;
 		}
 		
 		SearchExecutor.startSearch();
 		
-		ChatUtil.send("Started. §8(Goal: " + goal + ")");
+		ChatUtil.send("Started. Â§8(Goal: " + goal + ")");
 		
 		return true;
 	}

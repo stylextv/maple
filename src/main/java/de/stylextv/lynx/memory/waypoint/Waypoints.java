@@ -44,7 +44,7 @@ public class Waypoints {
 		
 		String name = p.getName();
 		
-		ChatUtil.send("Travelling to waypoint งo" + name + "ง7.");
+		ChatUtil.send("Travelling to waypoint ยงo" + name + "ยง7.");
 	}
 	
 	public static void save() {

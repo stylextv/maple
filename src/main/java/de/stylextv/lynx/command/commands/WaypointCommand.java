@@ -38,7 +38,7 @@ public class WaypointCommand extends Command {
 			List<Waypoint> waypoints = Waypoints.getWaypoints();
 			
 			if(waypoints.isEmpty()) {
-				ChatUtil.send("§cNo waypoints available!");
+				ChatUtil.send("Â§cNo waypoints available!");
 				
 				return true;
 			}
@@ -60,7 +60,7 @@ public class WaypointCommand extends Command {
 				String name = p.getName();
 				BlockPos pos = p.getPos();
 				
-				String s2 = name + " §8(" + pos + ")";
+				String s2 = name + " Â§8(" + pos + ")";
 				
 				list.add(s2);
 			}
@@ -85,7 +85,7 @@ public class WaypointCommand extends Command {
 		if(s.equalsIgnoreCase("create")) {
 			
 			if(p != null) {
-				ChatUtil.send("§cThat name is already in use!");
+				ChatUtil.send("Â§cThat name is already in use!");
 				
 				return true;
 			}
@@ -106,13 +106,13 @@ public class WaypointCommand extends Command {
 			
 			Waypoints.addWaypoint(name, levelName, pos);
 			
-			ChatUtil.send("Waypoint §o" + name + " §7added.");
+			ChatUtil.send("Waypoint Â§o" + name + " Â§7added.");
 			
 			return true;
 		}
 		
 		if(p == null) {
-			ChatUtil.send("§cWaypoint not found!");
+			ChatUtil.send("Â§cWaypoint not found!");
 			
 			return true;
 		}
@@ -123,7 +123,7 @@ public class WaypointCommand extends Command {
 			
 			name = p.getName();
 			
-			ChatUtil.send("Waypoint §o" + name + " §7removed.");
+			ChatUtil.send("Waypoint Â§o" + name + " Â§7removed.");
 			
 			return true;
 		}

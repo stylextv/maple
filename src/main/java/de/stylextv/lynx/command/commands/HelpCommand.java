@@ -26,7 +26,7 @@ public class HelpCommand extends Command {
 		}
 		
 		if(page != null) {
-			ChatUtil.send("Use §o#help <command> §7to get help for individual commands.", "", "Commands:");
+			ChatUtil.send("Use Â§o#help <command> Â§7to get help for individual commands.", "", "Commands:");
 			
 			List<String> list = new ArrayList<>();
 			
@@ -44,7 +44,7 @@ public class HelpCommand extends Command {
 		Command c = CommandManager.getCommand(args[0]);
 		
 		if(c == null) {
-			ChatUtil.send("§cCouldn't find command!");
+			ChatUtil.send("Â§cCouldn't find command!");
 			
 			return true;
 		}

@@ -12,7 +12,7 @@ public class VersionCommand extends Command {
 	
 	@Override
 	public boolean execute(String[] args) {
-		String s = Constants.COLORED_NAME + " " + Constants.VERSION + " ง7by งe" + Constants.AUTHOR;
+		String s = Constants.COLORED_NAME + " " + Constants.VERSION + " ยง7by ยงe" + Constants.AUTHOR;
 		
 		ChatUtil.send("Installed: " + s);
 		

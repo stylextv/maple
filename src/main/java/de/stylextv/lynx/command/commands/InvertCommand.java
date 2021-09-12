@@ -17,7 +17,7 @@ public class InvertCommand extends Command {
 		Goal goal = MemoryManager.getGoal();
 		
 		if(goal == null) {
-			ChatUtil.send("§cNo goal present!");
+			ChatUtil.send("Â§cNo goal present!");
 			
 			return true;
 		}

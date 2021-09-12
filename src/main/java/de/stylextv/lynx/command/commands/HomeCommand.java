@@ -8,7 +8,7 @@ import de.stylextv.lynx.util.chat.ChatUtil;
 public class HomeCommand extends Command {
 	
 	public HomeCommand() {
-		super("home", "Travel to the waypoint named §ohome§7.", "h");
+		super("home", "Travel to the waypoint named Â§ohomeÂ§7.", "h");
 	}
 	
 	@Override
@@ -16,7 +16,7 @@ public class HomeCommand extends Command {
 		Waypoint p = Waypoints.getWaypoint("home");
 		
 		if(p == null) {
-			ChatUtil.send("§cWaypoint not found!");
+			ChatUtil.send("Â§cWaypoint not found!");
 			
 			return true;
 		}

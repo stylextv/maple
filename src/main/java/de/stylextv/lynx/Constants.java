@@ -6,7 +6,7 @@ public class Constants {
 	
 	public static final String NAME = "LYNX";
 	
-	public static final String NAME_COLOR = "§d";
+	public static final String NAME_COLOR = "Â§d";
 	
 	public static final String COLORED_NAME = NAME_COLOR + NAME;
 	

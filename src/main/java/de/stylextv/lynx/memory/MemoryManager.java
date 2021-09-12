@@ -10,7 +10,7 @@ public class MemoryManager {
 	public static void setGoal(Goal g) {
 		goal = g;
 		
-		ChatUtil.send("Goal set. ง8(" + goal + ")");
+		ChatUtil.send("Goal set. ยง8(" + goal + ")");
 	}
 	
 	public static Goal getGoal() {

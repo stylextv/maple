@@ -11,7 +11,7 @@ import net.minecraft.text.MutableText;
 
 public class Message {
 	
-	private static final String EVENT_INDICATOR = "§x";
+	private static final String EVENT_INDICATOR = "Â§x";
 	
 	private String text;
 	
