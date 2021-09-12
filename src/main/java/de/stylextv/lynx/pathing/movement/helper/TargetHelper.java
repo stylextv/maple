@@ -3,6 +3,7 @@ package de.stylextv.lynx.pathing.movement.helper;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import de.stylextv.lynx.event.events.RenderWorldEvent;
 import de.stylextv.lynx.input.target.BlockTarget;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.movement.Movement;
@@ -51,7 +52,7 @@ public abstract class TargetHelper extends MovementHelper<Movement> {
 	
 	public abstract void collectBlock(int x, int y, int z);
 	
-	public void render(RenderWorldLastEvent event) {
+	public void render(RenderWorldEvent event) {
 		for(BlockTarget target : targets) {
 			
 			BlockPos pos = target.getPos();

@@ -1,14 +1,14 @@
-package de.stylextv.lynx.event.events;
+package de.stylextv.lynx.event.listeners;
 
 import de.stylextv.lynx.command.CommandManager;
 import de.stylextv.lynx.context.GameContext;
-import net.minecraftforge.client.event.ClientChatEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import de.stylextv.lynx.event.EventListener;
+import de.stylextv.lynx.event.events.ClientChatEvent;
 
-public class ChatEvent {
+public class ChatListener implements EventListener {
 	
-	@SubscribeEvent
-	public void onChat(ClientChatEvent event) {
+	@Override
+	public void onClientChat(ClientChatEvent event) {
 		String msg = event.getOriginalMessage();
 		
 		if(CommandManager.isCommandMessage(msg)) {

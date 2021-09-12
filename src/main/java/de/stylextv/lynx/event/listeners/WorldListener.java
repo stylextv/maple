@@ -1,11 +1,12 @@
-package de.stylextv.lynx.event.events;
+package de.stylextv.lynx.event.listeners;
 
 import de.stylextv.lynx.cache.CacheManager;
+import de.stylextv.lynx.event.EventListener;
 import de.stylextv.lynx.util.async.AsyncUtil;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-public class LevelEvent {
+public class WorldListener implements EventListener {
 	
 	private static final int LOAD_DELAY = 2000;
 	

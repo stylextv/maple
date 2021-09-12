@@ -3,34 +3,36 @@ package de.stylextv.lynx.render;
 import org.lwjgl.opengl.GL11;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.BufferBuilder;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.PoseStack.Pose;
-import com.mojang.blaze3d.vertex.Tesselator;
-import com.mojang.blaze3d.vertex.VertexFormat;
-import com.mojang.blaze3d.vertex.VertexFormat.Mode;
-import com.mojang.math.Vector4f;
 
 import de.stylextv.lynx.context.GameContext;
+import de.stylextv.lynx.event.events.RenderWorldEvent;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.scheme.Color;
-import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraft.client.render.BufferBuilder;
+import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.render.Tessellator;
+import net.minecraft.client.render.VertexFormat;
+import net.minecraft.client.render.VertexFormat.DrawMode;
+import net.minecraft.client.render.VertexFormats;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.util.math.MatrixStack.Entry;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Matrix4f;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3f;
+import net.minecraft.util.math.Vector4f;
 
 public class ShapeRenderer {
 	
-	private static Tesselator tesselator;
+	private static Tessellator tessellator;
 	
 	private static BufferBuilder builder;
 	
-	public static void drawBox(RenderWorldLastEvent event, BlockPos pos, Color color, int lineWidth) {
+	public static void drawBox(RenderWorldEvent event, BlockPos pos, Color color, int lineWidth) {
 		drawBox(event, pos, pos, color, lineWidth);
 	}
 	
-	public static void drawBox(RenderWorldLastEvent event, BlockPos pos1, BlockPos pos2, Color color, int lineWidth) {
+	public static void drawBox(RenderWorldEvent event, BlockPos pos1, BlockPos pos2, Color color, int lineWidth) {
 		float x1 = Math.min(pos1.getX(), pos2.getX());
 		float y1 = Math.min(pos1.getY(), pos2.getY());
 		float z1 = Math.min(pos1.getZ(), pos2.getZ());
@@ -39,7 +41,7 @@ public class ShapeRenderer {
 		float y2 = Math.max(pos1.getY(), pos2.getY()) + 1;
 		float z2 = Math.max(pos1.getZ(), pos2.getZ()) + 1;
 		
-		Vec3[][][] vertices = new Vec3[2][2][2];
+		Vec3f[][][] vertices = new Vec3f[2][2][2];
 		
 		for(int x = 0; x < 2; x++) {
 			for(int y = 0; y < 2; y++) {
@@ -49,25 +51,25 @@ public class ShapeRenderer {
 					float vy = y1 + (y2 - y1) * y;
 					float vz = z1 + (z2 - z1) * z;
 					
-					vertices[x][y][z] = new Vec3(vx, vy, vz);
+					vertices[x][y][z] = new Vec3f(vx, vy, vz);
 				}
 			}
 		}
 		
 		for(int i = 0; i < 2; i++) {
 			for(int j = 0; j < 2; j++) {
-				drawLine(event, new Vec3[] {vertices[0][i][j], vertices[1][i][j]}, color, lineWidth);
-				drawLine(event, new Vec3[] {vertices[i][0][j], vertices[i][1][j]}, color, lineWidth);
-				drawLine(event, new Vec3[] {vertices[i][j][0], vertices[i][j][1]}, color, lineWidth);
+				drawLine(event, new Vec3f[] {vertices[0][i][j], vertices[1][i][j]}, color, lineWidth);
+				drawLine(event, new Vec3f[] {vertices[i][0][j], vertices[i][1][j]}, color, lineWidth);
+				drawLine(event, new Vec3f[] {vertices[i][j][0], vertices[i][j][1]}, color, lineWidth);
 			}
 		}
 	}
 	
-	public static void drawNodeChain(RenderWorldLastEvent event, Node n, Color color, float width) {
+	public static void drawNodeChain(RenderWorldEvent event, Node n, Color color, float width) {
 		drawNodeChain(event, n, Integer.MAX_VALUE, color, width);
 	}
 	
-	public static void drawNodeChain(RenderWorldLastEvent event, Node n, int length, Color color, float width) {
+	public static void drawNodeChain(RenderWorldEvent event, Node n, int length, Color color, float width) {
 		if(n == null) return;
 		
 		int i = 1;
@@ -84,9 +86,9 @@ public class ShapeRenderer {
 			float py = parent.getY() + 0.5f;
 			float pz = parent.getZ() + 0.5f;
 			
-			Vec3[] vertices = new Vec3[] {
-					new Vec3(x, y, z),
-					new Vec3(px, py, pz)
+			Vec3f[] vertices = new Vec3f[] {
+					new Vec3f(x, y, z),
+					new Vec3f(px, py, pz)
 			};
 			
 			ShapeRenderer.drawLine(event, vertices, color, width);
@@ -97,32 +99,34 @@ public class ShapeRenderer {
 		}
 	}
 	
-	public static void drawLine(RenderWorldLastEvent event, Vec3[] vertices, Color color, float width) {
+	public static void drawLine(RenderWorldEvent event, Vec3f[] vertices, Color color, float width) {
 		drawLine(event, vertices, color, width, true);
 	}
 	
-	public static void drawLine(RenderWorldLastEvent event, Vec3[] vertices, Color color, float width, boolean joint) {
+	public static void drawLine(RenderWorldEvent event, Vec3f[] vertices, Color color, float width, boolean joint) {
 		RenderSystem.lineWidth(width);
 		
-		Mode mode = joint ? Mode.DEBUG_LINE_STRIP : Mode.DEBUG_LINES;
+		DrawMode mode = joint ? DrawMode.DEBUG_LINE_STRIP : DrawMode.DEBUG_LINES;
 		
-		beginShape(event, mode, DefaultVertexFormat.POSITION_COLOR);
+		beginShape(event, mode, VertexFormats.POSITION_COLOR);
 		
 		endShape(vertices, color);
 		
 		RenderSystem.lineWidth(1);
 	}
 	
-	private static void beginShape(RenderWorldLastEvent event, Mode mode, VertexFormat format) {
+	private static void beginShape(RenderWorldEvent event, DrawMode mode, VertexFormat format) {
 		GL11.glEnable(GL11.GL_LINE_SMOOTH);
 		
-		PoseStack stack = RenderSystem.getModelViewStack();
+		MatrixStack stack = RenderSystem.getModelViewStack();
 		
-		stack.pushPose();
+		stack.push();
 		
-		Pose pose = event.getMatrixStack().last();
+		Entry entry = event.getMatrixStack().peek();
 		
-		stack.mulPoseMatrix(pose.pose());
+		Matrix4f matrix = entry.getModel();
+		
+		stack.method_34425(matrix);
 		
 		RenderSystem.applyModelViewMatrix();
 		
@@ -133,37 +137,37 @@ public class ShapeRenderer {
 		RenderSystem.disableTexture();
 		RenderSystem.disableBlend();
 		
-		tesselator = Tesselator.getInstance();
+		tessellator = Tessellator.getInstance();
 		
-		builder = tesselator.getBuilder();
+		builder = tessellator.getBuffer();
 		
 		builder.begin(mode, format);
 	}
 	
-	private static void endShape(Vec3[] vertices, Color color) {
+	private static void endShape(Vec3f[] vertices, Color color) {
 		Vector4f colorVector = color.asVector();
 		
-		float r = colorVector.x();
-		float g = colorVector.y();
-		float b = colorVector.z();
-		float a = colorVector.w();
+		float r = colorVector.getX();
+		float g = colorVector.getY();
+		float b = colorVector.getZ();
+		float a = colorVector.getW();
 		
-		Vec3 pos = GameContext.cameraPosition();
+		Vec3d pos = GameContext.cameraPosition();
 		
-		for(Vec3 v : vertices) {
+		for(Vec3f v : vertices) {
 			
-			double x = v.x() - pos.x();
-			double y = v.y() - pos.y();
-			double z = v.z() - pos.z();
+			double x = v.getX() - pos.getX();
+			double y = v.getY() - pos.getY();
+			double z = v.getZ() - pos.getZ();
 			
-			builder.vertex(x, y, z).color(r, g, b, a).endVertex();
+			builder.vertex(x, y, z).color(r, g, b, a).next();
 		}
 		
-		tesselator.end();
+		tessellator.draw();
 		
-		PoseStack stack = RenderSystem.getModelViewStack();
+		MatrixStack stack = RenderSystem.getModelViewStack();
 		
-		stack.popPose();
+		stack.pop();
 		
 		RenderSystem.applyModelViewMatrix();
 		

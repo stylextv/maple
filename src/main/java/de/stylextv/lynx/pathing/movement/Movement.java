@@ -1,6 +1,7 @@
 package de.stylextv.lynx.pathing.movement;
 
 import de.stylextv.lynx.context.PlayerContext;
+import de.stylextv.lynx.event.events.RenderWorldEvent;
 import de.stylextv.lynx.input.InputAction;
 import de.stylextv.lynx.input.controller.InputController;
 import de.stylextv.lynx.input.controller.ViewController;
@@ -108,7 +109,7 @@ public abstract class Movement {
 		return n.equals(pos) ? MovementState.DONE : MovementState.PROCEEDING;
 	}
 	
-	public void render(RenderWorldLastEvent event) {
+	public void render(RenderWorldEvent event) {
 		ShapeRenderer.drawNodeChain(event, destination, 2, Colors.PATH, 2);
 		
 		breakHelper.render(event);

@@ -1,6 +1,8 @@
-package de.stylextv.lynx.event.events;
+package de.stylextv.lynx.event.listeners;
 
 import de.stylextv.lynx.context.WorldContext;
+import de.stylextv.lynx.event.EventListener;
+import de.stylextv.lynx.event.events.RenderWorldEvent;
 import de.stylextv.lynx.memory.waypoint.Waypoint;
 import de.stylextv.lynx.memory.waypoint.Waypoints;
 import de.stylextv.lynx.pathing.calc.Node;
@@ -9,23 +11,21 @@ import de.stylextv.lynx.pathing.calc.PathSegment;
 import de.stylextv.lynx.pathing.calc.SearchExecutor;
 import de.stylextv.lynx.pathing.movement.Movement;
 import de.stylextv.lynx.pathing.movement.MovementExecutor;
+import de.stylextv.lynx.render.NameTagRenderer;
 import de.stylextv.lynx.render.ShapeRenderer;
-import de.stylextv.lynx.render.TextRenderer;
 import de.stylextv.lynx.scheme.Colors;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.client.event.RenderWorldLastEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3f;
 
-public class RenderEvent {
+public class RenderListener implements EventListener {
 	
 	private static final int BEAM_RENDER_DISTANCE = 250 * 250;
 	
 	private static final int BEAM_HEIGHT = 1024;
 	
-	@SubscribeEvent
-	public void onWorldRender(RenderWorldLastEvent event) {
-		if(!WorldContext.isInLevel()) return;
+	@Override
+	public void onWorldRender(RenderWorldEvent event) {
+		if(!WorldContext.isInWorld()) return;
 		
 		Node n = SearchExecutor.getCurrentNode();
 		
@@ -38,7 +38,7 @@ public class RenderEvent {
 		drawWaypoints(event);
 	}
 	
-	private void drawPath(RenderWorldLastEvent event, Path path) {
+	private void drawPath(RenderWorldEvent event, Path path) {
 		if(path == null) return;
 		
 		for(PathSegment s : path.getAllSegments()) {
@@ -46,7 +46,7 @@ public class RenderEvent {
 		}
 	}
 	
-	private void drawPathSegment(RenderWorldLastEvent event, PathSegment s) {
+	private void drawPathSegment(RenderWorldEvent event, PathSegment s) {
 		for(int i = s.getPointer(); i < s.length(); i++) {
 			
 			Movement m = s.getMovement(i);
@@ -55,16 +55,16 @@ public class RenderEvent {
 		}
 	}
 	
-	private void drawWaypoints(RenderWorldLastEvent event) {
+	private void drawWaypoints(RenderWorldEvent event) {
 		for(Waypoint p : Waypoints.getWaypoints()) {
 			drawWaypoint(event, p);
 		}
 	}
 	
-	private void drawWaypoint(RenderWorldLastEvent event, Waypoint p) {
+	private void drawWaypoint(RenderWorldEvent event, Waypoint p) {
 		if(!p.isInWorld()) return;
 		
-		double dis = p.distanceSqr();
+		double dis = p.squaredDistance();
 		
 		if(dis > BEAM_RENDER_DISTANCE) return;
 		
@@ -74,10 +74,10 @@ public class RenderEvent {
 		float y = pos.getY() + 1.4f;
 		float z = pos.getZ() + 0.5f;
 		
-		Vec3 v1 = new Vec3(x, pos.getY(), z);
-		Vec3 v2 = new Vec3(x, BEAM_HEIGHT, z);
+		Vec3f v1 = new Vec3f(x, pos.getY(), z);
+		Vec3f v2 = new Vec3f(x, BEAM_HEIGHT, z);
 		
-		Vec3[] vertices = new Vec3[] {
+		Vec3f[] vertices = new Vec3f[] {
 			v1, v2
 		};
 		
@@ -85,7 +85,7 @@ public class RenderEvent {
 		
 		String s = "§f" + p.getName();
 		
-		TextRenderer.drawText(event, s, x, y, z);
+		NameTagRenderer.drawTag(event, s, x, y, z);
 	}
 	
 }

@@ -1,5 +1,10 @@
 package de.stylextv.lynx;
 
+import de.stylextv.lynx.event.EventBus;
+import de.stylextv.lynx.event.listeners.ChatListener;
+import de.stylextv.lynx.event.listeners.RenderListener;
+import de.stylextv.lynx.event.listeners.TickListener;
+import de.stylextv.lynx.event.listeners.WorldListener;
 import de.stylextv.lynx.memory.waypoint.Waypoints;
 import de.stylextv.lynx.option.Options;
 import net.fabricmc.api.ModInitializer;
@@ -16,18 +21,18 @@ public class Lynx implements ModInitializer {
 	
 	@Override
 	public void onInitialize() {
-		registerEvents();
+		registerListeners();
 		
 		loadConfigs();
 		
 		// init
 	}
 	
-	private void registerEvents() {
-//		MinecraftForge.EVENT_BUS.register(new TickEvent());
-//		MinecraftForge.EVENT_BUS.register(new LevelEvent());
-//		MinecraftForge.EVENT_BUS.register(new RenderEvent());
-//		MinecraftForge.EVENT_BUS.register(new ChatEvent());
+	private void registerListeners() {
+		EventBus.registerListener(new TickListener());
+//		EventBus.registerListener(new WorldListener());
+		EventBus.registerListener(new RenderListener());
+		EventBus.registerListener(new ChatListener());
 	}
 	
 	private void loadConfigs() {
