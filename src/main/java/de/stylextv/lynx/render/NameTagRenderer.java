@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 
 import de.stylextv.lynx.context.GameContext;
 import de.stylextv.lynx.event.events.RenderWorldEvent;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.render.BufferBuilderStorage;
 import net.minecraft.client.render.VertexConsumerProvider.Immediate;
@@ -22,7 +23,9 @@ public class NameTagRenderer {
 		
 		Vec3d v = GameContext.cameraPosition();
 		
-		EntityRenderDispatcher dispatcher = GameContext.minecraft().getEntityRenderDispatcher();
+		MinecraftClient client = GameContext.client();
+		
+		EntityRenderDispatcher dispatcher = client.getEntityRenderDispatcher();
 		
 		Quaternion orientation = dispatcher.getRotation();
 		
@@ -30,7 +33,7 @@ public class NameTagRenderer {
 		double renderY = y - v.getY();
 		double renderZ = z - v.getZ();
 		
-		BufferBuilderStorage builders = GameContext.minecraft().getBufferBuilders();
+		BufferBuilderStorage builders = client.getBufferBuilders();
 		
 		Immediate consumers = builders.getEntityVertexConsumers();
 		

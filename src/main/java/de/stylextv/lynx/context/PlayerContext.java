@@ -11,10 +11,10 @@ import net.minecraft.util.math.Vec3d;
 
 public class PlayerContext {
 	
-	private static final MinecraftClient MC = MinecraftClient.getInstance();
+	private static final MinecraftClient CLIENT = MinecraftClient.getInstance();
 	
 	public static ClientPlayerEntity player() {
-		return MC.player;
+		return CLIENT.player;
 	}
 	
 	public static PlayerInventory inventory() {
@@ -98,7 +98,7 @@ public class PlayerContext {
 	}
 	
 	public static HitResult crosshairTarget() {
-		return MC.crosshairTarget;
+		return CLIENT.crosshairTarget;
 	}
 	
 	public static boolean setFlying(boolean b) {

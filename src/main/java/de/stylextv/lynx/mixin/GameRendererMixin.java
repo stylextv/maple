@@ -23,9 +23,9 @@ public class GameRendererMixin {
 	@Inject(
 			method = "renderWorld(FJLnet/minecraft/client/util/math/MatrixStack;)V",
 			at = @At(
-					value = "TAIL",
-					shift = Shift.BY,
-					by = -3
+					value = "INVOKE",
+					target = "net/minecraft/client/render/WorldRenderer.render(Lnet/minecraft/client/util/math/MatrixStack;FJZLnet/minecraft/client/render/Camera;Lnet/minecraft/client/render/GameRenderer;Lnet/minecraft/client/render/LightmapTextureManager;Lnet/minecraft/util/math/Matrix4f;)V",
+					shift = Shift.AFTER
 			)
 	)
 	private void renderWorld(float tickDelta, long limitTime, MatrixStack stack, CallbackInfo info) {

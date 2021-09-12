@@ -18,12 +18,12 @@ import net.minecraft.world.World;
 
 public class WorldContext {
 	
-	private static final MinecraftClient MC = MinecraftClient.getInstance();
+	private static final MinecraftClient CLIENT = MinecraftClient.getInstance();
 	
 	private static final int VIEW_DISTANCE = 32;
 	
 	public static ClientWorld world() {
-		return MC.world;
+		return CLIENT.world;
 	}
 	
 	public static String getLevelName() {
@@ -43,7 +43,7 @@ public class WorldContext {
 	public static String getWorldName() {
 		if(GameContext.isInSinglePlayer()) {
 			
-			IntegratedServer server = MC.getServer();
+			IntegratedServer server = CLIENT.getServer();
 			
 			Optional<Path> optional = server.getIconFile();
 			
@@ -57,7 +57,7 @@ public class WorldContext {
 			
 		} else {
 			
-			ServerInfo info = MC.getCurrentServerEntry();
+			ServerInfo info = CLIENT.getCurrentServerEntry();
 			
 			return "remote/" + info.address;
 		}

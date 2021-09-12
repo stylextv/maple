@@ -13,18 +13,18 @@ import net.minecraft.util.math.Vec3d;
 
 public class GameContext {
 	
-	private static final MinecraftClient MC = MinecraftClient.getInstance();
+	private static final MinecraftClient CLIENT = MinecraftClient.getInstance();
 	
-	public static MinecraftClient minecraft() {
-		return MC;
+	public static MinecraftClient client() {
+		return CLIENT;
 	}
 	
 	public static File directory() {
-		return MC.runDirectory;
+		return CLIENT.runDirectory;
 	}
 	
 	public static GameOptions options() {
-		return MC.options;
+		return CLIENT.options;
 	}
 	
 	public static ChatHud chatHud() {
@@ -32,19 +32,19 @@ public class GameContext {
 	}
 	
 	public static InGameHud inGameHud() {
-		return MC.inGameHud;
+		return CLIENT.inGameHud;
 	}
 	
 	public static TextRenderer textRenderer() {
-		return MC.textRenderer;
+		return CLIENT.textRenderer;
 	}
 	
 	public static float tickDelta() {
-		return MC.getTickDelta();
+		return CLIENT.getTickDelta();
 	}
 	
 	public static Vec3d cameraPosition() {
-		Camera camera = MC.gameRenderer.getCamera();
+		Camera camera = CLIENT.gameRenderer.getCamera();
 		
 		return camera.getPos();
 	}
@@ -54,11 +54,11 @@ public class GameContext {
 		
 		if(!isInSinglePlayer() || isOpenToLan()) return true;
 		
-		return !MC.isPaused();
+		return !CLIENT.isPaused();
 	}
 	
 	public static boolean isOpenToLan() {
-		IntegratedServer server = MC.getServer();
+		IntegratedServer server = CLIENT.getServer();
 		
 		if(server == null) return false;
 		
@@ -66,7 +66,7 @@ public class GameContext {
 	}
 	
 	public static boolean isInSinglePlayer() {
-		return MC.isInSingleplayer();
+		return CLIENT.isInSingleplayer();
 	}
 	
 }
