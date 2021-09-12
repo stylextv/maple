@@ -2,24 +2,25 @@ package de.stylextv.lynx.event.listeners;
 
 import de.stylextv.lynx.cache.CacheManager;
 import de.stylextv.lynx.event.EventListener;
-import de.stylextv.lynx.util.async.AsyncUtil;
-import net.minecraftforge.event.world.WorldEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import de.stylextv.lynx.event.events.WorldLoadEvent;
+import de.stylextv.lynx.event.events.WorldUnloadEvent;
 
 public class WorldListener implements EventListener {
 	
-	private static final int LOAD_DELAY = 2000;
-	
-	@SubscribeEvent
-	public void onLoad(WorldEvent.Load event) {
-		if(!event.getWorld().isClientSide()) return;
+	@Override
+	public void onWorldLoad(WorldLoadEvent event) {
+		if(!event.getWorld().isClient()) return;
 		
-		AsyncUtil.runLaterAsync(() -> CacheManager.enterWorld(), LOAD_DELAY);
+		System.out.println("load: " + event.getWorld());
+		
+		CacheManager.enterWorld();
 	}
 	
-	@SubscribeEvent
-	public void onUnload(WorldEvent.Unload event) {
-		if(!event.getWorld().isClientSide()) return;
+	@Override
+	public void onWorldUnload(WorldUnloadEvent event) {
+		if(!event.getWorld().isClient()) return;
+		
+		System.out.println("unload: " + event.getWorld());
 		
 		CacheManager.exitWorld();
 	}
