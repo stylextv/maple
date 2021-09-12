@@ -10,7 +10,7 @@ public class Constants {
 	
 	public static final String COLORED_NAME = NAME_COLOR + NAME;
 	
-	public static final String VERSION = "v1.3.4";
+	public static final String VERSION = "v1.4.0";
 	
 	public static final String AUTHOR = "StylexTV";
 	
