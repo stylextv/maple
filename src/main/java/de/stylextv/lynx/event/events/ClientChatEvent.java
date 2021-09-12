@@ -7,8 +7,8 @@ public class ClientChatEvent extends Cancelable {
 	
 	private String message;
 	
-	public ClientChatEvent(String s) {
-		this.message = s;
+	public ClientChatEvent(String message) {
+		this.message = message;
 	}
 	
 	@Override

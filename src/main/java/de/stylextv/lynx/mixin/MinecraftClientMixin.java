@@ -12,7 +12,7 @@ import net.minecraft.client.MinecraftClient;
 @Mixin(MinecraftClient.class)
 public class MinecraftClientMixin {
 	
-	@Inject(at = @At("HEAD"), method = "tick()V")
+	@Inject(method = "tick()V", at = @At("HEAD"))
 	private void tick(CallbackInfo info) {
 		EventBus.onEvent(new ClientTickEvent());
 	}
