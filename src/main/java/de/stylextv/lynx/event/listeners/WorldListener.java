@@ -11,16 +11,12 @@ public class WorldListener implements EventListener {
 	public void onWorldLoad(WorldLoadEvent event) {
 		if(!event.getWorld().isClient()) return;
 		
-		System.out.println("load: " + event.getWorld());
-		
 		CacheManager.enterWorld();
 	}
 	
 	@Override
 	public void onWorldUnload(WorldUnloadEvent event) {
 		if(!event.getWorld().isClient()) return;
-		
-		System.out.println("unload: " + event.getWorld());
 		
 		CacheManager.exitWorld();
 	}

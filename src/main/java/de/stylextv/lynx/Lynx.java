@@ -30,7 +30,7 @@ public class Lynx implements ModInitializer {
 	
 	private void registerListeners() {
 		EventBus.registerListener(new TickListener());
-//		EventBus.registerListener(new WorldListener());
+		EventBus.registerListener(new WorldListener());
 		EventBus.registerListener(new RenderListener());
 		EventBus.registerListener(new ChatListener());
 	}

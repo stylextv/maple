@@ -8,6 +8,7 @@ import net.minecraft.client.gui.hud.ChatHud;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.render.Camera;
+import net.minecraft.server.integrated.IntegratedServer;
 import net.minecraft.util.math.Vec3d;
 
 public class GameContext {
@@ -51,9 +52,17 @@ public class GameContext {
 	public static boolean isIngame() {
 		if(!WorldContext.isInWorld()) return false;
 		
-		if(!isInSinglePlayer() || MC.getServer().isRemote()) return true;
+		if(!isInSinglePlayer() || isOpenToLan()) return true;
 		
 		return !MC.isPaused();
+	}
+	
+	public static boolean isOpenToLan() {
+		IntegratedServer server = MC.getServer();
+		
+		if(server == null) return false;
+		
+		return server.isRemote();
 	}
 	
 	public static boolean isInSinglePlayer() {

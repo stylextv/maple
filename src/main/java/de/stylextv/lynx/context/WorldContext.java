@@ -37,7 +37,7 @@ public class WorldContext {
 		
 		Identifier identifier = key.getValue();
 		
-		return identifier.getNamespace();
+		return identifier.getPath();
 	}
 	
 	public static String getWorldName() {
