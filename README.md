@@ -30,7 +30,7 @@
 Additionally, LYNX focuses on efficiency and performance, while also paying attention to reliability and an unobtrusive look.
 The bot is mainly controlled by [chat input](https://github.com/StylexTV/LYNX#commands) and the underlying pathing algorithm is called [A*](https://en.wikipedia.org/wiki/A*_search_algorithm), a perfect algorithm for navigating voxel worlds like Minecraft.
 
-If you simply want to use LYNX, you can download the latest version from the [download page](https://playlynx.github.io/). With the appropriate version of [Forge](https://files.minecraftforge.net/net/minecraftforge/forge/) installed, you should be good to go.
+If you simply want to use LYNX, you can download the latest version from the [download page](https://playlynx.github.io/). With the appropriate version of [Fabric](https://fabricmc.net/use/) installed, you should be good to go.
 
 ## Features
 LYNX is equipped with many useful features that allow it to find the way to any destination and overcome any obstacle.
@@ -115,21 +115,13 @@ Before installing the LYNX project on your PC, make sure that you are using at l
 #### Download
 Clone or download the project using the button at the top of this page. Make sure to unzip the contents of the ZIP file if you have chosen to download the project.
 
+#### Generating Sources
+If you wish, you can generate the Minecraft source code for reference using `gradlew genSources`. However, this step is purely optional.
+
 #### Eclipse
-If your IDE of choice is Eclipse, run the following commands:
-
-```bat
-gradlew genEclipseRuns
-gradlew eclipse
-```
-
+If your IDE of choice is Eclipse, run `gradlew eclipse`.
 Then open Eclipse and select `Import > Existing Gradle Project > Select Folder`. Follow the wizard instructions and click *Finish*.
 
 #### IntelliJ
-If you prefer to use IntelliJ, open IDEA, select `File | Open` and select the `build.gradle` file. After importing, run the following command:
-
-```bat
-gradlew genIntellijRuns
-```
-
-Make sure to refresh the Gradle project in IDEA afterwards, if necessary.
+If you prefer to use IntelliJ, open IDEA, select `File | Open` and select the `build.gradle` file.
+After Gradle is done setting up, close and re-open the project to fix run configurations not displaying correctly.
