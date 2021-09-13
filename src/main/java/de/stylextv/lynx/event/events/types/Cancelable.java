@@ -1,4 +1,6 @@
-package de.stylextv.lynx.event;
+package de.stylextv.lynx.event.events.types;
+
+import de.stylextv.lynx.event.Event;
 
 public abstract class Cancelable extends Event {
 	

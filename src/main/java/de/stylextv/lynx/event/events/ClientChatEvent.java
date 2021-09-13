@@ -1,7 +1,7 @@
 package de.stylextv.lynx.event.events;
 
-import de.stylextv.lynx.event.Cancelable;
 import de.stylextv.lynx.event.EventListener;
+import de.stylextv.lynx.event.events.types.Cancelable;
 
 public class ClientChatEvent extends Cancelable {
 	
