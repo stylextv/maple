@@ -60,4 +60,8 @@ public class CacheManager {
 		return cache;
 	}
 	
+	public static CachedWorld getWorld() {
+		return world;
+	}
+	
 }

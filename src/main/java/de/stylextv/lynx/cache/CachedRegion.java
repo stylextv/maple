@@ -43,12 +43,6 @@ public class CachedRegion {
 		chunks[x][z] = chunk;
 	}
 	
-	public void update() {
-		for(CachedChunk chunk : chunks()) {
-			chunk.update();
-		}
-	}
-	
 	public void saveChanges() {
 		if(!modified) return;
 		

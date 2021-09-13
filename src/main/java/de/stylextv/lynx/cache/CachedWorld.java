@@ -4,9 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.stylextv.lynx.context.PlayerContext;
-import de.stylextv.lynx.context.GameContext;
-import de.stylextv.lynx.context.WorldContext;
 import de.stylextv.lynx.io.FileSystem;
 import de.stylextv.lynx.util.async.AsyncUtil;
 import de.stylextv.lynx.util.async.TaskInfo;
@@ -15,6 +12,7 @@ import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectCollection;
 import net.minecraft.util.math.ChunkPos;
+import net.minecraft.world.chunk.WorldChunk;
 
 public class CachedWorld {
 	
@@ -24,7 +22,6 @@ public class CachedWorld {
 	
 	private Long2ObjectMap<CachedRegion> regionMap;
 	
-	private TaskInfo collectTask;
 	private TaskInfo saveTask;
 	
 	public CachedWorld(String name) {
@@ -36,12 +33,10 @@ public class CachedWorld {
 	public void enter() {
 		exit();
 		
-		collectTask = AsyncUtil.loopAsync(() -> collectChunks(), 500);
 		saveTask = AsyncUtil.loopAsync(() -> saveChanges(), () -> clear(), 30000, 600000);
 	}
 	
 	public void exit() {
-		if(collectTask != null) collectTask.kill();
 		if(saveTask != null) saveTask.kill();
 	}
 	
@@ -51,45 +46,24 @@ public class CachedWorld {
 		regionMap.clear();
 	}
 	
-	private synchronized void collectChunks() {
-		if(!GameContext.isIngame()) return;
+	public void collectChunk(WorldChunk chunk) {
+		ChunkPos pos = chunk.getPos();
 		
-		ChunkPos pos = PlayerContext.chunkPosition();
+		int x = pos.x;
+		int z = pos.z;
 		
-		int dis = WorldContext.getViewDistance();
+		CachedChunk c = getChunk(x, z);
 		
-		for(int x = -dis; x <= dis; x++) {
-			for(int z = -dis; z <= dis; z++) {
-				
-				int cx = pos.x + x;
-				int cz = pos.z + z;
-				
-				if(WorldContext.isChunkInView(cx, cz)) {
-					
-					if(getChunk(cx, cz) == null) {
-						
-						CachedRegion r = getRegion(cx, cz);
-						
-						CachedChunk chunk = new CachedChunk(r, cx, cz);
-						
-						if(chunk.update()) storeChunk(chunk);
-					}
-				}
-			}
+		if(c == null) {
+			
+			CachedRegion r = getRegion(x, z);
+			
+			c = new CachedChunk(r, x, z);
+			
+			r.storeChunk(c);
 		}
 		
-		for(CachedRegion r : regions()) {
-			r.update();
-		}
-	}
-	
-	private void storeChunk(CachedChunk chunk) {
-		int cx = chunk.getX();
-		int cz = chunk.getZ();
-		
-		CachedRegion r = getRegion(cx, cz);
-		
-		r.storeChunk(chunk);
+		c.load(chunk);
 	}
 	
 	private synchronized void saveChanges() {

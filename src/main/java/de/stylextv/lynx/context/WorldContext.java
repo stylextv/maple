@@ -12,15 +12,12 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.server.integrated.IntegratedServer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 
 public class WorldContext {
 	
 	private static final MinecraftClient CLIENT = MinecraftClient.getInstance();
-	
-	private static final int VIEW_DISTANCE = 32;
 	
 	public static ClientWorld world() {
 		return CLIENT.world;
@@ -65,20 +62,6 @@ public class WorldContext {
 	
 	public static boolean isInWorld() {
 		return PlayerContext.player() != null && world() != null;
-	}
-	
-	public static boolean isChunkInView(int cx, int cz) {
-		if(!GameContext.isIngame()) return false;
-		
-		ChunkPos pos = PlayerContext.chunkPosition();
-		
-		int dis = Math.abs(pos.x - cx) + Math.abs(pos.z - cz);
-		
-		return dis < VIEW_DISTANCE;
-	}
-	
-	public static int getViewDistance() {
-		return VIEW_DISTANCE;
 	}
 	
 	public static Block getBlock(BlockPos pos) {
