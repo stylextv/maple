@@ -63,7 +63,9 @@ public class CachedChunk {
 		
 		int index = getDataIndex(x, y, z);
 		
-		boolean[] bits = BlockType.fromBlocks(state, below, above).getBits();
+		BlockType type = BlockType.fromBlocks(state, below, above);
+		
+		boolean[] bits = type.getBits();
 		
 		for(int i = 0; i < 2; i++) {
 			boolean b = bits[i];
