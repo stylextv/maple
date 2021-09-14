@@ -11,6 +11,7 @@ import de.stylextv.lynx.event.events.ChunkEvent;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.packet.s2c.play.BlockUpdateS2CPacket;
 import net.minecraft.network.packet.s2c.play.ChunkDataS2CPacket;
+import net.minecraft.network.packet.s2c.play.ChunkDeltaUpdateS2CPacket;
 import net.minecraft.util.math.BlockPos;
 
 @Mixin(ClientPlayNetworkHandler.class)
@@ -22,6 +23,14 @@ public class NetworkHandlerMixin {
 		int z = packet.getZ();
 		
 		EventBus.onEvent(new ChunkEvent(ChunkEvent.Type.DATA, x, z));
+	}
+	
+	@Inject(method = "onChunkDeltaUpdate(Lnet/minecraft/network/packet/s2c/play/ChunkDeltaUpdateS2CPacket;)V", at = @At("TAIL"))
+	private void onChunkDeltaUpdate(ChunkDeltaUpdateS2CPacket packet, CallbackInfo info) {
+		packet.visitUpdates((pos, state) -> {
+			
+			EventBus.onEvent(new BlockUpdateEvent(pos));
+		});
 	}
 	
 	@Inject(method = "onBlockUpdate(Lnet/minecraft/network/packet/s2c/play/BlockUpdateS2CPacket;)V", at = @At("TAIL"))
