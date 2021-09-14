@@ -2,7 +2,9 @@ package de.stylextv.lynx.cache;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 import de.stylextv.lynx.io.FileSystem;
 import de.stylextv.lynx.util.async.AsyncUtil;
@@ -11,6 +13,7 @@ import de.stylextv.lynx.util.world.CoordUtil;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectCollection;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.chunk.WorldChunk;
 
@@ -22,21 +25,28 @@ public class CachedWorld {
 	
 	private Long2ObjectMap<CachedRegion> regionMap;
 	
+	private Queue<WorldChunk> chunkQueue;
+	
+	private TaskInfo collectTask;
 	private TaskInfo saveTask;
 	
 	public CachedWorld(String name) {
 		this.name = name;
 		
 		this.regionMap = new Long2ObjectOpenHashMap<>(16, 0.75f);
+		
+		this.chunkQueue = new LinkedList<>();
 	}
 	
 	public void enter() {
 		exit();
 		
+		collectTask = AsyncUtil.loopAsync(() -> collectChunks(), 1000);
 		saveTask = AsyncUtil.loopAsync(() -> saveChanges(), () -> clear(), 30000, 600000);
 	}
 	
 	public void exit() {
+		if(collectTask != null) collectTask.kill();
 		if(saveTask != null) saveTask.kill();
 	}
 	
@@ -46,7 +56,20 @@ public class CachedWorld {
 		regionMap.clear();
 	}
 	
-	public void collectChunk(WorldChunk chunk) {
+	public void addChunk(WorldChunk chunk) {
+		chunkQueue.add(chunk);
+	}
+	
+	private void collectChunks() {
+		while(!chunkQueue.isEmpty()) {
+			
+			WorldChunk chunk = chunkQueue.poll();
+			
+			collectChunk(chunk);
+		}
+	}
+	
+	private void collectChunk(WorldChunk chunk) {
 		ChunkPos pos = chunk.getPos();
 		
 		int x = pos.x;
@@ -64,6 +87,18 @@ public class CachedWorld {
 		}
 		
 		c.load(chunk);
+	}
+	
+	public void updatePos(BlockPos pos) {
+		int x = pos.getX();
+		int z = pos.getZ();
+		
+		int cx = CoordUtil.blockToChunkPos(x);
+		int cz = CoordUtil.blockToChunkPos(z);
+		
+		CachedChunk c = getChunk(cx, cz);
+		
+		if(c != null) c.updatePos(pos);
 	}
 	
 	private synchronized void saveChanges() {

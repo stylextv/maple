@@ -1,5 +1,6 @@
 package de.stylextv.lynx.event;
 
+import de.stylextv.lynx.event.events.BlockUpdateEvent;
 import de.stylextv.lynx.event.events.ChunkEvent;
 import de.stylextv.lynx.event.events.ClientChatEvent;
 import de.stylextv.lynx.event.events.ClientTickEvent;
@@ -19,7 +20,9 @@ public interface EventListener {
 	
 	public default void onWorldUnload(WorldEvent event) {}
 	
-	public default void onChunkLoad(ChunkEvent event) {}
+	public default void onChunkData(ChunkEvent event) {}
+	
+	public default void onBlockUpdate(BlockUpdateEvent event) {}
 	
 	public default void onClientChat(ClientChatEvent event) {}
 	

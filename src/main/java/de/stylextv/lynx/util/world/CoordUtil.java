@@ -16,6 +16,10 @@ public class CoordUtil {
 		return (int) Math.floor(d);
 	}
 	
+	public static int posInChunk(int i) {
+		return i & 15;
+	}
+	
 	public static long posAsLong(int x, int y, int z) {
 		return BlockPos.asLong(x, y, z);
 	}

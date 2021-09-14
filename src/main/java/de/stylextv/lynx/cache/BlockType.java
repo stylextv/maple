@@ -10,14 +10,14 @@ import net.minecraft.fluid.Fluids;
 
 public class BlockType {
 	
-	public static final BlockType AIR = new BlockType(0, Blocks.AIR).passable(true).air(true);
-	public static final BlockType SOLID = new BlockType(1, Blocks.STONE).breakable(true);
-	public static final BlockType WATER = new BlockType(2, Blocks.WATER).passable(true);
-	public static final BlockType DANGER = new BlockType(3, Blocks.LAVA);
+	public static final BlockType AIR = new BlockType("air", 0, Blocks.AIR).passable(true).air(true);
+	public static final BlockType SOLID = new BlockType("solid", 1, Blocks.STONE).breakable(true);
+	public static final BlockType WATER = new BlockType("water", 2, Blocks.WATER).passable(true);
+	public static final BlockType DANGER = new BlockType("danger", 3, Blocks.LAVA);
 	
-	public static final BlockType UNLOADED = new BlockType(Blocks.AIR).passable(true).air(true);
-	public static final BlockType VOID = new BlockType(Blocks.AIR).passable(true).air(true);
-	public static final BlockType BORDER = new BlockType(Blocks.BEDROCK);
+	public static final BlockType UNLOADED = new BlockType("unloaded", Blocks.AIR).passable(true).air(true);
+	public static final BlockType VOID = new BlockType("void", Blocks.AIR).passable(true).air(true);
+	public static final BlockType BORDER = new BlockType("border", Blocks.BEDROCK);
 	
 	private static final Block[] DANGER_BLOCKS = new Block[] {
 			Blocks.LAVA,
@@ -29,6 +29,8 @@ public class BlockType {
 			Blocks.CACTUS
 	};
 	
+	private String name;
+	
 	private boolean[] bits;
 	
 	private BlockState state;
@@ -39,11 +41,12 @@ public class BlockType {
 	
 	private boolean air;
 	
-	private BlockType(Block block) {
-		this(-1, block);
+	private BlockType(String name, Block block) {
+		this(name, -1, block);
 	}
 	
-	private BlockType(int bits, Block block) {
+	private BlockType(String name, int bits, Block block) {
+		this.name = name;
 		this.bits = new boolean[] {
 				(bits & 2) != 0,
 				(bits & 1) != 0
@@ -68,6 +71,15 @@ public class BlockType {
 		this.air = b;
 		
 		return this;
+	}
+	
+	@Override
+	public String toString() {
+		return name;
+	}
+	
+	public String getName() {
+		return name;
 	}
 	
 	public boolean[] getBits() {

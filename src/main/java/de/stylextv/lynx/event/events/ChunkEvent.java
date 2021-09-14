@@ -18,7 +18,7 @@ public class ChunkEvent extends Event {
 	
 	@Override
 	public void callListener(EventListener l) {
-		if(type == Type.LOAD) l.onChunkLoad(this);
+		if(type == Type.DATA) l.onChunkData(this);
 	}
 	
 	public Type getType() {
@@ -35,7 +35,7 @@ public class ChunkEvent extends Event {
 	
 	public enum Type {
 		
-		LOAD;
+		DATA;
 		
 	}
 	

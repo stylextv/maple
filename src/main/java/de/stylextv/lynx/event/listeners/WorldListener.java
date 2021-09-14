@@ -4,9 +4,12 @@ import de.stylextv.lynx.cache.CacheManager;
 import de.stylextv.lynx.cache.CachedWorld;
 import de.stylextv.lynx.context.WorldContext;
 import de.stylextv.lynx.event.EventListener;
+import de.stylextv.lynx.event.events.BlockUpdateEvent;
 import de.stylextv.lynx.event.events.ChunkEvent;
 import de.stylextv.lynx.event.events.WorldEvent;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.chunk.ChunkStatus;
 import net.minecraft.world.chunk.WorldChunk;
 
 public class WorldListener implements EventListener {
@@ -26,7 +29,7 @@ public class WorldListener implements EventListener {
 	}
 	
 	@Override
-	public void onChunkLoad(ChunkEvent event) {
+	public void onChunkData(ChunkEvent event) {
 		int x = event.getX();
 		int z = event.getZ();
 		
@@ -34,11 +37,20 @@ public class WorldListener implements EventListener {
 		
 		WorldChunk chunk = world.getChunk(x, z);
 		
+		if(chunk.isEmpty() || chunk.getStatus() != ChunkStatus.FULL) return;
+		
 		CachedWorld w = CacheManager.getWorld();
 		
-		w.collectChunk(chunk);
+		w.addChunk(chunk);
 	}
 	
-	// TODO listen for block update events and inform ChunkManager.getWorld()
+	@Override
+	public void onBlockUpdate(BlockUpdateEvent event) {
+		BlockPos pos = event.getPos();
+		
+		CachedWorld w = CacheManager.getWorld();
+		
+		w.updatePos(pos);
+	}
 	
 }

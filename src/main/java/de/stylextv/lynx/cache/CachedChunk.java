@@ -2,6 +2,7 @@ package de.stylextv.lynx.cache;
 
 import java.util.BitSet;
 
+import de.stylextv.lynx.util.world.CoordUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.chunk.WorldChunk;
@@ -26,7 +27,7 @@ public class CachedChunk {
 	public CachedChunk(CachedRegion r, int x, int z, BitSet bitSet) {
 		this.region = r;
 		this.x = x;
-		this.z = x;
+		this.z = z;
 		
 		this.bitSet = bitSet;
 	}
@@ -57,9 +58,12 @@ public class CachedChunk {
 		BlockState below = chunk.getBlockState(pos.down());
 		BlockState above = chunk.getBlockState(pos.up());
 		
-		int x = pos.getX() % 16;
+		int x = pos.getX();
 		int y = pos.getY();
-		int z = pos.getZ() % 16;
+		int z = pos.getZ();
+		
+		x = CoordUtil.posInChunk(x);
+		z = CoordUtil.posInChunk(z);
 		
 		int index = getDataIndex(x, y, z);
 		
