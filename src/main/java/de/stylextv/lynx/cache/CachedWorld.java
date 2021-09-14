@@ -41,7 +41,7 @@ public class CachedWorld {
 	public void enter() {
 		exit();
 		
-		collectTask = AsyncUtil.loopAsync(() -> collectChunks(), 1000);
+		collectTask = AsyncUtil.loopAsync(() -> collectChunks(), 500);
 		saveTask = AsyncUtil.loopAsync(() -> saveChanges(), () -> clear(), 30000, 600000);
 	}
 	
