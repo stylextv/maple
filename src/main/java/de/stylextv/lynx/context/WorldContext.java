@@ -14,6 +14,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.WorldChunk;
 
 public class WorldContext {
 	
@@ -72,6 +73,12 @@ public class WorldContext {
 	
 	public static BlockState getBlockState(BlockPos pos) {
 		return world().getBlockState(pos);
+	}
+	
+	public static boolean isPosFullyLoaded(BlockPos pos) {
+		WorldChunk chunk = world().getWorldChunk(pos);
+		
+		return chunk != null && !chunk.isEmpty();
 	}
 	
 	public static boolean isPosLoaded(BlockPos pos) {

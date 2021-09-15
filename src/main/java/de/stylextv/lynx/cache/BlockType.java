@@ -73,6 +73,10 @@ public class BlockType {
 		return this;
 	}
 	
+	public boolean isUnloaded() {
+		return this == UNLOADED;
+	}
+	
 	@Override
 	public String toString() {
 		return name;

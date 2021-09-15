@@ -13,7 +13,7 @@ public class BlockInterface {
 	}
 	
 	public static BlockState getState(BlockPos pos) {
-		boolean loaded = WorldBorderInterface.isInside(pos) && WorldContext.isPosLoaded(pos);
+		boolean loaded = WorldBorderInterface.isInside(pos) && WorldContext.isPosFullyLoaded(pos);
 		
 		if(loaded) return WorldContext.getBlockState(pos);
 		

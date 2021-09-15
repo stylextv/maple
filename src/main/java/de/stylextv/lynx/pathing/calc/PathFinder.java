@@ -158,7 +158,9 @@ public class PathFinder {
 	private void addAdjacentNode(Node parent, Movement m) {
 		Node n = m.getDestination();
 		
-		if(closedSet.contains(n)) return;
+		BlockType type = n.getType();
+		
+		if(type.isUnloaded() || closedSet.contains(n)) return;
 		
 		double cost = m.favoredCost(favoring);
 		
@@ -199,7 +201,7 @@ public class PathFinder {
 		
 		map.put(hash, n);
 		
-		if(n.getType().equals(BlockType.UNLOADED)) chunkBorderHits++;
+		if(n.getType().isUnloaded()) chunkBorderHits++;
 		
 		return n;
 	}
