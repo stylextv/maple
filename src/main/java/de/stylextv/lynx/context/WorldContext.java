@@ -4,6 +4,7 @@ import java.io.File;
 import java.nio.file.Path;
 import java.util.Optional;
 
+import de.stylextv.lynx.util.world.CoordUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
@@ -14,6 +15,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.Chunk;
 
 public class WorldContext {
 	
@@ -74,11 +76,29 @@ public class WorldContext {
 		return world().getBlockState(pos);
 	}
 	
+	public static boolean isPosFullyLoaded(BlockPos pos) {
+		int x = pos.getX();
+		int z = pos.getZ();
+		
+		return isPosFullyLoaded(x, z);
+	}
+	
+	public static boolean isPosFullyLoaded(int x, int z) {
+		if(!isPosLoaded(x, z)) return false;
+		
+		int cx = CoordUtil.blockToChunkPos(x);
+		int cz = CoordUtil.blockToChunkPos(z);
+		
+		Chunk chunk = world().getChunk(cx, cz);
+		
+		return chunk != null;
+	}
+	
 	public static boolean isPosLoaded(BlockPos pos) {
 		int x = pos.getX();
-		int y = pos.getZ();
+		int z = pos.getZ();
 		
-		return isPosLoaded(x, y);
+		return isPosLoaded(x, z);
 	}
 	
 	public static boolean isPosLoaded(int x, int z) {

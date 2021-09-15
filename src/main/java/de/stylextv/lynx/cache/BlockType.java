@@ -15,7 +15,7 @@ public class BlockType {
 	public static final BlockType WATER = new BlockType("water", 2, Blocks.WATER).passable(true);
 	public static final BlockType DANGER = new BlockType("danger", 3, Blocks.LAVA);
 	
-	public static final BlockType UNLOADED = new BlockType("unloaded", Blocks.AIR).passable(true).air(true);
+	public static final BlockType UNLOADED = new BlockType("unloaded", Blocks.AIR).air(true);
 	public static final BlockType VOID = new BlockType("void", Blocks.AIR).passable(true).air(true);
 	public static final BlockType BORDER = new BlockType("border", Blocks.BEDROCK);
 	
