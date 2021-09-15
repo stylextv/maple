@@ -126,7 +126,7 @@ public class CachedWorld {
 		
 		CachedChunk chunk = getChunk(cx, cz);
 		
-		if(chunk == null) return BlockType.UNLOADED;
+		if(chunk == null || !chunk.isLoaded()) return BlockType.UNLOADED;
 		
 		return chunk.getBlockType(x, y, z);
 	}

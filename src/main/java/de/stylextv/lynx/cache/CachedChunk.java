@@ -20,8 +20,12 @@ public class CachedChunk {
 	
 	private BitSet bitSet;
 	
+	private boolean loaded = true;
+	
 	public CachedChunk(CachedRegion r, int x, int z) {
 		this(r, x, z, new BitSet(BIT_AMOUNT));
+		
+		this.loaded = false;
 	}
 	
 	public CachedChunk(CachedRegion r, int x, int z, BitSet bitSet) {
@@ -43,6 +47,8 @@ public class CachedChunk {
 				}
 			}
 		}
+		
+		loaded = true;
 	}
 	
 	public void updatePos(int x, int y, int z) {
@@ -113,6 +119,10 @@ public class CachedChunk {
 	
 	public BitSet getBitSet() {
 		return bitSet;
+	}
+	
+	public boolean isLoaded() {
+		return loaded;
 	}
 	
 }
