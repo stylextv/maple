@@ -16,7 +16,9 @@ public class BreakController {
 			
 			BlockState state = BlockInterface.getState(x, y, z);
 			
-			if(!state.getFluidState().isEmpty()) return false;
+			int level = state.getFluidState().getLevel();
+			
+			if(level > 1) return false;
 		}
 		
 		return true;
