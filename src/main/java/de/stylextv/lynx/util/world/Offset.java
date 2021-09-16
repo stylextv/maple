@@ -83,6 +83,14 @@ public class Offset {
 			new Offset(  0,   0,  -1)
 	};
 	
+	public static final Offset[] UPPER_DIRECT_BLOCK_NEIGHBOURS = {
+			new Offset(  1,   0,   0),
+			new Offset( -1,   0,   0),
+			new Offset(  0,   1,   0),
+			new Offset(  0,   0,   1),
+			new Offset(  0,   0,  -1)
+	};
+	
 	private double x;
 	private double y;
 	private double z;

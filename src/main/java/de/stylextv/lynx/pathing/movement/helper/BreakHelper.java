@@ -2,6 +2,7 @@ package de.stylextv.lynx.pathing.movement.helper;
 
 import de.stylextv.lynx.cache.BlockType;
 import de.stylextv.lynx.cache.CacheManager;
+import de.stylextv.lynx.input.controller.BreakController;
 import de.stylextv.lynx.input.target.BlockTarget;
 import de.stylextv.lynx.pathing.calc.Cost;
 import de.stylextv.lynx.pathing.movement.Movement;
@@ -29,6 +30,8 @@ public class BreakHelper extends TargetHelper {
 		for(BlockTarget target : getTargets()) {
 			
 			BlockPos pos = target.getPos();
+			
+			if(!BreakController.isSafeToBreak(pos)) return Cost.INFINITY;
 			
 			sum += Cost.breakCost(pos);
 		}
