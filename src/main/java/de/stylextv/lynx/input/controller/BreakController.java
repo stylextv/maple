@@ -10,15 +10,21 @@ public class BreakController {
 	public static boolean isSafeToBreak(BlockPos pos) {
 		for(Offset o : Offset.UPPER_DIRECT_BLOCK_NEIGHBOURS) {
 			
-			int x = pos.getX() + o.getBlockX();
-			int y = pos.getY() + o.getBlockY();
-			int z = pos.getZ() + o.getBlockZ();
+			int dx = o.getBlockX();
+			int dy = o.getBlockY();
+			int dz = o.getBlockZ();
+			
+			int x = pos.getX() + dx;
+			int y = pos.getY() + dy;
+			int z = pos.getZ() + dz;
 			
 			BlockState state = BlockInterface.getState(x, y, z);
 			
 			int level = state.getFluidState().getLevel();
 			
-			if(level > 1) return false;
+			if(level == 0) continue;
+			
+			if(level > 1 || dy == 1) return false;
 		}
 		
 		return true;
