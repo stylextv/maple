@@ -92,7 +92,9 @@ public class GuiController {
 			
 			ItemStack other = inv.getStack(i);
 			
-			if(stack.isItemEqual(other)) return i;
+			boolean equal = ItemStack.areEqual(stack, other);
+			
+			if(equal) return i;
 		}
 		
 		return -1;
