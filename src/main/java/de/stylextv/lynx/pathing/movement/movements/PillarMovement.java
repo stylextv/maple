@@ -25,7 +25,8 @@ public class PillarMovement extends Movement {
 		double cost = Cost.JUMP;
 		
 		cost += getBreakHelper().cost();
-		cost += getPlaceHelper().cost();
+		
+		cost += Cost.placeCost();
 		
 		return cost + super.cost();
 	}
