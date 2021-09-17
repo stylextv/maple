@@ -26,7 +26,7 @@ public class DescendMove extends Move {
 			
 			destination = finder.getAdjacentNode(n, dx, dy, dz);
 			
-			if(destination.getY() <= 0 || !destination.getType().isAir()) break;
+			if(destination.getY() <= 0 || destination.getType() == BlockType.WATER) break;
 			
 			Node below = finder.getAdjacentNode(n, dx, dy - 1, dz);
 			
