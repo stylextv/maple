@@ -13,6 +13,7 @@ import net.minecraft.util.math.BlockPos;
 
 public abstract class TargetHelper extends MovementHelper<Movement> {
 	
+	// TODO replace with array or hashmap
 	private List<BlockTarget> targets = new CopyOnWriteArrayList<>();
 	
 	public TargetHelper(Movement m) {
