@@ -24,7 +24,7 @@ public class BreakController {
 			
 			if(level == 0) continue;
 			
-			if(level > 1 || dy == 1) return false;
+			if(dy == 1 || level > 1) return false;
 		}
 		
 		return true;
