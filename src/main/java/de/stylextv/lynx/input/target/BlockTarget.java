@@ -60,9 +60,10 @@ public class BlockTarget {
 			return;
 		}
 		
-		ItemStack stack = tools.getThrowawayBlocks();
-		
-		if(stack != null) GuiController.selectItem(stack);
+		if(tools.hasThrowawayBlocks()) {
+			
+			GuiController.selectItem(tools.getThrowawayBlocks());
+		}
 	}
 	
 	public boolean lookAt() {
