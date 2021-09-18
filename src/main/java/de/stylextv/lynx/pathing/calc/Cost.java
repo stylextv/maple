@@ -1,7 +1,8 @@
 package de.stylextv.lynx.pathing.calc;
 
 import de.stylextv.lynx.context.WorldContext;
-import de.stylextv.lynx.input.controller.GuiController;
+import de.stylextv.lynx.gui.ToolSet;
+import de.stylextv.lynx.util.ItemUtil;
 import de.stylextv.lynx.world.BlockInterface;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.world.ClientWorld;
@@ -50,9 +51,11 @@ public class Cost {
 		
 		if(hardness < 0) return INFINITY;
 		
-		ItemStack stack = GuiController.bestTool(state);
+		ToolSet tools = ToolSet.getTools();
 		
-		float f = GuiController.digSpeed(stack, state);
+		ItemStack stack = tools.getBestTool(state);
+		
+		float f = ItemUtil.getDigSpeed(stack, state);
 		
 		float damage = f / hardness;
 		
@@ -60,7 +63,9 @@ public class Cost {
 	}
 	
 	public static double placeCost() {
-		if(!GuiController.hasBuildingMaterial()) return INFINITY;
+		ToolSet tools = ToolSet.getTools();
+		
+		if(!tools.hasThrowawayBlocks()) return INFINITY;
 		
 		return PLACE_BLOCK;
 	}

@@ -1,5 +1,7 @@
 package de.stylextv.lynx.input.target;
 
+
+import de.stylextv.lynx.gui.ToolSet;
 import de.stylextv.lynx.input.InputAction;
 import de.stylextv.lynx.input.controller.AwarenessController;
 import de.stylextv.lynx.input.controller.BreakController;
@@ -45,18 +47,20 @@ public class BlockTarget {
 	}
 	
 	public void selectTool() {
+		ToolSet tools = ToolSet.getTools();
+		
 		if(isBreakable()) {
 			
 			BlockState state = BlockInterface.getState(pos);
 			
-			ItemStack stack = GuiController.bestTool(state);
+			ItemStack stack = tools.getBestTool(state);
 			
 			GuiController.selectItem(stack);
 			
 			return;
 		}
 		
-		ItemStack stack = GuiController.buildingMaterial();
+		ItemStack stack = tools.getThrowawayBlocks();
 		
 		if(stack != null) GuiController.selectItem(stack);
 	}
