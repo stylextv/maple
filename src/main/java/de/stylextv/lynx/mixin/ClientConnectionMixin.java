@@ -19,7 +19,7 @@ import net.minecraft.network.listener.PacketListener;
 @Mixin(ClientConnection.class)
 public class ClientConnectionMixin {
 	
-	@Inject(method = "channelRead0(Lio/netty/channel/ChannelHandlerContext;Lnet/minecraft/network/Packet;)V", at = @At("TAIL"))
+	@Inject(method = "channelRead0", at = @At("TAIL"))
 	private <T extends PacketListener> void channelRead0(ChannelHandlerContext channelHandlerContext, Packet<?> packet, CallbackInfo info) {
 		ClientConnection connection = (ClientConnection)(Object) this;
 		
