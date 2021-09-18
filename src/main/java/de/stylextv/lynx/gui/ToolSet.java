@@ -79,9 +79,7 @@ public class ToolSet {
 	private ItemStack getStackOf(Item item) {
 		for(ItemStack stack : stacks) {
 			
-			Item other = stack.getItem();
-			
-			if(other.equals(item)) return stack;
+			if(stack.isOf(item)) return stack;
 		}
 		
 		return ItemStack.EMPTY;
