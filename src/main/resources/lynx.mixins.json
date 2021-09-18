@@ -8,7 +8,6 @@
     "MinecraftClientMixin",
 	"GameRendererMixin",
 	"NetworkHandlerMixin",
-	"DefaultedListMixin",
 	"ScreenMixin"
   ],
   "injectors": {

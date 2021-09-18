@@ -15,7 +15,9 @@ public class ToolSet {
 	
 	private static ToolSet tools;
 	
-	private ItemStack[] stacks;
+	private DefaultedList<ItemStack> stacks;
+	
+	private int size;
 	
 	private HashMap<BlockState, ItemStack> bestTools = new HashMap<>();
 	
@@ -23,8 +25,9 @@ public class ToolSet {
 	
 	private ItemStack waterBucket;
 	
-	public ToolSet(ItemStack[] stacks) {
+	public ToolSet(DefaultedList<ItemStack> stacks, int size) {
 		this.stacks = stacks;
+		this.size = size;
 	}
 	
 	public ItemStack getBestTool(BlockState state) {
@@ -34,7 +37,9 @@ public class ToolSet {
 		
 		float score = Float.NEGATIVE_INFINITY;
 		
-		for(ItemStack other : stacks) {
+		for(int i = 0; i < size; i++) {
+			
+			ItemStack other = stacks.get(i);
 			
 			float f = ItemUtil.getToolScore(other, state);
 			
@@ -77,7 +82,9 @@ public class ToolSet {
 	}
 	
 	private ItemStack getStackOf(Item item) {
-		for(ItemStack stack : stacks) {
+		for(int i = 0; i < size; i++) {
+			
+			ItemStack stack = stacks.get(i);
 			
 			if(stack.isOf(item)) return stack;
 		}
@@ -85,25 +92,23 @@ public class ToolSet {
 		return ItemStack.EMPTY;
 	}
 	
-	public static void update() {
-		PlayerInventory inv = PlayerContext.inventory();
-		
-		DefaultedList<ItemStack> main = inv.main;
-		
-		int l = 9;
-		
-		ItemStack[] stacks = new ItemStack[l];
-		
-		for(int i = 0; i < l; i++) {
-			
-			stacks[i] = main.get(i);
-		}
-		
-		tools = new ToolSet(stacks);
+	public DefaultedList<ItemStack> getStacks() {
+		return stacks;
+	}
+	
+	public int getSize() {
+		return size;
 	}
 	
 	public static ToolSet getTools() {
-		if(tools == null) update();
+		PlayerInventory inv = PlayerContext.inventory();
+		
+		DefaultedList<ItemStack> stacks = inv.main;
+		
+		if(tools == null || !tools.getStacks().equals(stacks)) {
+			
+			tools = new ToolSet(stacks, 9);
+		}
 		
 		return tools;
 	}
