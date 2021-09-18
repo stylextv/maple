@@ -8,6 +8,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.collection.DefaultedList;
 
 public class ToolSet {
@@ -18,7 +19,9 @@ public class ToolSet {
 	
 	private HashMap<BlockState, ItemStack> bestTools = new HashMap<>();
 	
+	private ItemStack throwawayBlocks;
 	
+	private ItemStack waterBucket;
 	
 	public ToolSet(ItemStack[] stacks) {
 		this.stacks = stacks;
@@ -48,30 +51,40 @@ public class ToolSet {
 	}
 	
 	public ItemStack getThrowawayBlocks() {
-		return null;
+		if(throwawayBlocks == null) {
+			
+			throwawayBlocks = getStackOf(Items.STONE);
+		}
+		
+		return throwawayBlocks;
 	}
 	
 	public ItemStack getWaterBucket() {
-		return null;
+		if(waterBucket == null) {
+			
+			waterBucket = getStackOf(Items.WATER_BUCKET);
+		}
+		
+		return waterBucket;
 	}
 	
 	public boolean hasThrowawayBlocks() {
-		return false;
+		return !getThrowawayBlocks().equals(ItemStack.EMPTY);
 	}
 	
 	public boolean hasWaterBucket() {
-		return false;
+		return !getWaterBucket().equals(ItemStack.EMPTY);
 	}
 	
-	private boolean hasItem(Item item) {
+	private ItemStack getStackOf(Item item) {
 		for(ItemStack stack : stacks) {
 			
 			Item other = stack.getItem();
 			
-			if(other.equals(item)) return true;
+			if(other.equals(item)) return stack;
 		}
 		
-		return false;
+		return ItemStack.EMPTY;
 	}
 	
 	public static void update() {
