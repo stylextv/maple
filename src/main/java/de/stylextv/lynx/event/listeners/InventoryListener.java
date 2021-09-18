@@ -1,5 +1,7 @@
 package de.stylextv.lynx.event.listeners;
+
 import de.stylextv.lynx.context.PlayerContext;
+import de.stylextv.lynx.context.WorldContext;
 import de.stylextv.lynx.event.EventListener;
 import de.stylextv.lynx.event.events.InventoryUpdateEvent;
 import de.stylextv.lynx.gui.ToolSet;
@@ -11,6 +13,8 @@ public class InventoryListener implements EventListener {
 	
 	@Override
 	public void onInventoryUpdate(InventoryUpdateEvent event) {
+		if(!WorldContext.isInWorld()) return;
+		
 		DefaultedList<ItemStack> list = event.getList();
 		
 		PlayerInventory inv = PlayerContext.inventory();
