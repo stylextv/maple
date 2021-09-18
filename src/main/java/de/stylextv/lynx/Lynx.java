@@ -2,7 +2,6 @@ package de.stylextv.lynx;
 
 import de.stylextv.lynx.event.EventBus;
 import de.stylextv.lynx.event.listeners.ChatListener;
-import de.stylextv.lynx.event.listeners.InventoryListener;
 import de.stylextv.lynx.event.listeners.PlayerListener;
 import de.stylextv.lynx.event.listeners.RenderListener;
 import de.stylextv.lynx.event.listeners.TickListener;
@@ -35,7 +34,6 @@ public class Lynx implements ModInitializer {
 		EventBus.registerListener(new WorldListener());
 		EventBus.registerListener(new RenderListener());
 		EventBus.registerListener(new PlayerListener());
-		EventBus.registerListener(new InventoryListener());
 		EventBus.registerListener(new ChatListener());
 	}
 	

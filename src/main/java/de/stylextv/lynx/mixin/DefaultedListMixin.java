@@ -11,11 +11,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
 
 @Mixin(DefaultedList.class)
-public class DefaultedListMixin<T> {
+public class DefaultedListMixin {
 	
 	@SuppressWarnings("unchecked")
 	@Inject(method = "set(ILjava/lang/Object;)V", at = @At("TAIL"))
-	private void set(int index, T element, CallbackInfoReturnable<T> info) {
+	private void set(int index, Object element, CallbackInfoReturnable<Object> info) {
 		if(!(element instanceof ItemStack)) return;
 		
 		DefaultedList<ItemStack> list = (DefaultedList<ItemStack>)(Object) this;
