@@ -102,9 +102,7 @@ public class Waypoints {
 			boolean b1 = p.getName().equalsIgnoreCase(name);
 			boolean b2 = p.getLevelName().equalsIgnoreCase(levelName);
 			
-			if(b1 && b2) {
-				return p;
-			}
+			if(b1 && b2) return p;
 		}
 		
 		return null;

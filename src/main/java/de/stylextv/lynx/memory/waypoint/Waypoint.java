@@ -3,6 +3,7 @@ package de.stylextv.lynx.memory.waypoint;
 import de.stylextv.lynx.context.PlayerContext;
 import net.minecraft.util.math.BlockPos;
 import de.stylextv.lynx.context.WorldContext;
+import de.stylextv.lynx.util.time.TimeFormat;
 
 public class Waypoint {
 	
@@ -12,10 +13,14 @@ public class Waypoint {
 	
 	private BlockPos pos;
 	
+	private long timeStamp;
+	
 	public Waypoint(String name, String levelName, BlockPos pos) {
 		this.name = name;
 		this.levelName = levelName;
 		this.pos = pos;
+		
+		this.timeStamp = System.currentTimeMillis();
 	}
 	
 	public boolean isInWorld() {
@@ -28,6 +33,12 @@ public class Waypoint {
 		return PlayerContext.squaredDistanceTo(pos);
 	}
 	
+	public String getDisplayName() {
+		String date = TimeFormat.formatDate(timeStamp);
+		
+		return name + " §8@ " + date;
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -38,6 +49,10 @@ public class Waypoint {
 	
 	public BlockPos getPos() {
 		return pos;
+	}
+	
+	public long getTimeStamp() {
+		return timeStamp;
 	}
 	
 }

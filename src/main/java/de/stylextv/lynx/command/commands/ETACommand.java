@@ -4,7 +4,7 @@ import de.stylextv.lynx.command.Command;
 import de.stylextv.lynx.pathing.calc.Path;
 import de.stylextv.lynx.pathing.movement.MovementExecutor;
 import de.stylextv.lynx.util.chat.ChatUtil;
-import de.stylextv.lynx.util.time.TimeUtil;
+import de.stylextv.lynx.util.time.TimeFormat;
 
 public class ETACommand extends Command {
 	
@@ -24,7 +24,7 @@ public class ETACommand extends Command {
 		
 		long time = p.timeToGoal();
 		
-		String s = TimeUtil.format(time);
+		String s = TimeFormat.formatDuration(time);
 		
 		ChatUtil.send("Estimated time until arrival: " + s);
 		

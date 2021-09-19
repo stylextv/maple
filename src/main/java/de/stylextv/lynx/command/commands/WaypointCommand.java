@@ -57,12 +57,9 @@ public class WaypointCommand extends Command {
 				
 				if(!p.isInWorld()) continue;
 				
-				String name = p.getName();
-				BlockPos pos = p.getPos();
+				String name = p.getDisplayName();
 				
-				String s2 = name + " §8(" + pos + ")";
-				
-				list.add(s2);
+				list.add(name);
 			}
 			
 			ChatUtil.send("Waypoints:");
