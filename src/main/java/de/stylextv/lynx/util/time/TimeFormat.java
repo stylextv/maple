@@ -1,9 +1,11 @@
 package de.stylextv.lynx.util.time;
 
+import java.util.Date;
+
 public class TimeFormat {
 	
 	public static String formatDate(long time) {
-		return "" + time;
+		return new Date(time).toString();
 	}
 	
 	public static String formatDuration(long time) {
