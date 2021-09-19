@@ -39,13 +39,17 @@ public class Rotation {
 		return add(-yaw, -pitch);
 	}
 	
+	public Rotation nudgeToMatch(Rotation r) {
+		return nudgeToMatch(r, 1000);
+	}
+	
 	public Rotation nudgeToMatch(Rotation r, float amount) {
 		Rotation delta = r.subtract(this);
 		
+		delta = delta.normalizeYaw();
+		
 		float dy = delta.getYaw();
 		float dp = delta.getPitch();
-		
-		if(dy > 180) dy -= 360;
 		
 		return nudge(dy, dp, amount);
 	}
@@ -60,6 +64,20 @@ public class Rotation {
 		if(Math.abs(f2) > Math.abs(dp)) f2 = dp;
 		
 		return add(f1, f2);
+	}
+	
+	public Rotation calibrateYaw(Rotation r) {
+		float base = r.getYaw();
+		
+		r = r.normalizeYaw();
+		
+		base -= r.getYaw();
+		
+		Rotation target = r.nudgeToMatch(this);
+		
+		float newYaw = base + target.getYaw();
+		
+		return new Rotation(newYaw, pitch);
 	}
 	
 	public Rotation normalizeYaw() {

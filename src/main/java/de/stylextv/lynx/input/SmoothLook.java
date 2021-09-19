@@ -31,17 +31,15 @@ public class SmoothLook {
 	private void apply() {
 		ClientPlayerEntity p = PlayerContext.player();
 		
-//		Vec2 v = p.getRotationVector();
-//		
-//		float yaw = v.y;
-//		float pitch = v.x;
-//		
-//		Rotation r = new Rotation(yaw, pitch);
-//		
-//		r = r.normalizeYaw().nudgeToMatch(rotation, TURN_SPEED);
+		float yaw = p.getYaw();
+		float pitch = p.getPitch();
 		
-		p.setYaw(rotation.getYaw());
-		p.setPitch(rotation.getPitch());
+		Rotation r = new Rotation(yaw, pitch);
+		
+		Rotation target = rotation.calibrateYaw(r);
+		
+		p.setYaw(target.getYaw());
+		p.setPitch(target.getPitch());
 	}
 	
 	private void reset() {
