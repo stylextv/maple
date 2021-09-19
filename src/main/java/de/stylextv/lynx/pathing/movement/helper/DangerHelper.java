@@ -19,10 +19,6 @@ public class DangerHelper extends MovementHelper<Movement> {
 		Node source = m.getSource();
 		Node destination = m.getDestination();
 		
-		int dy = source.getY() - destination.getY();
-		
-		if(dy > 3 && destination.getType() != BlockType.WATER) return Cost.INFINITY;
-		
 		if(isNearDanger(destination)) return Cost.INFINITY;
 		
 		int x = destination.getX();

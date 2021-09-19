@@ -5,11 +5,14 @@ import de.stylextv.lynx.input.InputAction;
 import de.stylextv.lynx.pathing.calc.Cost;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.movement.Movement;
+import de.stylextv.lynx.pathing.movement.helper.FallHelper;
 import net.minecraft.util.math.BlockPos;
 
 public class FallMovement extends Movement {
 	
 	private int fallDistance;
+	
+	private FallHelper fallHelper = new FallHelper(this);
 	
 	public FallMovement(Node source, Node destination, int fallDistance) {
 		super(source, destination);
@@ -31,6 +34,8 @@ public class FallMovement extends Movement {
 		double cost = Cost.FALL_N_BLOCKS[fallDistance];
 		
 		cost += getBreakHelper().cost();
+		
+		cost += fallHelper.cost();
 		
 		return cost + super.cost();
 	}
