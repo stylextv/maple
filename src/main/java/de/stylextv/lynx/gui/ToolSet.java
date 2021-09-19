@@ -13,6 +13,13 @@ import net.minecraft.util.collection.DefaultedList;
 
 public class ToolSet {
 	
+	private static final Item[] THROWAWAY_BLOCKS = new Item[] {
+			Items.DIRT,
+			Items.COBBLESTONE,
+			Items.STONE,
+			Items.NETHERRACK
+	};
+	
 	private static ToolSet tools;
 	
 	private ItemStack[] stacks;
@@ -53,7 +60,14 @@ public class ToolSet {
 	public ItemStack getThrowawayBlocks() {
 		if(throwawayBlocks == null) {
 			
-			throwawayBlocks = getStackOf(Items.STONE);
+			for(Item item : THROWAWAY_BLOCKS) {
+				
+				ItemStack stack = getStackOf(item);
+				
+				throwawayBlocks = stack;
+				
+				if(!stack.equals(ItemStack.EMPTY)) break;
+			}
 		}
 		
 		return throwawayBlocks;
