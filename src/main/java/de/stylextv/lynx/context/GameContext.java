@@ -43,6 +43,10 @@ public class GameContext {
 		return CLIENT.getTickDelta();
 	}
 	
+	public static float lastFrameDuration() {
+		return CLIENT.getLastFrameDuration() * 50;
+	}
+	
 	public static Vec3d cameraPosition() {
 		Camera camera = CLIENT.gameRenderer.getCamera();
 		

@@ -1,5 +1,6 @@
 package de.stylextv.lynx.pathing.movement;
 
+import de.stylextv.lynx.context.GameContext;
 import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.input.InputAction;
 import de.stylextv.lynx.input.controller.InputController;
@@ -30,13 +31,6 @@ public class MovementExecutor {
 	public static void onRenderTick() {
 		if(path == null) return;
 		
-		if(needsToRecalc()) {
-			
-			recalc();
-			
-			return;
-		}
-		
 		Movement m = path.getCurrentMovement();
 		
 		if(m == null) {
@@ -50,9 +44,20 @@ public class MovementExecutor {
 			return;
 		}
 		
+		if(needsToRecalc()) {
+			
+			recalc();
+			
+			return;
+		}
+		
 		m.updateHelpers();
 		
 		m.onRenderTick();
+		
+		double dt = GameContext.lastFrameDuration();
+		
+		m.tick(dt);
 		
 		if(PlayerContext.isInWater()) InputController.setPressed(InputAction.JUMP, true);
 		
@@ -69,6 +74,10 @@ public class MovementExecutor {
 	}
 	
 	private static boolean needsToRecalc() {
+		Movement m = path.getCurrentMovement();
+		
+		if(m.ranOutOfTime()) return true;
+		
 		if(!PlayerContext.isFalling()) {
 			
 			BlockPos pos = PlayerContext.blockPosition();

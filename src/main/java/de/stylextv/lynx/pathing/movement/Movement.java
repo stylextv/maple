@@ -37,7 +37,7 @@ public abstract class Movement {
 	
 	private double initialCost;
 	
-	private long startTime;
+	private double timeSinceStart;
 	
 	public Movement(Node source, Node destination) {
 		this.source = source;
@@ -85,28 +85,15 @@ public abstract class Movement {
 	}
 	
 	public MovementState getState() {
-		long now = System.currentTimeMillis();
-		
-		if(startTime == 0) {
-			
-			startTime = now;
-			
-		} else {
-			
-			long dt = now - startTime;
-			
-			double cost = favoredCost();
-			
-			long allowedTime = TimeUtil.ticksToMS(cost) + EXECUTION_TIME_BUFFER;
-			
-			if(dt > allowedTime) return MovementState.FAILED;
-		}
-		
 		BlockPos pos = PlayerContext.feetPosition();
 		
 		Node n = getDestination();
 		
 		return n.equals(pos) ? MovementState.DONE : MovementState.PROCEEDING;
+	}
+	
+	public void tick(double dt) {
+		timeSinceStart += dt;
 	}
 	
 	public void render(RenderWorldEvent event) {
@@ -121,6 +108,16 @@ public abstract class Movement {
 		int dis2 = destination.squaredDistanceTo(pos);
 		
 		return Math.min(dis1, dis2);
+	}
+	
+	public boolean ranOutOfTime() {
+		double cost = favoredCost();
+		
+		long allowedTime = TimeUtil.ticksToMS(cost) + EXECUTION_TIME_BUFFER;
+		
+		System.out.println(timeSinceStart + " / " + allowedTime);
+		
+		return timeSinceStart > allowedTime;
 	}
 	
 	public boolean isImpossible() {
