@@ -19,7 +19,7 @@ import net.minecraft.util.math.BlockPos;
 
 public abstract class Movement {
 	
-	private static final long EXECUTION_TIME_BUFFER = 4000;
+	private static final long EXECUTION_TIME_BUFFER = 5000;
 	
 	private static final double MAX_COST_INCREASE = 10;
 	
@@ -114,8 +114,6 @@ public abstract class Movement {
 		double cost = favoredCost();
 		
 		long allowedTime = TimeUtil.ticksToMS(cost) + EXECUTION_TIME_BUFFER;
-		
-		System.out.println(timeSinceStart + " / " + allowedTime);
 		
 		return timeSinceStart > allowedTime;
 	}
