@@ -23,7 +23,7 @@ public class PlaceHelper extends TargetHelper {
 		if(!hasTarget(x, y, z)) addTarget(x, y, z);
 	}
 	
-	// TODO check if canPlaceAt 
+	// TODO check if canPlaceAt
 	@Override
 	public double cost() {
 		int l = getTargets().size();
