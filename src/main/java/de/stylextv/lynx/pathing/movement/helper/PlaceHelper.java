@@ -4,9 +4,12 @@ import de.stylextv.lynx.cache.BlockType;
 import de.stylextv.lynx.cache.CacheManager;
 import de.stylextv.lynx.input.InputAction;
 import de.stylextv.lynx.input.controller.InputController;
+import de.stylextv.lynx.input.controller.PlaceController;
 import de.stylextv.lynx.input.target.BlockTarget;
 import de.stylextv.lynx.pathing.calc.Cost;
+import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.movement.Movement;
+import net.minecraft.util.math.BlockPos;
 
 public class PlaceHelper extends TargetHelper {
 	
@@ -23,9 +26,25 @@ public class PlaceHelper extends TargetHelper {
 		if(!hasTarget(x, y, z)) addTarget(x, y, z);
 	}
 	
-	// TODO check if canPlaceAt
 	@Override
 	public double cost() {
+		Node source = getMovement().getSource();
+		
+		Movement m = source.getMovement();
+		
+		boolean hasSupport = false;
+		
+		if(m != null) hasSupport = m.getPlaceHelper().hasTargets();
+		
+		if(!hasSupport) {
+			for(BlockTarget target : getTargets()) {
+				
+				BlockPos pos = target.getPos();
+				
+				if(!PlaceController.canPlaceAt(pos)) return Cost.INFINITY;
+			}
+		}
+		
 		int l = getTargets().size();
 		
 		return l * Cost.placeCost();

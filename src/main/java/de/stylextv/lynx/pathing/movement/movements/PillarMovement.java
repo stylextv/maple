@@ -26,6 +26,8 @@ public class PillarMovement extends Movement {
 		
 		cost += getBreakHelper().cost();
 		
+		if(getPlaceHelper().cost() >= Cost.INFINITY) return Cost.INFINITY;
+		
 		cost += Cost.placeCost();
 		
 		return cost + super.cost();
