@@ -59,7 +59,11 @@ public class MovementExecutor {
 		
 		m.tick(dt);
 		
-		if(PlayerContext.isInWater()) InputController.setPressed(InputAction.JUMP, true);
+		if(PlayerContext.isInWater()) {
+			
+			InputController.setPressed(InputAction.JUMP, true);
+			InputController.setPressed(InputAction.SNEAK, false);
+		}
 		
 		MovementState state = m.getState();
 		
