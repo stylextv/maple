@@ -14,9 +14,9 @@ public class Avoidance {
 	
 	private BlockPos pos;
 	
-	private AvoidanceType<?> type;
+	private AvoidanceType type;
 	
-	public Avoidance(BlockPos pos, AvoidanceType<?> type) {
+	public Avoidance(BlockPos pos, AvoidanceType type) {
 		this.pos = pos;
 		this.type = type;
 	}
@@ -53,7 +53,7 @@ public class Avoidance {
 		return pos;
 	}
 	
-	public AvoidanceType<?> getType() {
+	public AvoidanceType getType() {
 		return type;
 	}
 	
@@ -64,7 +64,7 @@ public class Avoidance {
 		
 		for(Entity e : world.getEntities()) {
 			
-			AvoidanceType<?> type = AvoidanceType.fromEntity(e);
+			AvoidanceType type = AvoidanceType.fromEntity(e);
 			
 			if(type == null) continue;
 			
