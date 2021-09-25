@@ -19,6 +19,8 @@ public class AvoidanceType {
 			WEAK, NORMAL, STRONG, BEAST
 	};
 	
+	private static final double LOG_TWO_OF_TEN = MathUtil.log2(10);
+	
 	private int radius;
 	
 	private double coefficient;
@@ -45,9 +47,9 @@ public class AvoidanceType {
 			
 			float health = entity.getMaxHealth();
 			
-			double log = MathUtil.log2(health);
+			double d = MathUtil.log2(health);
 			
-			int i = (int) log - 3;
+			int i = (int) Math.round(d - LOG_TWO_OF_TEN);
 			
 			int max = TYPES.length - 1;
 			
