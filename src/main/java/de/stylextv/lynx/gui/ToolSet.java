@@ -15,9 +15,9 @@ public class ToolSet {
 	
 	private static final Item[] THROWAWAY_BLOCKS = new Item[] {
 			Items.DIRT,
+			Items.NETHERRACK,
 			Items.COBBLESTONE,
-			Items.STONE,
-			Items.NETHERRACK
+			Items.STONE
 	};
 	
 	private static ToolSet tools;
