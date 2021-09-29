@@ -47,9 +47,7 @@ public class AvoidanceType {
 			
 			float health = entity.getMaxHealth();
 			
-			double d = MathUtil.log2(health);
-			
-			int i = (int) Math.round(d - LOG_TWO_OF_TEN);
+			int i = healthToStrength(health);
 			
 			int max = TYPES.length - 1;
 			
@@ -59,6 +57,12 @@ public class AvoidanceType {
 		}
 		
 		return null;
+	}
+	
+	private static int healthToStrength(float health) {
+		double d = MathUtil.log2(health);
+		
+		return (int) Math.round(d - LOG_TWO_OF_TEN);
 	}
 	
 }
