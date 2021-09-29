@@ -9,12 +9,16 @@ import net.minecraft.world.chunk.WorldChunk;
 
 public class CachedChunk {
 	
-	private static final int BIT_AMOUNT = 16 * 16 * 256 * 2;
+	private static final int BITS_PER_LAYER = 16 * 16 * 2;
 	
 	private CachedRegion region;
 	
 	private int x;
 	private int z;
+	
+	private int height;
+	
+	private int bottomY;
 	
 	private WorldChunk chunk;
 	
@@ -22,16 +26,19 @@ public class CachedChunk {
 	
 	private boolean loaded = true;
 	
-	public CachedChunk(CachedRegion r, int x, int z) {
-		this(r, x, z, new BitSet(BIT_AMOUNT));
+	public CachedChunk(CachedRegion r, int x, int z, int height, int bottomY) {
+		this(r, x, z, height, bottomY, new BitSet(BITS_PER_LAYER * height));
 		
 		this.loaded = false;
 	}
 	
-	public CachedChunk(CachedRegion r, int x, int z, BitSet bitSet) {
+	public CachedChunk(CachedRegion r, int x, int z, int height, int bottomY, BitSet bitSet) {
 		this.region = r;
 		this.x = x;
 		this.z = z;
+		
+		this.height = height;
+		this.bottomY = bottomY;
 		
 		this.bitSet = bitSet;
 	}
@@ -39,11 +46,11 @@ public class CachedChunk {
 	public void load(WorldChunk c) {
 		chunk = c;
 		
-		for(int y = 0; y < 256; y++) {
+		for(int y = 0; y < height; y++) {
 			for(int x = 0; x < 16; x++) {
 				for(int z = 0; z < 16; z++) {
 					
-					updatePos(x, y, z);
+					updatePos(x, bottomY + y, z);
 				}
 			}
 		}
@@ -68,9 +75,6 @@ public class CachedChunk {
 		int y = pos.getY();
 		int z = pos.getZ();
 		
-		x = CoordUtil.posInChunk(x);
-		z = CoordUtil.posInChunk(z);
-		
 		int index = getDataIndex(x, y, z);
 		
 		BlockType type = BlockType.fromBlocks(state, below, above);
@@ -94,9 +98,6 @@ public class CachedChunk {
 	}
 	
 	public BlockType getBlockType(int x, int y, int z) {
-		x -= this.x * 16;
-		z -= this.z * 16;
-		
 		int index = getDataIndex(x, y, z);
 		
 		boolean b1 = bitSet.get(index);
@@ -106,6 +107,11 @@ public class CachedChunk {
 	}
 	
 	private int getDataIndex(int x, int y, int z) {
+		x = CoordUtil.posInChunk(x);
+		z = CoordUtil.posInChunk(z);
+		
+		y -= bottomY;
+		
 		return (y << 9) | (x << 5) | (z << 1);
 	}
 	
@@ -115,6 +121,14 @@ public class CachedChunk {
 	
 	public int getZ() {
 		return z;
+	}
+	
+	public int getHeight() {
+		return height;
+	}
+	
+	public int getBottomY() {
+		return bottomY;
 	}
 	
 	public BitSet getBitSet() {

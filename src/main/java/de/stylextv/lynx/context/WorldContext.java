@@ -65,6 +65,18 @@ public class WorldContext {
 		return PlayerContext.player() != null && world() != null;
 	}
 	
+	public static int getHeight() {
+		return world().getHeight();
+	}
+	
+	public static int getTopY() {
+		return world().getTopY() - 1;
+	}
+	
+	public static int getBottomY() {
+		return world().getBottomY();
+	}
+	
 	public static Block getBlock(BlockPos pos) {
 		BlockState state = getBlockState(pos);
 		

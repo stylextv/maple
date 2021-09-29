@@ -37,19 +37,30 @@ public class FileSystem {
 		int x = readInt(f);
 		int z = readInt(f);
 		
+		int height = readInt(f);
+		
+		int bottomY = readInt(f);
+		
 		BitSet bitSet = readBitSet(f);
 		
-		return new CachedChunk(r, x, z, bitSet);
+		return new CachedChunk(r, x, z, height, bottomY, bitSet);
 	}
 	
 	public static void writeChunk(CachedChunk r, FileAccess f) {
 		int x = r.getX();
 		int z = r.getZ();
 		
+		int height = r.getHeight();
+		
+		int bottomY = r.getBottomY();
+		
 		BitSet bitSet = r.getBitSet();
 		
 		writeInt(x, f);
 		writeInt(z, f);
+		
+		writeInt(height, f);
+		writeInt(bottomY, f);
 		
 		writeBitSet(bitSet, f);
 	}

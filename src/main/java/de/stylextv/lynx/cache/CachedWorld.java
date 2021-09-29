@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import de.stylextv.lynx.context.WorldContext;
 import de.stylextv.lynx.io.FileSystem;
 import de.stylextv.lynx.util.async.AsyncUtil;
 import de.stylextv.lynx.util.async.TaskInfo;
@@ -81,7 +82,11 @@ public class CachedWorld {
 			
 			CachedRegion r = getRegion(x, z);
 			
-			c = new CachedChunk(r, x, z);
+			int height = WorldContext.getHeight();
+			
+			int bottomY = WorldContext.getBottomY();
+			
+			c = new CachedChunk(r, x, z, height, bottomY);
 			
 			r.storeChunk(c);
 		}
@@ -119,7 +124,10 @@ public class CachedWorld {
 	}
 	
 	public BlockType getBlockType(int x, int y, int z) {
-		if(y < 0 || y > 255) return BlockType.VOID;
+		int bottomY = WorldContext.getBottomY();
+		int topY = WorldContext.getTopY();
+		
+		if(y < bottomY || y > topY) return BlockType.VOID;
 		
 		int cx = CoordUtil.blockToChunkPos(x);
 		int cz = CoordUtil.blockToChunkPos(z);
