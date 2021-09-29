@@ -70,11 +70,19 @@ public class WorldContext {
 	}
 	
 	public static int getTopY() {
-		return world().getTopY() - 1;
+		return world().getTopY();
 	}
 	
 	public static int getBottomY() {
 		return world().getBottomY();
+	}
+	
+	public static boolean isOutOfHeightLimit(BlockPos pos) {
+		return world().isOutOfHeightLimit(pos);
+	}
+	
+	public static boolean isOutOfHeightLimit(int y) {
+		return world().isOutOfHeightLimit(y);
 	}
 	
 	public static Block getBlock(BlockPos pos) {

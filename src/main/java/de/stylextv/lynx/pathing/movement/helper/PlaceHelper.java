@@ -2,6 +2,7 @@ package de.stylextv.lynx.pathing.movement.helper;
 
 import de.stylextv.lynx.cache.BlockType;
 import de.stylextv.lynx.cache.CacheManager;
+import de.stylextv.lynx.context.WorldContext;
 import de.stylextv.lynx.input.InputAction;
 import de.stylextv.lynx.input.controller.InputController;
 import de.stylextv.lynx.input.controller.PlaceController;
@@ -36,13 +37,13 @@ public class PlaceHelper extends TargetHelper {
 		
 		if(m != null) hasSupport = m.getPlaceHelper().hasTargets();
 		
-		if(!hasSupport) {
-			for(BlockTarget target : getTargets()) {
-				
-				BlockPos pos = target.getPos();
-				
-				if(!PlaceController.canPlaceAt(pos)) return Cost.INFINITY;
-			}
+		for(BlockTarget target : getTargets()) {
+			
+			BlockPos pos = target.getPos();
+			
+			if(WorldContext.isOutOfHeightLimit(pos)) return Cost.INFINITY;
+			
+			if(!hasSupport && !PlaceController.canPlaceAt(pos)) return Cost.INFINITY;
 		}
 		
 		int l = getTargets().size();

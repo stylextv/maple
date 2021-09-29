@@ -124,10 +124,7 @@ public class CachedWorld {
 	}
 	
 	public BlockType getBlockType(int x, int y, int z) {
-		int bottomY = WorldContext.getBottomY();
-		int topY = WorldContext.getTopY();
-		
-		if(y < bottomY || y > topY) return BlockType.VOID;
+		if(WorldContext.isOutOfHeightLimit(y)) return BlockType.VOID;
 		
 		int cx = CoordUtil.blockToChunkPos(x);
 		int cz = CoordUtil.blockToChunkPos(z);
