@@ -82,11 +82,7 @@ public class CachedWorld {
 			
 			CachedRegion r = getRegion(x, z);
 			
-			int height = WorldContext.getHeight();
-			
-			int bottomY = WorldContext.getBottomY();
-			
-			c = new CachedChunk(r, x, z, height, bottomY);
+			c = new CachedChunk(r, x, z);
 			
 			r.storeChunk(c);
 		}

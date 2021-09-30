@@ -2,6 +2,7 @@ package de.stylextv.lynx.cache;
 
 import java.util.BitSet;
 
+import de.stylextv.lynx.context.WorldContext;
 import de.stylextv.lynx.util.world.CoordUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
@@ -10,6 +11,8 @@ import net.minecraft.world.chunk.WorldChunk;
 public class CachedChunk {
 	
 	private static final int BITS_PER_LAYER = 16 * 16 * 2;
+	
+	private static final int INVALID_INDEX = -1;
 	
 	private CachedRegion region;
 	
@@ -26,8 +29,8 @@ public class CachedChunk {
 	
 	private boolean loaded = true;
 	
-	public CachedChunk(CachedRegion r, int x, int z, int height, int bottomY) {
-		this(r, x, z, height, bottomY, new BitSet(BITS_PER_LAYER * height));
+	public CachedChunk(CachedRegion r, int x, int z) {
+		this(r, x, z, 0, 0, null);
 		
 		this.loaded = false;
 	}
@@ -46,6 +49,12 @@ public class CachedChunk {
 	public void load(WorldChunk c) {
 		chunk = c;
 		
+		int height = WorldContext.getHeight();
+		
+		int bottomY = WorldContext.getBottomY();
+		
+		updateHeightLimit(height, bottomY);
+		
 		for(int y = 0; y < height; y++) {
 			for(int x = 0; x < 16; x++) {
 				for(int z = 0; z < 16; z++) {
@@ -56,6 +65,17 @@ public class CachedChunk {
 		}
 		
 		loaded = true;
+	}
+	
+	private void updateHeightLimit(int height, int bottomY) {
+		this.bottomY = bottomY;
+		
+		if(height != this.height) {
+			
+			this.height = height;
+			
+			bitSet = new BitSet(BITS_PER_LAYER * height);
+		}
 	}
 	
 	public void updatePos(int x, int y, int z) {
@@ -76,6 +96,8 @@ public class CachedChunk {
 		int z = pos.getZ();
 		
 		int index = getDataIndex(x, y, z);
+		
+		if(index == INVALID_INDEX) return;
 		
 		BlockType type = BlockType.fromBlocks(state, below, above);
 		
@@ -100,6 +122,8 @@ public class CachedChunk {
 	public BlockType getBlockType(int x, int y, int z) {
 		int index = getDataIndex(x, y, z);
 		
+		if(index == INVALID_INDEX) return BlockType.AIR;
+		
 		boolean b1 = bitSet.get(index);
 		boolean b2 = bitSet.get(index + 1);
 		
@@ -111,6 +135,8 @@ public class CachedChunk {
 		z = CoordUtil.posInChunk(z);
 		
 		y -= bottomY;
+		
+		if(y < 0 || y >= height) return INVALID_INDEX;
 		
 		return (y << 9) | (x << 5) | (z << 1);
 	}
