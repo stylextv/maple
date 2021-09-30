@@ -33,7 +33,9 @@ public class PlaceHelper extends TargetHelper {
 		
 		Movement m = source.getMovement();
 		
-		boolean hasSupport = false;
+		BlockType type = source.getType();
+		
+		boolean hasSupport = type != BlockType.WATER;
 		
 		if(m != null) hasSupport = m.getPlaceHelper().hasTargets();
 		
