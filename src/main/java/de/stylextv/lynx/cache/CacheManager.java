@@ -3,6 +3,7 @@ package de.stylextv.lynx.cache;
 import java.util.HashMap;
 
 import de.stylextv.lynx.context.WorldContext;
+import de.stylextv.lynx.util.world.CoordUtil;
 import de.stylextv.lynx.world.WorldBorderInterface;
 import net.minecraft.util.math.BlockPos;
 
@@ -32,6 +33,14 @@ public class CacheManager {
 		world.exit();
 		
 		world = null;
+	}
+	
+	public static BlockType getBlockType(double x, double y, double z) {
+		int blockX = CoordUtil.unitToBlockPos(x);
+		int blockY = CoordUtil.unitToBlockPos(y);
+		int blockZ = CoordUtil.unitToBlockPos(z);
+		
+		return getBlockType(blockX, blockY, blockZ);
 	}
 	
 	public static BlockType getBlockType(BlockPos pos) {

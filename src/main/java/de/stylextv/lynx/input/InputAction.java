@@ -2,7 +2,18 @@ package de.stylextv.lynx.input;
 
 public enum InputAction {
 	
-	MOVE_FORWARD(true), MOVE_BACK(true), MOVE_LEFT(true), MOVE_RIGHT(true), LEFT_CLICK, RIGHT_CLICK, SNEAK, SPRINT, JUMP;
+	MOVE_FORWARD(true),
+	MOVE_BACK(true),
+	MOVE_LEFT(true),
+	MOVE_RIGHT(true),
+	
+	JUMP,
+	
+	SNEAK,
+	SPRINT,
+	
+	LEFT_CLICK,
+	RIGHT_CLICK;
 	
 	private boolean move;
 	

@@ -2,6 +2,7 @@ package de.stylextv.lynx.pathing.movement.movements;
 
 import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.input.InputAction;
+import de.stylextv.lynx.input.controller.AwarenessController;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.movement.Movement;
 import de.stylextv.lynx.pathing.movement.helper.ParkourHelper;
@@ -41,26 +42,31 @@ public class ParkourMovement extends Movement {
 		
 		if(distance > 3) setPressed(InputAction.SPRINT, true);
 		
-		Node n = getSource();
+		boolean jump = false;
 		
-		Vec3d v = PlayerContext.position();
-		
-		double disToJump;
-		
-		if(dz == 0) {
+		if(AwarenessController.canJump()) {
 			
-			double x = n.getX() + 0.5 + dx * JUMP_OFFSET;
+			Node n = getSource();
 			
-			disToJump = (x - v.getX()) * dx;
+			Vec3d v = PlayerContext.position();
 			
-		} else {
+			double disToJump;
 			
-			double z = n.getZ() + 0.5 + dz * JUMP_OFFSET;
+			if(dz == 0) {
+				
+				double x = n.getX() + 0.5 + dx * JUMP_OFFSET;
+				
+				disToJump = (x - v.getX()) * dx;
+				
+			} else {
+				
+				double z = n.getZ() + 0.5 + dz * JUMP_OFFSET;
+				
+				disToJump = (z - v.getZ()) * dz;
+			}
 			
-			disToJump = (z - v.getZ()) * dz;
+			jump = disToJump < 0 && disToJump > -0.5;
 		}
-		
-		boolean jump = disToJump < 0 && disToJump > -0.5;
 		
 		setPressed(InputAction.JUMP, jump);
 	}

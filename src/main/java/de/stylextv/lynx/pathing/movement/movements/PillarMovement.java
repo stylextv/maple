@@ -2,6 +2,7 @@ package de.stylextv.lynx.pathing.movement.movements;
 
 import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.input.InputAction;
+import de.stylextv.lynx.input.controller.AwarenessController;
 import de.stylextv.lynx.pathing.calc.Cost;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.movement.Movement;
@@ -39,7 +40,9 @@ public class PillarMovement extends Movement {
 		
 		getPlaceHelper().onRenderTick();
 		
-		setPressed(InputAction.JUMP, true);
+		boolean jump = AwarenessController.canJump();
+		
+		setPressed(InputAction.JUMP, jump);
 	}
 	
 	@Override
