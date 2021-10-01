@@ -11,8 +11,7 @@ import net.minecraft.util.math.Vec3d;
 
 public class AwarenessController {
 	
-	// TODO rename
-	private static final Offset[] UPPER_PLAYER_HITBOX_CORNERS = {
+	private static final Offset[] BONK_HEAD_CORNERS = {
 			new Offset(-0.3,  2.9, -0.3),
 			new Offset( 0.3,  2.9, -0.3),
 			new Offset(-0.3,  2.9,  0.3),
@@ -24,7 +23,7 @@ public class AwarenessController {
 		
 		Vec3d v = PlayerContext.position();
 		
-		for(Offset o : UPPER_PLAYER_HITBOX_CORNERS) {
+		for(Offset o : BONK_HEAD_CORNERS) {
 			
 			double x = v.getX() + o.getX();
 			double y = v.getY() + o.getY();
