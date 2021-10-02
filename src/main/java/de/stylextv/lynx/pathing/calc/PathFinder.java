@@ -230,16 +230,16 @@ public class PathFinder {
 		return n;
 	}
 	
-	public Node getCurrentNode() {
-		return lastConsideration;
-	}
-	
 	public Goal getGoal() {
 		return goal;
 	}
 	
 	public Favoring getFavoring() {
 		return favoring;
+	}
+	
+	public Node getLastConsideration() {
+		return lastConsideration;
 	}
 	
 	public boolean wasStopped() {

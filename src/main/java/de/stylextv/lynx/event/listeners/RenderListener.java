@@ -29,9 +29,12 @@ public class RenderListener implements EventListener {
 	public void onWorldRender(RenderWorldEvent event) {
 		if(!WorldContext.isInWorld()) return;
 		
-		Node n = SearchExecutor.getCurrentNode();
+		Node n = SearchExecutor.getLastConsideration();
+		
+		Node best = SearchExecutor.getBestSoFar();
 		
 		ShapeRenderer.drawNodeChain(event, n, Colors.PATH_CALCULATION, 2);
+		ShapeRenderer.drawNodeChain(event, best, Colors.BEST_PATH_SO_FAR, 2);
 		
 		Goal goal = MemoryManager.getGoal();
 		

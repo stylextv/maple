@@ -85,10 +85,16 @@ public class SearchExecutor {
 		finder.stop();
 	}
 	
-	public static Node getCurrentNode() {
+	public static Node getLastConsideration() {
 		if(!isInSearch()) return null;
 		
-		return finder.getCurrentNode();
+		return finder.getLastConsideration();
+	}
+	
+	public static Node getBestSoFar() {
+		if(!isInSearch()) return null;
+		
+		return finder.bestSoFar();
 	}
 	
 	public static boolean isInSearch() {
