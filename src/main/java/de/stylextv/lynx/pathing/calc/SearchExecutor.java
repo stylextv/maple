@@ -10,7 +10,11 @@ public class SearchExecutor {
 	
 	private static final long INITIAL_TIMEOUT = 500;
 	
+	private static final long INITIAL_FAILURE_TIMEOUT = 2000;
+	
 	private static final long PLAN_AHEAD_TIMEOUT = 4000;
+	
+	private static final long PLAN_AHEAD_FAILURE_TIMEOUT = 5000;
 	
 	private static final long CALCULATION_TIME_BUFFER = 2000;
 	
@@ -37,9 +41,10 @@ public class SearchExecutor {
 				
 				boolean initial = path.isEmpty();
 				
-				long time = initial ? INITIAL_TIMEOUT : PLAN_AHEAD_TIMEOUT;
+				long primaryTimeout = initial ? INITIAL_TIMEOUT : PLAN_AHEAD_TIMEOUT;
+				long failureTimeout = initial ? INITIAL_FAILURE_TIMEOUT : PLAN_AHEAD_FAILURE_TIMEOUT;
 				
-				long requiredTime = time + CALCULATION_TIME_BUFFER;
+				long requiredTime = primaryTimeout + CALCULATION_TIME_BUFFER;
 				
 				boolean sleep = path.isFinished() || path.timeLeft() > requiredTime;
 				
@@ -54,7 +59,7 @@ public class SearchExecutor {
 				
 				finder = new PathFinder(goal, favoring);
 				
-				PathSegment segment = finder.find(path.lastPosition(), time);
+				PathSegment segment = finder.find(path.lastPosition(), primaryTimeout, failureTimeout);
 				
 				boolean paused = finder.wasPaused();
 				

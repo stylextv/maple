@@ -36,11 +36,15 @@ public class PathFinder {
 	
 	private int chunkBorderHits;
 	
+	private Node startNode;
+	
 	private Node lastConsideration;
 	
 	private boolean stop;
 	
 	private boolean pause;
+	
+	private boolean failing = true;
 	
 	public PathFinder(Goal goal, Favoring favoring) {
 		this.goal = goal;
@@ -55,14 +59,14 @@ public class PathFinder {
 		this.partialSolutions = new Node[PS_COEFFICIENTS.length];
 	}
 	
-	public PathSegment find(BlockPos start, long time) {
-		return find(start.getX(), start.getY(), start.getZ(), time);
+	public PathSegment find(BlockPos start, long primaryTimeout, long failureTimeout) {
+		return find(start.getX(), start.getY(), start.getZ(), primaryTimeout, failureTimeout);
 	}
 	
-	public PathSegment find(int startX, int startY, int startZ, long time) {
+	public PathSegment find(int startX, int startY, int startZ, long primaryTimeout, long failureTimeout) {
 		long startTime = System.currentTimeMillis();
 		
-		Node startNode = getMapNode(startX, startY, startZ);
+		startNode = getMapNode(startX, startY, startZ);
 		
 		openSet.add(startNode);
 		
@@ -83,7 +87,13 @@ public class PathFinder {
 				addAdjacentNodes(n);
 			}
 			
-			if(System.currentTimeMillis() - startTime > time || chunkBorderHits > MAX_CHUNK_BORDER_HITS) {
+			long now = System.currentTimeMillis();
+			
+			long elapsedTime = now - startTime;
+			
+			boolean ranOutOfTime = elapsedTime > failureTimeout || (!failing && elapsedTime > primaryTimeout);
+			
+			if(chunkBorderHits > MAX_CHUNK_BORDER_HITS || ranOutOfTime) {
 				
 				pause = true;
 				
@@ -93,13 +103,21 @@ public class PathFinder {
 		
 		if(stop) return null;
 		
+		Node n = bestSoFar();
+		
+		if(n == null) return null;
+		
+		return backtrace(n);
+	}
+	
+	public Node bestSoFar() {
 		for(Node n : partialSolutions) {
 			
 			int dis = startNode.squaredDistanceTo(n);
 			
 			boolean b = dis > PS_MIN_DISTANCE;
 			
-			if(b) return backtrace(n);
+			if(b) return n;
 		}
 		
 		return null;
@@ -114,17 +132,23 @@ public class PathFinder {
 			
 			Node closest = partialSolutions[i];
 			
-			if(closest == null) {
-				partialSolutions[i] = n;
+			boolean closer = true;
+			
+			if(closest != null) {
 				
-				continue;
+				float f = PS_COEFFICIENTS[i];
+				
+				closer = n.getPartialCost(f) < closest.getPartialCost(f);
 			}
 			
-			float f = PS_COEFFICIENTS[i];
-			
-			boolean closer = n.getPartialCost(f) < closest.getPartialCost(f);
-			
-			if(closer) partialSolutions[i] = n;
+			if(closer) {
+				
+				partialSolutions[i] = n;
+				
+				int dis = startNode.squaredDistanceTo(n);
+				
+				if(dis > PS_MIN_DISTANCE) failing = false;
+			}
 		}
 	}
 	
@@ -224,6 +248,10 @@ public class PathFinder {
 	
 	public boolean wasPaused() {
 		return pause;
+	}
+	
+	public boolean isFailing() {
+		return failing;
 	}
 	
 }
