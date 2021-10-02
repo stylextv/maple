@@ -20,21 +20,16 @@ public class StepHelper extends MovementHelper<Movement> {
 		Movement m = getMovement();
 		
 		Node destination = m.getDestination();
-		Node source = m.getSource();
 		
 		boolean inWater = destination.getType() == BlockType.WATER;
+		
+		boolean isDiagonal = m.isDiagonal();
+		
+		boolean needsSupport = isDiagonal || m.isDownwards();
 		
 		int x = destination.getX();
 		int y = destination.getY();
 		int z = destination.getZ();
-		
-		int disX = Math.abs(source.getX() - x);
-		int disY = Math.abs(source.getY() - y);
-		int disZ = Math.abs(source.getZ() - z);
-		
-		int dis = disX + disY + disZ;
-		
-		boolean needsSupport = dis != 1 || m.isDownwards();
 		
 		if(needsSupport && !inWater) {
 			
@@ -44,8 +39,6 @@ public class StepHelper extends MovementHelper<Movement> {
 		}
 		
 		if(m.isVerticalOnly()) return 0;
-		
-		boolean isDiagonal = m.isDiagonal();
 		
 		if(inWater) return isDiagonal ? Cost.SWIM_DIAGONALLY : Cost.SWIM_STRAIGHT;
 		

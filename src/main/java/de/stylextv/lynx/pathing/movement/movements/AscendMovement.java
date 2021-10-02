@@ -5,6 +5,7 @@ import de.stylextv.lynx.input.controller.AwarenessController;
 import de.stylextv.lynx.pathing.calc.Cost;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.movement.Movement;
+import de.stylextv.lynx.pathing.movement.MovementState;
 
 public class AscendMovement extends Movement {
 	
@@ -16,11 +17,17 @@ public class AscendMovement extends Movement {
 	public void updateHelpers() {
 		getBreakHelper().collectBlocks(getDestination(), 2);
 		getBreakHelper().collectBlocks(getSource(), 2, 1);
+		
+		Node destination = getDestination();
+		
+		getPlaceHelper().collectBlock(destination, -1);
 	}
 	
 	@Override
 	public double cost() {
 		double cost = Cost.JUMP + getBreakHelper().cost();
+		
+		cost += getPlaceHelper().cost();
 		
 		return cost + super.cost();
 	}
@@ -29,14 +36,24 @@ public class AscendMovement extends Movement {
 	public void onRenderTick() {
 		if(getBreakHelper().onRenderTick()) return;
 		
-		lookAt(getDestination());
+		if(!getPlaceHelper().onRenderTick()) {
+			
+			lookAt(getDestination());
+			
+			setPressed(InputAction.MOVE_FORWARD, true);
+			setPressed(InputAction.SPRINT, true);
+			
+			boolean jump = AwarenessController.canJump();
+			
+			setPressed(InputAction.JUMP, jump);
+		}
+	}
+	
+	@Override
+	public MovementState getState() {
+		if(getPlaceHelper().hasTargets()) return MovementState.PROCEEDING;
 		
-		setPressed(InputAction.MOVE_FORWARD, true);
-		setPressed(InputAction.SPRINT, true);
-		
-		boolean jump = AwarenessController.canJump();
-		
-		setPressed(InputAction.JUMP, jump);
+		return super.getState();
 	}
 	
 }

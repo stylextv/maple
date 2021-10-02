@@ -18,8 +18,6 @@ public class ParkourHelper extends MovementHelper<ParkourMovement> {
 		
 		int dis = m.getDistance();
 		
-		if(dis > 5) return Cost.INFINITY;
-		
 		Node source = m.getSource();
 		
 		int startX = source.getX();
