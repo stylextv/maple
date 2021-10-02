@@ -8,6 +8,8 @@ public class Colors {
 	
 	public static final Color PATH_CALCULATION = new Color(51, 58, 224);
 	
+	public static final Color GOAL = new Color(225, 58, 67);
+	
 	public static final Color BLOCK_TARGET = new Color(225, 58, 67);
 	
 	public static final Color WAYPOINT = new Color(224, 58, 224);

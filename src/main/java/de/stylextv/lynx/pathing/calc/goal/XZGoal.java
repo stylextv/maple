@@ -1,7 +1,11 @@
 package de.stylextv.lynx.pathing.calc.goal;
 
+import de.stylextv.lynx.event.events.RenderWorldEvent;
 import de.stylextv.lynx.pathing.calc.Cost;
 import de.stylextv.lynx.pathing.calc.Node;
+import de.stylextv.lynx.render.ShapeRenderer;
+import de.stylextv.lynx.scheme.Colors;
+import net.minecraft.util.math.BlockPos;
 
 public class XZGoal extends Goal {
 	
@@ -24,6 +28,14 @@ public class XZGoal extends Goal {
 	@Override
 	public boolean isFinalNode(Node n) {
 		return n.getX() == x && n.getZ() == z;
+	}
+	
+	@Override
+	public void render(RenderWorldEvent event) {
+		BlockPos pos1 = new BlockPos(x, 0, z);
+		BlockPos pos2 = new BlockPos(x, 257, z);
+		
+		ShapeRenderer.drawBox(event, pos1, pos2, Colors.GOAL, 2);
 	}
 	
 	@Override

@@ -3,12 +3,14 @@ package de.stylextv.lynx.event.listeners;
 import de.stylextv.lynx.context.WorldContext;
 import de.stylextv.lynx.event.EventListener;
 import de.stylextv.lynx.event.events.RenderWorldEvent;
+import de.stylextv.lynx.memory.MemoryManager;
 import de.stylextv.lynx.memory.waypoint.Waypoint;
 import de.stylextv.lynx.memory.waypoint.Waypoints;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.calc.Path;
 import de.stylextv.lynx.pathing.calc.PathSegment;
 import de.stylextv.lynx.pathing.calc.SearchExecutor;
+import de.stylextv.lynx.pathing.calc.goal.Goal;
 import de.stylextv.lynx.pathing.movement.Movement;
 import de.stylextv.lynx.pathing.movement.MovementExecutor;
 import de.stylextv.lynx.render.NameTagRenderer;
@@ -31,7 +33,9 @@ public class RenderListener implements EventListener {
 		
 		ShapeRenderer.drawNodeChain(event, n, Colors.PATH_CALCULATION, 2);
 		
-		// TODO draw goals
+		Goal goal = MemoryManager.getGoal();
+		
+		if(goal != null) goal.render(event);
 		
 		drawPath(event, MovementExecutor.getPath());
 		

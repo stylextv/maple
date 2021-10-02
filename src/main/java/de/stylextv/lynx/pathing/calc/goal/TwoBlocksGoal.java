@@ -1,6 +1,9 @@
 package de.stylextv.lynx.pathing.calc.goal;
 
+import de.stylextv.lynx.event.events.RenderWorldEvent;
 import de.stylextv.lynx.pathing.calc.Node;
+import de.stylextv.lynx.render.ShapeRenderer;
+import de.stylextv.lynx.scheme.Colors;
 import net.minecraft.util.math.BlockPos;
 
 public class TwoBlocksGoal extends Goal {
@@ -33,6 +36,14 @@ public class TwoBlocksGoal extends Goal {
 		int z = n.getZ();
 		
 		return x == pos.getX() && (y == pos.getY() || y == pos.getY() - 1) && z == pos.getZ();
+	}
+	
+	@Override
+	public void render(RenderWorldEvent event) {
+		BlockPos up = pos.up();
+		BlockPos down = pos.down();
+		
+		ShapeRenderer.drawBox(event, up, down, Colors.GOAL, 2);
 	}
 	
 	@Override

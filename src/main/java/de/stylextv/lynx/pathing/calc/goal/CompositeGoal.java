@@ -1,5 +1,6 @@
 package de.stylextv.lynx.pathing.calc.goal;
 
+import de.stylextv.lynx.event.events.RenderWorldEvent;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.util.TextUtil;
 
@@ -31,6 +32,14 @@ public class CompositeGoal extends Goal {
 		}
 		
 		return false;
+	}
+	
+	@Override
+	public void render(RenderWorldEvent event) {
+		for(Goal g : goals) {
+			
+			g.render(event);
+		}
 	}
 	
 	@Override

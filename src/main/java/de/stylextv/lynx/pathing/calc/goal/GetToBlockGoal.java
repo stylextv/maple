@@ -1,6 +1,9 @@
 package de.stylextv.lynx.pathing.calc.goal;
 
+import de.stylextv.lynx.event.events.RenderWorldEvent;
 import de.stylextv.lynx.pathing.calc.Node;
+import de.stylextv.lynx.render.ShapeRenderer;
+import de.stylextv.lynx.scheme.Colors;
 import net.minecraft.util.math.BlockPos;
 
 public class GetToBlockGoal extends Goal {
@@ -33,6 +36,11 @@ public class GetToBlockGoal extends Goal {
 		int dis = disX + disY + disZ;
 		
 		return dis < 2;
+	}
+	
+	@Override
+	public void render(RenderWorldEvent event) {
+		ShapeRenderer.drawBox(event, pos, Colors.GOAL, 2);
 	}
 	
 	@Override

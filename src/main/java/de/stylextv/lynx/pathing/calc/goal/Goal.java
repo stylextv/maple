@@ -2,6 +2,7 @@ package de.stylextv.lynx.pathing.calc.goal;
 
 import de.stylextv.lynx.command.ArgumentHelper;
 import de.stylextv.lynx.context.PlayerContext;
+import de.stylextv.lynx.event.events.RenderWorldEvent;
 import de.stylextv.lynx.pathing.calc.Node;
 import net.minecraft.util.math.BlockPos;
 
@@ -16,6 +17,8 @@ public abstract class Goal {
 	public abstract double heuristic(Node n);
 	
 	public abstract boolean isFinalNode(Node n);
+	
+	public void render(RenderWorldEvent event) {}
 	
 	public static Goal fromArgs(String[] args) {
 		if(args.length == 0) {

@@ -29,15 +29,22 @@ public class PlaceHelper extends TargetHelper {
 	
 	@Override
 	public double cost() {
-		Node source = getMovement().getSource();
+		Movement movement = getMovement();
 		
-		Movement m = source.getMovement();
+		boolean hasSupport = false;
 		
-		BlockType type = source.getType();
-		
-		boolean hasSupport = type != BlockType.WATER;
-		
-		if(m != null) hasSupport = m.getPlaceHelper().hasTargets();
+		if(!movement.isDiagonal3D()) {
+			
+			Node source = movement.getSource();
+			
+			BlockType type = source.getType();
+			
+			hasSupport = type != BlockType.WATER;
+			
+			Movement m = source.getMovement();
+			
+			if(m != null) hasSupport = m.getPlaceHelper().hasTargets();
+		}
 		
 		for(BlockTarget target : getTargets()) {
 			
