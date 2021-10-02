@@ -25,8 +25,9 @@ public class BlockType {
 			Blocks.SOUL_FIRE,
 			Blocks.CAMPFIRE,
 			Blocks.SOUL_CAMPFIRE,
+			Blocks.CACTUS,
 			Blocks.SWEET_BERRY_BUSH,
-			Blocks.CACTUS
+			Blocks.POWDER_SNOW
 	};
 	
 	private String name;

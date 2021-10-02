@@ -51,6 +51,9 @@ public class WorldListener implements EventListener {
 		CachedWorld w = CacheManager.getWorld();
 		
 		w.updatePos(pos);
+		
+		w.updatePos(pos.up());
+		w.updatePos(pos.down());
 	}
 	
 }
