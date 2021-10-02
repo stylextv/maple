@@ -62,14 +62,14 @@ public class SearchExecutor {
 				
 				if(segment == null) {
 					
-					path.setFinished(true);
+					path.setState(PathState.FAILED);
 					
 					continue;
 				}
 				
 				path.add(segment);
 				
-				if(!paused) path.setFinished(true);
+				if(!paused) path.setState(PathState.AT_GOAL);
 			}
 		});
 	}

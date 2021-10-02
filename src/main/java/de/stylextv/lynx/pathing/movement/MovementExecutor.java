@@ -5,6 +5,7 @@ import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.input.InputAction;
 import de.stylextv.lynx.input.controller.InputController;
 import de.stylextv.lynx.pathing.calc.Path;
+import de.stylextv.lynx.pathing.calc.PathState;
 import de.stylextv.lynx.util.chat.ChatUtil;
 import net.minecraft.util.math.BlockPos;
 
@@ -36,7 +37,12 @@ public class MovementExecutor {
 		if(m == null) {
 			
 			if(path.isFinished()) {
-				ChatUtil.send("Destination reached.");
+				
+				boolean atGoal = path.getState() == PathState.AT_GOAL;
+				
+				String s = atGoal ? "Destination reached." : "Can't get any closer to goal.";
+				
+				ChatUtil.send(s);
 				
 				stop();
 			}

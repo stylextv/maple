@@ -16,7 +16,7 @@ public class Path {
 	
 	private PathSegment segment;
 	
-	private boolean finished;
+	private PathState state = PathState.PAUSED;
 	
 	public void add(PathSegment s) {
 		Node n = s.findMatch(this);
@@ -55,7 +55,7 @@ public class Path {
 		
 		segment = null;
 		
-		finished = false;
+		state = PathState.PAUSED;
 	}
 	
 	// TODO if path is empty give estimate based on goal
@@ -247,6 +247,10 @@ public class Path {
 		return false;
 	}
 	
+	public boolean isFinished() {
+		return state != PathState.PAUSED;
+	}
+	
 	public boolean isEmpty() {
 		return segments.isEmpty();
 	}
@@ -255,12 +259,12 @@ public class Path {
 		return segments;
 	}
 	
-	public boolean isFinished() {
-		return finished;
+	public PathState getState() {
+		return state;
 	}
 	
-	public void setFinished(boolean finished) {
-		this.finished = finished;
+	public void setState(PathState state) {
+		this.state = state;
 	}
 	
 }
