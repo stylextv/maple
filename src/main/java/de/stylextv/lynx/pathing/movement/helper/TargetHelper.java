@@ -8,7 +8,7 @@ import de.stylextv.lynx.input.target.BlockTarget;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.movement.Movement;
 import de.stylextv.lynx.render.ShapeRenderer;
-import de.stylextv.lynx.scheme.Colors;
+import de.stylextv.lynx.scheme.Color;
 import net.minecraft.util.math.BlockPos;
 
 public abstract class TargetHelper extends MovementHelper<Movement> {
@@ -53,12 +53,12 @@ public abstract class TargetHelper extends MovementHelper<Movement> {
 	
 	public abstract void collectBlock(int x, int y, int z);
 	
-	public void render(RenderWorldEvent event) {
+	public void render(RenderWorldEvent event, Color color) {
 		for(BlockTarget target : targets) {
 			
 			BlockPos pos = target.getPos();
 			
-			ShapeRenderer.drawBox(event, pos, Colors.BLOCK_TARGET, 2);
+			ShapeRenderer.drawBox(event, pos, color, 2);
 		}
 	}
 	

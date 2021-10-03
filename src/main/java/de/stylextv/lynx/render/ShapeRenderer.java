@@ -65,38 +65,23 @@ public class ShapeRenderer {
 		}
 	}
 	
-	public static void drawNodeChain(RenderWorldEvent event, Node n, Color color, float width) {
-		drawNodeChain(event, n, Integer.MAX_VALUE, color, width);
-	}
-	
-	public static void drawNodeChain(RenderWorldEvent event, Node n, int length, Color color, float width) {
-		if(n == null) return;
+	public static void drawNodeConnection(RenderWorldEvent event, Node n, Color color, float width) {
+		Node parent = n.getParent();
 		
-		int i = 1;
+		float x = n.getX() + 0.5f;
+		float y = n.getY() + 0.5f;
+		float z = n.getZ() + 0.5f;
 		
-		while(n.getParent() != null && i < length) {
-			
-			Node parent = n.getParent();
-			
-			float x = n.getX() + 0.5f;
-			float y = n.getY() + 0.5f;
-			float z = n.getZ() + 0.5f;
-			
-			float px = parent.getX() + 0.5f;
-			float py = parent.getY() + 0.5f;
-			float pz = parent.getZ() + 0.5f;
-			
-			Vec3f[] vertices = new Vec3f[] {
-					new Vec3f(x, y, z),
-					new Vec3f(px, py, pz)
-			};
-			
-			ShapeRenderer.drawLine(event, vertices, color, width);
-			
-			n = parent;
-			
-			i++;
-		}
+		float px = parent.getX() + 0.5f;
+		float py = parent.getY() + 0.5f;
+		float pz = parent.getZ() + 0.5f;
+		
+		Vec3f[] vertices = new Vec3f[] {
+				new Vec3f(x, y, z),
+				new Vec3f(px, py, pz)
+		};
+		
+		drawLine(event, vertices, color, width);
 	}
 	
 	public static void drawLine(RenderWorldEvent event, Vec3f[] vertices, Color color, float width) {

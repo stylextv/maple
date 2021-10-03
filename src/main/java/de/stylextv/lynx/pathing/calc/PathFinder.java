@@ -103,24 +103,26 @@ public class PathFinder {
 		
 		if(stop) return null;
 		
-		Node n = bestSoFar();
-		
-		if(n == null) return null;
-		
-		return backtrace(n);
+		return bestSoFar();
 	}
 	
-	public Node bestSoFar() {
+	public PathSegment bestSoFar() {
 		for(Node n : partialSolutions) {
 			
 			int dis = startNode.squaredDistanceTo(n);
 			
 			boolean b = dis > PS_MIN_DISTANCE;
 			
-			if(b) return n;
+			if(b) return backtrace(n);
 		}
 		
 		return null;
+	}
+	
+	public PathSegment lastConsideredPath() {
+		if(lastConsideration == null) return null;
+		
+		return backtrace(lastConsideration);
 	}
 	
 	public void stop() {
@@ -236,10 +238,6 @@ public class PathFinder {
 	
 	public Favoring getFavoring() {
 		return favoring;
-	}
-	
-	public Node getLastConsideration() {
-		return lastConsideration;
 	}
 	
 	public boolean wasStopped() {

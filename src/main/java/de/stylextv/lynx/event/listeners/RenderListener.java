@@ -6,7 +6,6 @@ import de.stylextv.lynx.event.events.RenderWorldEvent;
 import de.stylextv.lynx.memory.MemoryManager;
 import de.stylextv.lynx.memory.waypoint.Waypoint;
 import de.stylextv.lynx.memory.waypoint.Waypoints;
-import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.calc.Path;
 import de.stylextv.lynx.pathing.calc.PathSegment;
 import de.stylextv.lynx.pathing.calc.SearchExecutor;
@@ -15,6 +14,7 @@ import de.stylextv.lynx.pathing.movement.Movement;
 import de.stylextv.lynx.pathing.movement.MovementExecutor;
 import de.stylextv.lynx.render.NameTagRenderer;
 import de.stylextv.lynx.render.ShapeRenderer;
+import de.stylextv.lynx.scheme.Color;
 import de.stylextv.lynx.scheme.Colors;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3f;
@@ -29,36 +29,38 @@ public class RenderListener implements EventListener {
 	public void onWorldRender(RenderWorldEvent event) {
 		if(!WorldContext.isInWorld()) return;
 		
-		Node n = SearchExecutor.getLastConsideration();
+		PathSegment s = SearchExecutor.getLastConsideration();
 		
-		Node best = SearchExecutor.getBestSoFar();
+		PathSegment best = SearchExecutor.getBestSoFar();
 		
-		ShapeRenderer.drawNodeChain(event, n, Colors.PATH_CALCULATION, 2);
-		ShapeRenderer.drawNodeChain(event, best, Colors.BEST_PATH_SO_FAR, 2);
+		drawPathSegment(event, s, Colors.PATH_CALCULATION);
+		drawPathSegment(event, best, Colors.BEST_PATH_SO_FAR);
 		
 		Goal goal = MemoryManager.getGoal();
 		
 		if(goal != null) goal.render(event);
 		
-		drawPath(event, MovementExecutor.getPath());
+		drawPath(event, MovementExecutor.getPath(), Colors.PATH);
 		
 		drawWaypoints(event);
 	}
 	
-	private void drawPath(RenderWorldEvent event, Path path) {
+	private void drawPath(RenderWorldEvent event, Path path, Color color) {
 		if(path == null) return;
 		
 		for(PathSegment s : path.getAllSegments()) {
-			drawPathSegment(event, s);
+			drawPathSegment(event, s, color);
 		}
 	}
 	
-	private void drawPathSegment(RenderWorldEvent event, PathSegment s) {
+	private void drawPathSegment(RenderWorldEvent event, PathSegment s, Color color) {
+		if(s == null) return;
+		
 		for(int i = s.getPointer(); i < s.length(); i++) {
 			
 			Movement m = s.getMovement(i);
 			
-			m.render(event);
+			m.render(event, color);
 		}
 	}
 	

@@ -85,13 +85,13 @@ public class SearchExecutor {
 		finder.stop();
 	}
 	
-	public static Node getLastConsideration() {
+	public static PathSegment getLastConsideration() {
 		if(!isInSearch()) return null;
 		
-		return finder.getLastConsideration();
+		return finder.lastConsideredPath();
 	}
 	
-	public static Node getBestSoFar() {
+	public static PathSegment getBestSoFar() {
 		if(!isInSearch()) return null;
 		
 		return finder.bestSoFar();

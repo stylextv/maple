@@ -13,7 +13,7 @@ import de.stylextv.lynx.pathing.movement.helper.DangerHelper;
 import de.stylextv.lynx.pathing.movement.helper.PlaceHelper;
 import de.stylextv.lynx.pathing.movement.helper.StepHelper;
 import de.stylextv.lynx.render.ShapeRenderer;
-import de.stylextv.lynx.scheme.Colors;
+import de.stylextv.lynx.scheme.Color;
 import de.stylextv.lynx.util.time.TimeUtil;
 import net.minecraft.util.math.BlockPos;
 
@@ -96,11 +96,11 @@ public abstract class Movement {
 		timeSinceStart += dt;
 	}
 	
-	public void render(RenderWorldEvent event) {
-		ShapeRenderer.drawNodeChain(event, destination, 2, Colors.PATH, 2);
+	public void render(RenderWorldEvent event, Color color) {
+		ShapeRenderer.drawNodeConnection(event, destination, color, 2);
 		
-		breakHelper.render(event);
-		placeHelper.render(event);
+		breakHelper.render(event, color);
+		placeHelper.render(event, color);
 	}
 	
 	public double squaredDistanceTo(BlockPos pos) {
