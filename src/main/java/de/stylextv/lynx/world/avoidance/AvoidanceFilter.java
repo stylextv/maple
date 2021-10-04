@@ -3,14 +3,10 @@ package de.stylextv.lynx.world.avoidance;
 import java.util.HashMap;
 import java.util.function.Predicate;
 
-import de.stylextv.lynx.context.PlayerContext;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.mob.EndermanEntity;
 import net.minecraft.entity.mob.MagmaCubeEntity;
 import net.minecraft.entity.mob.SlimeEntity;
 import net.minecraft.entity.mob.SpiderEntity;
-import net.minecraft.entity.mob.ZombifiedPiglinEntity;
 
 public class AvoidanceFilter<T> {
 	
@@ -18,18 +14,6 @@ public class AvoidanceFilter<T> {
 	
 	public static final AvoidanceFilter<SpiderEntity> SPIDER = new AvoidanceFilter<>(SpiderEntity.class, (spider) -> {
 		return spider.getBrightnessAtEyes() < 0.5f;
-	});
-	
-	public static final AvoidanceFilter<EndermanEntity> ENDERMAN = new AvoidanceFilter<>(EndermanEntity.class, (enderMan) -> {
-		ClientPlayerEntity p = PlayerContext.player();
-		
-		return enderMan.isAngryAt(p);
-	});
-	
-	public static final AvoidanceFilter<ZombifiedPiglinEntity> ZOMBIFIED_PIGLIN = new AvoidanceFilter<>(ZombifiedPiglinEntity.class, (piglin) -> {
-		ClientPlayerEntity p = PlayerContext.player();
-		
-		return piglin.isAngryAt(p);
 	});
 	
 	public static final AvoidanceFilter<SlimeEntity> SLIME = new AvoidanceFilter<>(SlimeEntity.class, (slime) -> {

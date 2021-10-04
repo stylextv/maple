@@ -1,8 +1,11 @@
 package de.stylextv.lynx.world.avoidance;
 
+import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.util.MathUtil;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.mob.Angerable;
 import net.minecraft.entity.mob.Monster;
 
 public class AvoidanceType {
@@ -39,11 +42,13 @@ public class AvoidanceType {
 	}
 	
 	public static AvoidanceType fromEntity(Entity e) {
-		if(e instanceof Monster) {
+		if(!(e instanceof LivingEntity)) return null;
+		
+		LivingEntity entity = (LivingEntity) e;
+		
+		if(isAggressive(entity)) {
 			
 			if(AvoidanceFilter.shouldIgnore(e)) return null;
-			
-			LivingEntity entity = (LivingEntity) e;
 			
 			float health = entity.getMaxHealth();
 			
@@ -57,6 +62,21 @@ public class AvoidanceType {
 		}
 		
 		return null;
+	}
+	
+	private static boolean isAggressive(LivingEntity e) {
+		if(e instanceof Monster) return true;
+		
+		if(e instanceof Angerable) {
+			
+			Angerable a = (Angerable) e;
+			
+			ClientPlayerEntity p = PlayerContext.player();
+			
+			return a.shouldAngerAt(p);
+		}
+		
+		return false;
 	}
 	
 	private static int healthToStrength(float health) {
