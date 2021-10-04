@@ -5,7 +5,6 @@ import de.stylextv.lynx.util.MathUtil;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.mob.Angerable;
 import net.minecraft.entity.mob.Monster;
 
 public class AvoidanceType {
@@ -67,16 +66,11 @@ public class AvoidanceType {
 	private static boolean isAggressive(LivingEntity e) {
 		if(e instanceof Monster) return true;
 		
-		if(e instanceof Angerable) {
-			
-			Angerable a = (Angerable) e;
-			
-			ClientPlayerEntity p = PlayerContext.player();
-			
-			return a.shouldAngerAt(p);
-		}
+		ClientPlayerEntity p = PlayerContext.player();
 		
-		return false;
+		LivingEntity adversary = e.getPrimeAdversary();
+		
+		return p.equals(adversary);
 	}
 	
 	private static int healthToStrength(float health) {
