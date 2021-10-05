@@ -1,5 +1,8 @@
 package de.stylextv.lynx.input.controller;
 
+import de.stylextv.lynx.context.GameContext;
+import de.stylextv.lynx.input.InputAction;
+import de.stylextv.lynx.mixin.MinecraftClientInvoker;
 import de.stylextv.lynx.util.world.Offset;
 import de.stylextv.lynx.world.BlockInterface;
 import net.minecraft.block.BlockState;
@@ -42,6 +45,18 @@ public class BreakController {
 		BlockState state = BlockInterface.getState(x, y, z);
 		
 		return state.getMaterial().blocksMovement();
+	}
+	
+	public static void onTick() {
+		boolean b = InputController.isPressed(InputAction.LEFT_CLICK);
+		
+		if(!b) return;
+		
+		InputController.setPressed(InputAction.LEFT_CLICK, false);
+		
+		MinecraftClientInvoker invoker = GameContext.clientInvoker();
+		
+		invoker.invokeHandleBlockBreaking(true);
 	}
 	
 }

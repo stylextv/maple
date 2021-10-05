@@ -2,6 +2,7 @@ package de.stylextv.lynx.context;
 
 import java.io.File;
 
+import de.stylextv.lynx.mixin.MinecraftClientInvoker;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.hud.ChatHud;
@@ -17,6 +18,10 @@ public class GameContext {
 	
 	public static MinecraftClient client() {
 		return CLIENT;
+	}
+	
+	public static MinecraftClientInvoker clientInvoker() {
+		return (MinecraftClientInvoker) CLIENT;
 	}
 	
 	public static File directory() {

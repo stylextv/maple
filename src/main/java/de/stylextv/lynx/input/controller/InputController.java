@@ -6,7 +6,6 @@ import de.stylextv.lynx.context.GameContext;
 import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.input.InjectedInput;
 import de.stylextv.lynx.input.InputAction;
-import de.stylextv.lynx.input.MouseButton;
 import net.minecraft.client.input.KeyboardInput;
 import net.minecraft.client.network.ClientPlayerEntity;
 
@@ -28,8 +27,6 @@ public class InputController {
 	}
 	
 	public static void onTick() {
-		MouseButton.updateAll();
-		
 		ClientPlayerEntity p = PlayerContext.player();
 		
 		boolean injected = p.input.getClass() == InjectedInput.class;
