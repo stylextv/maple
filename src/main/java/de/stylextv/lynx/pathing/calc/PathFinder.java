@@ -107,6 +107,8 @@ public class PathFinder {
 	}
 	
 	public PathSegment bestSoFar() {
+		if(startNode == null) return null;
+		
 		for(Node n : partialSolutions) {
 			
 			int dis = startNode.squaredDistanceTo(n);
