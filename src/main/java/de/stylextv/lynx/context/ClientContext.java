@@ -1,11 +1,19 @@
 package de.stylextv.lynx.context;
 
+import net.minecraft.client.MinecraftClient;
+
 public class ClientContext {
 	
+	private static final MinecraftClient CLIENT = MinecraftClient.getInstance();
+	
 	public static boolean isClientSide() {
-//		System.out.println(Thread.currentThread());
+		if(CLIENT.isOnThread()) return true;
 		
-		return true;
+		Thread thread = Thread.currentThread();
+		
+		String name = thread.getName().toLowerCase();
+		
+		return name.contains("client");
 	}
 	
 }
