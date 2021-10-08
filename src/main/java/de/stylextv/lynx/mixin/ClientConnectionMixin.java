@@ -21,7 +21,7 @@ public class ClientConnectionMixin {
 	
 	@Inject(method = "channelRead0", at = @At("TAIL"))
 	private <T extends PacketListener> void channelRead0(ChannelHandlerContext channelHandlerContext, Packet<?> packet, CallbackInfo info) {
-		ClientConnection connection = (ClientConnection)(Object) this;
+		ClientConnection connection = (ClientConnection) (Object) this;
 		
 		NetworkSide side = connection.getSide();
 		
@@ -32,7 +32,7 @@ public class ClientConnectionMixin {
 	
 	@Inject(method = "sendImmediately", at = @At("HEAD"))
 	private void sendImmediately(Packet<?> packet, @Nullable GenericFutureListener<? extends Future<? super Void>> callback, CallbackInfo info) {
-		ClientConnection connection = (ClientConnection)(Object) this;
+		ClientConnection connection = (ClientConnection) (Object) this;
 		
 		NetworkSide side = connection.getSide();
 		

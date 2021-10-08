@@ -8,6 +8,7 @@ import de.stylextv.lynx.command.Command;
 import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.context.WorldContext;
 import de.stylextv.lynx.memory.waypoint.Waypoint;
+import de.stylextv.lynx.memory.waypoint.WaypointTag;
 import de.stylextv.lynx.memory.waypoint.Waypoints;
 import de.stylextv.lynx.util.chat.ChatUtil;
 import net.minecraft.util.math.BlockPos;
@@ -101,7 +102,7 @@ public class WaypointCommand extends Command {
 				pos = new BlockPos(x, y, z);
 			}
 			
-			Waypoints.addWaypoint(name, levelName, pos);
+			Waypoints.addWaypoint(name, WaypointTag.USER, levelName, pos);
 			
 			ChatUtil.send("Waypoint §o" + name + " §7added.");
 			

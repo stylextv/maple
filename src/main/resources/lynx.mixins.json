@@ -11,7 +11,8 @@
 	"NetworkHandlerMixin",
 	"ClientConnectionMixin",
 	"DefaultedListMixin",
-	"ScreenMixin"
+	"ScreenMixin",
+	"LivingEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

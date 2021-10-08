@@ -19,7 +19,7 @@ public class DefaultedListMixin<T> {
 	private void set(int index, @Coerce T element, CallbackInfoReturnable<T> info) {
 		if(!(element instanceof ItemStack)) return;
 		
-		DefaultedList<ItemStack> list = (DefaultedList<ItemStack>)(Object) this;
+		DefaultedList<ItemStack> list = (DefaultedList<ItemStack>) (Object) this;
 		
 		EventBus.onEvent(new InventoryUpdateEvent(list));
 	}

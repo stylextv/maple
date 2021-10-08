@@ -19,8 +19,29 @@ public class Waypoints {
 	
 	private static List<Waypoint> waypoints;
 	
-	public static void addWaypoint(String name, String levelName, BlockPos pos) {
-		Waypoint p = new Waypoint(name, levelName, pos);
+	public static void addWaypoint(WaypointTag tag, String levelName, BlockPos pos) {
+		String name;
+		
+		int i = 0;
+		
+		while(true) {
+			
+			name = tag.getName();
+			
+			if(i != 0) name += " #" + (i + 1);
+			
+			boolean exists = getWaypoint(name) != null;
+			
+			if(!exists) break;
+			
+			i++;
+		}
+		
+		addWaypoint(name, tag, levelName, pos);
+	}
+	
+	public static void addWaypoint(String name, WaypointTag tag, String levelName, BlockPos pos) {
+		Waypoint p = new Waypoint(name, tag, levelName, pos);
 		
 		waypoints.add(p);
 		
@@ -69,14 +90,16 @@ public class Waypoints {
 		return waypoints.toArray(arr);
 	}
 	
-	public static Waypoint nearest() {
+	public static Waypoint nearestByTag(WaypointTag tag) {
 		Waypoint point = null;
 		
 		double dis = 0;
 		
 		for(Waypoint p : waypoints) {
 			
-			if(!p.isInWorld()) continue;
+			WaypointTag otherTag = p.getTag();
+			
+			if(otherTag != tag || !p.isInWorld()) continue;
 			
 			double d = p.squaredDistance();
 			

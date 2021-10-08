@@ -9,14 +9,17 @@ public class Waypoint {
 	
 	private String name;
 	
+	private WaypointTag tag;
+	
 	private String levelName;
 	
 	private BlockPos pos;
 	
 	private long timeStamp;
 	
-	public Waypoint(String name, String levelName, BlockPos pos) {
+	public Waypoint(String name, WaypointTag tag, String levelName, BlockPos pos) {
 		this.name = name;
+		this.tag = tag;
 		this.levelName = levelName;
 		this.pos = pos;
 		
@@ -41,6 +44,10 @@ public class Waypoint {
 	
 	public String getName() {
 		return name;
+	}
+	
+	public WaypointTag getTag() {
+		return tag;
 	}
 	
 	public String getLevelName() {
