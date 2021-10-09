@@ -5,6 +5,7 @@ import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.movement.Movement;
 import de.stylextv.lynx.pathing.movement.helper.ParkourHelper;
 import de.stylextv.lynx.pathing.movement.helper.PositionHelper;
+import de.stylextv.lynx.pathing.movement.helper.PositionHelper.PreparationState;
 
 public class ParkourMovement extends Movement {
 	
@@ -38,7 +39,9 @@ public class ParkourMovement extends Movement {
 		
 		setPressed(InputAction.SPRINT, sprint);
 		
-		boolean prepared = positionHelper.prepareParkourJump();
+		PreparationState state = positionHelper.prepareParkourJump();
+		
+		boolean prepared = state == PreparationState.PREPARED;
 		
 		if(!prepared) return;
 		
@@ -47,6 +50,8 @@ public class ParkourMovement extends Movement {
 		setPressed(InputAction.MOVE_FORWARD, true);
 		
 		boolean jump = getJumpHelper().canJump();
+		
+		if(state == PreparationState.IN_JUMP) jump = false;
 		
 		setPressed(InputAction.JUMP, jump);
 	}

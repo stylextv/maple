@@ -13,12 +13,17 @@ public class PositionHelper extends MovementHelper<Movement> {
 	
 	private static final double MAX_DISTANCE_FROM_CENTER = 0.016;
 	
-	private static final double JUMP_OFFSET = 0.785;
+	private static final double[] JUMP_OFFSETS = new double[] {
+			0.25,
+			0.43,
+			0.62,
+			0.79
+	};
 	
-	private static final double RUNUP_OFFSET = -0.4;
+	private static final double RUNUP_OFFSET = -0.15;
 	
-	private static final double MIN_SIDEWAYS_DISTANCE = 0.2;
-	private static final double MIN_SIDEWAYS_SPEED = 0.05;
+	private static final double MIN_SIDEWAYS_DISTANCE = 0.12;
+	private static final double MIN_SIDEWAYS_SPEED = 0.01;
 	
 	public PositionHelper(Movement m) {
 		super(m);
@@ -51,7 +56,7 @@ public class PositionHelper extends MovementHelper<Movement> {
 		return false;
 	}
 	
-	public boolean prepareParkourJump() {
+	public PreparationState prepareParkourJump() {
 		ParkourMovement m = (ParkourMovement) getMovement();
 		
 		Node source = m.getSource();
@@ -87,6 +92,8 @@ public class PositionHelper extends MovementHelper<Movement> {
 			sidewaysVelocity = velocity.getX();
 		}
 		
+		if(forwards > 1) return PreparationState.IN_JUMP;
+		
 		double sidewaysDis = Math.abs(sideways);
 		
 		boolean positionAligned = sidewaysDis < MIN_SIDEWAYS_DISTANCE;
@@ -102,7 +109,11 @@ public class PositionHelper extends MovementHelper<Movement> {
 		
 		if(aligned) {
 			
-			if(forwards > JUMP_OFFSET) return true;
+			int dis = m.getDistance();
+			
+			double jumpOffset = JUMP_OFFSETS[dis - 2];
+			
+			if(forwards > jumpOffset) return PreparationState.PREPARED;
 			
 			Node destination = m.getDestination();
 			
@@ -110,7 +121,7 @@ public class PositionHelper extends MovementHelper<Movement> {
 			
 			InputController.setPressed(InputAction.MOVE_FORWARD, true);
 			
-			return false;
+			return PreparationState.NOT_PREPARED;
 		}
 		
 		double targetX = sourceX - dirX * 0.5;
@@ -119,9 +130,14 @@ public class PositionHelper extends MovementHelper<Movement> {
 		ViewController.lookAt(targetX, targetZ);
 		
 		InputController.setPressed(InputAction.MOVE_FORWARD, !positionAligned || !forwardsVelocityAligned);
-		InputController.setPressed(InputAction.SNEAK, true);
 		
-		return false;
+		return PreparationState.NOT_PREPARED;
+	}
+	
+	public enum PreparationState {
+		
+		PREPARED, NOT_PREPARED, IN_JUMP;
+		
 	}
 	
 }
