@@ -22,7 +22,7 @@ public class PlaceHelper extends TargetHelper {
 	public void collectBlock(int x, int y, int z) {
 		BlockType type = CacheManager.getBlockType(x, y, z);
 		
-		if(!type.isPassable()) return;
+		if(type.isSolid()) return;
 		
 		if(!hasTarget(x, y, z)) addTarget(x, y, z);
 	}

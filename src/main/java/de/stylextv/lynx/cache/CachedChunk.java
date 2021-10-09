@@ -10,7 +10,7 @@ import net.minecraft.world.chunk.WorldChunk;
 
 public class CachedChunk {
 	
-	private static final int BITS_PER_LAYER = 16 * 16 * 2;
+	private static final int BITS_PER_LAYER = 16 * 16 * 3;
 	
 	private static final int INVALID_INDEX = -1;
 	
@@ -103,7 +103,7 @@ public class CachedChunk {
 		
 		boolean[] bits = type.getBits();
 		
-		for(int i = 0; i < 2; i++) {
+		for(int i = 0; i < BlockType.BIT_AMOUNT; i++) {
 			boolean b = bits[i];
 			
 			int k = index + i;
@@ -126,8 +126,9 @@ public class CachedChunk {
 		
 		boolean b1 = bitSet.get(index);
 		boolean b2 = bitSet.get(index + 1);
+		boolean b3 = bitSet.get(index + 2);
 		
-		return BlockType.fromBits(b1, b2);
+		return BlockType.fromBits(b1, b2, b3);
 	}
 	
 	private int getDataIndex(int x, int y, int z) {
@@ -138,7 +139,9 @@ public class CachedChunk {
 		
 		if(y < 0 || y >= height) return INVALID_INDEX;
 		
-		return (y << 9) | (x << 5) | (z << 1);
+		int index = (y << 8) | (x << 4) | z;
+		
+		return index * BlockType.BIT_AMOUNT;
 	}
 	
 	public int getX() {

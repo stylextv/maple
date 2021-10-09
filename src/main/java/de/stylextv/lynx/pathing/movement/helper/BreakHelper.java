@@ -31,7 +31,9 @@ public class BreakHelper extends TargetHelper {
 			
 			BlockPos pos = target.getPos();
 			
-			if(!BreakController.isSafeToBreak(pos)) return Cost.INFINITY;
+			BlockType type = CacheManager.getBlockType(pos);
+			
+			if(!type.isBreakable() || !BreakController.isSafeToBreak(pos)) return Cost.INFINITY;
 			
 			sum += Cost.breakCost(pos);
 		}

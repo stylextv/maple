@@ -35,7 +35,7 @@ public class StepHelper extends MovementHelper<Movement> {
 			
 			BlockType type = CacheManager.getBlockType(x, y - 1, z);
 			
-			if(type != BlockType.SOLID) return Cost.INFINITY;
+			if(!type.isSolid()) return Cost.INFINITY;
 		}
 		
 		if(m.isVerticalOnly()) return 0;
