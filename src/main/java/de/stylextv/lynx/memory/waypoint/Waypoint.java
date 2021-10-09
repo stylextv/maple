@@ -26,14 +26,16 @@ public class Waypoint {
 		this.timeStamp = System.currentTimeMillis();
 	}
 	
+	public double squaredDistance() {
+		if(!isInWorld()) return Double.POSITIVE_INFINITY;
+		
+		return PlayerContext.squaredDistanceTo(pos);
+	}
+	
 	public boolean isInWorld() {
 		String name = WorldContext.getLevelName();
 		
 		return levelName.equals(name);
-	}
-	
-	public double squaredDistance() {
-		return PlayerContext.squaredDistanceTo(pos);
 	}
 	
 	public String getDisplayName() {

@@ -99,17 +99,17 @@ public class Waypoints {
 	public static Waypoint nearestByTag(WaypointTag tag) {
 		Waypoint point = null;
 		
-		double dis = 0;
+		double dis = Double.POSITIVE_INFINITY;
 		
 		for(Waypoint p : waypoints) {
 			
 			WaypointTag otherTag = p.getTag();
 			
-			if(otherTag != tag || !p.isInWorld()) continue;
+			if(otherTag != tag) continue;
 			
 			double d = p.squaredDistance();
 			
-			if(point == null || d < dis) {
+			if(d < dis) {
 				
 				point = p;
 				dis = d;
