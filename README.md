@@ -63,7 +63,7 @@ goto | goto \<x> \<y> \<z> [radius]<br/>goto \<x> \<z><br/>goto \<y> | - | Sets 
 goal | goal \<x> \<y> \<z> [radius]<br/>goal \<x> \<z><br/>goal \<y> | - | Sets a new goal.
 go | - | start | Starts moving to the set goal.
 stop | - | cancel | Stops all actions.
-waypoint | waypoint create \<name> [x y z]<br/>waypoint delete \<name><br/>waypoint list [page]<br/>waypoint goto \<name> | wp | Used to create and travel to waypoints.
+waypoint | waypoint create \<name> [x y z]<br/>waypoint delete \<name><br/>waypoint list [page]<br/>waypoint goto \<name><br/>waypoint info \<name> | wp | Used to create and travel to waypoints.
 home | - | h | Travel to the nearest waypoint marked as *HOME*.
 lost | - | - | Travel to the nearest waypoint.
 axis | - | - | Travel to the nearest axis.
