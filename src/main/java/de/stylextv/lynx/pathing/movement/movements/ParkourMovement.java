@@ -41,7 +41,7 @@ public class ParkourMovement extends Movement {
 		
 		PreparationState state = positionHelper.prepareParkourJump();
 		
-		boolean prepared = state == PreparationState.PREPARED;
+		boolean prepared = state != PreparationState.NOT_PREPARED;
 		
 		if(!prepared) return;
 		
