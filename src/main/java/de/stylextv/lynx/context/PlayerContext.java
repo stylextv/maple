@@ -44,7 +44,7 @@ public class PlayerContext {
 	}
 	
 	public static BlockPos feetPosition() {
-		return new BlockPos(position().add(0, 0.125f, 0));
+		return new BlockPos(position().add(0, 0.19f, 0));
 	}
 	
 	public static ChunkPos chunkPosition() {
