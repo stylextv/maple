@@ -2,7 +2,7 @@ package de.stylextv.lynx.pathing.movement.helper;
 
 import de.stylextv.lynx.pathing.movement.Movement;
 
-public abstract class MovementHelper<T extends Movement> {
+public class MovementHelper<T extends Movement> {
 	
 	private T movement;
 	
@@ -10,7 +10,9 @@ public abstract class MovementHelper<T extends Movement> {
 		this.movement = m;
 	}
 	
-	public abstract double cost();
+	public double cost() {
+		return 0;
+	}
 	
 	public T getMovement() {
 		return movement;

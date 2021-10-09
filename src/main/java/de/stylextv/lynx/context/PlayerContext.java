@@ -91,6 +91,14 @@ public class PlayerContext {
 		return squaredDistanceTo(x, y, z);
 	}
 	
+	public static double squaredDistanceTo(double x, double z) {
+		Vec3d pos = position();
+		
+		double y = pos.getY();
+		
+		return squaredDistanceTo(x, y, z);
+	}
+	
 	public static double squaredDistanceTo(double x, double y, double z) {
 		Vec3d pos = position();
 		

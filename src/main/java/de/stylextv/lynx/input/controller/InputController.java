@@ -33,7 +33,9 @@ public class InputController {
 		
 		if(isInControl()) {
 			
-			p.setSprinting(isMoving() && isPressed(InputAction.SPRINT));
+			boolean isSneaking = isPressed(InputAction.SNEAK);
+			
+			p.setSprinting(!isSneaking && isMoving() && isPressed(InputAction.SPRINT));
 			
 			PlayerContext.setFlying(false);
 			

@@ -7,8 +7,11 @@ import de.stylextv.lynx.pathing.calc.Cost;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.movement.Movement;
 import de.stylextv.lynx.pathing.movement.MovementState;
+import de.stylextv.lynx.pathing.movement.helper.PositionHelper;
 
 public class PillarMovement extends Movement {
+	
+	private PositionHelper positionHelper = new PositionHelper(this);
 	
 	public PillarMovement(Node source, Node destination) {
 		super(source, destination);
@@ -37,6 +40,8 @@ public class PillarMovement extends Movement {
 	@Override
 	public void onRenderTick() {
 		if(getBreakHelper().onRenderTick()) return;
+		
+		if(!positionHelper.centerOnSource()) return;
 		
 		getPlaceHelper().onRenderTick();
 		
