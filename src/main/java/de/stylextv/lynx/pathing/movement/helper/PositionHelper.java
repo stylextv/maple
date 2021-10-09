@@ -9,7 +9,7 @@ import de.stylextv.lynx.pathing.movement.Movement;
 
 public class PositionHelper extends MovementHelper<Movement> {
 	
-	private static final double MAX_DISTANCE_TO_CENTER = 0.016;
+	private static final double MAX_DISTANCE_FROM_CENTER = 0.016;
 	
 	public PositionHelper(Movement m) {
 		super(m);
@@ -25,7 +25,7 @@ public class PositionHelper extends MovementHelper<Movement> {
 		
 		double dis = PlayerContext.squaredDistanceTo(sourceX, sourceZ);
 		
-		boolean atCenter = dis < MAX_DISTANCE_TO_CENTER;
+		boolean atCenter = dis < MAX_DISTANCE_FROM_CENTER;
 		
 		if(atCenter) {
 			
