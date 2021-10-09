@@ -36,7 +36,6 @@ public class ParkourMovement extends Movement {
 	public void onRenderTick() {
 		boolean sprint = parkourHelper.shouldSprint();
 		
-		setPressed(InputAction.MOVE_FORWARD, true);
 		setPressed(InputAction.SPRINT, sprint);
 		
 		boolean prepared = positionHelper.prepareParkourJump();
@@ -44,6 +43,8 @@ public class ParkourMovement extends Movement {
 		if(!prepared) return;
 		
 		lookAt(getDestination());
+		
+		setPressed(InputAction.MOVE_FORWARD, true);
 		
 		boolean jump = getJumpHelper().canJump();
 		

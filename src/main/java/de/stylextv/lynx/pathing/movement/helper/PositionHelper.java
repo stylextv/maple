@@ -13,6 +13,9 @@ public class PositionHelper extends MovementHelper<Movement> {
 	
 	private static final double MAX_DISTANCE_FROM_CENTER = 0.016;
 	
+	private static final double MIN_SIDEWAYS_DISTANCE = 0.2;
+	private static final double MIN_SIDEWAYS_SPEED = 0.05;
+	
 	public PositionHelper(Movement m) {
 		super(m);
 	}
@@ -60,23 +63,51 @@ public class PositionHelper extends MovementHelper<Movement> {
 		double x = v.getX();
 		double z = v.getZ();
 		
-		double dx = sourceX - x;
-		double dz = sourceZ - z;
+		double dx = x - sourceX;
+		double dz = z - sourceZ;
 		
-		double forwards = dx;
+		double forwards = dx * dirX;
 		double sideways = dz;
+		
+		Vec3d velocity = PlayerContext.velocity();
+		
+		double sidewaysVelocity = velocity.getZ();
 		
 		if(dirX == 0) {
 			
-			forwards = dz;
+			forwards = dz * dirZ;
 			sideways = dx;
+			
+			sidewaysVelocity = velocity.getX();
 		}
 		
-		if(forwards > 0.79) return true;
+		double sidewaysDis = Math.abs(sideways);
 		
-		Node destination = m.getDestination();
+		boolean positionAligned = sidewaysDis < MIN_SIDEWAYS_DISTANCE;
+		boolean velocityAligned = sidewaysVelocity < MIN_SIDEWAYS_SPEED;
 		
-		ViewController.lookAt(destination, false);
+		boolean aligned = velocityAligned && positionAligned;
+		
+		if(aligned) {
+			
+			if(forwards > 0.77) return true;
+			
+			Node destination = m.getDestination();
+			
+			ViewController.lookAt(destination, false);
+			
+			InputController.setPressed(InputAction.MOVE_FORWARD, true);
+			
+			return false;
+		}
+		
+		double targetX = sourceX - dirX * 0.5;
+		double targetZ = sourceZ - dirZ * 0.5;
+		
+		ViewController.lookAt(targetX, targetZ);
+		
+		InputController.setPressed(InputAction.MOVE_FORWARD, !positionAligned);
+		InputController.setPressed(InputAction.SNEAK, true);
 		
 		return false;
 	}
