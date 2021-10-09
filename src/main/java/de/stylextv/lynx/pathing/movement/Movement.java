@@ -10,6 +10,7 @@ import de.stylextv.lynx.pathing.calc.favoring.Favoring;
 import de.stylextv.lynx.pathing.movement.helper.BreakHelper;
 import de.stylextv.lynx.pathing.movement.helper.BumpHelper;
 import de.stylextv.lynx.pathing.movement.helper.DangerHelper;
+import de.stylextv.lynx.pathing.movement.helper.JumpHelper;
 import de.stylextv.lynx.pathing.movement.helper.PlaceHelper;
 import de.stylextv.lynx.pathing.movement.helper.StepHelper;
 import de.stylextv.lynx.render.ShapeRenderer;
@@ -27,6 +28,8 @@ public abstract class Movement {
 	private Node destination;
 	
 	private StepHelper stepHelper = new StepHelper(this);
+	
+	private JumpHelper jumpHelper = new JumpHelper(this);
 	
 	private BumpHelper bumpHelper = new BumpHelper(this);
 	
@@ -168,6 +171,10 @@ public abstract class Movement {
 	
 	public StepHelper getStepHelper() {
 		return stepHelper;
+	}
+	
+	public JumpHelper getJumpHelper() {
+		return jumpHelper;
 	}
 	
 	public BumpHelper getBumpHelper() {

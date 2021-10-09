@@ -44,7 +44,7 @@ public class ParkourMovement extends Movement {
 		
 		boolean jump = false;
 		
-		if(AwarenessController.canJump()) {
+		if(getJumpHelper().canJump()) {
 			
 			Node n = getSource();
 			
