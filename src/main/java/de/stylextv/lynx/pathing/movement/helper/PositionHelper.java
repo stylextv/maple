@@ -13,7 +13,7 @@ public class PositionHelper extends MovementHelper<Movement> {
 	
 	private static final double MAX_DISTANCE_FROM_CENTER = 0.016;
 	
-	private static final double JUMP_OFFSET = 0.78;
+	private static final double JUMP_OFFSET = 0.79;
 	
 	private static final double RUNUP_OFFSET = -0.4;
 	
@@ -91,8 +91,12 @@ public class PositionHelper extends MovementHelper<Movement> {
 		
 		boolean positionAligned = sidewaysDis < MIN_SIDEWAYS_DISTANCE;
 		
-		boolean forwardsVelocityAligned = forwards < RUNUP_OFFSET || forwardsVelocity > 0;
-		boolean sidewaysVelocityAligned = Math.abs(sidewaysVelocity) < MIN_SIDEWAYS_SPEED;
+		boolean inRunup = forwards > RUNUP_OFFSET;
+		
+		double sidewaysSpeed = Math.abs(sidewaysVelocity);
+		
+		boolean forwardsVelocityAligned = !inRunup || forwardsVelocity > 0;
+		boolean sidewaysVelocityAligned = sidewaysSpeed < MIN_SIDEWAYS_SPEED;
 		
 		boolean aligned = forwardsVelocityAligned && sidewaysVelocityAligned && positionAligned;
 		
