@@ -14,7 +14,7 @@ public class ArgumentHelper {
 		if(s.startsWith("~")) {
 			s = s.substring(1);
 			
-			BlockPos pos = PlayerContext.blockPosition();
+			BlockPos pos = PlayerContext.feetPosition();
 			
 			if(i == 0) base = pos.getX();
 			else if(i == 1) base = pos.getY();
