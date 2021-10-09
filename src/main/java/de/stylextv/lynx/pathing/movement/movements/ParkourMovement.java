@@ -39,7 +39,9 @@ public class ParkourMovement extends Movement {
 		
 		setPressed(InputAction.MOVE_FORWARD, true);
 		
-		if(distance > 3) setPressed(InputAction.SPRINT, true);
+		boolean sprint = parkourHelper.shouldSprint();
+		
+		setPressed(InputAction.SPRINT, sprint);
 		
 		boolean jump = false;
 		

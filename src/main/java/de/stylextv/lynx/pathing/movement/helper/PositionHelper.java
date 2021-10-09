@@ -42,4 +42,8 @@ public class PositionHelper extends MovementHelper<Movement> {
 		return false;
 	}
 	
+	public boolean prepareParkourJump() {
+		return true;
+	}
+	
 }

@@ -36,7 +36,19 @@ public class ParkourHelper extends MovementHelper<ParkourMovement> {
 			if(isObstructed(x, y, z, 3)) return Cost.INFINITY;
 		}
 		
-		return dis * Cost.SPRINT_STRAIGHT;
+		boolean sprint = shouldSprint();
+		
+		double cost = sprint ? Cost.SPRINT_STRAIGHT : Cost.WALK_STRAIGHT;
+		
+		return cost * dis;
+	}
+	
+	public boolean shouldSprint() {
+		ParkourMovement m = getMovement();
+		
+		double dis = m.getDistance();
+		
+		return dis > 3;
 	}
 	
 	public static boolean isObstructed(Node n, int height) {
