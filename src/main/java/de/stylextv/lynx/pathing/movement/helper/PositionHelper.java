@@ -71,6 +71,7 @@ public class PositionHelper extends MovementHelper<Movement> {
 		
 		Vec3d velocity = PlayerContext.velocity();
 		
+		double forwardsVelocity = velocity.getX() * dirX;
 		double sidewaysVelocity = velocity.getZ();
 		
 		if(dirX == 0) {
@@ -78,15 +79,18 @@ public class PositionHelper extends MovementHelper<Movement> {
 			forwards = dz * dirZ;
 			sideways = dx;
 			
+			forwardsVelocity = velocity.getZ() * dirZ;
 			sidewaysVelocity = velocity.getX();
 		}
 		
 		double sidewaysDis = Math.abs(sideways);
 		
 		boolean positionAligned = sidewaysDis < MIN_SIDEWAYS_DISTANCE;
-		boolean velocityAligned = sidewaysVelocity < MIN_SIDEWAYS_SPEED;
 		
-		boolean aligned = velocityAligned && positionAligned;
+		boolean forwardsVelocityAligned = forwards < 0 || forwardsVelocity > 0;
+		boolean sidewaysVelocityAligned = Math.abs(sidewaysVelocity) < MIN_SIDEWAYS_SPEED;
+		
+		boolean aligned = forwardsVelocityAligned && sidewaysVelocityAligned && positionAligned;
 		
 		if(aligned) {
 			
@@ -106,7 +110,7 @@ public class PositionHelper extends MovementHelper<Movement> {
 		
 		ViewController.lookAt(targetX, targetZ);
 		
-		InputController.setPressed(InputAction.MOVE_FORWARD, !positionAligned);
+		InputController.setPressed(InputAction.MOVE_FORWARD, !positionAligned || !forwardsVelocityAligned);
 		InputController.setPressed(InputAction.SNEAK, true);
 		
 		return false;
