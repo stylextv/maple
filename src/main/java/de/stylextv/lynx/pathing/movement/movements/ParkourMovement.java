@@ -1,15 +1,12 @@
 package de.stylextv.lynx.pathing.movement.movements;
 
-import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.input.InputAction;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.movement.Movement;
 import de.stylextv.lynx.pathing.movement.helper.ParkourHelper;
-import net.minecraft.util.math.Vec3d;
+import de.stylextv.lynx.pathing.movement.helper.PositionHelper;
 
 public class ParkourMovement extends Movement {
-	
-	private static final double JUMP_OFFSET = 0.79;
 	
 	private int dx;
 	private int dz;
@@ -17,6 +14,8 @@ public class ParkourMovement extends Movement {
 	private int distance;
 	
 	private ParkourHelper parkourHelper = new ParkourHelper(this);
+	
+	private PositionHelper positionHelper = new PositionHelper(this);
 	
 	public ParkourMovement(Node source, Node destination, int dx, int dz, int distance) {
 		super(source, destination);
@@ -35,39 +34,18 @@ public class ParkourMovement extends Movement {
 	
 	@Override
 	public void onRenderTick() {
-		lookAt(getDestination());
-		
-		setPressed(InputAction.MOVE_FORWARD, true);
-		
 		boolean sprint = parkourHelper.shouldSprint();
 		
+		setPressed(InputAction.MOVE_FORWARD, true);
 		setPressed(InputAction.SPRINT, sprint);
 		
-		boolean jump = false;
+		boolean prepared = positionHelper.prepareParkourJump();
 		
-		if(getJumpHelper().canJump()) {
-			
-			Node n = getSource();
-			
-			Vec3d v = PlayerContext.position();
-			
-			double disToJump;
-			
-			if(dz == 0) {
-				
-				double x = n.getX() + 0.5 + dx * JUMP_OFFSET;
-				
-				disToJump = (x - v.getX()) * dx;
-				
-			} else {
-				
-				double z = n.getZ() + 0.5 + dz * JUMP_OFFSET;
-				
-				disToJump = (z - v.getZ()) * dz;
-			}
-			
-			jump = disToJump < 0 && disToJump > -0.5;
-		}
+		if(!prepared) return;
+		
+		lookAt(getDestination());
+		
+		boolean jump = getJumpHelper().canJump();
 		
 		setPressed(InputAction.JUMP, jump);
 	}

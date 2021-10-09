@@ -6,6 +6,8 @@ import de.stylextv.lynx.input.controller.InputController;
 import de.stylextv.lynx.input.controller.ViewController;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.movement.Movement;
+import de.stylextv.lynx.pathing.movement.movements.ParkourMovement;
+import net.minecraft.util.math.Vec3d;
 
 public class PositionHelper extends MovementHelper<Movement> {
 	
@@ -43,7 +45,40 @@ public class PositionHelper extends MovementHelper<Movement> {
 	}
 	
 	public boolean prepareParkourJump() {
-		return true;
+		ParkourMovement m = (ParkourMovement) getMovement();
+		
+		Node source = m.getSource();
+		
+		double sourceX = source.getX() + 0.5;
+		double sourceZ = source.getZ() + 0.5;
+		
+		int dirX = m.getDirectionX();
+		int dirZ = m.getDirectionZ();
+		
+		Vec3d v = PlayerContext.position();
+		
+		double x = v.getX();
+		double z = v.getZ();
+		
+		double dx = sourceX - x;
+		double dz = sourceZ - z;
+		
+		double forwards = dx;
+		double sideways = dz;
+		
+		if(dirX == 0) {
+			
+			forwards = dz;
+			sideways = dx;
+		}
+		
+		if(forwards > 0.79) return true;
+		
+		Node destination = m.getDestination();
+		
+		ViewController.lookAt(destination, false);
+		
+		return false;
 	}
 	
 }

@@ -40,7 +40,9 @@ public class PillarMovement extends Movement {
 	public void onRenderTick() {
 		if(getBreakHelper().onRenderTick()) return;
 		
-		if(!positionHelper.centerOnSource()) return;
+		boolean atCenter = positionHelper.centerOnSource();
+		
+		if(!atCenter) return;
 		
 		getPlaceHelper().onRenderTick();
 		
