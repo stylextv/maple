@@ -78,7 +78,7 @@ public class WaypointCommand extends Command {
 		
 		String levelName = WorldContext.getLevelName();
 		
-		Waypoint p = Waypoints.getWaypoint(name, levelName);
+		Waypoint p = Waypoints.getWaypointByName(name, levelName);
 		
 		if(s.equalsIgnoreCase("create")) {
 			
@@ -102,9 +102,15 @@ public class WaypointCommand extends Command {
 				pos = new BlockPos(x, y, z);
 			}
 			
-			Waypoints.addWaypoint(name, WaypointTag.USER, levelName, pos);
+			boolean b = Waypoints.addWaypoint(name, WaypointTag.USER, levelName, pos);
 			
-			ChatUtil.send("Waypoint §o" + name + " §7added.");
+			if(b) {
+				ChatUtil.send("Waypoint §o" + name + " §7added.");
+				
+				return true;
+			}
+			
+			ChatUtil.send("§cA waypoint already exists at this position.");
 			
 			return true;
 		}

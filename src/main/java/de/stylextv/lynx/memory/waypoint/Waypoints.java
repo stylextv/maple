@@ -19,7 +19,7 @@ public class Waypoints {
 	
 	private static List<Waypoint> waypoints;
 	
-	public static void addWaypoint(WaypointTag tag, String levelName, BlockPos pos) {
+	public static boolean addWaypoint(WaypointTag tag, String levelName, BlockPos pos) {
 		String name;
 		
 		int i = 0;
@@ -30,22 +30,28 @@ public class Waypoints {
 			
 			if(i != 0) name += " #" + (i + 1);
 			
-			boolean exists = getWaypoint(name) != null;
+			boolean exists = getWaypointByName(name) != null;
 			
 			if(!exists) break;
 			
 			i++;
 		}
 		
-		addWaypoint(name, tag, levelName, pos);
+		return addWaypoint(name, tag, levelName, pos);
 	}
 	
-	public static void addWaypoint(String name, WaypointTag tag, String levelName, BlockPos pos) {
-		Waypoint p = new Waypoint(name, tag, levelName, pos);
+	public static boolean addWaypoint(String name, WaypointTag tag, String levelName, BlockPos pos) {
+		Waypoint p = getWaypointByPos(pos, levelName);
+		
+		if(p != null) return false;
+		
+		p = new Waypoint(name, tag, levelName, pos);
 		
 		waypoints.add(p);
 		
 		save();
+		
+		return true;
 	}
 	
 	public static void removeWaypoint(Waypoint p) {
@@ -113,13 +119,31 @@ public class Waypoints {
 		return point;
 	}
 	
-	public static Waypoint getWaypoint(String name) {
+	public static Waypoint getWaypointByPos(BlockPos pos) {
 		String levelName = WorldContext.getLevelName();
 		
-		return getWaypoint(name, levelName);
+		return getWaypointByPos(pos, levelName);
 	}
 	
-	public static Waypoint getWaypoint(String name, String levelName) {
+	public static Waypoint getWaypointByPos(BlockPos pos, String levelName) {
+		for(Waypoint p : waypoints) {
+			
+			boolean b1 = p.getPos().equals(pos);
+			boolean b2 = p.getLevelName().equalsIgnoreCase(levelName);
+			
+			if(b1 && b2) return p;
+		}
+		
+		return null;
+	}
+	
+	public static Waypoint getWaypointByName(String name) {
+		String levelName = WorldContext.getLevelName();
+		
+		return getWaypointByName(name, levelName);
+	}
+	
+	public static Waypoint getWaypointByName(String name, String levelName) {
 		for(Waypoint p : waypoints) {
 			
 			boolean b1 = p.getName().equalsIgnoreCase(name);
