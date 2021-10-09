@@ -2,7 +2,6 @@ package de.stylextv.lynx.pathing.movement.movements;
 
 import de.stylextv.lynx.context.PlayerContext;
 import de.stylextv.lynx.input.InputAction;
-import de.stylextv.lynx.input.controller.AwarenessController;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.movement.Movement;
 import de.stylextv.lynx.pathing.movement.helper.ParkourHelper;
