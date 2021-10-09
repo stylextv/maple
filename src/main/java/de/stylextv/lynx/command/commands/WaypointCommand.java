@@ -11,6 +11,8 @@ import de.stylextv.lynx.memory.waypoint.Waypoint;
 import de.stylextv.lynx.memory.waypoint.WaypointTag;
 import de.stylextv.lynx.memory.waypoint.Waypoints;
 import de.stylextv.lynx.util.chat.ChatUtil;
+import de.stylextv.lynx.util.time.TimeFormat;
+import de.stylextv.lynx.util.world.CoordUtil;
 import net.minecraft.util.math.BlockPos;
 
 public class WaypointCommand extends Command {
@@ -19,6 +21,7 @@ public class WaypointCommand extends Command {
 			"create <name> [x y z]",
 			"delete <name>",
 			"list [page]",
+			"info <name>",
 			"goto <name>"
 	};
 	
@@ -121,11 +124,29 @@ public class WaypointCommand extends Command {
 			return true;
 		}
 		
+		name = p.getName();
+		
+		if(s.equalsIgnoreCase("info")) {
+			
+			double dis = p.distance();
+			
+			String s2 = CoordUtil.formatDistance(dis);
+			
+			String s3 = String.format("This waypoint is §o%s§7 away.", s2);
+			
+			String timeStamp = TimeFormat.formatDate(p.getTimeStamp());
+			
+			String s4 = "Tag: " + p.getTag();
+			String s5 = "Timestamp: " + timeStamp;
+			
+			ChatUtil.send(name + ":", s3, "", s4, s5);
+			
+			return true;
+		}
+		
 		if(s.equalsIgnoreCase("delete")) {
 			
 			Waypoints.removeWaypoint(p);
-			
-			name = p.getName();
 			
 			ChatUtil.send("Waypoint §o" + name + " §7removed.");
 			

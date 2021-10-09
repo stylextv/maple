@@ -85,7 +85,7 @@ public class PlayerContext {
 	
 	public static double squaredDistanceTo(BlockPos pos) {
 		float x = pos.getX() + 0.5f;
-		float y = pos.getY() + 0.5f;
+		float y = pos.getY();
 		float z = pos.getZ() + 0.5f;
 		
 		return squaredDistanceTo(x, y, z);

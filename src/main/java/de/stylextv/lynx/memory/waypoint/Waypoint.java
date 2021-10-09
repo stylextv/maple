@@ -26,6 +26,12 @@ public class Waypoint {
 		this.timeStamp = System.currentTimeMillis();
 	}
 	
+	public double distance() {
+		double dis = squaredDistance();
+		
+		return Math.sqrt(dis);
+	}
+	
 	public double squaredDistance() {
 		if(!isInWorld()) return Double.POSITIVE_INFINITY;
 		
