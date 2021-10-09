@@ -13,7 +13,7 @@ public class PositionHelper extends MovementHelper<Movement> {
 	
 	private static final double MAX_DISTANCE_FROM_CENTER = 0.016;
 	
-	private static final double JUMP_OFFSET = 0.79;
+	private static final double JUMP_OFFSET = 0.785;
 	
 	private static final double RUNUP_OFFSET = -0.4;
 	
