@@ -13,6 +13,10 @@ public class PositionHelper extends MovementHelper<Movement> {
 	
 	private static final double MAX_DISTANCE_FROM_CENTER = 0.016;
 	
+	private static final double JUMP_OFFSET = 0.78;
+	
+	private static final double RUNUP_OFFSET = -0.4;
+	
 	private static final double MIN_SIDEWAYS_DISTANCE = 0.2;
 	private static final double MIN_SIDEWAYS_SPEED = 0.05;
 	
@@ -87,14 +91,14 @@ public class PositionHelper extends MovementHelper<Movement> {
 		
 		boolean positionAligned = sidewaysDis < MIN_SIDEWAYS_DISTANCE;
 		
-		boolean forwardsVelocityAligned = forwards < 0 || forwardsVelocity > 0;
+		boolean forwardsVelocityAligned = forwards < RUNUP_OFFSET || forwardsVelocity > 0;
 		boolean sidewaysVelocityAligned = Math.abs(sidewaysVelocity) < MIN_SIDEWAYS_SPEED;
 		
 		boolean aligned = forwardsVelocityAligned && sidewaysVelocityAligned && positionAligned;
 		
 		if(aligned) {
 			
-			if(forwards > 0.77) return true;
+			if(forwards > JUMP_OFFSET) return true;
 			
 			Node destination = m.getDestination();
 			
