@@ -7,6 +7,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.hud.ChatHud;
 import net.minecraft.client.gui.hud.InGameHud;
+import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.render.Camera;
 import net.minecraft.server.integrated.IntegratedServer;
@@ -30,6 +31,10 @@ public class GameContext {
 	
 	public static GameOptions options() {
 		return CLIENT.options;
+	}
+	
+	public static ClientPlayerInteractionManager interactionManager() {
+		return CLIENT.interactionManager;
 	}
 	
 	public static ChatHud chatHud() {

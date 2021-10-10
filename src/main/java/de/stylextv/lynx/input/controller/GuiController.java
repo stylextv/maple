@@ -1,8 +1,12 @@
 package de.stylextv.lynx.input.controller;
 
+import de.stylextv.lynx.context.GameContext;
 import de.stylextv.lynx.context.PlayerContext;
+import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.screen.slot.SlotActionType;
 
 public class GuiController {
 	
@@ -11,7 +15,14 @@ public class GuiController {
 		
 		if(slot == -1) return;
 		
-		selectSlot(slot);
+		if(slot < 9) {
+			
+			selectSlot(slot);
+			
+			return;
+		}
+		
+		moveToHotbar(slot);
 	}
 	
 	public static void selectSlot(int slot) {
@@ -20,10 +31,24 @@ public class GuiController {
 		inv.selectedSlot = slot;
 	}
 	
+	public static void moveToHotbar(int slot) {
+		ClientPlayerInteractionManager interactionManager = GameContext.interactionManager();
+		
+		ClientPlayerEntity p = PlayerContext.player();
+		
+		PlayerInventory inv = PlayerContext.inventory();
+		
+		int syncId = p.playerScreenHandler.syncId;
+		
+		int moveTo = inv.selectedSlot;
+		
+		interactionManager.clickSlot(syncId, slot, moveTo, SlotActionType.SWAP, p);
+	}
+	
 	public static int slotOf(ItemStack stack) {
 		PlayerInventory inv = PlayerContext.inventory();
 		
-		for(int i = 0; i < 9; i++) {
+		for(int i = 0; i < 36; i++) {
 			
 			ItemStack other = inv.getStack(i);
 			

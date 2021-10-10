@@ -108,7 +108,7 @@ public class ToolSet {
 		
 		DefaultedList<ItemStack> list = inv.main;
 		
-		int l = 9;
+		int l = 36;
 		
 		ItemStack[] stacks = new ItemStack[l];
 		
