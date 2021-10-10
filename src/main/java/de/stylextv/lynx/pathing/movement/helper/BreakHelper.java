@@ -37,13 +37,7 @@ public class BreakHelper extends TargetHelper {
 			
 			while(true) {
 				
-				BlockType type = CacheManager.getBlockType(pos);
-				
-				boolean unbreakable = type.isSolid() && !type.isBreakable();
-				
-				if(unbreakable || !BreakController.isSafeToBreak(pos)) return Cost.INFINITY;
-				
-				sum += Cost.breakCost(pos);
+				sum += costOfBlock(pos);
 				
 				pos = pos.up();
 				
@@ -60,6 +54,16 @@ public class BreakHelper extends TargetHelper {
 		}
 		
 		return sum;
+	}
+	
+	private double costOfBlock(BlockPos pos) {
+		BlockType type = CacheManager.getBlockType(pos);
+		
+		boolean unbreakable = type.isSolid() && !type.isBreakable();
+		
+		if(unbreakable || !BreakController.isSafeToBreak(pos)) return Cost.INFINITY;
+		
+		return Cost.breakCost(pos);
 	}
 	
 	public boolean onRenderTick() {
