@@ -32,7 +32,7 @@ public class GuiController {
 	}
 	
 	public static void moveToHotbar(int slot) {
-		ClientPlayerInteractionManager interactionManager = GameContext.interactionManager();
+		ClientPlayerInteractionManager manager = GameContext.interactionManager();
 		
 		ClientPlayerEntity p = PlayerContext.player();
 		
@@ -42,7 +42,7 @@ public class GuiController {
 		
 		int moveTo = inv.getSwappableHotbarSlot();
 		
-		interactionManager.clickSlot(syncId, slot, moveTo, SlotActionType.SWAP, p);
+		manager.clickSlot(syncId, slot, moveTo, SlotActionType.SWAP, p);
 	}
 	
 	public static int slotOf(ItemStack stack) {

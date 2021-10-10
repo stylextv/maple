@@ -5,6 +5,7 @@ import de.stylextv.lynx.input.InputAction;
 import de.stylextv.lynx.pathing.calc.Cost;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.movement.Movement;
+import de.stylextv.lynx.pathing.movement.MovementState;
 import de.stylextv.lynx.pathing.movement.helper.FallHelper;
 import net.minecraft.util.math.BlockPos;
 
@@ -44,6 +45,8 @@ public class FallMovement extends Movement {
 	public void onRenderTick() {
 		if(getBreakHelper().onRenderTick()) return;
 		
+		fallHelper.onRenderTick();
+		
 		Node n = getDestination();
 		
 		lookAt(n, true);
@@ -59,6 +62,13 @@ public class FallMovement extends Movement {
 		
 		setPressed(InputAction.MOVE_FORWARD, !aboveDestination || onGround);
 		setPressed(InputAction.SPRINT, true);
+	}
+	
+	@Override
+	public MovementState getState() {
+		if(!fallHelper.isFinished()) return MovementState.PROCEEDING;
+		
+		return super.getState();
 	}
 	
 	public int getFallDistance() {
