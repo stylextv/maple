@@ -4,7 +4,7 @@
   <br>
 </h1>
 
-<h4 align="center">👾 Source code of the Maple bot, made with ❤️ in Java.</h4>
+<h4 align="center">🍁 Source code of the Maple bot, made with ❤️ in Java.</h4>
 
 <p align="center">
   <a href="https://GitHub.com/StylexTV/Maple/stargazers/">
