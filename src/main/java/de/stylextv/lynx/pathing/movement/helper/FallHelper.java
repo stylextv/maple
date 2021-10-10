@@ -27,9 +27,7 @@ public class FallHelper extends MovementHelper<FallMovement> {
 		
 		if(hasToMlg()) {
 			
-			DimensionType dimension = WorldContext.dimension();
-			
-			if(dimension.isUltrawarm()) return Cost.INFINITY;
+			if(!canPlaceWater()) return Cost.INFINITY;
 			
 			ToolSet tools = ToolSet.getTools();
 			
@@ -85,6 +83,12 @@ public class FallHelper extends MovementHelper<FallMovement> {
 		if(placedWaterBucket) InputController.setPressed(InputAction.RIGHT_CLICK, true);
 		
 		return false;
+	}
+	
+	private static boolean canPlaceWater() {
+		DimensionType dimension = WorldContext.dimension();
+		
+		return !dimension.isUltrawarm();
 	}
 	
 }
