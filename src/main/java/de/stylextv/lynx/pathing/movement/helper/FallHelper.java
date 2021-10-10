@@ -2,6 +2,7 @@ package de.stylextv.lynx.pathing.movement.helper;
 
 import de.stylextv.lynx.cache.BlockType;
 import de.stylextv.lynx.context.PlayerContext;
+import de.stylextv.lynx.context.WorldContext;
 import de.stylextv.lynx.gui.ToolSet;
 import de.stylextv.lynx.input.InputAction;
 import de.stylextv.lynx.input.controller.GuiController;
@@ -10,6 +11,7 @@ import de.stylextv.lynx.pathing.calc.Cost;
 import de.stylextv.lynx.pathing.calc.Node;
 import de.stylextv.lynx.pathing.movement.movements.FallMovement;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.dimension.DimensionType;
 
 public class FallHelper extends MovementHelper<FallMovement> {
 	
@@ -24,6 +26,10 @@ public class FallHelper extends MovementHelper<FallMovement> {
 		if(placedWaterBucket) return 0;
 		
 		if(hasToMlg()) {
+			
+			DimensionType dimension = WorldContext.dimension();
+			
+			if(dimension.isUltrawarm()) return Cost.INFINITY;
 			
 			ToolSet tools = ToolSet.getTools();
 			
