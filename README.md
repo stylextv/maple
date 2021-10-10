@@ -98,6 +98,7 @@ Placing blocks | 🟢 (somewhat) Stable | ✔️
 Avoiding blocks | 🟢 Stable | ✔️
 Avoiding mobs | 🟡 Unstable | ✔️
 Parkour | 🟢 Stable | ✔️
+MLGs | 🟢 Stable | ❌
 Path segmentation | 🟢 Implemented | ✔️
 Backtracking | 🟢 Implemented | ✔️
 
