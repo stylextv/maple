@@ -126,3 +126,6 @@ Then open Eclipse and select `Import > Existing Gradle Project > Select Folder`.
 #### IntelliJ
 If you prefer to use IntelliJ, open IDEA, select `File | Open` and select the `build.gradle` file.
 After Gradle is done setting up, close and re-open the project to fix run configurations not displaying correctly.
+
+## Baritone
+LYNX is heavily inspired by Baritone, another pathfinder for Minecraft. Check out their repository at this [link](https://github.com/cabaletta/baritone).
