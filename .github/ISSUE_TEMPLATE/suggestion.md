@@ -8,7 +8,7 @@ assignees: StylexTV
 ---
 
 **Describe your suggestion**
-A clear and concise description of what should happen and what should be added to LYNX.
+A clear and concise description of what should happen and what should be added to Maple.
 
 **Customizability**
 If applicable, what settings/customizability should be offered to tweak the functionality of your suggestion.

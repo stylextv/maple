@@ -26,7 +26,7 @@ Run #modified ingame to get a list of all modified options, and place that list 
  - OS: [e.g. iOS, Windows]
  - Java version: [e.g. 1.8.0]
  - Minecraft version: 
- - LYNX version: 
+ - Maple version: 
  - Other mods (if used): 
 
 **Additional context**
