@@ -25,12 +25,12 @@
 </p>
 
 ## Overview
-[Maple](https://playlynx.github.io/) is a free and powerful path-finding bot that lets you navigate the vast landscapes of [Minecraft](https://www.minecraft.net/) without any user intervention.
+[Maple](https://maplemc.github.io/) is a free and powerful path-finding bot that lets you navigate the vast landscapes of [Minecraft](https://www.minecraft.net/) without any user intervention.
 
 Additionally, Maple focuses on efficiency and performance, while also paying attention to reliability and an unobtrusive look.
 The bot is mainly controlled by [chat input](https://github.com/StylexTV/Maple#commands) and the underlying pathing algorithm is called [A*](https://en.wikipedia.org/wiki/A*_search_algorithm), a perfect algorithm for navigating voxel worlds like Minecraft.
 
-If you simply want to use Maple, you can download the latest version from the [download page](https://playlynx.github.io/). With the appropriate version of [Fabric](https://fabricmc.net/use/) installed, you should be good to go.
+If you simply want to use Maple, you can download the latest version from the [download page](https://maplemc.github.io/). With the appropriate version of [Fabric](https://fabricmc.net/use/) installed, you should be good to go.
 
 This project is heavily inspired by Baritone, another pathfinder for Minecraft. Check out their repository at this [link](https://github.com/cabaletta/baritone).
 
@@ -113,7 +113,7 @@ TODO
 ## Installation & setup
 Before installing the Maple project on your PC, make sure that you are using at least [JDK 16](https://www.oracle.com/java/technologies/javase-jdk16-downloads.html). To check your Java version, open a command prompt or your terminal and enter `java -version`.
 
-> **Note:** This guide is for installing the Maple project to **modify/build** it. If you just want to use Maple, you can find the latest build on the [download page](https://playlynx.github.io/).
+> **Note:** This guide is for installing the Maple project to **modify/build** it. If you just want to use Maple, you can find the latest build on the [download page](https://maplemc.github.io/).
 
 #### Download
 Clone or download the project using the button at the top of this page. Make sure to unzip the contents of the ZIP file if you have chosen to download the project.
