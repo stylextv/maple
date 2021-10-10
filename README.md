@@ -32,6 +32,8 @@ The bot is mainly controlled by [chat input](https://github.com/StylexTV/LYNX#co
 
 If you simply want to use LYNX, you can download the latest version from the [download page](https://playlynx.github.io/). With the appropriate version of [Fabric](https://fabricmc.net/use/) installed, you should be good to go.
 
+This project is heavily inspired by Baritone, another pathfinder for Minecraft. Check out their repository at this [link](https://github.com/cabaletta/baritone).
+
 ## Features
 LYNX is equipped with many useful features that allow it to find the way to any destination and overcome any obstacle.
 
@@ -126,6 +128,3 @@ Then open Eclipse and select `Import > Existing Gradle Project > Select Folder`.
 #### IntelliJ
 If you prefer to use IntelliJ, open IDEA, select `File | Open` and select the `build.gradle` file.
 After Gradle is done setting up, close and re-open the project to fix run configurations not displaying correctly.
-
-## Baritone
-LYNX is heavily inspired by Baritone, another pathfinder for Minecraft. Check out their repository at this [link](https://github.com/cabaletta/baritone).
