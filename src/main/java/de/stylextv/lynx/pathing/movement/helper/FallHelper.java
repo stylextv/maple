@@ -50,11 +50,7 @@ public class FallHelper extends MovementHelper<FallMovement> {
 	public void onRenderTick() {
 		boolean onGround = PlayerContext.isOnGround();
 		
-		boolean inWater = PlayerContext.isInWater();
-		
-		if(onGround || inWater || !hasToMlg()) return;
-		
-		if(!selectWaterBucket()) return;
+		if(onGround || !hasToMlg() || !selectWaterBucket()) return;
 		
 		InputController.setPressed(InputAction.RIGHT_CLICK, true);
 		
@@ -74,17 +70,15 @@ public class FallHelper extends MovementHelper<FallMovement> {
 	}
 	
 	public boolean isFinished() {
-		if(!placedWaterBucket) return true;
-		
 		boolean onGround = PlayerContext.isOnGround();
 		
 		boolean inWater = PlayerContext.isInWater();
 		
 		if(!inWater) return onGround;
 		
-		InputController.setPressed(InputAction.RIGHT_CLICK, true);
+		if(placedWaterBucket) InputController.setPressed(InputAction.RIGHT_CLICK, true);
 		
-		return true;
+		return false;
 	}
 	
 }
