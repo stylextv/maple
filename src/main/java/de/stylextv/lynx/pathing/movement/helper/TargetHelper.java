@@ -70,6 +70,14 @@ public abstract class TargetHelper extends MovementHelper<Movement> {
 		targets.remove(target);
 	}
 	
+	public boolean hasTarget(BlockPos pos) {
+		int x = pos.getX();
+		int y = pos.getY();
+		int z = pos.getZ();
+		
+		return hasTarget(x, y, z);
+	}
+	
 	public boolean hasTarget(int x, int y, int z) {
 		for(BlockTarget target : targets) {
 			

@@ -6,6 +6,10 @@ import de.stylextv.lynx.input.controller.BreakController;
 import de.stylextv.lynx.input.target.BlockTarget;
 import de.stylextv.lynx.pathing.calc.Cost;
 import de.stylextv.lynx.pathing.movement.Movement;
+import de.stylextv.lynx.world.BlockInterface;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.FallingBlock;
 import net.minecraft.util.math.BlockPos;
 
 public class BreakHelper extends TargetHelper {
@@ -31,13 +35,28 @@ public class BreakHelper extends TargetHelper {
 			
 			BlockPos pos = target.getPos();
 			
-			BlockType type = CacheManager.getBlockType(pos);
-			
-			boolean unbreakable = type.isSolid() && !type.isBreakable();
-			
-			if(unbreakable || !BreakController.isSafeToBreak(pos)) return Cost.INFINITY;
-			
-			sum += Cost.breakCost(pos);
+			while(true) {
+				
+				BlockType type = CacheManager.getBlockType(pos);
+				
+				boolean unbreakable = type.isSolid() && !type.isBreakable();
+				
+				if(unbreakable || !BreakController.isSafeToBreak(pos)) return Cost.INFINITY;
+				
+				sum += Cost.breakCost(pos);
+				
+				pos = pos.up();
+				
+				if(hasTarget(pos)) break;
+				
+				BlockState state = BlockInterface.getState(pos);
+				
+				Block block = state.getBlock();
+				
+				boolean falls = block instanceof FallingBlock;
+				
+				if(!falls) break;
+			}
 		}
 		
 		return sum;
