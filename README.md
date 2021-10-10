@@ -10,7 +10,7 @@
   <a href="https://GitHub.com/StylexTV/Maple/stargazers/">
     <img alt="stars" src="https://img.shields.io/github/stars/StylexTV/Maple.svg?color=ffdd00"/>
   </a>
-  <a href="https://www.codacy.com/gh/StylexTV/LYNX/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=StylexTV/LYNX&amp;utm_campaign=Badge_Grade">
+  <a href="https://www.codacy.com/gh/StylexTV/Maple/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=StylexTV/Maple&amp;utm_campaign=Badge_Grade">
     <img alt="Codacy Badge" src="https://app.codacy.com/project/badge/Grade/a1b260d90028428fbf9ce33f4fcf311e"/>
   </a>
   <a>
