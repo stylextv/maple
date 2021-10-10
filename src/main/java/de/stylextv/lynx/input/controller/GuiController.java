@@ -40,7 +40,7 @@ public class GuiController {
 		
 		int syncId = p.playerScreenHandler.syncId;
 		
-		int moveTo = inv.selectedSlot;
+		int moveTo = inv.getSwappableHotbarSlot();
 		
 		interactionManager.clickSlot(syncId, slot, moveTo, SlotActionType.SWAP, p);
 	}
