@@ -80,9 +80,7 @@ public class FallHelper extends MovementHelper<FallMovement> {
 		
 		boolean inWater = PlayerContext.isInWater();
 		
-		if(onGround && !inWater) return true;
-		
-		if(!inWater) return false;
+		if(!inWater) return onGround;
 		
 		InputController.setPressed(InputAction.RIGHT_CLICK, true);
 		
