@@ -17,6 +17,7 @@ public class StepHelper extends MovementHelper<Movement> {
 	private static final HashMap<Block, Float> SPEED_MULTIPLIERS = new HashMap<>();
 	
 	static {
+		SPEED_MULTIPLIERS.put(Blocks.WATER, 0.5f);
 		SPEED_MULTIPLIERS.put(Blocks.COBWEB, 0.25f);
 		SPEED_MULTIPLIERS.put(Blocks.SWEET_BERRY_BUSH, 0.8f);
 	}
@@ -51,20 +52,23 @@ public class StepHelper extends MovementHelper<Movement> {
 		
 		if(m.isVerticalOnly()) return 0;
 		
-		if(inWater) return isDiagonal ? Cost.SWIM_DIAGONALLY : Cost.SWIM_STRAIGHT;
+		float f = 1;
 		
-		BlockState state = BlockInterface.getState(x, y - 1, z);
-		
-		Block block = state.getBlock();
-		
-		float f = block.getVelocityMultiplier();
+		if(!inWater) {
+			
+			BlockState state = BlockInterface.getState(x, y - 1, z);
+			
+			Block block = state.getBlock();
+			
+			f = block.getVelocityMultiplier();
+		}
 		
 		float m1 = getSpeedMultiplier(x, y, z);
 		float m2 = getSpeedMultiplier(x, y + 1, z);
 		
 		f *= Math.min(m1, m2);
 		
-		double cost = isDiagonal ? Cost.WALK_DIAGONALLY : Cost.WALK_STRAIGHT;
+		double cost = isDiagonal ? Cost.SPRINT_DIAGONALLY : Cost.SPRINT_STRAIGHT;
 		
 		return cost / f;
 	}
