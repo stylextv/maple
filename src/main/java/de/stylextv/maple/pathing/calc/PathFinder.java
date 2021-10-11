@@ -111,6 +111,8 @@ public class PathFinder {
 		
 		for(Node n : partialSolutions) {
 			
+			if(n == null) continue;
+			
 			int dis = startNode.squaredDistanceTo(n);
 			
 			boolean b = dis > PS_MIN_DISTANCE;
