@@ -25,6 +25,7 @@ public class StepHelper extends MovementHelper<Movement> {
 		super(m);
 	}
 	
+	// TODO slowness effect from diagonally adjacent blocks
 	@Override
 	public double cost() {
 		Movement m = getMovement();
@@ -58,7 +59,10 @@ public class StepHelper extends MovementHelper<Movement> {
 		
 		float f = block.getVelocityMultiplier();
 		
-		f *= getSpeedMultiplier(x, y, z);
+		float m1 = getSpeedMultiplier(x, y, z);
+		float m2 = getSpeedMultiplier(x, y + 1, z);
+		
+		f *= Math.min(m1, m2);
 		
 		double cost = isDiagonal ? Cost.WALK_DIAGONALLY : Cost.WALK_STRAIGHT;
 		
