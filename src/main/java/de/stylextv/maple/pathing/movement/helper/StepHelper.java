@@ -58,7 +58,7 @@ public class StepHelper extends MovementHelper<Movement> {
 		
 		float f = block.getVelocityMultiplier();
 		
-		f *= getSpeedMultiplier(block);
+		f *= getSpeedMultiplier(x, y, z);
 		
 		double cost = isDiagonal ? Cost.WALK_DIAGONALLY : Cost.WALK_STRAIGHT;
 		
@@ -70,10 +70,6 @@ public class StepHelper extends MovementHelper<Movement> {
 		
 		Block block = state.getBlock();
 		
-		return getSpeedMultiplier(block);
-	}
-	
-	public static float getSpeedMultiplier(Block block) {
 		return SPEED_MULTIPLIERS.getOrDefault(block, 1f);
 	}
 	
