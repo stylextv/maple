@@ -141,7 +141,7 @@ public class BlockType {
 		boolean aboveFence = blockBelow instanceof FenceBlock || blockBelow instanceof FenceGateBlock;
 		
 		if(aboveFence || above.getBlock().equals(Blocks.LILY_PAD)) {
-			return SOLID;
+			return UNBREAKABLE;
 		}
 		
 		Fluid fluid = state.getFluidState().getFluid();
