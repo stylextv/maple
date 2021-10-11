@@ -1,5 +1,7 @@
 package de.stylextv.maple.pathing.movement.helper;
 
+import java.util.HashMap;
+
 import de.stylextv.maple.cache.BlockType;
 import de.stylextv.maple.cache.CacheManager;
 import de.stylextv.maple.pathing.calc.Cost;
@@ -8,8 +10,16 @@ import de.stylextv.maple.pathing.movement.Movement;
 import de.stylextv.maple.world.BlockInterface;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 
 public class StepHelper extends MovementHelper<Movement> {
+	
+	private static final HashMap<Block, Float> SPEED_MULTIPLIERS = new HashMap<>();
+	
+	static {
+		SPEED_MULTIPLIERS.put(Blocks.COBWEB, 0.25f);
+		SPEED_MULTIPLIERS.put(Blocks.SWEET_BERRY_BUSH, 0.8f);
+	}
 	
 	public StepHelper(Movement m) {
 		super(m);
@@ -48,9 +58,23 @@ public class StepHelper extends MovementHelper<Movement> {
 		
 		float f = block.getVelocityMultiplier();
 		
+		f *= getSpeedMultiplier(block);
+		
 		double cost = isDiagonal ? Cost.WALK_DIAGONALLY : Cost.WALK_STRAIGHT;
 		
 		return cost / f;
+	}
+	
+	public static float getSpeedMultiplier(int x, int y, int z) {
+		BlockState state = BlockInterface.getState(x, y, z);
+		
+		Block block = state.getBlock();
+		
+		return getSpeedMultiplier(block);
+	}
+	
+	public static float getSpeedMultiplier(Block block) {
+		return SPEED_MULTIPLIERS.getOrDefault(block, 1f);
 	}
 	
 }

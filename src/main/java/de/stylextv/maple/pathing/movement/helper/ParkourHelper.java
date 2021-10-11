@@ -79,7 +79,11 @@ public class ParkourHelper extends MovementHelper<ParkourMovement> {
 	public static boolean isObstructed(int x, int y, int z) {
 		BlockType type = CacheManager.getBlockType(x, y, z);
 		
-		return !type.isAir();
+		if(!type.isAir()) return true;
+		
+		float f = StepHelper.getSpeedMultiplier(x, y, z);
+		
+		return f != 1;
 	}
 	
 }
