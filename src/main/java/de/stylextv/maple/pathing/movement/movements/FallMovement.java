@@ -30,7 +30,7 @@ public class FallMovement extends Movement {
 		getBreakHelper().collectBlocks(x, y, z, -1, 3);
 		
 		getInteractHelper().collectDefaultBlocks();
-		getInteractHelper().collectBlocks(x, y, z, -1, 1);
+		getInteractHelper().collectBlocks(x, y, z, -1, 3);
 	}
 	
 	@Override

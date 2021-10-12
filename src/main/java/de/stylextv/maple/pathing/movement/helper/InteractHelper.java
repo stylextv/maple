@@ -15,8 +15,6 @@ public class InteractHelper extends TargetHelper<OpenableTarget> {
 	}
 	
 	public void collectDefaultBlocks() {
-		System.out.println("collecting defaults");
-		
 		Movement m = getMovement();
 		
 		Node source = m.getSource();
