@@ -17,6 +17,7 @@ import de.stylextv.maple.render.ShapeRenderer;
 import de.stylextv.maple.scheme.Color;
 import de.stylextv.maple.util.time.TimeUtil;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 
 public abstract class Movement {
 	
@@ -147,6 +148,14 @@ public abstract class Movement {
 		int sum = Math.abs(dirX) + Math.abs(dirY) + Math.abs(dirZ);
 		
 		return sum > 1;
+	}
+	
+	public Direction getDirection() {
+		int dirX = getDirectionX();
+		int dirY = getDirectionY();
+		int dirZ = getDirectionZ();
+		
+		return Direction.fromVector(dirX, dirY, dirZ);
 	}
 	
 	public int getDirectionX() {

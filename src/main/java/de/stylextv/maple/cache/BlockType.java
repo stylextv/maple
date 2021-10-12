@@ -1,10 +1,10 @@
 package de.stylextv.maple.cache;
 
+import de.stylextv.maple.world.interact.Openable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FenceBlock;
-import net.minecraft.block.FenceGateBlock;
 import net.minecraft.block.InfestedBlock;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
@@ -137,9 +137,13 @@ public class BlockType {
 		
 		if(isUnbreakable || block instanceof InfestedBlock) return UNBREAKABLE;
 		
+		Openable o = Openable.fromBlock(block);
+		
+		if(o != null) return AIR;
+		
 		Block blockBelow = below.getBlock();
 		
-		boolean aboveFence = blockBelow instanceof FenceBlock || blockBelow instanceof FenceGateBlock;
+		boolean aboveFence = blockBelow instanceof FenceBlock;
 		
 		if(aboveFence || above.getBlock().equals(Blocks.LILY_PAD)) {
 			return UNBREAKABLE;

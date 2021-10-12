@@ -5,8 +5,11 @@ import de.stylextv.maple.pathing.calc.Cost;
 import de.stylextv.maple.pathing.calc.Node;
 import de.stylextv.maple.pathing.movement.Movement;
 import de.stylextv.maple.pathing.movement.MovementState;
+import de.stylextv.maple.pathing.movement.helper.InteractHelper;
 
 public class AscendMovement extends Movement {
+	
+	private InteractHelper interactHelper = new InteractHelper(this);
 	
 	public AscendMovement(Node source, Node destination) {
 		super(source, destination);
@@ -26,6 +29,7 @@ public class AscendMovement extends Movement {
 	public double cost() {
 		double cost = Cost.JUMP + getBreakHelper().cost();
 		
+		cost += interactHelper.cost();
 		cost += getPlaceHelper().cost();
 		
 		return cost + super.cost();
@@ -33,7 +37,9 @@ public class AscendMovement extends Movement {
 	
 	@Override
 	public void onRenderTick() {
-		if(getBreakHelper().onRenderTick()) return;
+		boolean interacting = getBreakHelper().onRenderTick() || interactHelper.onRenderTick();
+		
+		if(interacting) return;
 		
 		if(!getPlaceHelper().onRenderTick()) {
 			

@@ -5,8 +5,11 @@ import de.stylextv.maple.input.InputAction;
 import de.stylextv.maple.pathing.calc.Cost;
 import de.stylextv.maple.pathing.calc.Node;
 import de.stylextv.maple.pathing.movement.Movement;
+import de.stylextv.maple.pathing.movement.helper.InteractHelper;
 
 public class DescendMovement extends Movement {
+	
+	private InteractHelper interactHelper = new InteractHelper(this);
 	
 	public DescendMovement(Node source, Node destination) {
 		super(source, destination);
@@ -25,6 +28,7 @@ public class DescendMovement extends Movement {
 	public double cost() {
 		double cost = isVerticalOnly() ? Cost.FALL_N_BLOCKS[1] : 0;
 		
+		cost += interactHelper.cost();
 		cost += getBreakHelper().cost();
 		
 		return cost + super.cost();
@@ -32,9 +36,9 @@ public class DescendMovement extends Movement {
 	
 	@Override
 	public void onRenderTick() {
-		if(getBreakHelper().onRenderTick()) return;
+		boolean interacting = getBreakHelper().onRenderTick() || interactHelper.onRenderTick();
 		
-		lookAt(getDestination());
+		if(interacting) return;
 		
 		if(isVerticalOnly() && !PlayerContext.isOnGround()) return;
 		
