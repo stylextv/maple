@@ -74,13 +74,15 @@ public class FallHelper extends MovementHelper<FallMovement> {
 	}
 	
 	public boolean isFinished() {
+		if(!placedWaterBucket) return true;
+		
 		boolean onGround = PlayerContext.isOnGround();
 		
 		boolean inWater = PlayerContext.isInWater();
 		
 		if(!inWater) return onGround;
 		
-		if(placedWaterBucket) InputController.setPressed(InputAction.RIGHT_CLICK, true);
+		InputController.setPressed(InputAction.RIGHT_CLICK, true);
 		
 		return false;
 	}
