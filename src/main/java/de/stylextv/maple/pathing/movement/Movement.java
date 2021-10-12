@@ -10,6 +10,7 @@ import de.stylextv.maple.pathing.calc.favoring.Favoring;
 import de.stylextv.maple.pathing.movement.helper.BreakHelper;
 import de.stylextv.maple.pathing.movement.helper.BumpHelper;
 import de.stylextv.maple.pathing.movement.helper.DangerHelper;
+import de.stylextv.maple.pathing.movement.helper.InteractHelper;
 import de.stylextv.maple.pathing.movement.helper.JumpHelper;
 import de.stylextv.maple.pathing.movement.helper.PlaceHelper;
 import de.stylextv.maple.pathing.movement.helper.StepHelper;
@@ -36,6 +37,8 @@ public abstract class Movement {
 	
 	private BreakHelper breakHelper = new BreakHelper(this);
 	private PlaceHelper placeHelper = new PlaceHelper(this);
+	
+	private InteractHelper interactHelper = new InteractHelper(this);
 	
 	private DangerHelper dangerHelper = new DangerHelper(this);
 	
@@ -196,6 +199,10 @@ public abstract class Movement {
 	
 	public PlaceHelper getPlaceHelper() {
 		return placeHelper;
+	}
+	
+	public InteractHelper getInteractHelper() {
+		return interactHelper;
 	}
 	
 	public DangerHelper getDangerHelper() {

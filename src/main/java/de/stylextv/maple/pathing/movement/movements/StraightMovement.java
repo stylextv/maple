@@ -5,11 +5,8 @@ import de.stylextv.maple.input.InputAction;
 import de.stylextv.maple.pathing.calc.Node;
 import de.stylextv.maple.pathing.movement.Movement;
 import de.stylextv.maple.pathing.movement.MovementState;
-import de.stylextv.maple.pathing.movement.helper.InteractHelper;
 
 public class StraightMovement extends Movement {
-	
-	private InteractHelper interactHelper = new InteractHelper(this);
 	
 	public StraightMovement(Node source, Node destination) {
 		super(source, destination);
@@ -30,15 +27,15 @@ public class StraightMovement extends Movement {
 	public double cost() {
 		double cost = getBreakHelper().cost();
 		
-		cost += interactHelper.cost();
 		cost += getPlaceHelper().cost();
+		cost += getInteractHelper().cost();
 		
 		return cost + super.cost();
 	}
 	
 	@Override
 	public void onRenderTick() {
-		boolean interacting = getBreakHelper().onRenderTick() || interactHelper.onRenderTick();
+		boolean interacting = getBreakHelper().onRenderTick() || getInteractHelper().onRenderTick();
 		
 		if(interacting) return;
 		
