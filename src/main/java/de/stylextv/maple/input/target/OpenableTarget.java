@@ -1,10 +1,10 @@
 package de.stylextv.maple.input.target;
 
-import de.stylextv.maple.input.controller.InteractController;
+import de.stylextv.maple.input.InputAction;
+import de.stylextv.maple.input.controller.InputController;
 import de.stylextv.maple.pathing.movement.Movement;
 import de.stylextv.maple.world.interact.Openable;
 import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockPos;
 
 public class OpenableTarget extends BlockTarget {
 	
@@ -20,10 +20,15 @@ public class OpenableTarget extends BlockTarget {
 		this.openable = o;
 	}
 	
-	public void open(Movement m) {
-		BlockPos pos = getPos();
+	public boolean open() {
+		if(isSelected(false)) {
+			
+			InputController.setPressed(InputAction.RIGHT_CLICK, true);
+			
+			return true;
+		}
 		
-		InteractController.open(pos, openable);
+		return lookAt(false);
 	}
 	
 	public boolean isLocked() {

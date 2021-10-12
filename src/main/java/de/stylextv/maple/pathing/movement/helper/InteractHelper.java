@@ -15,6 +15,8 @@ public class InteractHelper extends TargetHelper<OpenableTarget> {
 	}
 	
 	public void collectDefaultBlocks() {
+		System.out.println("collecting defaults");
+		
 		Movement m = getMovement();
 		
 		Node source = m.getSource();
@@ -70,9 +72,7 @@ public class InteractHelper extends TargetHelper<OpenableTarget> {
 				continue;
 			}
 			
-			target.open(m);
-			
-			return true;
+			if(target.open()) return true;
 		}
 		
 		return false;
