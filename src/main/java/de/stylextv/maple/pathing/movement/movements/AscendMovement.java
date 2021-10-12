@@ -20,6 +20,8 @@ public class AscendMovement extends Movement {
 		Node destination = getDestination();
 		
 		getPlaceHelper().collectBlock(destination, -1);
+		
+		getInteractHelper().collectDefaultBlocks();
 	}
 	
 	@Override

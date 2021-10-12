@@ -28,6 +28,9 @@ public class FallMovement extends Movement {
 		int z = getDestination().getZ();
 		
 		getBreakHelper().collectBlocks(x, y, z, -1, 3);
+		
+		getInteractHelper().collectDefaultBlocks();
+		getInteractHelper().collectBlocks(x, y, z, -1, 1);
 	}
 	
 	@Override
@@ -35,6 +38,7 @@ public class FallMovement extends Movement {
 		double cost = Cost.FALL_N_BLOCKS[fallDistance];
 		
 		cost += getBreakHelper().cost();
+		cost += getInteractHelper().cost();
 		
 		cost += fallHelper.cost();
 		
@@ -43,7 +47,9 @@ public class FallMovement extends Movement {
 	
 	@Override
 	public void onRenderTick() {
-		if(getBreakHelper().onRenderTick()) return;
+		boolean interacting = getBreakHelper().onRenderTick() || getInteractHelper().onRenderTick();
+		
+		if(interacting) return;
 		
 		fallHelper.onRenderTick();
 		

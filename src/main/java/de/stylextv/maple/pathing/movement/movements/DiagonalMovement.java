@@ -11,6 +11,11 @@ public class DiagonalMovement extends Movement {
 	}
 	
 	@Override
+	public void updateHelpers() {
+		getInteractHelper().collectDefaultBlocks();
+	}
+	
+	@Override
 	public double cost() {
 		double cost = getInteractHelper().cost();
 		

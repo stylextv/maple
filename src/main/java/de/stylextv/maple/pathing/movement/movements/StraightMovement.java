@@ -21,6 +21,8 @@ public class StraightMovement extends Movement {
 		BlockType type = destination.getType();
 		
 		if(type != BlockType.WATER) getPlaceHelper().collectBlock(destination, -1);
+		
+		getInteractHelper().collectDefaultBlocks();
 	}
 	
 	@Override

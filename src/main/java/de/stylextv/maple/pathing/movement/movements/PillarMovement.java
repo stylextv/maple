@@ -19,8 +19,9 @@ public class PillarMovement extends Movement {
 	@Override
 	public void updateHelpers() {
 		getBreakHelper().collectBlocks(getSource(), 2, 1);
-		
 		getPlaceHelper().collectBlock(getSource());
+		
+		getInteractHelper().collectDefaultBlocks();
 	}
 	
 	@Override

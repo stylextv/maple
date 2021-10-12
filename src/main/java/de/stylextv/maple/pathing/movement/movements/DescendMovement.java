@@ -19,6 +19,8 @@ public class DescendMovement extends Movement {
 		if(isVerticalOnly()) height = 1;
 		
 		getBreakHelper().collectBlocks(getDestination(), height);
+		
+		getInteractHelper().collectDefaultBlocks();
 	}
 	
 	@Override

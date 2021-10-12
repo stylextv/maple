@@ -1,75 +1,81 @@
 package de.stylextv.maple.pathing.movement.helper;
 
-import de.stylextv.maple.input.controller.InteractController;
+import de.stylextv.maple.input.target.OpenableTarget;
 import de.stylextv.maple.pathing.calc.Cost;
 import de.stylextv.maple.pathing.calc.Node;
 import de.stylextv.maple.pathing.movement.Movement;
 import de.stylextv.maple.world.BlockInterface;
 import de.stylextv.maple.world.interact.Openable;
 import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockPos;
 
-public class InteractHelper extends MovementHelper<Movement> {
+public class InteractHelper extends TargetHelper<OpenableTarget> {
 	
 	public InteractHelper(Movement m) {
 		super(m);
 	}
 	
-	@Override
-	public double cost() {
+	public void collectDefaultBlocks() {
 		Movement m = getMovement();
 		
 		Node source = m.getSource();
 		Node destination = m.getDestination();
 		
-		if(isLocked(source) || isLocked(destination)) return Cost.INFINITY;
+		collectBlocks(source, 2);
+		collectBlocks(destination, 2);
+	}
+	
+	@Override
+	public void collectBlock(int x, int y, int z) {
+		BlockState state = BlockInterface.getState(x, y, z);
+		
+		Openable o = Openable.fromState(state);
+		
+		if(o == null) return;
+		
+		OpenableTarget target = getTarget(x, y, z);
+		
+		if(target == null) {
+			
+			target = new OpenableTarget(x, y, z, o);
+			
+			addTarget(target);
+			
+			return;
+		}
+		
+		target.updateOpenable(o);
+	}
+	
+	@Override
+	public double cost() {
+		for(OpenableTarget target : getTargets()) {
+			
+			if(target.isLocked()) return Cost.INFINITY;
+		}
 		
 		return 0;
 	}
 	
-	private boolean isLocked(Node n) {
-		BlockPos pos = n.blockPos();
-		
-		BlockState state = BlockInterface.getState(pos);
-		
-		Openable o = Openable.fromState(state);
-		
-		if(o == null || o.isOpen(state, getMovement())) return false;
-		
-		return o.isLocked(state);
-	}
-	
 	public boolean onRenderTick() {
+		if(!hasTargets()) return false;
+		
 		Movement m = getMovement();
 		
-		if(m.isDiagonal()) return false;
+		for(OpenableTarget target : getTargets()) {
+			
+			if(target.isOpen(m)) {
+				
+				removeTarget(target);
+				
+				continue;
+			}
+			
+			target.open(m);
+			
+			return true;
+		}
 		
-		Node source = m.getSource();
-		Node destination = m.getDestination();
-		
-		return tryOpening(source) || tryOpening(destination);
-	}
-	
-	private boolean tryOpening(Node n) {
-		BlockPos pos = n.blockPos();
-		
-		BlockState state = BlockInterface.getState(pos);
-		
-		Openable o = Openable.fromState(state);
-		
-		return tryOpening(pos, state, o);
-	}
-	
-	private boolean tryOpening(BlockPos pos, BlockState state, Openable o) {
-		if(o == null) return false;
-		
-		boolean open = o.isOpen(state, getMovement());
-		
-		if(open) return false;
-		
-		InteractController.open(pos, o);
-		
-		return true;
+		return false;
 	}
 	
 }

@@ -1,7 +1,7 @@
 package de.stylextv.maple.pathing.movement.helper;
 
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import de.stylextv.maple.event.events.RenderWorldEvent;
 import de.stylextv.maple.input.target.BlockTarget;
@@ -11,10 +11,9 @@ import de.stylextv.maple.render.ShapeRenderer;
 import de.stylextv.maple.scheme.Color;
 import net.minecraft.util.math.BlockPos;
 
-public abstract class TargetHelper extends MovementHelper<Movement> {
+public abstract class TargetHelper<T extends BlockTarget> extends MovementHelper<Movement> {
 	
-	// TODO replace with array or hashmap
-	private List<BlockTarget> targets = new CopyOnWriteArrayList<>();
+	private Set<T> targets = ConcurrentHashMap.newKeySet();
 	
 	public TargetHelper(Movement m) {
 		super(m);
@@ -62,11 +61,11 @@ public abstract class TargetHelper extends MovementHelper<Movement> {
 		}
 	}
 	
-	public void addTarget(int x, int y, int z) {
-		targets.add(new BlockTarget(x, y, z));
+	public void addTarget(T target) {
+		targets.add(target);
 	}
 	
-	public void removeTarget(BlockTarget target) {
+	public void removeTarget(T target) {
 		targets.remove(target);
 	}
 	
@@ -79,21 +78,25 @@ public abstract class TargetHelper extends MovementHelper<Movement> {
 	}
 	
 	public boolean hasTarget(int x, int y, int z) {
-		for(BlockTarget target : targets) {
+		return getTarget(x, y, z) != null;
+	}
+	
+	public T getTarget(int x, int y, int z) {
+		for(T target : targets) {
 			
 			BlockPos pos = target.getPos();
 			
-			if(pos.getX() == x && pos.getY() == y && pos.getZ() == z) return true;
+			if(pos.getX() == x && pos.getY() == y && pos.getZ() == z) return target;
 		}
 		
-		return false;
+		return null;
 	}
 	
 	public boolean hasTargets() {
 		return !targets.isEmpty();
 	}
 	
-	public List<BlockTarget> getTargets() {
+	public Set<T> getTargets() {
 		return targets;
 	}
 	
