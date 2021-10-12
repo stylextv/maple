@@ -40,6 +40,8 @@ public class DescendMovement extends Movement {
 		
 		if(interacting) return;
 		
+		lookAt(getDestination());
+		
 		if(isVerticalOnly() && !PlayerContext.isOnGround()) return;
 		
 		setPressed(InputAction.MOVE_FORWARD, true);
