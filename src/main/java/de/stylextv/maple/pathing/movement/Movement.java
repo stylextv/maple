@@ -135,6 +135,10 @@ public abstract class Movement {
 		return source.getX() == destination.getX() && source.getZ() == destination.getZ();
 	}
 	
+	public boolean isVertical() {
+		return source.getY() != destination.getY();
+	}
+	
 	public boolean isDownwards() {
 		return destination.getY() < source.getY();
 	}
@@ -157,6 +161,8 @@ public abstract class Movement {
 		int dirX = getDirectionX();
 		int dirY = getDirectionY();
 		int dirZ = getDirectionZ();
+		
+		if(isVertical() && !isVerticalOnly()) dirY = 0;
 		
 		return Direction.fromVector(dirX, dirY, dirZ);
 	}

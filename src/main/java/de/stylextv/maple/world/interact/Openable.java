@@ -3,6 +3,7 @@ package de.stylextv.maple.world.interact;
 import de.stylextv.maple.pathing.movement.Movement;
 import de.stylextv.maple.world.interact.openables.OpenableDoor;
 import de.stylextv.maple.world.interact.openables.OpenableFenceGate;
+import de.stylextv.maple.world.interact.openables.OpenableTrapdoor;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 
@@ -10,10 +11,12 @@ public abstract class Openable {
 	
 	public static final Openable DOOR = new OpenableDoor();
 	
+	public static final Openable TRAPDOOR = new OpenableTrapdoor();
+	
 	public static final Openable FENCE_GATE = new OpenableFenceGate();
 	
 	private static final Openable[] OPENABLES = new Openable[] {
-			DOOR, FENCE_GATE
+			DOOR, TRAPDOOR, FENCE_GATE
 	};
 	
 	public abstract boolean matchesBlock(Block block);

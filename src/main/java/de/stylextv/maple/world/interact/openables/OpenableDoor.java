@@ -24,6 +24,8 @@ public class OpenableDoor extends Openable {
 	
 	@Override
 	public boolean isOpen(BlockState state, Movement m) {
+		if(m.isVerticalOnly() || m.isDiagonal()) return true;
+		
 		Direction dir = m.getDirection();
 		
 		Direction opposite = dir.getOpposite();

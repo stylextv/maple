@@ -34,7 +34,7 @@ public class InteractHelper extends MovementHelper<Movement> {
 		
 		Openable o = Openable.fromState(state);
 		
-		if(o == null) return false;
+		if(o == null || o.isOpen(state, getMovement())) return false;
 		
 		return o.isLocked(state);
 	}

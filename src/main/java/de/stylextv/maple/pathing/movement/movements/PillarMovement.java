@@ -28,6 +28,7 @@ public class PillarMovement extends Movement {
 		double cost = Cost.JUMP;
 		
 		cost += getBreakHelper().cost();
+		cost += getInteractHelper().cost();
 		
 		if(getPlaceHelper().cost() >= Cost.INFINITY) return Cost.INFINITY;
 		
@@ -38,7 +39,9 @@ public class PillarMovement extends Movement {
 	
 	@Override
 	public void onRenderTick() {
-		if(getBreakHelper().onRenderTick()) return;
+		boolean interacting = getBreakHelper().onRenderTick() || getInteractHelper().onRenderTick();
+		
+		if(interacting) return;
 		
 		boolean atCenter = positionHelper.centerOnSource();
 		
