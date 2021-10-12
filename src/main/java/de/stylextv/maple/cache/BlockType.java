@@ -30,7 +30,8 @@ public class BlockType {
 			Blocks.SOUL_CAMPFIRE,
 			Blocks.CACTUS,
 			Blocks.SWEET_BERRY_BUSH,
-			Blocks.POWDER_SNOW
+			Blocks.POWDER_SNOW,
+			Blocks.BUBBLE_COLUMN
 	};
 	
 	private String name;
