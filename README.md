@@ -62,14 +62,13 @@ Name | Usages | Aliases | Description
 --- | --- | --- | ---
 help | help [page]<br/>help [command] | - | Gives useful information about commands.
 goto | goto \<x> \<y> \<z> [radius]<br/>goto \<x> \<z><br/>goto \<y> | - | Sets a new goal and starts moving to it.
-goal | goal \<x> \<y> \<z> [radius]<br/>goal \<x> \<z><br/>goal \<y> | - | Sets a new goal.
-go | - | start | Starts moving to the set goal.
-stop | - | cancel | Stops all actions.
+stop | - | cancel | Stops the current task.
+pause | - | - | Pauses the current task.
+resume | - | - | Resumes the current task.
 waypoint | waypoint create \<name> [x y z]<br/>waypoint delete \<name><br/>waypoint list [page]<br/>waypoint info \<name><br/>waypoint goto \<name> | wp | Used to create and travel to waypoints.
 home | - | h | Travel to the nearest waypoint marked as *HOME*.
 lost | - | - | Travel to the nearest waypoint.
 axis | - | - | Travel to the nearest axis.
-invert | - | - | Inverts the set goal.
 eta | - | - | Displays the estimated time to reach the current destination.
 modified | modified [page] | - | Shows all modified options.
 version | - | ver, v | Shows the installed version of Maple.
