@@ -48,9 +48,13 @@ public class InteractHelper extends TargetHelper<OpenableTarget> {
 	
 	@Override
 	public double cost() {
+		Movement m = getMovement();
+		
 		for(OpenableTarget target : getTargets()) {
 			
-			if(target.isLocked()) return Cost.INFINITY;
+			boolean locked = target.isLocked();
+			
+			if(locked && !target.isOpen(m)) return Cost.INFINITY;
 		}
 		
 		return 0;
