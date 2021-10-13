@@ -30,7 +30,7 @@ public class OpenableDoor extends Openable {
 		
 		Direction opposite = dir.getOpposite();
 		
-		Direction doorDir = (Direction) state.get(DoorBlock.FACING);
+		Direction doorDir = state.get(DoorBlock.FACING);
 		
 		boolean open = state.get(DoorBlock.OPEN);
 		
