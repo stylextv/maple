@@ -9,12 +9,15 @@ import de.stylextv.maple.input.controller.InputController;
 import de.stylextv.maple.input.controller.PlaceController;
 import de.stylextv.maple.input.controller.ViewController;
 import de.stylextv.maple.pathing.movement.MovementExecutor;
+import de.stylextv.maple.task.TaskManager;
 
 public class TickListener implements EventListener {
 	
 	@Override
 	public void onClientTick(ClientTickEvent event) {
 		if(!GameContext.isIngame()) return;
+		
+		TaskManager.onTick();
 		
 		BreakController.onTick();
 		PlaceController.onTick();

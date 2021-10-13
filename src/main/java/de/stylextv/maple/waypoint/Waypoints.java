@@ -1,4 +1,4 @@
-package de.stylextv.maple.memory.waypoint;
+package de.stylextv.maple.waypoint;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,10 +6,9 @@ import java.util.List;
 
 import de.stylextv.maple.config.ConfigHelper;
 import de.stylextv.maple.context.WorldContext;
-import de.stylextv.maple.memory.MemoryManager;
-import de.stylextv.maple.pathing.calc.SearchExecutor;
 import de.stylextv.maple.pathing.calc.goal.BlockGoal;
 import de.stylextv.maple.pathing.calc.goal.Goal;
+import de.stylextv.maple.task.TaskManager;
 import de.stylextv.maple.util.chat.ChatUtil;
 import net.minecraft.util.math.BlockPos;
 
@@ -65,9 +64,7 @@ public class Waypoints {
 		
 		Goal goal = new BlockGoal(pos);
 		
-		MemoryManager.setGoal(goal);
-		
-		SearchExecutor.startSearch();
+		TaskManager.gotoGoal(goal);
 		
 		String name = p.getName();
 		

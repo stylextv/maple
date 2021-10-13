@@ -3,9 +3,7 @@ package de.stylextv.maple.event.listeners;
 import de.stylextv.maple.context.WorldContext;
 import de.stylextv.maple.event.EventListener;
 import de.stylextv.maple.event.events.RenderWorldEvent;
-import de.stylextv.maple.memory.MemoryManager;
-import de.stylextv.maple.memory.waypoint.Waypoint;
-import de.stylextv.maple.memory.waypoint.Waypoints;
+import de.stylextv.maple.pathing.PathingExecutor;
 import de.stylextv.maple.pathing.calc.Path;
 import de.stylextv.maple.pathing.calc.PathSegment;
 import de.stylextv.maple.pathing.calc.SearchExecutor;
@@ -16,6 +14,8 @@ import de.stylextv.maple.render.NameTagRenderer;
 import de.stylextv.maple.render.ShapeRenderer;
 import de.stylextv.maple.scheme.Color;
 import de.stylextv.maple.scheme.Colors;
+import de.stylextv.maple.waypoint.Waypoint;
+import de.stylextv.maple.waypoint.Waypoints;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3f;
 
@@ -36,11 +36,13 @@ public class RenderListener implements EventListener {
 		drawPathSegment(event, s, Colors.PATH_CALCULATION);
 		drawPathSegment(event, best, Colors.BEST_PATH_SO_FAR);
 		
-		Goal goal = MemoryManager.getGoal();
+		Goal goal = PathingExecutor.getGoal();
 		
 		if(goal != null) goal.render(event);
 		
-		drawPath(event, MovementExecutor.getPath(), Colors.PATH);
+		Path path = MovementExecutor.getPath();
+		
+		drawPath(event, path, Colors.PATH);
 		
 		drawWaypoints(event);
 	}

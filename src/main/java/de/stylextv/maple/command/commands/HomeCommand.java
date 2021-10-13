@@ -1,10 +1,10 @@
 package de.stylextv.maple.command.commands;
 
 import de.stylextv.maple.command.Command;
-import de.stylextv.maple.memory.waypoint.Waypoint;
-import de.stylextv.maple.memory.waypoint.WaypointTag;
-import de.stylextv.maple.memory.waypoint.Waypoints;
 import de.stylextv.maple.util.chat.ChatUtil;
+import de.stylextv.maple.waypoint.Waypoint;
+import de.stylextv.maple.waypoint.WaypointTag;
+import de.stylextv.maple.waypoint.Waypoints;
 
 public class HomeCommand extends Command {
 	

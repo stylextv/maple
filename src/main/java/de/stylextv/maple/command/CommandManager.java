@@ -2,14 +2,13 @@ package de.stylextv.maple.command;
 
 import de.stylextv.maple.command.commands.AxisCommand;
 import de.stylextv.maple.command.commands.ETACommand;
-import de.stylextv.maple.command.commands.GoCommand;
-import de.stylextv.maple.command.commands.GoalCommand;
 import de.stylextv.maple.command.commands.GotoCommand;
 import de.stylextv.maple.command.commands.HelpCommand;
 import de.stylextv.maple.command.commands.HomeCommand;
-import de.stylextv.maple.command.commands.InvertCommand;
 import de.stylextv.maple.command.commands.LostCommand;
 import de.stylextv.maple.command.commands.ModifiedCommand;
+import de.stylextv.maple.command.commands.PauseCommand;
+import de.stylextv.maple.command.commands.ResumeCommand;
 import de.stylextv.maple.command.commands.StopCommand;
 import de.stylextv.maple.command.commands.VersionCommand;
 import de.stylextv.maple.command.commands.WaypointCommand;
@@ -22,14 +21,13 @@ public class CommandManager {
 	private static final Command[] COMMANDS = new Command[] {
 			new HelpCommand(),
 			new GotoCommand(),
-			new GoalCommand(),
-			new GoCommand(),
 			new StopCommand(),
+			new PauseCommand(),
+			new ResumeCommand(),
 			new WaypointCommand(),
 			new HomeCommand(),
 			new LostCommand(),
 			new AxisCommand(),
-			new InvertCommand(),
 			new ETACommand(),
 			new ModifiedCommand(),
 			new VersionCommand()

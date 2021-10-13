@@ -1,6 +1,5 @@
 package de.stylextv.maple.pathing.calc;
 
-import de.stylextv.maple.memory.MemoryManager;
 import de.stylextv.maple.pathing.calc.favoring.Favoring;
 import de.stylextv.maple.pathing.calc.goal.Goal;
 import de.stylextv.maple.pathing.movement.MovementExecutor;
@@ -22,12 +21,10 @@ public class SearchExecutor {
 	
 	private static PathFinder finder;
 	
-	public static void startSearch() {
+	public static void startSearch(Goal goal) {
 		stopSearch();
 		
 		AsyncUtil.runAsync(() -> {
-			
-			Goal goal = MemoryManager.getGoal();
 			
 			Path path = new Path();
 			

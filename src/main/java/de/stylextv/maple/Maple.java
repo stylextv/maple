@@ -6,8 +6,8 @@ import de.stylextv.maple.event.listeners.PlayerListener;
 import de.stylextv.maple.event.listeners.RenderListener;
 import de.stylextv.maple.event.listeners.TickListener;
 import de.stylextv.maple.event.listeners.WorldListener;
-import de.stylextv.maple.memory.waypoint.Waypoints;
 import de.stylextv.maple.option.Options;
+import de.stylextv.maple.waypoint.Waypoints;
 import net.fabricmc.api.ModInitializer;
 
 public class Maple implements ModInitializer {

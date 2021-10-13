@@ -4,10 +4,10 @@ import de.stylextv.maple.command.Command;
 import de.stylextv.maple.task.TaskManager;
 import de.stylextv.maple.util.chat.ChatUtil;
 
-public class StopCommand extends Command {
+public class PauseCommand extends Command {
 	
-	public StopCommand() {
-		super("stop", "Stops the current task.", "cancel");
+	public PauseCommand() {
+		super("pause", "Pauses the current task.");
 	}
 	
 	@Override
@@ -19,9 +19,9 @@ public class StopCommand extends Command {
 			return true;
 		}
 		
-		TaskManager.stopTask();
+		TaskManager.pauseTask();
 		
-		ChatUtil.send("Stopped.");
+		ChatUtil.send("Paused.");
 		
 		return true;
 	}

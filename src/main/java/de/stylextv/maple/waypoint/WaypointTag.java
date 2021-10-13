@@ -1,4 +1,4 @@
-package de.stylextv.maple.memory.waypoint;
+package de.stylextv.maple.waypoint;
 
 public enum WaypointTag {
 	

@@ -7,12 +7,12 @@ import de.stylextv.maple.command.ArgumentHelper;
 import de.stylextv.maple.command.Command;
 import de.stylextv.maple.context.PlayerContext;
 import de.stylextv.maple.context.WorldContext;
-import de.stylextv.maple.memory.waypoint.Waypoint;
-import de.stylextv.maple.memory.waypoint.WaypointTag;
-import de.stylextv.maple.memory.waypoint.Waypoints;
 import de.stylextv.maple.util.chat.ChatUtil;
 import de.stylextv.maple.util.time.TimeFormat;
 import de.stylextv.maple.util.world.CoordUtil;
+import de.stylextv.maple.waypoint.Waypoint;
+import de.stylextv.maple.waypoint.WaypointTag;
+import de.stylextv.maple.waypoint.Waypoints;
 import net.minecraft.util.math.BlockPos;
 
 public class WaypointCommand extends Command {

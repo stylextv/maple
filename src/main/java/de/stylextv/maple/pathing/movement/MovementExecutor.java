@@ -4,9 +4,11 @@ import de.stylextv.maple.context.GameContext;
 import de.stylextv.maple.context.PlayerContext;
 import de.stylextv.maple.input.InputAction;
 import de.stylextv.maple.input.controller.InputController;
+import de.stylextv.maple.pathing.PathingExecutor;
+import de.stylextv.maple.pathing.PathingState;
+import de.stylextv.maple.pathing.PathingStatus;
 import de.stylextv.maple.pathing.calc.Path;
 import de.stylextv.maple.pathing.calc.PathState;
-import de.stylextv.maple.util.chat.ChatUtil;
 import net.minecraft.util.math.BlockPos;
 
 public class MovementExecutor {
@@ -40,9 +42,11 @@ public class MovementExecutor {
 				
 				boolean atGoal = path.getState() == PathState.AT_GOAL;
 				
-				String s = atGoal ? "Destination reached." : "Can't get any closer to goal.";
+				PathingStatus status = PathingExecutor.getStatus();
 				
-				ChatUtil.send(s);
+				PathingState state = atGoal ? PathingState.AT_GOAL : PathingState.FAILED;
+				
+				status.setState(state);
 				
 				stop();
 			}

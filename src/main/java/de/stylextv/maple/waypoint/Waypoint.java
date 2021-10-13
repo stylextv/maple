@@ -1,4 +1,4 @@
-package de.stylextv.maple.memory.waypoint;
+package de.stylextv.maple.waypoint;
 
 import de.stylextv.maple.context.PlayerContext;
 import de.stylextv.maple.context.WorldContext;
