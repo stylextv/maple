@@ -88,7 +88,7 @@ public class BlockTarget {
 		return sum.divide(n);
 	}
 	
-	public boolean isSelected(boolean neighbourCounts) {
+	public boolean isSelected(boolean ignoreNeighbours) {
 		BlockHitResult result = AwarenessController.getBlockTarget();
 		
 		if(result == null) return false;
@@ -99,7 +99,7 @@ public class BlockTarget {
 		
 		if(p.equals(pos)) return true;
 		
-		if(!neighbourCounts) return false;
+		if(ignoreNeighbours) return false;
 		
 		Direction dir = result.getSide();
 		

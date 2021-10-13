@@ -3,7 +3,7 @@ package de.stylextv.maple.pathing.movement.helper;
 import de.stylextv.maple.cache.BlockType;
 import de.stylextv.maple.cache.CacheManager;
 import de.stylextv.maple.input.controller.BreakController;
-import de.stylextv.maple.input.target.TransformTarget;
+import de.stylextv.maple.input.target.BreakableTarget;
 import de.stylextv.maple.pathing.calc.Cost;
 import de.stylextv.maple.pathing.movement.Movement;
 import de.stylextv.maple.world.BlockInterface;
@@ -12,7 +12,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.FallingBlock;
 import net.minecraft.util.math.BlockPos;
 
-public class BreakHelper extends TargetHelper<TransformTarget> {
+public class BreakHelper extends TargetHelper<BreakableTarget> {
 	
 	public BreakHelper(Movement m) {
 		super(m);
@@ -26,7 +26,7 @@ public class BreakHelper extends TargetHelper<TransformTarget> {
 		
 		if(!hasTarget(x, y, z)) {
 			
-			TransformTarget target = new TransformTarget(x, y, z);
+			BreakableTarget target = new BreakableTarget(x, y, z);
 			
 			addTarget(target);
 		}
@@ -36,7 +36,7 @@ public class BreakHelper extends TargetHelper<TransformTarget> {
 	public double cost() {
 		int sum = 0;
 		
-		for(TransformTarget target : getTargets()) {
+		for(BreakableTarget target : getTargets()) {
 			
 			BlockPos pos = target.getPos();
 			
@@ -74,16 +74,16 @@ public class BreakHelper extends TargetHelper<TransformTarget> {
 	public boolean onRenderTick() {
 		if(!hasTargets()) return false;
 		
-		for(TransformTarget target : getTargets()) {
+		for(BreakableTarget target : getTargets()) {
 			
-			if(!target.isBreakable()) {
+			if(target.isBroken()) {
 				
 				removeTarget(target);
 				
 				continue;
 			}
 			
-			if(target.continueTransforming()) return true;
+			if(target.continueBreaking()) return true;
 		}
 		
 		return false;

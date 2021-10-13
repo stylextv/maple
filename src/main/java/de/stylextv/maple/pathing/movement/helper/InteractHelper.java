@@ -70,7 +70,7 @@ public class InteractHelper extends TargetHelper<OpenableTarget> {
 				continue;
 			}
 			
-			if(target.open()) return true;
+			if(target.continueOpening()) return true;
 		}
 		
 		return false;

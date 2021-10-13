@@ -6,13 +6,13 @@ import de.stylextv.maple.context.WorldContext;
 import de.stylextv.maple.input.InputAction;
 import de.stylextv.maple.input.controller.InputController;
 import de.stylextv.maple.input.controller.PlaceController;
-import de.stylextv.maple.input.target.TransformTarget;
+import de.stylextv.maple.input.target.PlaceableTarget;
 import de.stylextv.maple.pathing.calc.Cost;
 import de.stylextv.maple.pathing.calc.Node;
 import de.stylextv.maple.pathing.movement.Movement;
 import net.minecraft.util.math.BlockPos;
 
-public class PlaceHelper extends TargetHelper<TransformTarget> {
+public class PlaceHelper extends TargetHelper<PlaceableTarget> {
 	
 	public PlaceHelper(Movement m) {
 		super(m);
@@ -26,7 +26,7 @@ public class PlaceHelper extends TargetHelper<TransformTarget> {
 		
 		if(!hasTarget(x, y, z)) {
 			
-			TransformTarget target = new TransformTarget(x, y, z);
+			PlaceableTarget target = new PlaceableTarget(x, y, z);
 			
 			addTarget(target);
 		}
@@ -51,7 +51,7 @@ public class PlaceHelper extends TargetHelper<TransformTarget> {
 			if(m != null) hasSupport = m.getPlaceHelper().hasTargets();
 		}
 		
-		for(TransformTarget target : getTargets()) {
+		for(PlaceableTarget target : getTargets()) {
 			
 			BlockPos pos = target.getPos();
 			
@@ -68,16 +68,16 @@ public class PlaceHelper extends TargetHelper<TransformTarget> {
 	public boolean onRenderTick() {
 		if(!hasTargets()) return false;
 		
-		for(TransformTarget target : getTargets()) {
+		for(PlaceableTarget target : getTargets()) {
 			
-			if(!target.isPlaceable()) {
+			if(target.isPlaced()) {
 				
 				removeTarget(target);
 				
 				continue;
 			}
 			
-			if(target.continueTransforming()) {
+			if(target.continuePlacing()) {
 				
 				InputController.setPressed(InputAction.SNEAK, true);
 				

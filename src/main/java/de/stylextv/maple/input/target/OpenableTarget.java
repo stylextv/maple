@@ -20,8 +20,8 @@ public class OpenableTarget extends BlockTarget {
 		this.openable = o;
 	}
 	
-	public boolean open() {
-		if(isSelected(false)) {
+	public boolean continueOpening() {
+		if(isSelected(true)) {
 			
 			InputController.setPressed(InputAction.RIGHT_CLICK, true);
 			
