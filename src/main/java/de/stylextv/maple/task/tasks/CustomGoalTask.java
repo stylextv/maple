@@ -17,12 +17,9 @@ public class CustomGoalTask extends Task {
 	
 	@Override
 	public PathingCommand onTick(PathingStatus status) {
-		Goal g = status.getGoal();
+		boolean matches = status.goalMatches(goal);
 		
-		if(!goal.equals(g)) {
-			
-			return new PathingCommand(PathingCommandType.PATH_TO_GOAL, goal);
-		}
+		if(!matches) return new PathingCommand(PathingCommandType.PATH_TO_GOAL, goal);
 		
 		if(status.isPathing()) return PathingCommand.DEFER;
 		

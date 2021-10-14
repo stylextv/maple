@@ -20,9 +20,10 @@ public class PathingStatus {
 		state = b ? PathingState.IDLE : PathingState.GOING;
 	}
 	
-	// TODO implement!
-	public boolean goalMatches(Goal goal) {
-		return false;
+	public boolean goalMatches(Goal g) {
+		if(goal == null) return false;
+		
+		return goal.equals(g);
 	}
 	
 	public boolean isPathing() {
