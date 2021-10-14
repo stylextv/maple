@@ -2,7 +2,7 @@ package de.stylextv.maple.world.scan.entity;
 
 import java.util.function.Predicate;
 
-import de.stylextv.maple.command.ArgumentHelper;
+import de.stylextv.maple.util.RegistryUtil;
 import de.stylextv.maple.world.scan.entity.filters.EntityNameFilter;
 import de.stylextv.maple.world.scan.entity.filters.EntityTypeFilter;
 import net.minecraft.entity.Entity;
@@ -34,7 +34,7 @@ public class EntityFilter {
 	}
 	
 	public static EntityFilter fromString(String s) {
-		EntityType<?> type = ArgumentHelper.toEntityType(s);
+		EntityType<?> type = RegistryUtil.getEntityType(s);
 		
 		if(type == null) return new EntityNameFilter(s);
 		

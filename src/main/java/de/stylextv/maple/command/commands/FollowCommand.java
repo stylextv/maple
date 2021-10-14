@@ -1,6 +1,7 @@
 package de.stylextv.maple.command.commands;
 
 import de.stylextv.maple.command.Command;
+import de.stylextv.maple.task.Task;
 import de.stylextv.maple.task.TaskManager;
 import de.stylextv.maple.task.tasks.FollowTask;
 import de.stylextv.maple.util.chat.ChatUtil;
@@ -25,7 +26,7 @@ public class FollowCommand extends Command {
 		
 		if(filter == null) return false;
 		
-		FollowTask task = new FollowTask(filter);
+		Task task = new FollowTask(filter);
 		
 		TaskManager.startTask(task);
 		

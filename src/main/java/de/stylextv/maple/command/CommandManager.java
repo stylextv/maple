@@ -7,6 +7,7 @@ import de.stylextv.maple.command.commands.GotoCommand;
 import de.stylextv.maple.command.commands.HelpCommand;
 import de.stylextv.maple.command.commands.HomeCommand;
 import de.stylextv.maple.command.commands.LostCommand;
+import de.stylextv.maple.command.commands.MineCommand;
 import de.stylextv.maple.command.commands.ModifiedCommand;
 import de.stylextv.maple.command.commands.PauseCommand;
 import de.stylextv.maple.command.commands.ResumeCommand;
@@ -22,6 +23,7 @@ public class CommandManager {
 	private static final Command[] COMMANDS = new Command[] {
 			new HelpCommand(),
 			new GotoCommand(),
+			new MineCommand(),
 			new FollowCommand(),
 			// TODO other task commands
 			new StopCommand(),
