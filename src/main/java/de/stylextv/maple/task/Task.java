@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import de.stylextv.maple.pathing.PathingCommand;
+import de.stylextv.maple.pathing.PathingExecutor;
 import de.stylextv.maple.pathing.PathingStatus;
 
 public abstract class Task {
@@ -13,6 +14,8 @@ public abstract class Task {
 	private List<Task> children = new CopyOnWriteArrayList<>();
 	
 	private boolean paused = true;
+	
+	private boolean finished;
 	
 	public void pause() {
 		paused = true;
@@ -29,6 +32,13 @@ public abstract class Task {
 	}
 	
 	public PathingCommand onTick(PathingStatus status) {
+		if(!finished) {
+			
+			finished = true;
+			
+			PathingExecutor.stopPathing();
+		}
+		
 		for(Task t : children) {
 			
 			PathingCommand c = t.onTick(status);
@@ -59,6 +69,10 @@ public abstract class Task {
 	
 	public boolean isPaused() {
 		return paused;
+	}
+	
+	public boolean isFinished() {
+		return finished;
 	}
 	
 }

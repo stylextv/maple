@@ -52,7 +52,7 @@ public class PathingExecutor {
 		
 		Path path = MovementExecutor.getPath();
 		
-		if(path != null) {
+		if(path != null && !path.isEmpty()) {
 			
 			PathState state = path.getState();
 			

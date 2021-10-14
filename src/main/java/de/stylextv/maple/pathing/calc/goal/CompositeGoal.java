@@ -1,8 +1,12 @@
 package de.stylextv.maple.pathing.calc.goal;
 
+import java.util.List;
+
 import de.stylextv.maple.event.events.RenderWorldEvent;
 import de.stylextv.maple.pathing.calc.Node;
 import de.stylextv.maple.util.TextUtil;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.math.BlockPos;
 
 public class CompositeGoal extends Goal {
 	
@@ -42,6 +46,10 @@ public class CompositeGoal extends Goal {
 		}
 	}
 	
+	public boolean isEmpty() {
+		return goals.length == 0;
+	}
+	
 	@Override
 	public boolean equals(Goal other) {
 		if(!(other instanceof CompositeGoal)) return false;
@@ -72,6 +80,25 @@ public class CompositeGoal extends Goal {
 	
 	public Goal[] getGoals() {
 		return goals;
+	}
+	
+	public static CompositeGoal fromEntities(List<Entity> entities, float dis) {
+		int l = entities.size();
+		
+		Goal[] goals = new Goal[l];
+		
+		for(int i = 0; i < l; i++) {
+			
+			Entity e = entities.get(i);
+			
+			BlockPos pos = e.getBlockPos();
+			
+			Goal g = new NearGoal(pos, dis);
+			
+			goals[i] = g;
+		}
+		
+		return new CompositeGoal(goals);
 	}
 	
 }

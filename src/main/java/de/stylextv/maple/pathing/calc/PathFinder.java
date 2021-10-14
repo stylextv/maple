@@ -171,8 +171,6 @@ public class PathFinder {
 			n = parent;
 		}
 		
-		if(list.isEmpty()) return null;
-		
 		return new PathSegment(list);
 	}
 	

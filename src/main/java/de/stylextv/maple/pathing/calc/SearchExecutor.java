@@ -69,9 +69,11 @@ public class SearchExecutor {
 					continue;
 				}
 				
-				path.add(segment);
+				boolean empty = segment.isEmpty();
 				
-				if(!paused) path.setState(PathState.AT_GOAL);
+				if(!empty) path.add(segment);
+				
+				if(!paused || empty) path.setState(PathState.AT_GOAL);
 			}
 		});
 	}

@@ -1,12 +1,21 @@
 package de.stylextv.maple.command;
 
+import java.util.Optional;
+
 import de.stylextv.maple.context.PlayerContext;
+import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
 
 public class ArgumentHelper {
 	
 	private static final String INT_REGEX = "-?\\d+";
 	private static final String NUMERIC_REGEX = "-?\\d+(\\.\\d+)?";
+	
+	public static EntityType<?> toEntityType(String s) {
+		Optional<EntityType<?>> o = EntityType.get(s);
+		
+		return o.orElse(null);
+	}
 	
 	public static Integer toCoordinate(String s, int i) {
 		int base = 0;

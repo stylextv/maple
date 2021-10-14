@@ -3,10 +3,10 @@ package de.stylextv.maple.world.avoidance;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.stylextv.maple.context.WorldContext;
 import de.stylextv.maple.util.world.CoordUtil;
+import de.stylextv.maple.world.scan.entity.EntityFilter;
+import de.stylextv.maple.world.scan.entity.EntityScanner;
 import it.unimi.dsi.fastutil.longs.Long2DoubleOpenHashMap;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.BlockPos;
 
@@ -60,9 +60,9 @@ public class Avoidance {
 	public static List<Avoidance> list() {
 		List<Avoidance> list = new ArrayList<>();
 		
-		ClientWorld world = WorldContext.world();
+		List<Entity> entities = EntityScanner.scanWorld(EntityFilter.ALL);
 		
-		for(Entity e : world.getEntities()) {
+		for(Entity e : entities) {
 			
 			AvoidanceType type = AvoidanceType.fromEntity(e);
 			

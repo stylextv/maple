@@ -8,7 +8,7 @@ import de.stylextv.maple.util.chat.ChatUtil;
 public class GotoCommand extends Command {
 	
 	public GotoCommand() {
-		super("goto", "Sets a new goal and starts moving to it.");
+		super("goto", "Starts moving to a custom goal.");
 	}
 	
 	@Override
@@ -19,7 +19,7 @@ public class GotoCommand extends Command {
 		
 		TaskManager.gotoGoal(goal);
 		
-		ChatUtil.send("Started.");
+		ChatUtil.send("Started moving.");
 		
 		return true;
 	}
