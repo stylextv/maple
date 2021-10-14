@@ -24,6 +24,8 @@ public abstract class Task {
 	
 	public void appendTask(Task t) {
 		children.add(t);
+		
+		t.setParent(this);
 	}
 	
 	public PathingCommand onTick(PathingStatus status) {
