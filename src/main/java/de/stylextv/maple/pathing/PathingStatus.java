@@ -34,6 +34,10 @@ public class PathingStatus {
 		return state == PathingState.AT_GOAL;
 	}
 	
+	public boolean hasGoal() {
+		return goal != null;
+	}
+	
 	public PathingState getState() {
 		return state;
 	}
