@@ -11,6 +11,10 @@ import net.minecraft.entity.Entity;
 
 public class EntityScanner {
 	
+	public static List<Entity> scanWorld() {
+		return scanWorld(EntityFilter.ALL);
+	}
+	
 	public static List<Entity> scanWorld(EntityFilter... filters) {
 		List<Entity> entities = new ArrayList<>();
 		

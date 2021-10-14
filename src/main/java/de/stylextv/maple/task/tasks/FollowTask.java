@@ -24,7 +24,7 @@ public class FollowTask extends Task {
 	
 	@Override
 	public PathingCommand onTick(PathingStatus status) {
-		List<Entity> entities = EntityScanner.scanWorld(filter);
+		List<Entity> entities = EntityScanner.scanWorld(filter, EntityFilter.ALIVE);
 		
 		CompositeGoal goal = CompositeGoal.fromEntities(entities, FOLLOW_DISTANCE);
 		

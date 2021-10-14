@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.stylextv.maple.util.world.CoordUtil;
-import de.stylextv.maple.world.scan.entity.EntityFilter;
 import de.stylextv.maple.world.scan.entity.EntityScanner;
 import it.unimi.dsi.fastutil.longs.Long2DoubleOpenHashMap;
 import net.minecraft.entity.Entity;
@@ -60,7 +59,7 @@ public class Avoidance {
 	public static List<Avoidance> list() {
 		List<Avoidance> list = new ArrayList<>();
 		
-		List<Entity> entities = EntityScanner.scanWorld(EntityFilter.ALL);
+		List<Entity> entities = EntityScanner.scanWorld();
 		
 		for(Entity e : entities) {
 			
