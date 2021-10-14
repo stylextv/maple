@@ -47,8 +47,21 @@ public class TwoBlocksGoal extends Goal {
 	}
 	
 	@Override
+	public boolean equals(Goal other) {
+		if(!(other instanceof TwoBlocksGoal)) return false;
+		
+		BlockPos otherPos = ((TwoBlocksGoal) other).getPos();
+		
+		return otherPos.equals(pos);
+	}
+	
+	@Override
 	public String toString() {
 		return String.format("TwoBlocksGoal{pos=%s}", pos);
+	}
+	
+	public BlockPos getPos() {
+		return pos;
 	}
 	
 }

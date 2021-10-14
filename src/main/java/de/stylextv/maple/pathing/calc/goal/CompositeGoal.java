@@ -43,10 +43,35 @@ public class CompositeGoal extends Goal {
 	}
 	
 	@Override
+	public boolean equals(Goal other) {
+		if(!(other instanceof CompositeGoal)) return false;
+		
+		Goal[] otherGoals = ((CompositeGoal) other).getGoals();
+		
+		int l = otherGoals.length;
+		
+		if(l != goals.length) return false;
+		
+		for(int i = 0; i < l; i++) {
+			
+			Goal otherGoal = otherGoals[i];
+			Goal g = goals[i];
+			
+			if(!otherGoal.equals(g)) return false;
+		}
+		
+		return true;
+	}
+	
+	@Override
 	public String toString() {
 		String s = TextUtil.combine(goals, ",");
 		
 		return String.format("CompositeGoal{goals=[%s]}", s);
+	}
+	
+	public Goal[] getGoals() {
+		return goals;
 	}
 	
 }

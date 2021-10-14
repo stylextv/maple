@@ -33,6 +33,26 @@ public class NearGoal extends Goal {
 	}
 	
 	@Override
+	public boolean equals(Goal other) {
+		if(!(other instanceof NearGoal)) return false;
+		
+		NearGoal g = (NearGoal) other;
+		
+		BlockPos otherPos = g.getPos();
+		float otherDis = g.getDistance();
+		
+		return otherPos.equals(pos) && otherDis == dis;
+	}
+	
+	public BlockPos getPos() {
+		return pos;
+	}
+	
+	public float getDistance() {
+		return dis;
+	}
+	
+	@Override
 	public String toString() {
 		return String.format("NearGoal{pos=%s, dis=%s}", pos, dis);
 	}

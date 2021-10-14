@@ -20,6 +20,8 @@ public abstract class Goal {
 	
 	public void render(RenderWorldEvent event) {}
 	
+	public abstract boolean equals(Goal other);
+	
 	public static Goal fromArgs(String[] args) {
 		if(args.length == 0) {
 			BlockPos pos = PlayerContext.feetPosition();

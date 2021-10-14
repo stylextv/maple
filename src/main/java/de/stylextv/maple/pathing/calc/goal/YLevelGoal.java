@@ -22,8 +22,21 @@ public class YLevelGoal extends Goal {
 	}
 	
 	@Override
+	public boolean equals(Goal other) {
+		if(!(other instanceof YLevelGoal)) return false;
+		
+		int otherY = ((YLevelGoal) other).getY();
+		
+		return otherY == y;
+	}
+	
+	@Override
 	public String toString() {
 		return String.format("YGoal{y=%s}", y);
+	}
+	
+	public int getY() {
+		return y;
 	}
 	
 	public static double cost(int y, int goalY) {

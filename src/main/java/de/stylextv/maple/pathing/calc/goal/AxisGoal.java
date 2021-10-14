@@ -26,6 +26,11 @@ public class AxisGoal extends Goal {
 	}
 	
 	@Override
+	public boolean equals(Goal other) {
+		return other instanceof AxisGoal;
+	}
+	
+	@Override
 	public String toString() {
 		return "AxisGoal";
 	}

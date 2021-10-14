@@ -21,8 +21,21 @@ public class InvertedGoal extends Goal {
 	}
 	
 	@Override
+	public boolean equals(Goal other) {
+		if(!(other instanceof InvertedGoal)) return false;
+		
+		Goal otherGoal = ((InvertedGoal) other).getGoal();
+		
+		return otherGoal.equals(goal);
+	}
+	
+	@Override
 	public String toString() {
 		return String.format("InvertedGoal{goal=%s}", goal);
+	}
+	
+	public Goal getGoal() {
+		return goal;
 	}
 	
 }

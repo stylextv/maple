@@ -39,8 +39,28 @@ public class XZGoal extends Goal {
 	}
 	
 	@Override
+	public boolean equals(Goal other) {
+		if(!(other instanceof XZGoal)) return false;
+		
+		XZGoal g = (XZGoal) other;
+		
+		int otherX = g.getX();
+		int otherZ = g.getZ();
+		
+		return otherX == x && otherZ == z;
+	}
+	
+	@Override
 	public String toString() {
 		return String.format("XZGoal{x=%s, z=%s}", x, z);
+	}
+	
+	public int getX() {
+		return x;
+	}
+	
+	public int getZ() {
+		return z;
 	}
 	
 	public static double cost(int dx, int dz) {

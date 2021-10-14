@@ -44,8 +44,21 @@ public class BlockGoal extends Goal {
 	}
 	
 	@Override
+	public boolean equals(Goal other) {
+		if(!(other instanceof BlockGoal)) return false;
+		
+		BlockPos otherPos = ((BlockGoal) other).getPos();
+		
+		return otherPos.equals(pos);
+	}
+	
+	@Override
 	public String toString() {
 		return String.format("BlockGoal{pos=%s}", pos);
+	}
+	
+	public BlockPos getPos() {
+		return pos;
 	}
 	
 	public static double cost(int dx, int dy, int dz) {
