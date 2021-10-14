@@ -61,7 +61,8 @@ You can use the following list as a guide or simply use the ingame command `#hel
 Name | Usages | Aliases | Description
 --- | --- | --- | ---
 help | help [page]<br/>help [command] | - | Gives useful information about commands.
-goto | goto \<x> \<y> \<z> [radius]<br/>goto \<x> \<z><br/>goto \<y> | - | Sets a new goal and starts moving to it.
+goto | goto \<x> \<y> \<z> [radius]<br/>goto \<x> \<z><br/>goto \<y> | - | Starts moving to a custom goal.
+follow | follow \<entity_type><br/>follow \<name> | - | Starts following a specified entity.
 stop | - | cancel | Stops the current task.
 pause | - | - | Pauses the current task.
 resume | - | - | Resumes the current task.
