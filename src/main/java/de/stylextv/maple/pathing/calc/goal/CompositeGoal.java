@@ -82,6 +82,23 @@ public class CompositeGoal extends Goal {
 		return goals;
 	}
 	
+	public static CompositeGoal fromPositions(List<BlockPos> positions) {
+		int l = positions.size();
+		
+		Goal[] goals = new Goal[l];
+		
+		for(int i = 0; i < l; i++) {
+			
+			BlockPos pos = positions.get(i);
+			
+			Goal g = new TwoBlocksGoal(pos);
+			
+			goals[i] = g;
+		}
+		
+		return new CompositeGoal(goals);
+	}
+	
 	public static CompositeGoal fromEntities(List<Entity> entities, float dis) {
 		int l = entities.size();
 		
