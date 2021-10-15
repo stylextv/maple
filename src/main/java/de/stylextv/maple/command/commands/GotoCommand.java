@@ -2,10 +2,20 @@ package de.stylextv.maple.command.commands;
 
 import de.stylextv.maple.command.Command;
 import de.stylextv.maple.pathing.calc.goal.Goal;
+import de.stylextv.maple.task.Task;
 import de.stylextv.maple.task.TaskManager;
+import de.stylextv.maple.task.tasks.GetToBlockTask;
 import de.stylextv.maple.util.chat.ChatUtil;
+import de.stylextv.maple.world.scan.block.BlockFilter;
 
 public class GotoCommand extends Command {
+	
+	private static final String[] USAGES = new String[] {
+			"<x> <y> <z> [radius]",
+			"<x> <z>",
+			"<y>",
+			"<block_type>"
+	};
 	
 	public GotoCommand() {
 		super("goto", "Starts moving to a custom goal.");
@@ -13,20 +23,35 @@ public class GotoCommand extends Command {
 	
 	@Override
 	public boolean execute(String[] args) {
+		if(args.length == 0) return false;
+		
+		BlockFilter filter = BlockFilter.fromString(args[0]);
+		
+		if(filter != null) {
+			
+			Task task = new GetToBlockTask(filter);
+			
+			TaskManager.startTask(task);
+			
+			ChatUtil.send("Started.");
+			
+			return true;
+		}
+		
 		Goal goal = Goal.fromArgs(args);
 		
 		if(goal == null) return false;
 		
 		TaskManager.gotoGoal(goal);
 		
-		ChatUtil.send("Started moving.");
+		ChatUtil.send("Started.");
 		
 		return true;
 	}
 	
 	@Override
 	public String[] getUsages() {
-		return Goal.getUsages();
+		return USAGES;
 	}
 	
 }

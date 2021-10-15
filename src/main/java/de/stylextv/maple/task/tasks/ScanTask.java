@@ -10,11 +10,11 @@ import net.minecraft.util.math.BlockPos;
 
 public abstract class ScanTask extends CompositeTask {
 	
-	private boolean scanned;
-	
-	private long scanEndTime;
+	private static final long SCAN_EXPIRATION_TIME = 15000;
 	
 	private boolean scanning;
+	
+	private long scanEndTime;
 	
 	public void rescan(Consumer<List<BlockPos>> consumer, BlockFilter... filters) {
 		if(scanning) return;
@@ -27,20 +27,18 @@ public abstract class ScanTask extends CompositeTask {
 			
 			consumer.accept(positions);
 			
-			scanned = true;
-			
 			scanEndTime = System.currentTimeMillis();
 			
 			scanning = false;
 		});
 	}
 	
-	public boolean hasScanned() {
-		return scanned;
-	}
-	
-	public long getScanEndTime() {
-		return scanEndTime;
+	public boolean hasScanExpired() {
+		long now = System.currentTimeMillis();
+		
+		long elapsedTime = now - scanEndTime;
+		
+		return elapsedTime > SCAN_EXPIRATION_TIME;
 	}
 	
 	public boolean isScanning() {

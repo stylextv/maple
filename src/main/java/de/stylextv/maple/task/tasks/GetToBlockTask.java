@@ -11,9 +11,13 @@ public class GetToBlockTask extends ScanTask {
 	
 	private CompositeGoal goal;
 	
+	public GetToBlockTask(BlockFilter filter) {
+		this.filter = filter;
+	}
+	
 	@Override
 	public CompositeGoal onTick() {
-		if(!hasScanned() && !isScanning()) {
+		if(hasScanExpired() && !isScanning()) {
 			
 			rescan((positions) -> {
 				

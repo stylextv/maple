@@ -1,18 +1,10 @@
 package de.stylextv.maple.pathing.calc.goal;
 
 import de.stylextv.maple.command.ArgumentHelper;
-import de.stylextv.maple.context.PlayerContext;
 import de.stylextv.maple.event.events.RenderWorldEvent;
 import de.stylextv.maple.pathing.calc.Node;
-import net.minecraft.util.math.BlockPos;
 
 public abstract class Goal {
-	
-	private static final String[] USAGES = new String[] {
-			"<x> <y> <z> [radius]",
-			"<x> <z>",
-			"<y>"
-	};
 	
 	public abstract double heuristic(Node n);
 	
@@ -23,12 +15,6 @@ public abstract class Goal {
 	public abstract boolean equals(Goal other);
 	
 	public static Goal fromArgs(String[] args) {
-		if(args.length == 0) {
-			BlockPos pos = PlayerContext.feetPosition();
-			
-			return new BlockGoal(pos);
-		}
-		
 		if(args.length >= 3) {
 			
 			Integer x = ArgumentHelper.toCoordinate(args[0], 0);
@@ -61,10 +47,6 @@ public abstract class Goal {
 		if(y == null) return null;
 		
 		return new YLevelGoal(y);
-	}
-	
-	public static String[] getUsages() {
-		return USAGES;
 	}
 	
 }

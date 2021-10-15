@@ -11,8 +11,6 @@ import net.minecraft.util.math.BlockPos;
 
 public abstract class BreakTask extends ScanTask {
 	
-	private static final long SCAN_EXPIRATION_TIME = 15000;
-	
 	private BlockFilter[] filters;
 	
 	private Set<BreakableTarget> targets = ConcurrentHashMap.newKeySet();
@@ -37,13 +35,7 @@ public abstract class BreakTask extends ScanTask {
 				}, filters);
 			}
 			
-			long now = System.currentTimeMillis();
-			
-			long elapsedTime = now - getScanEndTime();
-			
-			boolean expired = elapsedTime > SCAN_EXPIRATION_TIME;
-			
-			if(expired) return null;
+			if(hasScanExpired()) return null;
 		}
 		
 		for(BreakableTarget target : targets) {
