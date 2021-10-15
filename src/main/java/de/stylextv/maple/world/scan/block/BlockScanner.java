@@ -14,7 +14,7 @@ public class BlockScanner {
 	
 	private static final int SCAN_DISTANCE = 32;
 	
-	private static final int SCAN_LIMIT = 64;
+	private static final int SCAN_LIMIT = 16;
 	
 	public static List<BlockPos> scanWorld(BlockFilter... filters) {
 		return scanWorld(SCAN_LIMIT, filters);
