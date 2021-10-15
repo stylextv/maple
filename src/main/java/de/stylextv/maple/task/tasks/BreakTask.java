@@ -13,11 +13,15 @@ import net.minecraft.util.math.BlockPos;
 
 public abstract class BreakTask extends CompositeTask {
 	
+	private static final int SCAN_DELAY = 10000;
+	
 	private BlockFilter[] filters;
 	
 	private Set<BreakableTarget> targets = ConcurrentHashMap.newKeySet();
 	
 	private boolean scanned;
+	
+	private long scanEndTime;
 	
 	private boolean scanning;
 	
@@ -54,6 +58,12 @@ public abstract class BreakTask extends CompositeTask {
 	private void rescan() {
 		if(scanning) return;
 		
+		long now = System.currentTimeMillis();
+		
+		long elapsedTime = now - scanEndTime;
+		
+		if(elapsedTime < SCAN_DELAY) return;
+		
 		scanning = true;
 		
 		AsyncUtil.runAsync(() -> {
@@ -68,6 +78,8 @@ public abstract class BreakTask extends CompositeTask {
 			}
 			
 			scanned = true;
+			
+			scanEndTime = System.currentTimeMillis();
 			
 			scanning = false;
 		});
