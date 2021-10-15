@@ -100,6 +100,10 @@ public class WorldContext {
 		return world().getBlockState(pos);
 	}
 	
+	public static WorldChunk getChunk(int chunkX, int chunkZ) {
+		return world().getChunk(chunkX, chunkZ);
+	}
+	
 	public static boolean isPosFullyLoaded(BlockPos pos) {
 		WorldChunk chunk = world().getWorldChunk(pos);
 		
@@ -115,6 +119,10 @@ public class WorldContext {
 	
 	public static boolean isPosLoaded(int x, int z) {
 		return world().isPosLoaded(x, z);
+	}
+	
+	public static boolean isChunkLoaded(int chunkX, int chunkZ) {
+		return world().isChunkLoaded(chunkX, chunkZ);
 	}
 	
 }
