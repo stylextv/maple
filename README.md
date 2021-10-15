@@ -61,7 +61,7 @@ You can use the following list as a guide or simply use the ingame command `#hel
 Name | Usages | Aliases | Description
 --- | --- | --- | ---
 help | help [page]<br/>help [command] | - | Gives useful information about commands.
-goto | goto \<x> \<y> \<z> [radius]<br/>goto \<x> \<z><br/>goto \<y> | - | Starts moving to a custom goal.
+goto | goto \<x> \<y> \<z> [radius]<br/>goto \<x> \<z><br/>goto \<y><br/>goto \<block_type> | - | Starts moving to a custom goal.
 mine | mine \<block_type> | - | Starts mining a specified block type.
 farm | - | - | Starts harvesting nearby crops.
 follow | follow \<entity_type><br/>follow \<name> | - | Starts following a specified entity.
