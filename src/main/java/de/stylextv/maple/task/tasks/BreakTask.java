@@ -29,6 +29,8 @@ public abstract class BreakTask extends CompositeTask {
 	public CompositeGoal onTick() {
 		rescan();
 		
+		if(targets.isEmpty() && !scanned) return null;
+		
 		for(BreakableTarget target : targets) {
 			
 			if(target.isBroken()) {
@@ -45,8 +47,6 @@ public abstract class BreakTask extends CompositeTask {
 				return null;
 			}
 		}
-		
-		if(targets.isEmpty() && !scanned) return null;
 		
 		return CompositeGoal.fromTargets(targets);
 	}
