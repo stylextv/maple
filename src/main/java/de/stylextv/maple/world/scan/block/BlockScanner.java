@@ -16,12 +16,12 @@ public class BlockScanner {
 	
 	private static final int SCAN_LIMIT = 16;
 	
-	public static List<BlockPos> scanWorld(BlockFilter... filters) {
-		return scanWorld(SCAN_LIMIT, filters);
+	public static List<BlockPos> scanWorld(BlockFilters filters) {
+		return scanWorld(filters, SCAN_LIMIT);
 	}
 	
 	// TODO search in spiral pattern
-	public static List<BlockPos> scanWorld(int limit, BlockFilter... filters) {
+	public static List<BlockPos> scanWorld(BlockFilters filters, int limit) {
 		List<BlockPos> positions = new ArrayList<>();
 		
 		ChunkPos pos = PlayerContext.chunkPosition();
@@ -37,7 +37,7 @@ public class BlockScanner {
 				int cx = centerX + x;
 				int cz = centerZ + z;
 				
-				boolean failed = scanChunk(cx, cz, limit, filters, positions);
+				boolean failed = scanChunk(cx, cz, filters, limit, positions);
 				
 				if(failed) return positions;
 			}
@@ -47,7 +47,7 @@ public class BlockScanner {
 	}
 	
 	// TODO start at player's y coordinate
-	private static boolean scanChunk(int chunkX, int chunkZ, int limit, BlockFilter[] filters, List<BlockPos> positions) {
+	private static boolean scanChunk(int chunkX, int chunkZ, BlockFilters filters, int limit, List<BlockPos> positions) {
 		if(!WorldContext.isChunkLoaded(chunkX, chunkZ)) return false;
 		
 		WorldChunk chunk = WorldContext.getChunk(chunkX, chunkZ);
@@ -73,19 +73,7 @@ public class BlockScanner {
 					
 					BlockState state = chunk.getBlockState(p);
 					
-					boolean matches = true;
-					
-					for(BlockFilter f : filters) {
-						
-						if(!f.matches(state)) {
-							
-							matches = false;
-							
-							break;
-						}
-					}
-					
-					if(matches) {
+					if(filters.matches(state)) {
 						
 						positions.add(p);
 						

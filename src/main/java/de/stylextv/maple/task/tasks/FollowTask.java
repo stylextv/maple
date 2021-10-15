@@ -6,6 +6,7 @@ import de.stylextv.maple.pathing.calc.goal.CompositeGoal;
 import de.stylextv.maple.pathing.calc.goal.NearGoal;
 import de.stylextv.maple.util.chat.ChatUtil;
 import de.stylextv.maple.world.scan.entity.EntityFilter;
+import de.stylextv.maple.world.scan.entity.EntityFilters;
 import de.stylextv.maple.world.scan.entity.EntityScanner;
 import net.minecraft.entity.Entity;
 
@@ -13,15 +14,15 @@ public class FollowTask extends CompositeTask {
 	
 	private static final float FOLLOW_DISTANCE = 3f;
 	
-	private EntityFilter filter;
+	private EntityFilters filters;
 	
 	public FollowTask(EntityFilter filter) {
-		this.filter = filter;
+		this.filters = EntityFilters.fromFilters(filter, EntityFilter.ALIVE);
 	}
 	
 	@Override
 	public CompositeGoal onTick() {
-		List<Entity> entities = EntityScanner.scanWorld(filter, EntityFilter.ALIVE);
+		List<Entity> entities = EntityScanner.scanWorld(filters);
 		
 		return CompositeGoal.fromCollection(entities, e -> new NearGoal(e.getBlockPos(), FOLLOW_DISTANCE));
 	}
@@ -36,8 +37,8 @@ public class FollowTask extends CompositeTask {
 		ChatUtil.send("Can't find any matching entities nearby.");
 	}
 	
-	public EntityFilter getFilter() {
-		return filter;
+	public EntityFilters getFilters() {
+		return filters;
 	}
 	
 }

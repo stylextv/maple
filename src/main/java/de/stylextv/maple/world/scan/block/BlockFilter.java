@@ -3,12 +3,13 @@ package de.stylextv.maple.world.scan.block;
 import java.util.function.Predicate;
 
 import de.stylextv.maple.util.RegistryUtil;
+import de.stylextv.maple.world.scan.ScanFilter;
 import de.stylextv.maple.world.scan.block.filters.BlockTypeFilter;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CropBlock;
 
-public class BlockFilter {
+public class BlockFilter extends ScanFilter<BlockState> {
 	
 	public static final BlockFilter ALL = new BlockFilter((state) -> {
 		return true;
@@ -24,18 +25,10 @@ public class BlockFilter {
 		return crop.isMature(state);
 	});
 	
-	private Predicate<BlockState> predicate;
-	
-	public BlockFilter() {
-		this(null);
-	}
+	public BlockFilter() {}
 	
 	public BlockFilter(Predicate<BlockState> predicate) {
-		this.predicate = predicate;
-	}
-	
-	public boolean matches(BlockState state) {
-		return predicate.test(state);
+		super(predicate);
 	}
 	
 	public static BlockFilter fromString(String s) {

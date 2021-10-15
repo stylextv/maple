@@ -2,11 +2,16 @@ package de.stylextv.maple.task.tasks;
 
 import de.stylextv.maple.util.chat.ChatUtil;
 import de.stylextv.maple.world.scan.block.BlockFilter;
+import de.stylextv.maple.world.scan.block.BlockFilters;
 
 public class MineTask extends BreakTask {
 	
 	public MineTask(BlockFilter filter) {
-		super(filter);
+		this(BlockFilters.fromFilter(filter));
+	}
+	
+	public MineTask(BlockFilters filters) {
+		super(filters);
 	}
 	
 	@Override

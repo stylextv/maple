@@ -12,10 +12,12 @@ import net.minecraft.entity.Entity;
 public class EntityScanner {
 	
 	public static List<Entity> scanWorld() {
-		return scanWorld(EntityFilter.ALL);
+		EntityFilters filters = EntityFilters.fromFilter(EntityFilter.ALL);
+		
+		return scanWorld(filters);
 	}
 	
-	public static List<Entity> scanWorld(EntityFilter... filters) {
+	public static List<Entity> scanWorld(EntityFilters filters) {
 		List<Entity> entities = new ArrayList<>();
 		
 		ClientWorld world = WorldContext.world();
@@ -26,19 +28,7 @@ public class EntityScanner {
 			
 			if(e.equals(p)) continue;
 			
-			boolean matches = true;
-			
-			for(EntityFilter f : filters) {
-				
-				if(!f.matches(e)) {
-					
-					matches = false;
-					
-					break;
-				}
-			}
-			
-			if(matches) entities.add(e);
+			if(filters.matches(e)) entities.add(e);
 		}
 		
 		return entities;

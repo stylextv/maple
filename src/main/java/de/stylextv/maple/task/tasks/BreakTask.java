@@ -6,17 +6,15 @@ import java.util.concurrent.ConcurrentHashMap;
 import de.stylextv.maple.input.target.BreakableTarget;
 import de.stylextv.maple.pathing.calc.goal.CompositeGoal;
 import de.stylextv.maple.pathing.calc.goal.TwoBlocksGoal;
-import de.stylextv.maple.world.scan.block.BlockFilter;
+import de.stylextv.maple.world.scan.block.BlockFilters;
 import net.minecraft.util.math.BlockPos;
 
 public abstract class BreakTask extends ScanTask {
 	
-	private BlockFilter[] filters;
-	
 	private Set<BreakableTarget> targets = ConcurrentHashMap.newKeySet();
 	
-	public BreakTask(BlockFilter... filters) {
-		this.filters = filters;
+	public BreakTask(BlockFilters filters) {
+		super(filters);
 	}
 	
 	@Override
@@ -32,7 +30,7 @@ public abstract class BreakTask extends ScanTask {
 						if(!hasTarget(pos)) addTarget(pos);
 					}
 					
-				}, filters);
+				});
 			}
 			
 			if(hasScanExpired()) return null;
@@ -77,10 +75,6 @@ public abstract class BreakTask extends ScanTask {
 		}
 		
 		return false;
-	}
-	
-	public BlockFilter[] getFilters() {
-		return filters;
 	}
 	
 	public Set<BreakableTarget> getTargets() {

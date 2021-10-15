@@ -2,6 +2,7 @@ package de.stylextv.maple.task.tasks;
 
 import de.stylextv.maple.util.chat.ChatUtil;
 import de.stylextv.maple.world.scan.block.BlockFilter;
+import de.stylextv.maple.world.scan.block.BlockFilters;
 import de.stylextv.maple.world.scan.block.filters.BlockTypeFilter;
 import net.minecraft.block.Blocks;
 
@@ -20,7 +21,7 @@ public class FarmTask extends BreakTask {
 	);
 	
 	public FarmTask() {
-		super(FILTER, BlockFilter.FULLY_GROWN);
+		super(BlockFilters.fromFilters(FILTER, BlockFilter.FULLY_GROWN));
 	}
 	
 	@Override
