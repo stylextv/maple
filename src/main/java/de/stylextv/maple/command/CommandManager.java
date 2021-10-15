@@ -2,6 +2,7 @@ package de.stylextv.maple.command;
 
 import de.stylextv.maple.command.commands.AxisCommand;
 import de.stylextv.maple.command.commands.ETACommand;
+import de.stylextv.maple.command.commands.FarmCommand;
 import de.stylextv.maple.command.commands.FollowCommand;
 import de.stylextv.maple.command.commands.GotoCommand;
 import de.stylextv.maple.command.commands.HelpCommand;
@@ -24,6 +25,7 @@ public class CommandManager {
 			new HelpCommand(),
 			new GotoCommand(),
 			new MineCommand(),
+			new FarmCommand(),
 			new FollowCommand(),
 			// TODO other task commands
 			new StopCommand(),

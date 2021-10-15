@@ -6,11 +6,22 @@ import de.stylextv.maple.util.RegistryUtil;
 import de.stylextv.maple.world.scan.block.filters.BlockTypeFilter;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.CropBlock;
 
 public class BlockFilter {
 	
 	public static final BlockFilter ALL = new BlockFilter((state) -> {
 		return true;
+	});
+	
+	public static final BlockFilter FULLY_GROWN = new BlockFilter((state) -> {
+		Block block = state.getBlock();
+		
+		if(!(block instanceof CropBlock)) return true;
+		
+		CropBlock crop = (CropBlock) block;
+		
+		return crop.isMature(state);
 	});
 	
 	private Predicate<BlockState> predicate;

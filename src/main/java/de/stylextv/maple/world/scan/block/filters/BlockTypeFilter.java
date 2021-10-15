@@ -6,21 +6,26 @@ import net.minecraft.block.BlockState;
 
 public class BlockTypeFilter extends BlockFilter {
 	
-	private Block block;
+	private Block[] blocks;
 	
-	public BlockTypeFilter(Block block) {
-		this.block = block;
+	public BlockTypeFilter(Block... blocks) {
+		this.blocks = blocks;
 	}
 	
 	@Override
 	public boolean matches(BlockState state) {
-		Block b = state.getBlock();
+		Block block = state.getBlock();
 		
-		return b.equals(block);
+		for(Block b : blocks) {
+			
+			if(block.equals(b)) return true;
+		}
+		
+		return false;
 	}
 	
-	public Block getBlock() {
-		return block;
+	public Block[] getBlocks() {
+		return blocks;
 	}
 	
 }

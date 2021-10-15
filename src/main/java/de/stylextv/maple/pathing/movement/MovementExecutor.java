@@ -17,6 +17,8 @@ public class MovementExecutor {
 	
 	private static Path path;
 	
+	private static boolean paused;
+	
 	public static void followPath(Path p) {
 		stop();
 		
@@ -63,11 +65,14 @@ public class MovementExecutor {
 		
 		m.updateHelpers();
 		
-		m.onRenderTick();
-		
-		double dt = GameContext.lastFrameDuration();
-		
-		m.tick(dt);
+		if(!paused) {
+			
+			m.onRenderTick();
+			
+			double dt = GameContext.lastFrameDuration();
+			
+			m.tick(dt);
+		}
 		
 		if(PlayerContext.isInWater()) {
 			
@@ -110,6 +115,14 @@ public class MovementExecutor {
 	
 	public static Path getPath() {
 		return path;
+	}
+	
+	public static boolean isPaused() {
+		return paused;
+	}
+	
+	public static void setPaused(boolean b) {
+		paused = b;
 	}
 	
 }
