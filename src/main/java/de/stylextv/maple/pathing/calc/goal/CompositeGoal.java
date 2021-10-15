@@ -1,14 +1,11 @@
 package de.stylextv.maple.pathing.calc.goal;
 
-import java.util.List;
-import java.util.Set;
+import java.util.Collection;
+import java.util.function.Function;
 
 import de.stylextv.maple.event.events.RenderWorldEvent;
-import de.stylextv.maple.input.target.BreakableTarget;
 import de.stylextv.maple.pathing.calc.Node;
 import de.stylextv.maple.util.TextUtil;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.math.BlockPos;
 
 public class CompositeGoal extends Goal {
 	
@@ -84,41 +81,20 @@ public class CompositeGoal extends Goal {
 		return goals;
 	}
 	
-	public static CompositeGoal fromTargets(Set<BreakableTarget> targets) {
-		int l = targets.size();
+	public static <T> CompositeGoal fromCollection(Collection<T> collection, Function<T, Goal> function) {
+		int l = collection.size();
 		
 		Goal[] goals = new Goal[l];
 		
 		int i = 0;
 		
-		for(BreakableTarget target : targets) {
+		for(T t : collection) {
 			
-			BlockPos pos = target.getPos();
-			
-			Goal g = new TwoBlocksGoal(pos);
+			Goal g = function.apply(t);
 			
 			goals[i] = g;
 			
 			i++;
-		}
-		
-		return new CompositeGoal(goals);
-	}
-	
-	public static CompositeGoal fromEntities(List<Entity> entities, float dis) {
-		int l = entities.size();
-		
-		Goal[] goals = new Goal[l];
-		
-		for(int i = 0; i < l; i++) {
-			
-			Entity e = entities.get(i);
-			
-			BlockPos pos = e.getBlockPos();
-			
-			Goal g = new NearGoal(pos, dis);
-			
-			goals[i] = g;
 		}
 		
 		return new CompositeGoal(goals);

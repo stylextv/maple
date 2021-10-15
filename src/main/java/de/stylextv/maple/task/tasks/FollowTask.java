@@ -3,6 +3,7 @@ package de.stylextv.maple.task.tasks;
 import java.util.List;
 
 import de.stylextv.maple.pathing.calc.goal.CompositeGoal;
+import de.stylextv.maple.pathing.calc.goal.NearGoal;
 import de.stylextv.maple.util.chat.ChatUtil;
 import de.stylextv.maple.world.scan.entity.EntityFilter;
 import de.stylextv.maple.world.scan.entity.EntityScanner;
@@ -22,7 +23,7 @@ public class FollowTask extends CompositeTask {
 	public CompositeGoal onTick() {
 		List<Entity> entities = EntityScanner.scanWorld(filter, EntityFilter.ALIVE);
 		
-		return CompositeGoal.fromEntities(entities, FOLLOW_DISTANCE);
+		return CompositeGoal.fromCollection(entities, e -> new NearGoal(e.getBlockPos(), FOLLOW_DISTANCE));
 	}
 	
 	@Override
