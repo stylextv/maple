@@ -4,9 +4,7 @@ import de.stylextv.maple.command.Command;
 import de.stylextv.maple.task.Task;
 import de.stylextv.maple.task.TaskManager;
 import de.stylextv.maple.task.tasks.FarmTask;
-import de.stylextv.maple.task.tasks.MineTask;
 import de.stylextv.maple.util.chat.ChatUtil;
-import de.stylextv.maple.world.scan.block.BlockFilter;
 
 public class FarmCommand extends Command {
 	
