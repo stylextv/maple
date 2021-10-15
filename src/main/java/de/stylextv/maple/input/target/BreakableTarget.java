@@ -15,6 +15,10 @@ public class BreakableTarget extends BlockTarget {
 		super(x, y, z);
 	}
 	
+	public BreakableTarget(BlockPos pos) {
+		super(pos);
+	}
+	
 	public boolean continueBreaking() {
 		if(isSelected(false)) {
 			

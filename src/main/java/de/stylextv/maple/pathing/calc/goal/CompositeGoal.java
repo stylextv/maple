@@ -1,8 +1,10 @@
 package de.stylextv.maple.pathing.calc.goal;
 
 import java.util.List;
+import java.util.Set;
 
 import de.stylextv.maple.event.events.RenderWorldEvent;
+import de.stylextv.maple.input.target.BreakableTarget;
 import de.stylextv.maple.pathing.calc.Node;
 import de.stylextv.maple.util.TextUtil;
 import net.minecraft.entity.Entity;
@@ -82,18 +84,22 @@ public class CompositeGoal extends Goal {
 		return goals;
 	}
 	
-	public static CompositeGoal fromPositions(List<BlockPos> positions) {
-		int l = positions.size();
+	public static CompositeGoal fromTargets(Set<BreakableTarget> targets) {
+		int l = targets.size();
 		
 		Goal[] goals = new Goal[l];
 		
-		for(int i = 0; i < l; i++) {
+		int i = 0;
+		
+		for(BreakableTarget target : targets) {
 			
-			BlockPos pos = positions.get(i);
+			BlockPos pos = target.getPos();
 			
 			Goal g = new TwoBlocksGoal(pos);
 			
 			goals[i] = g;
+			
+			i++;
 		}
 		
 		return new CompositeGoal(goals);

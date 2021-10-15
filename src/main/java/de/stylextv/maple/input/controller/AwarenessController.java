@@ -7,6 +7,7 @@ import de.stylextv.maple.util.world.Offset;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.hit.HitResult.Type;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
 public class AwarenessController {
@@ -35,6 +36,22 @@ public class AwarenessController {
 		}
 		
 		return true;
+	}
+	
+	public static boolean canReach(BlockPos pos) {
+		Vec3d eye = PlayerContext.eyePosition();
+		
+		double x = pos.getX() + 0.5;
+		double y = pos.getY() + 0.5;
+		double z = pos.getZ() + 0.5;
+		
+		Vec3d v = new Vec3d(x, y, z);
+		
+		double dis = eye.distanceTo(v);
+		
+		if(dis > PlayerContext.reachDistance()) return false;
+		
+		return ViewController.canSee(pos);
 	}
 	
 	public static BlockHitResult getBlockTarget() {

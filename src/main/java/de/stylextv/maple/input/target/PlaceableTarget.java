@@ -13,6 +13,10 @@ public class PlaceableTarget extends BlockTarget {
 		super(x, y, z);
 	}
 	
+	public PlaceableTarget(BlockPos pos) {
+		super(pos);
+	}
+	
 	public boolean continuePlacing() {
 		if(isSelected(false)) {
 			

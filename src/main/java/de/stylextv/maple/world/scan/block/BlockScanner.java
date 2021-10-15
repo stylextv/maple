@@ -14,7 +14,7 @@ public class BlockScanner {
 	
 	private static final int SCAN_DISTANCE = 32;
 	
-	private static final int SCAN_LIMIT = 16;
+	private static final int SCAN_LIMIT = 64;
 	
 	public static List<BlockPos> scanWorld(BlockFilter... filters) {
 		return scanWorld(SCAN_LIMIT, filters);
@@ -31,8 +31,6 @@ public class BlockScanner {
 		
 		int r = SCAN_DISTANCE;
 		
-		r = 0; // TODO remove
-		
 		for(int x = -r; x <= r; x++) {
 			for(int z = -r; z <= r; z++) {
 				
@@ -41,15 +39,16 @@ public class BlockScanner {
 				
 				boolean failed = scanChunk(cx, cz, limit, filters, positions);
 				
-				if(failed) break;
+				if(failed) return positions;
 			}
 		}
 		
 		return positions;
 	}
 	
+	// TODO start at player's y coordinate
 	private static boolean scanChunk(int chunkX, int chunkZ, int limit, BlockFilter[] filters, List<BlockPos> positions) {
-		if(!WorldContext.isChunkLoaded(chunkX, chunkZ)) return true;
+		if(!WorldContext.isChunkLoaded(chunkX, chunkZ)) return false;
 		
 		WorldChunk chunk = WorldContext.getChunk(chunkX, chunkZ);
 		

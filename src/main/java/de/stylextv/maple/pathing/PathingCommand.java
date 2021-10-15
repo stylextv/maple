@@ -4,6 +4,10 @@ import de.stylextv.maple.pathing.calc.goal.Goal;
 
 public class PathingCommand {
 	
+	public static final PathingCommand PAUSE = new PathingCommand(PathingCommandType.PAUSE);
+	
+	public static final PathingCommand CANCEL = new PathingCommand(PathingCommandType.CANCEL);
+	
 	public static final PathingCommand DEFER = new PathingCommand(PathingCommandType.DEFER);
 	
 	private PathingCommandType type;

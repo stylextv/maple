@@ -19,7 +19,7 @@ public class FollowTask extends CompositeTask {
 	}
 	
 	@Override
-	public CompositeGoal refreshGoal() {
+	public CompositeGoal onTick() {
 		List<Entity> entities = EntityScanner.scanWorld(filter, EntityFilter.ALIVE);
 		
 		return CompositeGoal.fromEntities(entities, FOLLOW_DISTANCE);

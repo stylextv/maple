@@ -35,9 +35,7 @@ public class PathingExecutor {
 		
 		PathingCommandType type = c.getType();
 		
-		if(type == PathingCommandType.DEFER) return;
-		
-		if(type == PathingCommandType.REQUEST_PAUSE) {
+		if(type == PathingCommandType.PAUSE) {
 			
 			MovementExecutor.setPaused(true);
 			
@@ -45,6 +43,15 @@ public class PathingExecutor {
 		}
 		
 		MovementExecutor.setPaused(false);
+		
+		if(type == PathingCommandType.CANCEL) {
+			
+			stopPathing();
+			
+			return;
+		}
+		
+		if(type == PathingCommandType.DEFER) return;
 		
 		Goal goal = c.getGoal();
 		

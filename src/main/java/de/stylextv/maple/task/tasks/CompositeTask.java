@@ -8,7 +8,7 @@ import de.stylextv.maple.task.Task;
 
 public abstract class CompositeTask extends Task {
 	
-	public abstract CompositeGoal refreshGoal();
+	public abstract CompositeGoal onTick();
 	
 	public abstract void onFail();
 	
@@ -16,13 +16,15 @@ public abstract class CompositeTask extends Task {
 	
 	@Override
 	public PathingCommand onTick(PathingStatus status) {
-		CompositeGoal goal = refreshGoal();
+		CompositeGoal goal = onTick();
+		
+		if(goal == null) return PathingCommand.PAUSE;
 		
 		boolean empty = goal.isEmpty();
 		
 		if(status.isPathing()) {
 			
-			if(empty) return PathingCommand.DEFER;
+			if(empty) return PathingCommand.CANCEL;
 			
 			return new PathingCommand(PathingCommandType.REVALIDATE_GOAL, goal);
 		}

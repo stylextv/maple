@@ -2,6 +2,7 @@ package de.stylextv.maple.context;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.hit.HitResult;
@@ -103,6 +104,12 @@ public class PlayerContext {
 		Vec3d pos = position();
 		
 		return pos.squaredDistanceTo(x, y, z);
+	}
+	
+	public static float reachDistance() {
+		ClientPlayerInteractionManager manager = GameContext.interactionManager();
+		
+		return manager.getReachDistance();
 	}
 	
 	public static HitResult crosshairTarget() {

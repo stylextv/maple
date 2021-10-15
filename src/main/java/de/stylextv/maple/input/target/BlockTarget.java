@@ -88,6 +88,10 @@ public class BlockTarget {
 		return sum.divide(n);
 	}
 	
+	public boolean isInReach() {
+		return AwarenessController.canReach(pos);
+	}
+	
 	public boolean isSelected(boolean ignoreNeighbours) {
 		BlockHitResult result = AwarenessController.getBlockTarget();
 		
