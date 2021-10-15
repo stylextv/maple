@@ -5,6 +5,8 @@ import java.util.List;
 
 import de.stylextv.maple.context.PlayerContext;
 import de.stylextv.maple.context.WorldContext;
+import de.stylextv.maple.util.iterate.IntPair;
+import de.stylextv.maple.util.iterate.iterators.GridIterator;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
@@ -15,6 +17,8 @@ public class BlockScanner {
 	private static final int SCAN_DISTANCE = 32;
 	
 	private static final int SCAN_LIMIT = 16;
+	
+	private static final GridIterator CHUNKS_ITERATOR = new GridIterator(SCAN_DISTANCE * 2, GridIterator.Type.SPIRAL);
 	
 	public static List<BlockPos> scanWorld(BlockFilters filters) {
 		return scanWorld(filters, SCAN_LIMIT);
@@ -29,18 +33,17 @@ public class BlockScanner {
 		int centerX = pos.x;
 		int centerZ = pos.z;
 		
-		int r = SCAN_DISTANCE;
-		
-		for(int x = -r; x <= r; x++) {
-			for(int z = -r; z <= r; z++) {
-				
-				int cx = centerX + x;
-				int cz = centerZ + z;
-				
-				boolean failed = scanChunk(cx, cz, filters, limit, positions);
-				
-				if(failed) return positions;
-			}
+		for(IntPair pair : CHUNKS_ITERATOR) {
+			
+			int x = pair.getFirst();
+			int z = pair.getSecond();
+			
+			int cx = centerX + x;
+			int cz = centerZ + z;
+			
+			boolean failed = scanChunk(cx, cz, filters, limit, positions);
+			
+			if(failed) return positions;
 		}
 		
 		return positions;
