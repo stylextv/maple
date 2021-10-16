@@ -13,6 +13,7 @@ public class SpiralIterator extends IntPairIterator {
 		super(size * size);
 		
 		this.size = size;
+		this.pairs = new IntPair[getLength()];
 		
 		generate();
 	}
@@ -24,9 +25,7 @@ public class SpiralIterator extends IntPairIterator {
 		int dx = 0;
 		int dy = -1;
 		
-		int l = size * size;
-		
-		for(int i = 0; i < l; i++) {
+		for(int i = 0; i < getLength(); i++) {
 			
 			pairs[i] = new IntPair(x, y);
 			
