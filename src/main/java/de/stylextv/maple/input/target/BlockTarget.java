@@ -114,11 +114,6 @@ public class BlockTarget {
 		return BlockInterface.getState(pos);
 	}
 	
-	@Override
-	public int hashCode() {
-		return pos.hashCode();
-	}
-	
 	public BlockPos getPos() {
 		return pos;
 	}

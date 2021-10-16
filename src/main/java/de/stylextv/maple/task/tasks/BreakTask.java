@@ -7,6 +7,7 @@ import de.stylextv.maple.input.target.BreakableTarget;
 import de.stylextv.maple.pathing.calc.goal.CompositeGoal;
 import de.stylextv.maple.pathing.calc.goal.TwoBlocksGoal;
 import de.stylextv.maple.world.scan.block.BlockFilters;
+import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 
 public abstract class BreakTask extends ScanTask {
@@ -23,12 +24,9 @@ public abstract class BreakTask extends ScanTask {
 			
 			if(!isScanning()) {
 				
-				rescan((positions) -> {
+				rescan((pos) -> {
 					
-					for(BlockPos pos : positions) {
-						
-						if(!hasTarget(pos)) addTarget(pos);
-					}
+					if(!hasTarget(pos)) addTarget(pos);
 					
 				});
 			}
@@ -38,7 +36,11 @@ public abstract class BreakTask extends ScanTask {
 		
 		for(BreakableTarget target : targets) {
 			
-			if(target.isBroken()) {
+			BlockState state = target.state();
+			
+			boolean broken = !getFilters().matches(state);
+			
+			if(broken) {
 				
 				removeTarget(target);
 				

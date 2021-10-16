@@ -1,6 +1,5 @@
 package de.stylextv.maple.task.tasks;
 
-import java.util.List;
 import java.util.function.Consumer;
 
 import de.stylextv.maple.util.async.AsyncUtil;
@@ -10,7 +9,7 @@ import net.minecraft.util.math.BlockPos;
 
 public abstract class ScanTask extends CompositeTask {
 	
-	private static final long SCAN_EXPIRATION_TIME = 15000;
+	private static final long SCAN_EXPIRATION_TIME = 5000;
 	
 	private BlockFilters filters;
 	
@@ -22,16 +21,14 @@ public abstract class ScanTask extends CompositeTask {
 		this.filters = filters;
 	}
 	
-	public void rescan(Consumer<List<BlockPos>> consumer) {
+	public void rescan(Consumer<BlockPos> consumer) {
 		if(scanning) return;
 		
 		scanning = true;
 		
 		AsyncUtil.runAsync(() -> {
 			
-			List<BlockPos> positions = BlockScanner.scanWorld(filters);
-			
-			consumer.accept(positions);
+			BlockScanner.scanWorld(filters, consumer);
 			
 			scanEndTime = System.currentTimeMillis();
 			

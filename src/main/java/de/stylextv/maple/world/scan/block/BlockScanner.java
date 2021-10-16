@@ -1,12 +1,11 @@
 package de.stylextv.maple.world.scan.block;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.function.Consumer;
 
 import de.stylextv.maple.context.PlayerContext;
 import de.stylextv.maple.context.WorldContext;
 import de.stylextv.maple.util.iterate.IntPair;
-import de.stylextv.maple.util.iterate.iterators.GridIterator;
+import de.stylextv.maple.util.iterate.iterators.SpiralIterator;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
@@ -16,22 +15,21 @@ public class BlockScanner {
 	
 	private static final int SCAN_DISTANCE = 32;
 	
-	private static final int SCAN_LIMIT = 16;
+	private static final int SCAN_LIMIT = 128;
 	
-	private static final GridIterator CHUNKS_ITERATOR = new GridIterator(SCAN_DISTANCE * 2, GridIterator.Type.SPIRAL);
+	private static final SpiralIterator CHUNKS_ITERATOR = new SpiralIterator(SCAN_DISTANCE);
 	
-	public static List<BlockPos> scanWorld(BlockFilters filters) {
-		return scanWorld(filters, SCAN_LIMIT);
+	public static void scanWorld(BlockFilters filters, Consumer<BlockPos> consumer) {
+		scanWorld(filters, SCAN_LIMIT, consumer);
 	}
 	
-	// TODO search in spiral pattern
-	public static List<BlockPos> scanWorld(BlockFilters filters, int limit) {
-		List<BlockPos> positions = new ArrayList<>();
-		
+	public static void scanWorld(BlockFilters filters, int limit, Consumer<BlockPos> consumer) {
 		ChunkPos pos = PlayerContext.chunkPosition();
 		
 		int centerX = pos.x;
 		int centerZ = pos.z;
+		
+		int count = 0;
 		
 		for(IntPair pair : CHUNKS_ITERATOR) {
 			
@@ -41,17 +39,17 @@ public class BlockScanner {
 			int cx = centerX + x;
 			int cz = centerZ + z;
 			
-			boolean failed = scanChunk(cx, cz, filters, limit, positions);
+			int n = scanChunk(cx, cz, filters, limit, count, consumer);
 			
-			if(failed) return positions;
+			count += n;
+			
+			if(count >= limit) return;
 		}
-		
-		return positions;
 	}
 	
 	// TODO start at player's y coordinate
-	private static boolean scanChunk(int chunkX, int chunkZ, BlockFilters filters, int limit, List<BlockPos> positions) {
-		if(!WorldContext.isChunkLoaded(chunkX, chunkZ)) return false;
+	private static int scanChunk(int chunkX, int chunkZ, BlockFilters filters, int limit, int count, Consumer<BlockPos> consumer) {
+		if(!WorldContext.isChunkLoaded(chunkX, chunkZ)) return 0;
 		
 		WorldChunk chunk = WorldContext.getChunk(chunkX, chunkZ);
 		
@@ -63,6 +61,8 @@ public class BlockScanner {
 		
 		int startX = pos.getStartX();
 		int startZ = pos.getStartZ();
+		
+		int n = 0;
 		
 		for(int y = 0; y < height; y++) {
 			for(int x = 0; x < 16; x++) {
@@ -78,17 +78,17 @@ public class BlockScanner {
 					
 					if(filters.matches(state)) {
 						
-						positions.add(p);
+						consumer.accept(p);
 						
-						int l = positions.size();
+						n++;
 						
-						if(l == limit) return true;
+						if(count + n >= limit) return n;
 					}
 				}
 			}
 		}
 		
-		return false;
+		return n;
 	}
 	
 }
