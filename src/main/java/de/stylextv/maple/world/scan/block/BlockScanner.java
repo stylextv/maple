@@ -17,7 +17,7 @@ public class BlockScanner {
 	
 	private static final int SCAN_LIMIT = 128;
 	
-	private static final SpiralIterator CHUNKS_ITERATOR = new SpiralIterator(SCAN_DISTANCE);
+	private static final SpiralIterator CHUNKS_ITERATOR = new SpiralIterator(SCAN_DISTANCE * 2);
 	
 	public static void scanWorld(BlockFilters filters, Consumer<BlockPos> consumer) {
 		scanWorld(filters, SCAN_LIMIT, consumer);

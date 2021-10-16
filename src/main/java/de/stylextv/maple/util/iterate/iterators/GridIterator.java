@@ -23,10 +23,10 @@ public class GridIterator extends IntPairIterator {
 	
 	@Override
 	public IntPair get(int index) {
-		int i = index % width;
-		int j = index / width;
+		int x = index % width;
+		int y = index / width;
 		
-		return new IntPair(i, j);
+		return new IntPair(x, y);
 	}
 	
 	public int getWidth() {
