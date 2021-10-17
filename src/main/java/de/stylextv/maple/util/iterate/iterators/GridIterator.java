@@ -5,7 +5,7 @@ import de.stylextv.maple.util.iterate.IntPairIterator;
 
 public class GridIterator extends IntPairIterator {
 	
-	// TODO common grid iterators as constants
+//	public static final GridIterator SIXTEEN_BY_16 = new GridIterator(16);
 	
 	private int width;
 	private int height;
@@ -22,11 +22,14 @@ public class GridIterator extends IntPairIterator {
 	}
 	
 	@Override
-	public IntPair get(int index) {
-		int x = index % width;
-		int y = index / width;
-		
-		return new IntPair(x, y);
+	public void generate() {
+		for(int i = 0; i < getLength(); i++) {
+			
+			int x = i % width;
+			int y = i / width;
+			
+			setPair(i, new IntPair(x, y));
+		}
 	}
 	
 	public int getWidth() {
