@@ -13,24 +13,48 @@ import de.stylextv.maple.world.scan.entity.EntityFilter;
 import de.stylextv.maple.world.scan.entity.EntityFilters;
 import de.stylextv.maple.world.scan.entity.EntityScanner;
 import de.stylextv.maple.world.scan.entity.filters.EntityTypeFilter;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ItemEntity;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 
 public abstract class BreakTask extends ScanTask {
 	
 	private static final EntityFilter ITEM_FILTER = new EntityTypeFilter(EntityType.ITEM);
 	
+	private EntityFilters entityFilters;
+	
 	private Set<BreakableTarget> targets = ConcurrentHashMap.newKeySet();
 	
 	public BreakTask(BlockFilters filters) {
 		super(filters);
+		
+		EntityFilter filter = new EntityFilter(e -> {
+			
+			ItemEntity entity = (ItemEntity) e;
+			
+			ItemStack stack = entity.getStack();
+			
+			Item item = stack.getItem();
+			
+			if(!(item instanceof BlockItem)) return false;
+			
+			Block block = ((BlockItem) item).getBlock();
+			
+			return getFilters().matches(block.getDefaultState());
+		});
+		
+		this.entityFilters = EntityFilters.fromFilters(ITEM_FILTER, filter);
 	}
 	
 	@Override
 	public CompositeGoal onTick() {
-		List<Entity> entities = EntityScanner.scanWorld(EntityFilters.fromFilter(ITEM_FILTER));
+		List<Entity> entities = EntityScanner.scanWorld(entityFilters);
 		
 		CompositeGoal entityGoal = CompositeGoal.fromCollection(entities, e -> new BlockGoal(e.getBlockPos()));
 		
