@@ -1,7 +1,9 @@
 package de.stylextv.maple.pathing.calc.goal;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.function.Function;
+import java.util.stream.Stream;
 
 import de.stylextv.maple.event.events.RenderWorldEvent;
 import de.stylextv.maple.pathing.calc.Node;
@@ -79,6 +81,18 @@ public class CompositeGoal extends Goal {
 	
 	public Goal[] getGoals() {
 		return goals;
+	}
+	
+	public static CompositeGoal combine(CompositeGoal goal1, CompositeGoal goal2) {
+		Goal[] goals1 = goal1.getGoals();
+		Goal[] goals2 = goal2.getGoals();
+		
+		Stream<Goal> stream1 = Arrays.stream(goals1);
+		Stream<Goal> stream2 = Arrays.stream(goals2);
+		
+		Goal[] goals = Stream.concat(stream1, stream2).toArray(Goal[]::new);
+		
+		return new CompositeGoal(goals);
 	}
 	
 	public static <T> CompositeGoal fromCollection(Collection<T> collection, Function<T, Goal> function) {
