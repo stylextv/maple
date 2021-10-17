@@ -41,7 +41,9 @@ public class BlockTarget {
 			int y = pos.getY() + o.getBlockY();
 			int z = pos.getZ() + o.getBlockZ();
 			
-			if(PlaceController.canPlaceAgainst(x, y, z)) {
+			Direction dir = o.getDirection().getOpposite();
+			
+			if(PlaceController.canPlaceAgainst(x, y, z, dir)) {
 				
 				double rx = pos.getX() + 0.5;
 				double ry = pos.getY() + 0.5;

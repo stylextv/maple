@@ -1,5 +1,7 @@
 package de.stylextv.maple.util.world;
 
+import net.minecraft.util.math.Direction;
+
 public class Offset {
 	
 	public static final Offset[] TRIPLED_BLOCK_CORNERS = {
@@ -99,6 +101,8 @@ public class Offset {
 	private int blockY;
 	private int blockZ;
 	
+	private Direction dir;
+	
 	public Offset() {
 		this(0, 0, 0);
 	}
@@ -111,6 +115,8 @@ public class Offset {
 		this.blockX = CoordUtil.unitToBlockPos(x);
 		this.blockY = CoordUtil.unitToBlockPos(y);
 		this.blockZ = CoordUtil.unitToBlockPos(z);
+		
+		this.dir = Direction.fromVector(blockX, blockY, blockZ);
 	}
 	
 	public Offset add(Offset o) {
@@ -165,18 +171,6 @@ public class Offset {
 		return multiply(x, y, z);
 	}
 	
-	public int getBlockX() {
-		return blockX;
-	}
-	
-	public int getBlockY() {
-		return blockY;
-	}
-	
-	public int getBlockZ() {
-		return blockZ;
-	}
-	
 	@Override
 	public String toString() {
 		return String.format("Offset{x=%s, y=%s, z=%s}", x, y, z);
@@ -192,6 +186,22 @@ public class Offset {
 	
 	public double getZ() {
 		return z;
+	}
+	
+	public int getBlockX() {
+		return blockX;
+	}
+	
+	public int getBlockY() {
+		return blockY;
+	}
+	
+	public int getBlockZ() {
+		return blockZ;
+	}
+	
+	public Direction getDirection() {
+		return dir;
 	}
 	
 }

@@ -1,10 +1,15 @@
 package de.stylextv.maple.input.controller;
 
 import de.stylextv.maple.context.GameContext;
+import de.stylextv.maple.context.WorldContext;
 import de.stylextv.maple.input.InputAction;
 import de.stylextv.maple.mixin.MinecraftClientInvoker;
 import de.stylextv.maple.util.world.Offset;
+import de.stylextv.maple.world.BlockInterface;
+import net.minecraft.block.BlockState;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 
 public class PlaceController {
 	
@@ -15,14 +20,22 @@ public class PlaceController {
 			int y = pos.getY() + o.getBlockY();
 			int z = pos.getZ() + o.getBlockZ();
 			
-			if(canPlaceAgainst(x, y, z)) return true;
+			Direction dir = o.getDirection().getOpposite();
+			
+			if(canPlaceAgainst(x, y, z, dir)) return true;
 		}
 		
 		return false;
 	}
 	
-	public static boolean canPlaceAgainst(int x, int y, int z) {
-		return BreakController.isBreakable(x, y, z);
+	public static boolean canPlaceAgainst(int x, int y, int z, Direction dir) {
+		BlockPos pos = new BlockPos(x, y, z);
+		
+		BlockState state = BlockInterface.getState(pos);
+		
+		ClientWorld world = WorldContext.world();
+		
+		return state.isSideSolidFullSquare(world, pos, dir);
 	}
 	
 	public static void onTick() {
