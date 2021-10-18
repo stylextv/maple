@@ -83,36 +83,41 @@ public class ViewController {
 	}
 	
 	public static boolean canSee(BlockPos pos) {
-		double x = pos.getX() + 0.5;
-		double y = pos.getY() + 0.5;
-		double z = pos.getZ() + 0.5;
+		Vec3d v = Vec3d.ofCenter(pos);
 		
-		Vec3d v = new Vec3d(x, y, z);
-		
-		BlockHitResult result = raycastFromPlayer(v);
-		
-		Type type = result.getType();
-		
-		if(type == Type.MISS) return true;
-		if(type != Type.BLOCK) return false;
-		
-		BlockPos p = result.getBlockPos();
-		
-		return pos.equals(p);
+		return canSee(v, pos);
 	}
 	
 	public static boolean canSee(Offset o) {
 		return canSee(o.getX(), o.getY(), o.getZ());
 	}
 	
+	public static boolean canSee(Offset o, BlockPos ignorePos) {
+		return canSee(o.getX(), o.getY(), o.getZ(), ignorePos);
+	}
+	
 	public static boolean canSee(double x, double y, double z) {
+		return canSee(x, y, z, null);
+	}
+	
+	public static boolean canSee(double x, double y, double z, BlockPos ignorePos) {
 		Vec3d v = new Vec3d(x, y, z);
 		
+		return canSee(v, ignorePos);
+	}
+	
+	public static boolean canSee(Vec3d v, BlockPos ignorePos) {
 		BlockHitResult result = raycastFromPlayer(v);
 		
 		Type type = result.getType();
 		
-		return type == Type.MISS;
+		if(type == Type.MISS) return true;
+		
+		if(type != Type.BLOCK || ignorePos == null) return false;
+		
+		BlockPos pos = result.getBlockPos();
+		
+		return pos.equals(ignorePos);
 	}
 	
 	private static BlockHitResult raycastFromPlayer(Vec3d end) {

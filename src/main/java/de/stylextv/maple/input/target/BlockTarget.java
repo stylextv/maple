@@ -35,7 +35,7 @@ public class BlockTarget {
 			
 			o = center();
 			
-			if(!ViewController.canSee(o)) return false;
+			if(!ViewController.canSee(o, pos)) return false;
 		}
 		
 		ViewController.lookAt(o);
