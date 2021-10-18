@@ -8,15 +8,15 @@ import de.stylextv.maple.task.Task;
 
 public abstract class CompositeTask extends Task {
 	
-	public abstract CompositeGoal onTick();
+	public abstract CompositeGoal onRenderTick();
 	
 	public abstract void onFail();
 	
 	public abstract void onComplete();
 	
 	@Override
-	public PathingCommand onTick(PathingStatus status) {
-		CompositeGoal goal = onTick();
+	public PathingCommand onRenderTick(PathingStatus status) {
+		CompositeGoal goal = onRenderTick();
 		
 		if(goal == null) return PathingCommand.PAUSE;
 		
@@ -33,14 +33,14 @@ public abstract class CompositeTask extends Task {
 			
 			onFail();
 			
-			return super.onTick(status);
+			return super.onRenderTick(status);
 		}
 		
 		if(!empty) return new PathingCommand(PathingCommandType.PATH_TO_GOAL, goal);
 		
 		onComplete();
 		
-		return super.onTick(status);
+		return super.onRenderTick(status);
 	}
 	
 }

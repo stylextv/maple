@@ -16,7 +16,7 @@ public class CustomGoalTask extends Task {
 	}
 	
 	@Override
-	public PathingCommand onTick(PathingStatus status) {
+	public PathingCommand onRenderTick(PathingStatus status) {
 		boolean matches = status.goalMatches(goal);
 		
 		if(!matches) return new PathingCommand(PathingCommandType.PATH_TO_GOAL, goal);
@@ -29,7 +29,7 @@ public class CustomGoalTask extends Task {
 		
 		ChatUtil.send(s);
 		
-		return super.onTick(status);
+		return super.onRenderTick(status);
 	}
 	
 	public Goal getGoal() {

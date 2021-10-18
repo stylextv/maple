@@ -53,7 +53,7 @@ public abstract class BreakTask extends ScanTask {
 	}
 	
 	@Override
-	public CompositeGoal onTick() {
+	public CompositeGoal onRenderTick() {
 		List<Entity> entities = EntityScanner.scanWorld(entityFilters);
 		
 		CompositeGoal entityGoal = CompositeGoal.fromCollection(entities, e -> new BlockGoal(e.getBlockPos()));

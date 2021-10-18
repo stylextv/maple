@@ -25,7 +25,7 @@ public class GetToBlockTask extends ScanTask {
 	}
 	
 	@Override
-	public CompositeGoal onTick() {
+	public CompositeGoal onRenderTick() {
 		if(positions.isEmpty() && hasScanExpired()) {
 			
 			if(!isScanning()) {

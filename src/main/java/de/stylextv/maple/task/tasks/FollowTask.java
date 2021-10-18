@@ -21,7 +21,7 @@ public class FollowTask extends CompositeTask {
 	}
 	
 	@Override
-	public CompositeGoal onTick() {
+	public CompositeGoal onRenderTick() {
 		List<Entity> entities = EntityScanner.scanWorld(filters);
 		
 		return CompositeGoal.fromCollection(entities, e -> new NearGoal(e.getBlockPos(), FOLLOW_DISTANCE));

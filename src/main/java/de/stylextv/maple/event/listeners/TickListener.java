@@ -16,8 +16,6 @@ public class TickListener implements EventListener {
 	public void onClientTick(TickEvent event) {
 		if(!GameContext.isIngame()) return;
 		
-		TaskManager.onTick();
-		
 		BreakController.onTick();
 		PlaceController.onTick();
 		
@@ -27,6 +25,8 @@ public class TickListener implements EventListener {
 	@Override
 	public void onRenderTick(TickEvent event) {
 		if(!GameContext.isIngame()) return;
+		
+		TaskManager.onRenderTick();
 		
 		MovementExecutor.onRenderTick();
 		

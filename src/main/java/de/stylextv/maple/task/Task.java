@@ -31,7 +31,7 @@ public abstract class Task {
 		t.setParent(this);
 	}
 	
-	public PathingCommand onTick(PathingStatus status) {
+	public PathingCommand onRenderTick(PathingStatus status) {
 		if(!finished) {
 			
 			finished = true;
@@ -41,7 +41,7 @@ public abstract class Task {
 		
 		for(Task t : children) {
 			
-			PathingCommand c = t.onTick(status);
+			PathingCommand c = t.onRenderTick(status);
 			
 			if(c != null) return c;
 			

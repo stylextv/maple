@@ -38,14 +38,14 @@ public class TaskManager {
 		task.resume();
 	}
 	
-	public static void onTick() {
+	public static void onRenderTick() {
 		PathingCommand c = null;
 		
 		if(hasTask() && !task.isPaused()) {
 			
 			PathingStatus status = PathingExecutor.getStatus();
 			
-			c = task.onTick(status);
+			c = task.onRenderTick(status);
 			
 			if(c == null) stopTask();
 		}
