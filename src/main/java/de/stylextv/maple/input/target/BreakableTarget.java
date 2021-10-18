@@ -2,9 +2,11 @@ package de.stylextv.maple.input.target;
 
 import de.stylextv.maple.gui.ToolSet;
 import de.stylextv.maple.input.InputAction;
+import de.stylextv.maple.input.controller.AwarenessController;
 import de.stylextv.maple.input.controller.BreakController;
 import de.stylextv.maple.input.controller.GuiController;
 import de.stylextv.maple.input.controller.InputController;
+import de.stylextv.maple.world.BlockInterface;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -22,7 +24,9 @@ public class BreakableTarget extends BlockTarget {
 	public boolean continueBreaking() {
 		if(!lookAt(false)) return false;
 		
-		BlockState state = state();
+		BlockPos pos = AwarenessController.getTargetedPos();
+		
+		BlockState state = BlockInterface.getState(pos);
 		
 		ToolSet tools = ToolSet.getTools();
 		

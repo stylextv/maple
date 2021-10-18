@@ -54,6 +54,14 @@ public class AwarenessController {
 		return ViewController.canSee(pos);
 	}
 	
+	public static BlockPos getTargetedPos() {
+		BlockHitResult result = getBlockTarget();
+		
+		if(result == null) return null;
+		
+		return result.getBlockPos();
+	}
+	
 	public static BlockHitResult getBlockTarget() {
 		HitResult result = getCrosshairTarget();
 		
