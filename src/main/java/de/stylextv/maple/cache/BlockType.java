@@ -6,6 +6,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FenceBlock;
 import net.minecraft.block.InfestedBlock;
+import net.minecraft.block.WallBlock;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 
@@ -144,8 +145,9 @@ public class BlockType {
 		Block blockBelow = below.getBlock();
 		
 		boolean aboveFence = blockBelow instanceof FenceBlock;
+		boolean aboveWall = blockBelow instanceof WallBlock;
 		
-		if(aboveFence || above.getBlock().equals(Blocks.LILY_PAD)) {
+		if(aboveFence || aboveWall || above.getBlock().equals(Blocks.LILY_PAD)) {
 			return UNBREAKABLE;
 		}
 		
