@@ -24,11 +24,11 @@ public class SearchExecutor {
 	public static void startSearch(Goal goal) {
 		stopSearch();
 		
+		Path path = new Path();
+		
+		MovementExecutor.followPath(path);
+		
 		AsyncUtil.runAsync(() -> {
-			
-			Path path = new Path();
-			
-			MovementExecutor.followPath(path);
 			
 			while(true) {
 				
