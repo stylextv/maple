@@ -9,6 +9,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.block.StairsBlock;
+import net.minecraft.block.enums.BlockHalf;
 import net.minecraft.block.enums.SlabType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -54,6 +55,10 @@ public class JumpHelper extends MovementHelper<Movement> {
 		}
 		
 		if(block instanceof StairsBlock) {
+			
+			BlockHalf half = state.get(StairsBlock.HALF);
+			
+			if(half == BlockHalf.TOP) return false;
 			
 			Direction stairsDir = state.get(StairsBlock.FACING);
 			
