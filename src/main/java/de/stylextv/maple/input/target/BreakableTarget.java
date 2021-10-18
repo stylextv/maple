@@ -26,6 +26,8 @@ public class BreakableTarget extends BlockTarget {
 		
 		BlockPos pos = AwarenessController.getTargetedPos();
 		
+		if(pos == null) return true;
+		
 		BlockState state = BlockInterface.getState(pos);
 		
 		ToolSet tools = ToolSet.getTools();
