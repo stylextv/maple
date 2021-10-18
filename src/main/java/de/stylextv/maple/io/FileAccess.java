@@ -86,8 +86,6 @@ public class FileAccess {
 		
 		if(compress) {
 			
-			if(isEmpty()) return false;
-			
 			int i = FileSystem.readInt(this);
 			
 			return i == FILE_VERSION;
