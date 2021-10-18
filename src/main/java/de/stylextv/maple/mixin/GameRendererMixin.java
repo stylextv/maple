@@ -7,8 +7,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import de.stylextv.maple.event.EventBus;
-import de.stylextv.maple.event.events.RenderTickEvent;
 import de.stylextv.maple.event.events.RenderWorldEvent;
+import de.stylextv.maple.event.events.TickEvent;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 
@@ -17,7 +17,7 @@ public class GameRendererMixin {
 	
 	@Inject(method = "render(FJZ)V", at = @At("HEAD"))
 	private void render(float tickDelta, long startTime, boolean tick, CallbackInfo info) {
-		EventBus.onEvent(new RenderTickEvent());
+		EventBus.onEvent(new TickEvent(TickEvent.Type.RENDER));
 	}
 	
 	@Inject(

@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import de.stylextv.maple.context.WorldContext;
 import de.stylextv.maple.event.EventBus;
-import de.stylextv.maple.event.events.ClientTickEvent;
+import de.stylextv.maple.event.events.TickEvent;
 import de.stylextv.maple.event.events.WorldEvent;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
@@ -18,7 +18,7 @@ public class MinecraftClientMixin {
 	
 	@Inject(method = "tick()V", at = @At("HEAD"))
 	private void tick(CallbackInfo info) {
-		EventBus.onEvent(new ClientTickEvent());
+		EventBus.onEvent(new TickEvent(TickEvent.Type.CLIENT));
 	}
 	
 	@Inject(method = "joinWorld(Lnet/minecraft/client/world/ClientWorld;)V", at = @At("TAIL"))

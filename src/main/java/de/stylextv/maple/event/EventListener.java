@@ -3,20 +3,19 @@ package de.stylextv.maple.event;
 import de.stylextv.maple.event.events.BlockUpdateEvent;
 import de.stylextv.maple.event.events.ChunkEvent;
 import de.stylextv.maple.event.events.ClientChatEvent;
-import de.stylextv.maple.event.events.ClientTickEvent;
 import de.stylextv.maple.event.events.EntityDeathEvent;
 import de.stylextv.maple.event.events.EntitySleptEvent;
 import de.stylextv.maple.event.events.InventoryUpdateEvent;
 import de.stylextv.maple.event.events.PacketEvent;
-import de.stylextv.maple.event.events.RenderTickEvent;
 import de.stylextv.maple.event.events.RenderWorldEvent;
+import de.stylextv.maple.event.events.TickEvent;
 import de.stylextv.maple.event.events.WorldEvent;
 
 public interface EventListener {
 	
-	public default void onClientTick(ClientTickEvent event) {}
+	public default void onClientTick(TickEvent event) {}
 	
-	public default void onRenderTick(RenderTickEvent event) {}
+	public default void onRenderTick(TickEvent event) {}
 	
 	public default void onWorldRender(RenderWorldEvent event) {}
 	
