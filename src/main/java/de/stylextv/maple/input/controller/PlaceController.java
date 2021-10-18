@@ -6,10 +6,12 @@ import de.stylextv.maple.input.InputAction;
 import de.stylextv.maple.mixin.MinecraftClientInvoker;
 import de.stylextv.maple.util.world.Offset;
 import de.stylextv.maple.world.BlockInterface;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.shape.VoxelShape;
 
 public class PlaceController {
 	
@@ -35,7 +37,9 @@ public class PlaceController {
 		
 		ClientWorld world = WorldContext.world();
 		
-		return state.isSideSolidFullSquare(world, pos, dir);
+		VoxelShape shape = state.getOutlineShape(world, pos);
+		
+		return Block.isFaceFullSquare(shape, dir);
 	}
 	
 	public static void onTick() {

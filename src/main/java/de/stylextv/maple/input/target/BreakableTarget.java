@@ -20,7 +20,7 @@ public class BreakableTarget extends BlockTarget {
 	}
 	
 	public boolean continueBreaking() {
-		if(isSelected(false)) {
+		if(isSelected(true)) {
 			
 			BlockState state = state();
 			
