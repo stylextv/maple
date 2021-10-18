@@ -1,37 +1,9 @@
 package de.stylextv.maple.util.world;
 
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 
 public class Offset {
-	
-	public static final Offset[] TRIPLED_BLOCK_CORNERS = {
-			new Offset(  0, 0.1, 0.1),
-			new Offset(  0, 0.9, 0.1),
-			new Offset(  0, 0.1, 0.9),
-			new Offset(  0, 0.9, 0.9),
-			new Offset(  1, 0.1, 0.1),
-			new Offset(  1, 0.9, 0.1),
-			new Offset(  1, 0.1, 0.9),
-			new Offset(  1, 0.9, 0.9),
-			
-			new Offset(0.1,   0, 0.1),
-			new Offset(0.9,   0, 0.1),
-			new Offset(0.1,   0, 0.9),
-			new Offset(0.9,   0, 0.9),
-			new Offset(0.1,   1, 0.1),
-			new Offset(0.9,   1, 0.1),
-			new Offset(0.1,   1, 0.9),
-			new Offset(0.9,   1, 0.9),
-			
-			new Offset(0.1, 0.1,   0),
-			new Offset(0.9, 0.1,   0),
-			new Offset(0.1, 0.9,   0),
-			new Offset(0.9, 0.9,   0),
-			new Offset(0.1, 0.1,   1),
-			new Offset(0.9, 0.1,   1),
-			new Offset(0.1, 0.9,   1),
-			new Offset(0.9, 0.9,   1),
-	};
 	
 	public static final Offset[] BLOCK_CORNERS = {
 			new Offset(  0,   0,   0),
@@ -105,6 +77,10 @@ public class Offset {
 	
 	public Offset() {
 		this(0, 0, 0);
+	}
+	
+	public Offset(Vec3d v) {
+		this(v.getX(), v.getY(), v.getZ());
 	}
 	
 	public Offset(double x, double y, double z) {

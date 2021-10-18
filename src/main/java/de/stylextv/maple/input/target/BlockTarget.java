@@ -1,14 +1,18 @@
 package de.stylextv.maple.input.target;
 
+import de.stylextv.maple.context.WorldContext;
 import de.stylextv.maple.input.controller.AwarenessController;
 import de.stylextv.maple.input.controller.PlaceController;
 import de.stylextv.maple.input.controller.ViewController;
 import de.stylextv.maple.util.world.Offset;
 import de.stylextv.maple.world.BlockInterface;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.shape.VoxelShape;
 
 public class BlockTarget {
 	
@@ -23,27 +27,51 @@ public class BlockTarget {
 	}
 	
 	public boolean lookAt(boolean atNeighbour) {
-		Offset o = atNeighbour ? visibleNeighbour() : visiblePoint();
+		Offset o = visibleSide(atNeighbour);
 		
-		if(o == null) return false;
+		if(o == null) {
+			
+			if(atNeighbour) return false;
+			
+			o = center();
+			
+			System.out.println(ViewController.canSee(o));
+			
+			if(!ViewController.canSee(o)) return false;
+		}
 		
 		ViewController.lookAt(o);
 		
 		return true;
 	}
 	
-	public Offset visibleNeighbour() {
+	public Offset visibleSide(boolean inside) {
 		BlockPos pos = getPos();
+		
+		int blockX = pos.getX();
+		int blockY = pos.getY();
+		int blockZ = pos.getZ();
 		
 		for(Offset o : Offset.DIRECT_BLOCK_NEIGHBOURS) {
 			
-			int x = pos.getX() + o.getBlockX();
-			int y = pos.getY() + o.getBlockY();
-			int z = pos.getZ() + o.getBlockZ();
+			int x = blockX;
+			int y = blockY;
+			int z = blockZ;
 			
-			Direction dir = o.getDirection().getOpposite();
+			Direction dir = o.getDirection();
 			
-			if(PlaceController.canPlaceAgainst(x, y, z, dir)) {
+			if(inside) {
+				
+				dir = dir.getOpposite();
+				
+				x += o.getBlockX();
+				y += o.getBlockY();
+				z += o.getBlockZ();
+			}
+			
+			boolean visible = PlaceController.canPlaceAgainst(x, y, z, dir);
+			
+			if(visible) {
 				
 				double rx = pos.getX() + 0.5;
 				double ry = pos.getY() + 0.5;
@@ -64,30 +92,18 @@ public class BlockTarget {
 		return null;
 	}
 	
-	public Offset visiblePoint() {
-		Offset sum = new Offset();
+	public Offset center() {
+		BlockState state = BlockInterface.getState(pos);
 		
-		int n = 0;
+		ClientWorld world = WorldContext.world();
 		
-		BlockPos pos = getPos();
+		VoxelShape shape = state.getOutlineShape(world, pos);
 		
-		for(Offset o : Offset.TRIPLED_BLOCK_CORNERS) {
-			
-			double x = pos.getX() + o.getX();
-			double y = pos.getY() + o.getY();
-			double z = pos.getZ() + o.getZ();
-			
-			if(ViewController.canSee(x, y, z)) {
-				
-				sum = sum.add(x, y, z);
-				
-				n++;
-			}
-		}
+		Vec3d v = shape.getBoundingBox().getCenter();
 		
-		if(n == 0) return null;
+		v = v.add(Vec3d.of(pos));
 		
-		return sum.divide(n);
+		return new Offset(v);
 	}
 	
 	public boolean isInReach() {
