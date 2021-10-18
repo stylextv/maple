@@ -41,17 +41,11 @@ public class AwarenessController {
 	public static boolean canReach(BlockPos pos) {
 		Vec3d eyePos = PlayerContext.eyePosition();
 		
-		double x = pos.getX() + 0.5;
-		double y = pos.getY() + 0.5;
-		double z = pos.getZ() + 0.5;
-		
-		Vec3d v = new Vec3d(x, y, z);
+		Vec3d v = Vec3d.ofCenter(pos);
 		
 		double dis = eyePos.distanceTo(v);
 		
-		if(dis > PlayerContext.reachDistance()) return false;
-		
-		return ViewController.canSee(pos);
+		return dis <= PlayerContext.reachDistance();
 	}
 	
 	public static BlockPos getTargetedPos() {
