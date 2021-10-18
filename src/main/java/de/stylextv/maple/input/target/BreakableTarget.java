@@ -20,22 +20,19 @@ public class BreakableTarget extends BlockTarget {
 	}
 	
 	public boolean continueBreaking() {
-		if(isSelected(true)) {
-			
-			BlockState state = state();
-			
-			ToolSet tools = ToolSet.getTools();
-			
-			ItemStack stack = tools.getBestTool(state);
-			
-			GuiController.selectItem(stack);
-			
-			InputController.setPressed(InputAction.LEFT_CLICK, true);
-			
-			return true;
-		}
+		if(!lookAt(false)) return false;
 		
-		return lookAt(false);
+		BlockState state = state();
+		
+		ToolSet tools = ToolSet.getTools();
+		
+		ItemStack stack = tools.getBestTool(state);
+		
+		GuiController.selectItem(stack);
+		
+		InputController.setPressed(InputAction.LEFT_CLICK, true);
+		
+		return true;
 	}
 	
 	public boolean isBroken() {
