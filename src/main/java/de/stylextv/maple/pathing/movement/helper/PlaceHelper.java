@@ -42,6 +42,10 @@ public class PlaceHelper extends TargetHelper<PlaceableTarget> {
 			
 			Node source = movement.getSource();
 			
+			BlockType type = source.getType();
+
+			hasSupport = type != BlockType.WATER;
+			
 			Movement m = source.getMovement();
 			
 			if(m != null) hasSupport = m.getPlaceHelper().hasTargets();
