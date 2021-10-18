@@ -16,6 +16,7 @@ public class FarmTask extends BreakTask {
 			Blocks.PUMPKIN,
 			Blocks.MELON,
 			Blocks.SUGAR_CANE,
+			Blocks.BAMBOO,
 			Blocks.CACTUS,
 			Blocks.NETHER_WART
 	);
