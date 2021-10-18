@@ -35,8 +35,6 @@ public class BlockTarget {
 			
 			o = center();
 			
-			System.out.println(ViewController.canSee(o));
-			
 			if(!ViewController.canSee(o)) return false;
 		}
 		
