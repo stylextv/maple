@@ -51,13 +51,7 @@ public class AvoidanceType {
 			
 			float health = entity.getMaxHealth();
 			
-			int i = healthToStrength(health);
-			
-			int max = TYPES.length - 1;
-			
-			i = MathUtil.clamp(i, 0, max);
-			
-			return TYPES[i];
+			return fromHealth(health);
 		}
 		
 		return null;
@@ -73,10 +67,16 @@ public class AvoidanceType {
 		return p.equals(adversary);
 	}
 	
-	private static int healthToStrength(float health) {
+	public static AvoidanceType fromHealth(float health) {
 		double d = MathUtil.log2(health);
 		
-		return (int) Math.round(d - LOG_TWO_OF_TEN);
+		int i = (int) Math.round(d - LOG_TWO_OF_TEN);
+		
+		int max = TYPES.length - 1;
+		
+		i = MathUtil.clamp(i, 0, max);
+		
+		return TYPES[i];
 	}
 	
 }
