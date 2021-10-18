@@ -51,7 +51,13 @@ public class FileAccess {
 	public byte[] read(int length) {
 		try {
 			
-			return getInputStream().readNBytes(length);
+			byte[] data = new byte[length];
+			
+			int l = Math.min(length, available());
+			
+			getInputStream().readNBytes(data, 0, l);
+			
+			return data;
 			
 		} catch (IOException ex) {
 			ex.printStackTrace();
