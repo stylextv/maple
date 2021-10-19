@@ -35,11 +35,11 @@ public class StrictDirectionGoal extends Goal {
 		
 		int dis = dx * dirX + dy * dirY + dz * dirZ;
 		
-		int devX = Math.abs(dx * (dirX ^ 1));
-		int devY = Math.abs(dy * (dirY ^ 1));
-		int devZ = Math.abs(dz * (dirZ ^ 1));
+		int devX = dx * (Math.abs(dirX) ^ 1);
+		int devY = dy * (Math.abs(dirY) ^ 1);
+		int devZ = dz * (Math.abs(dirZ) ^ 1);
 		
-		int dev = devX + devY + devZ;
+		int dev = Math.abs(devX) + Math.abs(devY) + Math.abs(devZ);
 		
 		return dev * DEVIATION_COST - dis * PROGRESS_BONUS;
 	}
