@@ -1,27 +1,13 @@
 package de.stylextv.maple.render.mesh;
 
+import java.util.HashMap;
+
+import de.stylextv.maple.util.world.CoordUtil;
 import net.minecraft.util.math.Vec3f;
 
 public class LineMesh extends Mesh {
 	
-	private static final LineMesh[][][] MESHES = new LineMesh[3][3][3];
-	
-	static {
-		for(int dx = -1; dx <= 1; dx++) {
-			for(int dy = -1; dy <= 1; dy++) {
-				for(int dz = -1; dz <= 1; dz++) {
-					
-					LineMesh mesh = new LineMesh(dx, dy, dz);
-					
-					int i = dx + 1;
-					int j = dy + 1;
-					int k = dz + 1;
-					
-					MESHES[i][j][k] = mesh;
-				}
-			}
-		}
-	}
+	private static final HashMap<Long, LineMesh> MESH_CACHE = new HashMap<>();
 	
 	private float dx;
 	private float dy;
@@ -56,7 +42,18 @@ public class LineMesh extends Mesh {
 	}
 	
 	public static LineMesh getMesh(int dx, int dy, int dz) {
-		return MESHES[dx + 1][dy + 1][dz + 1];
+		long key = CoordUtil.posAsLong(dx, dy, dz);
+		
+		LineMesh mesh = MESH_CACHE.get(key);
+		
+		if(mesh == null) {
+			
+			mesh = new LineMesh(dx, dy, dz);
+			
+			MESH_CACHE.put(key, mesh);
+		}
+		
+		return mesh;
 	}
 	
 }
