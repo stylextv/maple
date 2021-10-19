@@ -1,11 +1,13 @@
 package de.stylextv.maple.render.mesh;
 
+import java.util.HashMap;
+
+import de.stylextv.maple.util.world.CoordUtil;
 import net.minecraft.util.math.Vec3f;
 
 public class BoxMesh extends Mesh {
 	
-	// TODO rename
-	public static final BoxMesh CUBE = new BoxMesh(1, 1, 1);
+	private static final HashMap<Long, BoxMesh> MESH_CACHE = new HashMap<>();
 	
 	private int width;
 	private int height;
@@ -17,7 +19,6 @@ public class BoxMesh extends Mesh {
 		this.length = length;
 	}
 	
-	// TODO rework
 	@Override
 	public void create() {
 		Vec3f[][][] map = new Vec3f[2][2][2];
@@ -68,6 +69,21 @@ public class BoxMesh extends Mesh {
 	
 	public int getLength() {
 		return length;
+	}
+	
+	public static BoxMesh getMesh(int width, int height, int length) {
+		long key = CoordUtil.posAsLong(width, height, length);
+		
+		BoxMesh mesh = MESH_CACHE.get(key);
+		
+		if(mesh == null) {
+			
+			mesh = new BoxMesh(width, height, length);
+			
+			MESH_CACHE.put(key, mesh);
+		}
+		
+		return mesh;
 	}
 	
 }

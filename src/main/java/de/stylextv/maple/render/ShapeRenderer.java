@@ -32,15 +32,19 @@ public class ShapeRenderer {
 	private static BufferBuilder builder;
 	
 	public static void drawBox(RenderWorldEvent event, BlockPos pos, Color color, int lineWidth) {
-		drawMesh(event, BoxMesh.CUBE, pos, color, lineWidth);
+		drawBox(event, pos, pos, color, lineWidth);
 	}
 	
 	public static void drawBox(RenderWorldEvent event, BlockPos pos1, BlockPos pos2, Color color, int lineWidth) {
-		int width = pos2.getX() - pos1.getX();
-		int height = pos2.getY() - pos1.getY();
-		int length = pos2.getZ() - pos1.getZ();
+		int disX = Math.abs(pos2.getX() - pos1.getX());
+		int disY = Math.abs(pos2.getY() - pos1.getY());
+		int disZ = Math.abs(pos2.getZ() - pos1.getZ());
 		
-		Mesh mesh = new BoxMesh(width, height, length);
+		int width = disX + 1;
+		int height = disY + 1;
+		int length = disZ + 1;
+		
+		Mesh mesh = BoxMesh.getMesh(width, height, length);
 		
 		drawMesh(event, mesh, pos1, color, lineWidth);
 	}
