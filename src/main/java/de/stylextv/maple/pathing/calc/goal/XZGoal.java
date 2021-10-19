@@ -5,7 +5,10 @@ import de.stylextv.maple.pathing.calc.Cost;
 import de.stylextv.maple.pathing.calc.Node;
 import de.stylextv.maple.render.ShapeRenderer;
 import de.stylextv.maple.scheme.Colors;
+import de.stylextv.maple.util.world.Rotation;
+import de.stylextv.maple.util.world.RotationUtil;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 
 public class XZGoal extends Goal {
 	
@@ -82,6 +85,19 @@ public class XZGoal extends Goal {
 		}
 		
 		return Cost.SPRINT_STRAIGHT * straight + Cost.SPRINT_DIAGONALLY * diagonal;
+	}
+	
+	public static XZGoal inDirection(BlockPos pos, float yaw, double dis) {
+		Rotation r = new Rotation(yaw);
+		
+		Vec3d v = RotationUtil.rotationToVec(r);
+		
+		v = v.multiply(dis).add(Vec3d.of(pos));
+		
+		int x = (int) Math.round(v.getX());
+		int z = (int) Math.round(v.getZ());
+		
+		return new XZGoal(x, z);
 	}
 	
 }

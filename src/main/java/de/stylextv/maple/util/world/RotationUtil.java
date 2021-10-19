@@ -1,5 +1,7 @@
 package de.stylextv.maple.util.world;
 
+import net.minecraft.util.math.Vec3d;
+
 public class RotationUtil {
 	
     public static final double DEG_TO_RAD = Math.PI / 180;
@@ -20,6 +22,10 @@ public class RotationUtil {
 		Rotation r = new Rotation(yaw, pitch);
 		
 		return r.normalizeYaw();
+	}
+	
+	public static Vec3d rotationToVec(Rotation r) {
+		
 	}
 	
 }
