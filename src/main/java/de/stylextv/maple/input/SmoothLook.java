@@ -1,7 +1,7 @@
 package de.stylextv.maple.input;
 
 import de.stylextv.maple.context.PlayerContext;
-import de.stylextv.maple.util.world.Rotation;
+import de.stylextv.maple.util.world.rotation.Rotation;
 import net.minecraft.client.network.ClientPlayerEntity;
 
 public class SmoothLook {

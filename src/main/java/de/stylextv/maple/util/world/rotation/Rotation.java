@@ -1,4 +1,4 @@
-package de.stylextv.maple.util.world;
+package de.stylextv.maple.util.world.rotation;
 
 public class Rotation {
 	

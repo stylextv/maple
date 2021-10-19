@@ -1,4 +1,4 @@
-package de.stylextv.maple.util.world;
+package de.stylextv.maple.util.world.rotation;
 
 import net.minecraft.util.math.Vec3d;
 

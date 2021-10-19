@@ -5,8 +5,8 @@ import de.stylextv.maple.pathing.calc.Cost;
 import de.stylextv.maple.pathing.calc.Node;
 import de.stylextv.maple.render.ShapeRenderer;
 import de.stylextv.maple.scheme.Colors;
-import de.stylextv.maple.util.world.Rotation;
-import de.stylextv.maple.util.world.RotationUtil;
+import de.stylextv.maple.util.world.rotation.Rotation;
+import de.stylextv.maple.util.world.rotation.RotationUtil;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
