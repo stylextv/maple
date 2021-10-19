@@ -13,6 +13,7 @@ import de.stylextv.maple.command.commands.ModifiedCommand;
 import de.stylextv.maple.command.commands.PauseCommand;
 import de.stylextv.maple.command.commands.ResumeCommand;
 import de.stylextv.maple.command.commands.StopCommand;
+import de.stylextv.maple.command.commands.TunnelCommand;
 import de.stylextv.maple.command.commands.VersionCommand;
 import de.stylextv.maple.command.commands.WaypointCommand;
 import de.stylextv.maple.util.chat.ChatUtil;
@@ -34,6 +35,8 @@ public class CommandManager {
 			new WaypointCommand(),
 			new HomeCommand(),
 			new LostCommand(),
+			new TunnelCommand(),
+			// TODO thisway command
 			new AxisCommand(),
 			new ETACommand(),
 			new ModifiedCommand(),

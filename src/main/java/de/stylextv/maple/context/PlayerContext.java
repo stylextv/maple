@@ -8,6 +8,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 
 public class PlayerContext {
@@ -30,6 +31,10 @@ public class PlayerContext {
 	
 	public static BlockPos blockPosition() {
 		return player().getBlockPos();
+	}
+	
+	public static Direction horizontalDirection() {
+		return player().getHorizontalFacing();
 	}
 	
 	public static Vec3d eyePosition() {
