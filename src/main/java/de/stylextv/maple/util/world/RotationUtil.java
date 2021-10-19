@@ -25,7 +25,17 @@ public class RotationUtil {
 	}
 	
 	public static Vec3d rotationToVec(Rotation r) {
+		double yaw = r.getYaw() * DEG_TO_RAD;
+		double pitch = r.getPitch() * DEG_TO_RAD;
 		
+		double l = Math.cos(pitch);
+		
+		double x = Math.cos(yaw) * l;
+		double z = Math.sin(-yaw) * l;
+		
+		double y = Math.sin(pitch);
+		
+		return new Vec3d(x, y, z);
 	}
 	
 }
