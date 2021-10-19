@@ -30,10 +30,10 @@ public class RotationUtil {
 		
 		double l = Math.cos(pitch);
 		
-		double x = Math.cos(yaw) * l;
-		double z = Math.sin(-yaw) * l;
+		double x = -Math.sin(yaw) * l;
+		double z = Math.cos(yaw) * l;
 		
-		double y = Math.sin(pitch);
+		double y = -Math.sin(pitch);
 		
 		return new Vec3d(x, y, z);
 	}
