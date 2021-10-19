@@ -67,8 +67,8 @@ public class ShapeRenderer {
 	
 	public static void drawLine(RenderWorldEvent event, Vec3f v1, Vec3f v2, Color color, float lineWidth) {
 		float dx = v2.getX() - v1.getX();
-		float dy = v2.getX() - v1.getX();
-		float dz = v2.getX() - v1.getX();
+		float dy = v2.getY() - v1.getY();
+		float dz = v2.getZ() - v1.getZ();
 		
 		Mesh mesh = new LineMesh(dx, dy, dz);
 		
