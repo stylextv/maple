@@ -72,6 +72,7 @@ waypoint | waypoint create \<name> [x y z]<br/>waypoint delete \<name><br/>waypo
 home | - | h | Travel to the nearest waypoint marked as *HOME*.
 lost | - | - | Travel to the nearest waypoint.
 tunnel | - | - | Tunnel in the direction you are looking.
+thisway | thisway [distance] | forward | Move a specified number of blocks in the direction you are facing.
 axis | - | - | Travel to the nearest axis.
 eta | - | - | Displays the estimated time to reach the current destination.
 modified | modified [page] | - | Shows all modified options.
