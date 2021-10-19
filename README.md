@@ -71,6 +71,7 @@ resume | - | - | Resumes the current task.
 waypoint | waypoint create \<name> [x y z]<br/>waypoint delete \<name><br/>waypoint list [page]<br/>waypoint info \<name><br/>waypoint goto \<name> | wp | Used to create and travel to waypoints.
 home | - | h | Travel to the nearest waypoint marked as *HOME*.
 lost | - | - | Travel to the nearest waypoint.
+tunnel | - | - | Tunnel in the direction you are looking.
 axis | - | - | Travel to the nearest axis.
 eta | - | - | Displays the estimated time to reach the current destination.
 modified | modified [page] | - | Shows all modified options.
