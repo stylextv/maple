@@ -36,17 +36,23 @@ public class ShapeRenderer {
 	}
 	
 	public static void drawBox(RenderWorldEvent event, BlockPos pos1, BlockPos pos2, Color color, int lineWidth) {
-		int disX = Math.abs(pos2.getX() - pos1.getX());
-		int disY = Math.abs(pos2.getY() - pos1.getY());
-		int disZ = Math.abs(pos2.getZ() - pos1.getZ());
+		int x1 = Math.min(pos1.getX(), pos2.getX());
+		int y1 = Math.min(pos1.getY(), pos2.getY());
+		int z1 = Math.min(pos1.getZ(), pos2.getZ());
 		
-		int width = disX + 1;
-		int height = disY + 1;
-		int length = disZ + 1;
+		int x2 = Math.max(pos1.getX(), pos2.getX());
+		int y2 = Math.max(pos1.getY(), pos2.getY());
+		int z2 = Math.max(pos1.getZ(), pos2.getZ());
+		
+		int width = (x2 - x1) + 1;
+		int height = (y2 - y1) + 1;
+		int length = (z2 - z1) + 1;
 		
 		Mesh mesh = BoxMesh.getMesh(width, height, length);
 		
-		drawMesh(event, mesh, pos1, color, lineWidth);
+		Vec3f v = new Vec3f(x1, y1, z1);
+		
+		drawMesh(event, mesh, v, color, lineWidth);
 	}
 	
 	public static void drawNodeConnection(RenderWorldEvent event, Node n, Color color, float lineWidth) {
