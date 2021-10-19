@@ -88,11 +88,7 @@ public class RenderListener implements EventListener {
 		Vec3f v1 = new Vec3f(x, pos.getY(), z);
 		Vec3f v2 = new Vec3f(x, BEAM_HEIGHT, z);
 		
-		Vec3f[] vertices = new Vec3f[] {
-			v1, v2
-		};
-		
-		ShapeRenderer.drawLine(event, vertices, Colors.WAYPOINT, 2);
+		ShapeRenderer.drawLine(event, v1, v2, Colors.WAYPOINT, 2);
 		
 		String s = "§f" + p.getName();
 		

@@ -7,6 +7,9 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import de.stylextv.maple.context.GameContext;
 import de.stylextv.maple.event.events.RenderWorldEvent;
 import de.stylextv.maple.pathing.calc.Node;
+import de.stylextv.maple.render.mesh.BoxMesh;
+import de.stylextv.maple.render.mesh.LineMesh;
+import de.stylextv.maple.render.mesh.Mesh;
 import de.stylextv.maple.scheme.Color;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.GameRenderer;
@@ -29,73 +32,59 @@ public class ShapeRenderer {
 	private static BufferBuilder builder;
 	
 	public static void drawBox(RenderWorldEvent event, BlockPos pos, Color color, int lineWidth) {
-		drawBox(event, pos, pos, color, lineWidth);
+		drawMesh(event, BoxMesh.CUBE, pos, color, lineWidth);
 	}
 	
 	public static void drawBox(RenderWorldEvent event, BlockPos pos1, BlockPos pos2, Color color, int lineWidth) {
-		float x1 = Math.min(pos1.getX(), pos2.getX());
-		float y1 = Math.min(pos1.getY(), pos2.getY());
-		float z1 = Math.min(pos1.getZ(), pos2.getZ());
+		int width = pos2.getX() - pos1.getX();
+		int height = pos2.getY() - pos1.getY();
+		int length = pos2.getZ() - pos1.getZ();
 		
-		float x2 = Math.max(pos1.getX(), pos2.getX()) + 1;
-		float y2 = Math.max(pos1.getY(), pos2.getY()) + 1;
-		float z2 = Math.max(pos1.getZ(), pos2.getZ()) + 1;
+		Mesh mesh = new BoxMesh(width, height, length);
 		
-		Vec3f[][][] vertices = new Vec3f[2][2][2];
-		
-		for(int x = 0; x < 2; x++) {
-			for(int y = 0; y < 2; y++) {
-				for(int z = 0; z < 2; z++) {
-					
-					float vx = x1 + (x2 - x1) * x;
-					float vy = y1 + (y2 - y1) * y;
-					float vz = z1 + (z2 - z1) * z;
-					
-					vertices[x][y][z] = new Vec3f(vx, vy, vz);
-				}
-			}
-		}
-		
-		for(int i = 0; i < 2; i++) {
-			for(int j = 0; j < 2; j++) {
-				drawLine(event, new Vec3f[] {vertices[0][i][j], vertices[1][i][j]}, color, lineWidth);
-				drawLine(event, new Vec3f[] {vertices[i][0][j], vertices[i][1][j]}, color, lineWidth);
-				drawLine(event, new Vec3f[] {vertices[i][j][0], vertices[i][j][1]}, color, lineWidth);
-			}
-		}
+		drawMesh(event, mesh, pos1, color, lineWidth);
 	}
 	
-	public static void drawNodeConnection(RenderWorldEvent event, Node n, Color color, float width) {
+	public static void drawNodeConnection(RenderWorldEvent event, Node n, Color color, float lineWidth) {
 		Node parent = n.getParent();
 		
-		float x = n.getX() + 0.5f;
-		float y = n.getY() + 0.5f;
-		float z = n.getZ() + 0.5f;
+		int dx = n.getX() - parent.getX();
+		int dy = n.getY() - parent.getY();
+		int dz = n.getZ() - parent.getZ();
 		
-		float px = parent.getX() + 0.5f;
-		float py = parent.getY() + 0.5f;
-		float pz = parent.getZ() + 0.5f;
+		Mesh mesh = LineMesh.getMesh(dx, dy, dz);
 		
-		Vec3f[] vertices = new Vec3f[] {
-				new Vec3f(x, y, z),
-				new Vec3f(px, py, pz)
-		};
+		BlockPos pos = parent.blockPos();
 		
-		drawLine(event, vertices, color, width);
+		Vec3d v = Vec3d.ofCenter(pos);
+		
+		drawMesh(event, mesh, new Vec3f(v), color, lineWidth);
 	}
 	
-	public static void drawLine(RenderWorldEvent event, Vec3f[] vertices, Color color, float width) {
-		drawLine(event, vertices, color, width, true);
+	public static void drawLine(RenderWorldEvent event, Vec3f v1, Vec3f v2, Color color, float lineWidth) {
+		float dx = v2.getX() - v1.getX();
+		float dy = v2.getX() - v1.getX();
+		float dz = v2.getX() - v1.getX();
+		
+		Mesh mesh = new LineMesh(dx, dy, dz);
+		
+		drawMesh(event, mesh, v1, color, lineWidth);
 	}
 	
-	public static void drawLine(RenderWorldEvent event, Vec3f[] vertices, Color color, float width, boolean joint) {
-		RenderSystem.lineWidth(width);
+	public static void drawMesh(RenderWorldEvent event, Mesh mesh, BlockPos pos, Color color, float lineWidth) {
+		Vec3d v = Vec3d.of(pos);
 		
-		DrawMode mode = joint ? DrawMode.DEBUG_LINE_STRIP : DrawMode.DEBUG_LINES;
+		drawMesh(event, mesh, new Vec3f(v), color, lineWidth);
+	}
+	
+	public static void drawMesh(RenderWorldEvent event, Mesh mesh, Vec3f pos, Color color, float lineWidth) {
+		RenderSystem.lineWidth(lineWidth);
+		
+		DrawMode mode = DrawMode.DEBUG_LINES;
 		
 		beginShape(event, mode, VertexFormats.POSITION_COLOR);
 		
-		endShape(vertices, color);
+		endShape(mesh, pos, color);
 		
 		RenderSystem.lineWidth(1);
 	}
@@ -129,7 +118,7 @@ public class ShapeRenderer {
 		builder.begin(mode, format);
 	}
 	
-	private static void endShape(Vec3f[] vertices, Color color) {
+	private static void endShape(Mesh mesh, Vec3f pos, Color color) {
 		Vector4f colorVector = color.asVector();
 		
 		float r = colorVector.getX();
@@ -137,13 +126,15 @@ public class ShapeRenderer {
 		float b = colorVector.getZ();
 		float a = colorVector.getW();
 		
-		Vec3d pos = GameContext.cameraPosition();
+		Vec3d cameraPos = GameContext.cameraPosition();
+		
+		Vec3f[] vertices = mesh.getVertices();
 		
 		for(Vec3f v : vertices) {
 			
-			double x = v.getX() - pos.getX();
-			double y = v.getY() - pos.getY();
-			double z = v.getZ() - pos.getZ();
+			double x = v.getX() + pos.getX() - cameraPos.getX();
+			double y = v.getY() + pos.getY() - cameraPos.getY();
+			double z = v.getZ() + pos.getZ() - cameraPos.getZ();
 			
 			builder.vertex(x, y, z).color(r, g, b, a).next();
 		}
