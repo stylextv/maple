@@ -35,8 +35,8 @@ public class XZGoal extends Goal {
 	
 	@Override
 	public void render(RenderWorldEvent event) {
-		BlockPos pos1 = new BlockPos(x, 0, z);
-		BlockPos pos2 = new BlockPos(x, 257, z);
+		BlockPos pos1 = new BlockPos(x, -64, z);
+		BlockPos pos2 = new BlockPos(x, 321, z);
 		
 		ShapeRenderer.drawBox(event, pos1, pos2, Colors.GOAL, 2);
 	}
