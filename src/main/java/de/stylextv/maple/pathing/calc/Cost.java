@@ -21,7 +21,7 @@ public class Cost {
 	
 	public static final double JUMP = fallCost(1.25) - fallCost(0.25);
 	
-	public static final double[] FALL_N_BLOCKS = new double[255];
+	public static final double[] FALL_N_BLOCKS = new double[384];
 	
 	public static final double BUMP_INTO_CORNER = 3.2;
 	
