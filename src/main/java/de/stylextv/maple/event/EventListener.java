@@ -17,7 +17,7 @@ public interface EventListener {
 	
 	public default void onRenderTick(TickEvent event) {}
 	
-	public default void onWorldRender(RenderWorldEvent event) {}
+	public default void onEntitiesRender(RenderWorldEvent event) {}
 	
 	public default void onWorldLoad(WorldEvent event) {}
 	

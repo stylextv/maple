@@ -21,25 +21,26 @@ public class NameTagRenderer {
 	public static void drawTag(RenderWorldEvent event, String s, float x, float y, float z) {
 		MatrixStack stack = event.getMatrixStack();
 		
-		Vec3d v = GameContext.cameraPosition();
-		
 		MinecraftClient client = GameContext.client();
 		
 		EntityRenderDispatcher dispatcher = client.getEntityRenderDispatcher();
 		
-		Quaternion orientation = dispatcher.getRotation();
+		Vec3d v = GameContext.cameraPosition();
 		
 		double renderX = x - v.getX();
 		double renderY = y - v.getY();
 		double renderZ = z - v.getZ();
 		
+		stack.push();
+		
+		stack.translate(renderX, renderY, renderZ);
+		
+		Quaternion orientation = dispatcher.getRotation();
+		
 		BufferBuilderStorage builders = client.getBufferBuilders();
 		
 		Immediate consumers = builders.getEntityVertexConsumers();
 		
-		stack.push();
-		
-		stack.translate(renderX, renderY, renderZ);
 		stack.multiply(orientation);
 		
 		stack.scale(-0.025F, -0.025F, 0.025F);

@@ -8,6 +8,7 @@
     "MinecraftClientMixin",
 	"MinecraftClientInvoker",
 	"GameRendererMixin",
+	"WorldRendererMixin",
 	"NetworkHandlerMixin",
 	"ClientConnectionMixin",
 	"DefaultedListMixin",

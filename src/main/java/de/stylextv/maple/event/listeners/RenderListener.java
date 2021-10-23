@@ -26,7 +26,7 @@ public class RenderListener implements EventListener {
 	private static final int BEAM_HEIGHT = 1024;
 	
 	@Override
-	public void onWorldRender(RenderWorldEvent event) {
+	public void onEntitiesRender(RenderWorldEvent event) {
 		if(!WorldContext.isInWorld()) return;
 		
 		PathSegment s = SearchExecutor.getLastConsideration();
