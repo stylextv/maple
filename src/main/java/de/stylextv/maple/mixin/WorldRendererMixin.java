@@ -17,10 +17,13 @@ import net.minecraft.util.math.Matrix4f;
 @Mixin(WorldRenderer.class)
 public class WorldRendererMixin {
 	
-	@Inject(method = "render", at = @At(
-			value = "INVOKE",
-			target = "net/minecraft/client/render/BufferBuilderStorage.getEntityVertexConsumers"
-	))
+	@Inject(
+			method = "render",
+			at = @At(
+					value = "INVOKE",
+					target = "net/minecraft/client/render/BufferBuilderStorage.getEntityVertexConsumers"
+			)
+	)
 	private void render(MatrixStack stack, float tickDelta, long limitTime, boolean renderBlockOutline, Camera camera, GameRenderer gameRenderer, LightmapTextureManager textureManager, Matrix4f matrix, CallbackInfo info) {
 		EventBus.onEvent(new RenderWorldEvent(RenderWorldEvent.Type.ENTITIES, stack));
 	}
