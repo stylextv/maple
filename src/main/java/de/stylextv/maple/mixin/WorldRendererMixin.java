@@ -21,7 +21,7 @@ public class WorldRendererMixin {
 			method = "render",
 			at = @At(
 					value = "INVOKE",
-					target = "net/minecraft/client/render/BufferBuilderStorage.getEntityVertexConsumers"
+					target = "net/minecraft/client/render/BufferBuilderStorage.getEntityVertexConsumers()Lnet/minecraft/client/render/VertexConsumerProvider$Immediate;"
 			)
 	)
 	private void render(MatrixStack stack, float tickDelta, long limitTime, boolean renderBlockOutline, Camera camera, GameRenderer gameRenderer, LightmapTextureManager textureManager, Matrix4f matrix, CallbackInfo info) {
