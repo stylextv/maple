@@ -109,10 +109,7 @@ public class CachedWorld {
 			
 			if(!r.isInView()) {
 				
-				int x = r.getX();
-				int z = r.getZ();
-				
-				long hash = CachedRegion.posAsLong(x, z);
+				long hash = r.getHash();
 				
 				regionMap.remove(hash);
 			}
