@@ -83,9 +83,9 @@ public class Favoring {
 		
 		if(dt > UPDATE_DELAY) {
 			
-			lastUpdate = time;
-			
 			defaultFavoring = new Favoring();
+			
+			lastUpdate = time;
 		}
 		
 		return defaultFavoring;
