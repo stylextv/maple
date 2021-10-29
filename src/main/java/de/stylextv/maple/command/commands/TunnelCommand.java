@@ -1,5 +1,6 @@
 package de.stylextv.maple.command.commands;
 
+import de.stylextv.maple.command.ArgumentList;
 import de.stylextv.maple.command.Command;
 import de.stylextv.maple.context.PlayerContext;
 import de.stylextv.maple.pathing.calc.goal.Goal;
@@ -16,7 +17,7 @@ public class TunnelCommand extends Command {
 	}
 	
 	@Override
-	public boolean execute(String[] args) {
+	public boolean execute(ArgumentList args) {
 		BlockPos pos = PlayerContext.feetPosition();
 		
 		Direction dir = PlayerContext.horizontalDirection();

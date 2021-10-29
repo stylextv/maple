@@ -1,6 +1,7 @@
 package de.stylextv.maple.command.commands;
 
 import de.stylextv.maple.Constants;
+import de.stylextv.maple.command.ArgumentList;
 import de.stylextv.maple.command.Command;
 import de.stylextv.maple.util.chat.ChatUtil;
 
@@ -11,7 +12,7 @@ public class VersionCommand extends Command {
 	}
 	
 	@Override
-	public boolean execute(String[] args) {
+	public boolean execute(ArgumentList args) {
 		String s = Constants.COLORED_NAME + " " + Constants.VERSION + " §7by §e" + Constants.AUTHOR;
 		
 		ChatUtil.send("Installed: " + s);

@@ -1,5 +1,6 @@
 package de.stylextv.maple.command.commands;
 
+import de.stylextv.maple.command.ArgumentList;
 import de.stylextv.maple.command.Command;
 import de.stylextv.maple.task.Task;
 import de.stylextv.maple.task.TaskManager;
@@ -19,10 +20,12 @@ public class FollowCommand extends Command {
 	}
 	
 	@Override
-	public boolean execute(String[] args) {
-		if(args.length == 0) return false;
+	public boolean execute(ArgumentList args) {
+		if(args.hasExactly(0)) return false;
 		
-		EntityFilter filter = EntityFilter.fromString(args[0]);
+		String s = args.get(0);
+		
+		EntityFilter filter = EntityFilter.fromString(s);
 		
 		if(filter == null) return false;
 		

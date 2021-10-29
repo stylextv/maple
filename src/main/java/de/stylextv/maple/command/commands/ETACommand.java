@@ -1,5 +1,6 @@
 package de.stylextv.maple.command.commands;
 
+import de.stylextv.maple.command.ArgumentList;
 import de.stylextv.maple.command.Command;
 import de.stylextv.maple.pathing.calc.Path;
 import de.stylextv.maple.pathing.movement.MovementExecutor;
@@ -13,7 +14,7 @@ public class ETACommand extends Command {
 	}
 	
 	@Override
-	public boolean execute(String[] args) {
+	public boolean execute(ArgumentList args) {
 		if(!MovementExecutor.hasPath()) {
 			ChatUtil.send("§cNot actively pathing!");
 			

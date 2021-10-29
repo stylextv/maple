@@ -1,5 +1,6 @@
 package de.stylextv.maple.command.commands;
 
+import de.stylextv.maple.command.ArgumentList;
 import de.stylextv.maple.command.Command;
 import de.stylextv.maple.task.Task;
 import de.stylextv.maple.task.TaskManager;
@@ -13,7 +14,7 @@ public class FarmCommand extends Command {
 	}
 	
 	@Override
-	public boolean execute(String[] args) {
+	public boolean execute(ArgumentList args) {
 		Task task = new FarmTask();
 		
 		TaskManager.startTask(task);

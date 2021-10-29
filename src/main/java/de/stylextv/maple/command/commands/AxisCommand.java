@@ -1,5 +1,6 @@
 package de.stylextv.maple.command.commands;
 
+import de.stylextv.maple.command.ArgumentList;
 import de.stylextv.maple.command.Command;
 import de.stylextv.maple.pathing.calc.goal.AxisGoal;
 import de.stylextv.maple.pathing.calc.goal.Goal;
@@ -13,7 +14,7 @@ public class AxisCommand extends Command {
 	}
 	
 	@Override
-	public boolean execute(String[] args) {
+	public boolean execute(ArgumentList args) {
 		Goal goal = new AxisGoal();
 		
 		TaskManager.gotoGoal(goal);

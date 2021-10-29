@@ -1,6 +1,6 @@
 package de.stylextv.maple.command.commands;
 
-import de.stylextv.maple.command.ArgumentHelper;
+import de.stylextv.maple.command.ArgumentList;
 import de.stylextv.maple.command.Command;
 import de.stylextv.maple.context.PlayerContext;
 import de.stylextv.maple.pathing.calc.goal.Goal;
@@ -19,14 +19,12 @@ public class ThisWayCommand extends Command {
 	}
 	
 	@Override
-	public boolean execute(String[] args) {
-		Integer dis = DEFAULT_DISTANCE;
+	public boolean execute(ArgumentList args) {
+		int dis = DEFAULT_DISTANCE;
 		
-		if(args.length > 0) {
+		if(args.hasAtLeast(1)) {
 			
-			dis = ArgumentHelper.toInt(args[0]);
-			
-			if(dis == null) return false;
+			dis = args.getInt(0);
 		}
 		
 		BlockPos pos = PlayerContext.feetPosition();

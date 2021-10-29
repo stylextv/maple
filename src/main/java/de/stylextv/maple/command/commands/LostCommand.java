@@ -1,5 +1,6 @@
 package de.stylextv.maple.command.commands;
 
+import de.stylextv.maple.command.ArgumentList;
 import de.stylextv.maple.command.Command;
 import de.stylextv.maple.util.chat.ChatUtil;
 import de.stylextv.maple.waypoint.Waypoint;
@@ -13,7 +14,7 @@ public class LostCommand extends Command {
 	}
 	
 	@Override
-	public boolean execute(String[] args) {
+	public boolean execute(ArgumentList args) {
 		Waypoint p = Waypoints.nearestByTag(WaypointTag.USER);
 		
 		if(p == null) {

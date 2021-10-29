@@ -4,6 +4,8 @@ import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import de.stylextv.maple.util.ExceptionUtil;
+
 public class AsyncUtil {
 	
 	private static final ThreadPoolExecutor THREAD_POOL = new ThreadPoolExecutor(4, Integer.MAX_VALUE, 60, TimeUnit.SECONDS, new SynchronousQueue<>());
@@ -47,15 +49,7 @@ public class AsyncUtil {
 	}
 	
 	public static void runAsync(Runnable r) {
-		Runnable wrapped = () -> {
-			try {
-				
-				r.run();
-				
-			} catch(Exception ex) {
-				ex.printStackTrace();
-			}
-		};
+		Runnable wrapped = () -> ExceptionUtil.catchEverything(r);
 		
 		THREAD_POOL.execute(wrapped);
 	}

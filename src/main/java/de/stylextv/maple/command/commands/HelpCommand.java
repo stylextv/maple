@@ -3,7 +3,7 @@ package de.stylextv.maple.command.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.stylextv.maple.command.ArgumentHelper;
+import de.stylextv.maple.command.ArgumentList;
 import de.stylextv.maple.command.Command;
 import de.stylextv.maple.command.CommandManager;
 import de.stylextv.maple.util.TextUtil;
@@ -16,16 +16,13 @@ public class HelpCommand extends Command {
 	}
 	
 	@Override
-	public boolean execute(String[] args) {
-		Integer page = null;
+	public boolean execute(ArgumentList args) {
+		boolean b = args.hasAtLeast(1);
 		
-		if(args.length == 0) {
-			page = 1;
-		} else {
-			page = ArgumentHelper.toInt(args[0]);
-		}
-		
-		if(page != null) {
+		if(!b || args.isInt(0)) {
+			
+			int page = b ? args.getInt(0) : 1;
+			
 			ChatUtil.send("Use §o#help <command> §7to get help for individual commands.", "", "Commands:");
 			
 			List<String> list = new ArrayList<>();
@@ -41,7 +38,9 @@ public class HelpCommand extends Command {
 			return true;
 		}
 		
-		Command c = CommandManager.getCommand(args[0]);
+		String s = args.get(0);
+		
+		Command c = CommandManager.getCommand(s);
 		
 		if(c == null) {
 			ChatUtil.send("§cCouldn't find command!");

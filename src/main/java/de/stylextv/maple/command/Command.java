@@ -14,7 +14,7 @@ public abstract class Command {
 		this.description = description;
 	}
 	
-	public abstract boolean execute(String[] args);
+	public abstract boolean execute(ArgumentList args);
 	
 	public boolean nameEquals(String s) {
 		if(name.equalsIgnoreCase(s)) return true;

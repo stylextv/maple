@@ -17,6 +17,7 @@ import de.stylextv.maple.command.commands.ThisWayCommand;
 import de.stylextv.maple.command.commands.TunnelCommand;
 import de.stylextv.maple.command.commands.VersionCommand;
 import de.stylextv.maple.command.commands.WaypointCommand;
+import de.stylextv.maple.util.ExceptionUtil;
 import de.stylextv.maple.util.chat.ChatUtil;
 
 public class CommandManager {
@@ -49,15 +50,9 @@ public class CommandManager {
 		
 		ChatUtil.send("§f> " + s);
 		
-		String[] split = s.split(" ");
+		String[] split = s.split(" ", 2);
 		
 		String name = split[0];
-		
-		String[] args = new String[split.length - 1];
-		
-		for(int i = 0; i < args.length; i++) {
-			args[i] = split[i + 1];
-		}
 		
 		Command c = getCommand(name);
 		
@@ -67,11 +62,21 @@ public class CommandManager {
 			return;
 		}
 		
-		boolean success = c.execute(args);
+		String args = "";
 		
-		if(!success) {
-			ChatUtil.send("§cInvalid arguments!");
-		}
+		if(split.length > 1) args = split[1];
+		
+		ArgumentList list = ArgumentList.fromString(args);
+		
+		ExceptionUtil.catchEverything(() -> {
+			
+			boolean success = c.execute(list);
+			
+			if(!success) {
+				ChatUtil.send("§cInvalid arguments!");
+			}
+			
+		}, () -> ChatUtil.send("§cAn error has occurred!"));
 	}
 	
 	public static boolean isCommandMessage(String s) {

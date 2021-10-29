@@ -3,7 +3,7 @@ package de.stylextv.maple.command.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.stylextv.maple.command.ArgumentHelper;
+import de.stylextv.maple.command.ArgumentList;
 import de.stylextv.maple.command.Command;
 import de.stylextv.maple.option.Option;
 import de.stylextv.maple.option.Options;
@@ -16,14 +16,13 @@ public class ModifiedCommand extends Command {
 	}
 	
 	@Override
-	public boolean execute(String[] args) {
-		Integer page = null;
+	public boolean execute(ArgumentList args) {
+		Integer page = 1;
 		
-		if(args.length != 0) {
-			page = ArgumentHelper.toInt(args[0]);
+		if(args.hasAtLeast(1)) {
+			
+			page = args.getInt(0);
 		}
-		
-		if(page == null) page = 1;
 		
 		ChatUtil.send("Modified options:");
 		

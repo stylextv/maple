@@ -6,9 +6,10 @@ import net.minecraft.util.math.BlockPos;
 public class ArgumentHelper {
 	
 	private static final String INT_REGEX = "-?\\d+";
+	
 	private static final String NUMERIC_REGEX = "-?\\d+(\\.\\d+)?";
 	
-	public static Integer toCoordinate(String s, int i) {
+	public static int toCoordinate(String s, int i) {
 		int base = 0;
 		
 		if(s.startsWith("~")) {
@@ -23,30 +24,24 @@ public class ArgumentHelper {
 		
 		if(s.isEmpty()) return base;
 		
-		Integer offset = toInt(s);
-		
-		if(offset == null) return null;
+		int offset = toInt(s);
 		
 		return base + offset;
 	}
 	
-	public static Integer toInt(String s) {
-		if(!isInt(s)) return null;
-		
+	public static int toInt(String s) {
 		return Integer.parseInt(s);
 	}
 	
-	public static Float toFloat(String s) {
-		if(!isNumeric(s)) return null;
-		
+	public static float toFloat(String s) {
 		return Float.parseFloat(s);
 	}
 	
-	private static boolean isInt(String s) {
+	public static boolean isInt(String s) {
 		return s.matches(INT_REGEX);
 	}
 	
-	private static boolean isNumeric(String s) {
+	public static boolean isNumeric(String s) {
 		return s.matches(NUMERIC_REGEX);
 	}
 	

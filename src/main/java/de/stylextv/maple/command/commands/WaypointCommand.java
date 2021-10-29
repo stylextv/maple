@@ -3,7 +3,7 @@ package de.stylextv.maple.command.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.stylextv.maple.command.ArgumentHelper;
+import de.stylextv.maple.command.ArgumentList;
 import de.stylextv.maple.command.Command;
 import de.stylextv.maple.context.PlayerContext;
 import de.stylextv.maple.context.WorldContext;
@@ -30,12 +30,10 @@ public class WaypointCommand extends Command {
 	}
 	
 	@Override
-	public boolean execute(String[] args) {
-		int l = args.length;
+	public boolean execute(ArgumentList args) {
+		if(args.hasExactly(0)) return false;
 		
-		if(l == 0) return false;
-		
-		String s = args[0];
+		String s = args.get(0);
 		
 		if(s.equalsIgnoreCase("list")) {
 			
@@ -47,13 +45,12 @@ public class WaypointCommand extends Command {
 				return true;
 			}
 			
-			Integer page = null;
+			int page = 1;
 			
-			if(args.length > 1) {
-				page = ArgumentHelper.toInt(args[1]);
+			if(args.hasAtLeast(2)) {
+				
+				page = args.getInt(1);
 			}
-			
-			if(page == null) page = 1;
 			
 			List<String> list = new ArrayList<>();
 			
@@ -75,9 +72,9 @@ public class WaypointCommand extends Command {
 			return true;
 		}
 		
-		if(l < 2) return false;
+		if(args.hasLessThan(2)) return false;
 		
-		String name = args[1];
+		String name = args.get(1);
 		
 		String levelName = WorldContext.getLevelName();
 		
@@ -93,14 +90,11 @@ public class WaypointCommand extends Command {
 			
 			BlockPos pos = PlayerContext.feetPosition();
 			
-			if(l > 2) {
-				if(l < 5) return false;
+			if(args.hasMoreThan(2)) {
 				
-				Integer x = ArgumentHelper.toCoordinate(args[2], 0);
-				Integer y = ArgumentHelper.toCoordinate(args[3], 1);
-				Integer z = ArgumentHelper.toCoordinate(args[4], 2);
-				
-				if(x == null || y == null || z == null) return false;
+				int x = args.getCoordinate(2, 0);
+				int y = args.getCoordinate(3, 1);
+				int z = args.getCoordinate(4, 2);
 				
 				pos = new BlockPos(x, y, z);
 			}

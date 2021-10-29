@@ -1,5 +1,6 @@
 package de.stylextv.maple.command.commands;
 
+import de.stylextv.maple.command.ArgumentList;
 import de.stylextv.maple.command.Command;
 import de.stylextv.maple.pathing.calc.goal.Goal;
 import de.stylextv.maple.task.Task;
@@ -22,10 +23,12 @@ public class GotoCommand extends Command {
 	}
 	
 	@Override
-	public boolean execute(String[] args) {
-		if(args.length == 0) return false;
+	public boolean execute(ArgumentList args) {
+		if(args.hasExactly(0)) return false;
 		
-		BlockFilter filter = BlockFilter.fromString(args[0]);
+		String s = args.get(0);
+		
+		BlockFilter filter = BlockFilter.fromString(s);
 		
 		if(filter != null) {
 			

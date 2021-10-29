@@ -1,6 +1,6 @@
 package de.stylextv.maple.pathing.calc.goal;
 
-import de.stylextv.maple.command.ArgumentHelper;
+import de.stylextv.maple.command.ArgumentList;
 import de.stylextv.maple.event.events.RenderWorldEvent;
 import de.stylextv.maple.pathing.calc.Node;
 
@@ -14,37 +14,32 @@ public abstract class Goal {
 	
 	public abstract boolean equals(Goal other);
 	
-	public static Goal fromArgs(String[] args) {
-		if(args.length >= 3) {
+	public static Goal fromArgs(ArgumentList args) {
+		if(args.hasAtLeast(3)) {
 			
-			Integer x = ArgumentHelper.toCoordinate(args[0], 0);
-			Integer y = ArgumentHelper.toCoordinate(args[1], 1);
-			Integer z = ArgumentHelper.toCoordinate(args[2], 2);
+			int x = args.getCoordinate(0);
+			int y = args.getCoordinate(1);
+			int z = args.getCoordinate(2);
 			
-			if(x == null || y == null || z == null) return null;
-			
-			if(args.length >= 4) {
-				Float dis = ArgumentHelper.toFloat(args[3]);
+			if(args.hasAtLeast(4)) {
 				
-				if(dis == null) return null;
+				float dis = args.getFloat(3);
+				
 				return new NearGoal(x, y, z, dis);
 			}
 			
 			return new BlockGoal(x, y, z);
 		}
 		
-		if(args.length == 2) {
+		if(args.hasAtLeast(2)) {
 			
-			Integer x = ArgumentHelper.toCoordinate(args[0], 0);
-			Integer z = ArgumentHelper.toCoordinate(args[1], 2);
+			int x = args.getCoordinate(0);
+			int z = args.getCoordinate(1, 2);
 			
-			if(x == null || z == null) return null;
 			return new XZGoal(x, z);
 		}
 		
-		Integer y = ArgumentHelper.toCoordinate(args[0], 1);
-		
-		if(y == null) return null;
+		int y = args.getCoordinate(0, 1);
 		
 		return new YLevelGoal(y);
 	}
