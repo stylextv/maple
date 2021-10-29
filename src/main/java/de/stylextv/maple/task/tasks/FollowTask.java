@@ -29,7 +29,7 @@ public class FollowTask extends CompositeTask {
 	
 	@Override
 	public void onFail() {
-		ChatUtil.send("Can't get any closer to entity.");
+		ChatUtil.send("Can't get any closer to entities.");
 	}
 	
 	@Override

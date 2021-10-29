@@ -16,6 +16,12 @@ public class TargetList<T extends BlockTarget> implements Iterable<T> {
 		set.add(target);
 	}
 	
+	public void remove(BlockPos pos) {
+		T target = get(pos);
+		
+		remove(target);
+	}
+	
 	public void remove(T target) {
 		set.remove(target);
 	}
@@ -30,6 +36,14 @@ public class TargetList<T extends BlockTarget> implements Iterable<T> {
 	
 	public boolean contains(int x, int y, int z) {
 		return get(x, y, z) != null;
+	}
+	
+	public T get(BlockPos pos) {
+		int x = pos.getX();
+		int y = pos.getY();
+		int z = pos.getZ();
+		
+		return get(x, y, z);
 	}
 	
 	public T get(int x, int y, int z) {

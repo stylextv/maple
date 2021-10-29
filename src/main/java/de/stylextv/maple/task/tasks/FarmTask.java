@@ -27,7 +27,7 @@ public class FarmTask extends BreakTask {
 	
 	@Override
 	public void onFail() {
-		ChatUtil.send("Can't get any closer to crop.");
+		ChatUtil.send("Can't get any closer to crops.");
 	}
 	
 	@Override

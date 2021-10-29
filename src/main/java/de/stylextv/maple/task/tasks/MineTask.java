@@ -16,7 +16,7 @@ public class MineTask extends BreakTask {
 	
 	@Override
 	public void onFail() {
-		ChatUtil.send("Can't get any closer to block.");
+		ChatUtil.send("Can't get any closer to blocks.");
 	}
 	
 	@Override
