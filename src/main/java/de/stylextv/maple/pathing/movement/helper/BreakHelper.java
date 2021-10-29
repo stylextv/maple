@@ -3,7 +3,7 @@ package de.stylextv.maple.pathing.movement.helper;
 import de.stylextv.maple.cache.BlockType;
 import de.stylextv.maple.cache.CacheManager;
 import de.stylextv.maple.input.controller.BreakController;
-import de.stylextv.maple.input.target.BreakableTarget;
+import de.stylextv.maple.input.target.targets.BreakableTarget;
 import de.stylextv.maple.pathing.calc.Cost;
 import de.stylextv.maple.pathing.movement.Movement;
 import de.stylextv.maple.world.BlockInterface;

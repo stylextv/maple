@@ -1,13 +1,11 @@
 package de.stylextv.maple.task.tasks;
 
 import java.util.List;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
-import de.stylextv.maple.input.target.BreakableTarget;
+import de.stylextv.maple.input.target.TargetList;
+import de.stylextv.maple.input.target.targets.BreakableTarget;
 import de.stylextv.maple.pathing.calc.goal.BlockGoal;
 import de.stylextv.maple.pathing.calc.goal.CompositeGoal;
-import de.stylextv.maple.pathing.calc.goal.TwoBlocksGoal;
 import de.stylextv.maple.world.scan.block.BlockFilters;
 import de.stylextv.maple.world.scan.entity.EntityFilter;
 import de.stylextv.maple.world.scan.entity.EntityFilters;
@@ -21,7 +19,6 @@ import net.minecraft.entity.ItemEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
 
 public abstract class BreakTask extends ScanTask {
 	
@@ -29,7 +26,7 @@ public abstract class BreakTask extends ScanTask {
 	
 	private EntityFilters entityFilters;
 	
-	private Set<BreakableTarget> targets = ConcurrentHashMap.newKeySet();
+	private TargetList<BreakableTarget> targets = new TargetList<>();
 	
 	public BreakTask(BlockFilters filters) {
 		super(filters);
@@ -64,7 +61,14 @@ public abstract class BreakTask extends ScanTask {
 				
 				rescan((pos) -> {
 					
-					if(!hasTarget(pos)) addTarget(pos);
+					boolean contains = targets.contains(pos);
+					
+					if(!contains) {
+						
+						BreakableTarget target = new BreakableTarget(pos);
+						
+						targets.add(target);
+					}
 					
 				});
 			}
@@ -85,7 +89,7 @@ public abstract class BreakTask extends ScanTask {
 			
 			if(broken) {
 				
-				removeTarget(target);
+				targets.remove(target);
 				
 				continue;
 			}
@@ -93,33 +97,12 @@ public abstract class BreakTask extends ScanTask {
 			if(target.isInReach() && target.continueBreaking()) return null;
 		}
 		
-		CompositeGoal blockGoal = CompositeGoal.fromCollection(targets, t -> new TwoBlocksGoal(t.getPos()));
+		CompositeGoal blockGoal = targets.toGoal();
 		
 		return CompositeGoal.combine(entityGoal, blockGoal);
 	}
 	
-	public void addTarget(BlockPos pos) {
-		BreakableTarget target = new BreakableTarget(pos);
-		
-		targets.add(target);
-	}
-	
-	public void removeTarget(BreakableTarget target) {
-		targets.remove(target);
-	}
-	
-	public boolean hasTarget(BlockPos pos) {
-		for(BreakableTarget target : targets) {
-			
-			BlockPos p = target.getPos();
-			
-			if(p.equals(pos)) return true;
-		}
-		
-		return false;
-	}
-	
-	public Set<BreakableTarget> getTargets() {
+	public TargetList<BreakableTarget> getTargets() {
 		return targets;
 	}
 	

@@ -1,10 +1,8 @@
 package de.stylextv.maple.pathing.movement.helper;
 
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-
 import de.stylextv.maple.event.events.RenderWorldEvent;
 import de.stylextv.maple.input.target.BlockTarget;
+import de.stylextv.maple.input.target.TargetList;
 import de.stylextv.maple.pathing.calc.Node;
 import de.stylextv.maple.pathing.movement.Movement;
 import de.stylextv.maple.render.ShapeRenderer;
@@ -13,7 +11,7 @@ import net.minecraft.util.math.BlockPos;
 
 public abstract class TargetHelper<T extends BlockTarget> extends MovementHelper<Movement> {
 	
-	private Set<T> targets = ConcurrentHashMap.newKeySet();
+	private TargetList<T> targets = new TargetList<>();
 	
 	public TargetHelper(Movement m) {
 		super(m);
@@ -96,7 +94,7 @@ public abstract class TargetHelper<T extends BlockTarget> extends MovementHelper
 		return !targets.isEmpty();
 	}
 	
-	public Set<T> getTargets() {
+	public TargetList<T> getTargets() {
 		return targets;
 	}
 	

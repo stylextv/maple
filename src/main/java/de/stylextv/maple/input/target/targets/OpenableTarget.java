@@ -1,7 +1,8 @@
-package de.stylextv.maple.input.target;
+package de.stylextv.maple.input.target.targets;
 
 import de.stylextv.maple.input.InputAction;
 import de.stylextv.maple.input.controller.InputController;
+import de.stylextv.maple.input.target.BlockTarget;
 import de.stylextv.maple.pathing.movement.Movement;
 import de.stylextv.maple.world.interact.Openable;
 import net.minecraft.block.BlockState;

@@ -6,7 +6,7 @@ import de.stylextv.maple.context.WorldContext;
 import de.stylextv.maple.input.InputAction;
 import de.stylextv.maple.input.controller.InputController;
 import de.stylextv.maple.input.controller.PlaceController;
-import de.stylextv.maple.input.target.PlaceableTarget;
+import de.stylextv.maple.input.target.targets.PlaceableTarget;
 import de.stylextv.maple.pathing.calc.Cost;
 import de.stylextv.maple.pathing.calc.Node;
 import de.stylextv.maple.pathing.movement.Movement;

@@ -1,4 +1,4 @@
-package de.stylextv.maple.input.target;
+package de.stylextv.maple.input.target.targets;
 
 import de.stylextv.maple.gui.ToolSet;
 import de.stylextv.maple.input.InputAction;
@@ -6,6 +6,7 @@ import de.stylextv.maple.input.controller.AwarenessController;
 import de.stylextv.maple.input.controller.BreakController;
 import de.stylextv.maple.input.controller.GuiController;
 import de.stylextv.maple.input.controller.InputController;
+import de.stylextv.maple.input.target.BlockTarget;
 import de.stylextv.maple.world.BlockInterface;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
