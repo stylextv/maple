@@ -39,7 +39,9 @@ public class DescendMovement extends Movement {
 		
 		if(interacting) return;
 		
-		lookAt(getDestination());
+		boolean lookDown = isVerticalOnly();
+		
+		lookAt(getDestination(), lookDown);
 		
 		if(isVerticalOnly() && !PlayerContext.isOnGround()) return;
 		
