@@ -4,6 +4,10 @@ public class ArgumentList {
 	
 	private String[] args;
 	
+	public ArgumentList() {
+		this(new String[0]);
+	}
+	
 	public ArgumentList(String[] args) {
 		this.args = args;
 	}
@@ -75,6 +79,8 @@ public class ArgumentList {
 	}
 	
 	public static ArgumentList fromString(String s) {
+		if(s.isEmpty()) return new ArgumentList();
+		
 		String[] args = s.split(" ");
 		
 		return new ArgumentList(args);
