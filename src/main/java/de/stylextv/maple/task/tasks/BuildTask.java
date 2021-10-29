@@ -56,10 +56,8 @@ public class BuildTask extends CompositeTask {
 					
 					boolean b = BreakController.isBreakable(pos);
 					
-					// TODO don't place throw-away blocks
-					
 					if(b) breakTargets.add(new BreakableTarget(pos));
-					else placeTargets.add(new PlaceableTarget(pos));
+					else placeTargets.add(new PlaceableTarget(pos, block));
 				}
 			}
 		}
@@ -80,10 +78,9 @@ public class BuildTask extends CompositeTask {
 		return CompositeGoal.combine(breakGoal, placeGoal);
 	}
 	
-	// TODO change message?
 	@Override
 	public void onFail() {
-		ChatUtil.send("Can't get any closer to blocks.");
+		ChatUtil.send("Can't continue building structure.");
 	}
 	
 	@Override

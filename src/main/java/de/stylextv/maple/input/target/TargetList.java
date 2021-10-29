@@ -66,6 +66,10 @@ public class TargetList<T extends BlockTarget> implements Iterable<T> {
 		return set.iterator();
 	}
 	
+	public int size() {
+		return set.size();
+	}
+	
 	public boolean isEmpty() {
 		return set.isEmpty();
 	}

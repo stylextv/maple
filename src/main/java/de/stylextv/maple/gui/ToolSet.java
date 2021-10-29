@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import de.stylextv.maple.context.PlayerContext;
 import de.stylextv.maple.util.ItemUtil;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
@@ -90,7 +91,11 @@ public class ToolSet {
 		return !getWaterBucket().equals(ItemStack.EMPTY);
 	}
 	
-	private ItemStack getStackOf(Item item) {
+	public ItemStack getStackOf(Block block) {
+		return getStackOf(block.asItem());
+	}
+	
+	public ItemStack getStackOf(Item item) {
 		for(ItemStack stack : stacks) {
 			
 			if(stack.isOf(item)) return stack;
