@@ -4,23 +4,23 @@ import de.stylextv.maple.schematic.Schematic;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 
-public class FillSchematic extends Schematic {
+public class StaticSchematic extends Schematic {
 	
-	private Block block;
+	private Block[][][] blocks;
 	
-	public FillSchematic(int width, int height, int length, Block block) {
+	public StaticSchematic(int width, int height, int length, Block[][][] blocks) {
 		super(width, height, length);
 		
-		this.block = block;
+		this.blocks = blocks;
 	}
 	
 	@Override
 	public Block getBlock(int x, int y, int z, BlockState state) {
-		return block;
+		return blocks[x][y][z];
 	}
 	
-	public Block getBlock() {
-		return block;
+	public Block[][][] getBlocks() {
+		return blocks;
 	}
 	
 }

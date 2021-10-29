@@ -1,5 +1,6 @@
 package de.stylextv.maple.schematic;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 
 public abstract class Schematic {
@@ -14,7 +15,7 @@ public abstract class Schematic {
 		this.length = length;
 	}
 	
-	public abstract boolean matches(int x, int y, int z, BlockState state);
+	public abstract Block getBlock(int x, int y, int z, BlockState state);
 	
 	public int getWidth() {
 		return width;
