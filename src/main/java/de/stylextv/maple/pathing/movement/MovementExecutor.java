@@ -97,7 +97,7 @@ public class MovementExecutor {
 		
 		if(m.ranOutOfTime()) return true;
 		
-		if(!PlayerContext.isFalling()) {
+		if(!PlayerContext.isFalling() && !PlayerContext.isInWater()) {
 			
 			BlockPos pos = PlayerContext.blockPosition();
 			
