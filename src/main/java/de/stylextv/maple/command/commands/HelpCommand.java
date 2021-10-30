@@ -22,7 +22,7 @@ public class HelpCommand extends Command {
 	
 	@Override
 	public boolean execute(ArgumentList args) {
-		TaskManager.startTask(new BuildTask(PlayerContext.feetPosition(), new FillSchematic(2, 1, 2, Blocks.AIR)));
+		TaskManager.startTask(new BuildTask(PlayerContext.feetPosition(), new FillSchematic(2, 1, 2, Blocks.COBBLESTONE)));
 		
 		boolean b = args.hasAtLeast(1);
 		
