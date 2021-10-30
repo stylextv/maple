@@ -19,6 +19,8 @@ public class MovementExecutor {
 	
 	private static boolean paused;
 	
+	private static boolean safeToPause;
+	
 	public static void followPath(Path p) {
 		stop();
 		
@@ -80,6 +82,8 @@ public class MovementExecutor {
 			InputController.setPressed(InputAction.SNEAK, false);
 		}
 		
+		safeToPause = false;
+		
 		MovementState state = m.getState();
 		
 		if(state == MovementState.FAILED) {
@@ -89,6 +93,8 @@ public class MovementExecutor {
 		} else if(state == MovementState.DONE) {
 			
 			path.next();
+			
+			safeToPause = true;
 		}
 	}
 	
@@ -107,6 +113,18 @@ public class MovementExecutor {
 		}
 		
 		return path.isImpossible();
+	}
+	
+	public static boolean isSafeToPause() {
+		if(!isMoving()) return true;
+		
+		return safeToPause;
+	}
+	
+	public static boolean isMoving() {
+		if(!hasPath()) return false;
+		
+		return path.getCurrentMovement() != null;
 	}
 	
 	public static boolean hasPath() {
