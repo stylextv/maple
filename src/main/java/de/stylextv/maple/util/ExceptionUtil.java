@@ -21,7 +21,7 @@ public class ExceptionUtil {
 			
 		} catch(Exception ex) {
 			
-			catchCallback.run();
+			if(catchCallback != null) catchCallback.run();
 			
 			if(print) ex.printStackTrace();
 		}
