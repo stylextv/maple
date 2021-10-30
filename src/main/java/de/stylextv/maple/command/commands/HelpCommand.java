@@ -6,13 +6,8 @@ import java.util.List;
 import de.stylextv.maple.command.ArgumentList;
 import de.stylextv.maple.command.Command;
 import de.stylextv.maple.command.CommandManager;
-import de.stylextv.maple.context.PlayerContext;
-import de.stylextv.maple.schematic.schematics.FillSchematic;
-import de.stylextv.maple.task.TaskManager;
-import de.stylextv.maple.task.tasks.BuildTask;
 import de.stylextv.maple.util.TextUtil;
 import de.stylextv.maple.util.chat.ChatUtil;
-import net.minecraft.block.Blocks;
 
 public class HelpCommand extends Command {
 	
@@ -22,8 +17,6 @@ public class HelpCommand extends Command {
 	
 	@Override
 	public boolean execute(ArgumentList args) {
-		TaskManager.startTask(new BuildTask(PlayerContext.feetPosition(), new FillSchematic(2, 1, 2, Blocks.COBBLESTONE)));
-		
 		boolean b = args.hasAtLeast(1);
 		
 		if(!b || args.isInt(0)) {
