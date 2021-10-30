@@ -5,6 +5,7 @@ import de.stylextv.maple.input.target.TargetList;
 import de.stylextv.maple.input.target.targets.BreakableTarget;
 import de.stylextv.maple.input.target.targets.PlaceableTarget;
 import de.stylextv.maple.pathing.calc.goal.CompositeGoal;
+import de.stylextv.maple.pathing.movement.MovementExecutor;
 import de.stylextv.maple.schematic.Schematic;
 import de.stylextv.maple.util.chat.ChatUtil;
 import de.stylextv.maple.world.BlockInterface;
@@ -72,28 +73,31 @@ public class BuildTask extends CompositeTask {
 			}
 		}
 		
-		for(BreakableTarget target : breakTargets) {
+		if(MovementExecutor.isSafeToPause()) {
 			
-			if(target.isBroken()) {
+			for(BreakableTarget target : breakTargets) {
 				
-				breakTargets.remove(target);
+				if(target.isBroken()) {
+					
+					breakTargets.remove(target);
+					
+					continue;
+				}
 				
-				continue;
+				if(target.isInReach() && target.continueBreaking()) return null;
 			}
 			
-			if(target.isInReach() && target.continueBreaking()) return null;
-		}
-		
-		for(PlaceableTarget target : placeTargets) {
-			
-			if(target.isPlaced()) {
+			for(PlaceableTarget target : placeTargets) {
 				
-				placeTargets.remove(target);
+				if(target.isPlaced()) {
+					
+					placeTargets.remove(target);
+					
+					continue;
+				}
 				
-				continue;
+				if(target.isInReach() && target.continuePlacing()) return null;
 			}
-			
-			if(target.isInReach() && target.continuePlacing()) return null;
 		}
 		
 		CompositeGoal breakGoal = breakTargets.toGoal();

@@ -6,6 +6,7 @@ import de.stylextv.maple.input.target.TargetList;
 import de.stylextv.maple.input.target.targets.BreakableTarget;
 import de.stylextv.maple.pathing.calc.goal.BlockGoal;
 import de.stylextv.maple.pathing.calc.goal.CompositeGoal;
+import de.stylextv.maple.pathing.movement.MovementExecutor;
 import de.stylextv.maple.world.scan.block.BlockFilters;
 import de.stylextv.maple.world.scan.entity.EntityFilter;
 import de.stylextv.maple.world.scan.entity.EntityFilters;
@@ -81,20 +82,23 @@ public abstract class BreakTask extends ScanTask {
 			}
 		}
 		
-		for(BreakableTarget target : targets) {
+		if(MovementExecutor.isSafeToPause()) {
 			
-			BlockState state = target.state();
-			
-			boolean broken = !getFilters().matches(state);
-			
-			if(broken) {
+			for(BreakableTarget target : targets) {
 				
-				targets.remove(target);
+				BlockState state = target.state();
 				
-				continue;
+				boolean broken = !getFilters().matches(state);
+				
+				if(broken) {
+					
+					targets.remove(target);
+					
+					continue;
+				}
+				
+				if(target.isInReach() && target.continueBreaking()) return null;
 			}
-			
-			if(target.isInReach() && target.continueBreaking()) return null;
 		}
 		
 		CompositeGoal blockGoal = targets.toGoal();
