@@ -32,7 +32,7 @@ public class SearchExecutor {
 			
 			while(true) {
 				
-				boolean required = goal.equals(PathingExecutor.getGoal());
+				boolean required = path.equals(PathingExecutor.getPath());
 				
 				if(!required) break;
 				
