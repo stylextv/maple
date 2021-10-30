@@ -66,7 +66,7 @@ public class PathingExecutor {
 		
 		boolean destinationValid = false;
 		
-		Path path = MovementExecutor.getPath();
+		Path path = getPath();
 		
 		if(path != null && !path.isEmpty()) {
 			
