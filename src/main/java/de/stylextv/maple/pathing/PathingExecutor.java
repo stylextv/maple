@@ -20,8 +20,6 @@ public class PathingExecutor {
 	public static void stopPathing() {
 		SearchExecutor.stopSearch();
 		
-		MovementExecutor.stop();
-		
 		status.clear();
 	}
 	
@@ -37,7 +35,9 @@ public class PathingExecutor {
 		
 		if(type == PathingCommandType.PAUSE) {
 			
-			MovementExecutor.setPaused(true);
+			boolean safe = MovementExecutor.isSafeToPause();
+			
+			if(safe) MovementExecutor.setPaused(true);
 			
 			return;
 		}
@@ -98,8 +98,20 @@ public class PathingExecutor {
 		}
 	}
 	
+	public static void onRenderTick() {
+		MovementExecutor.followPath(getPath());
+	}
+	
 	public static Goal getGoal() {
 		return status.getGoal();
+	}
+	
+	public static Path getPath() {
+		return status.getPath();
+	}
+	
+	public static void setPath(Path path) {
+		status.setPath(path);
 	}
 	
 	public static PathingStatus getStatus() {

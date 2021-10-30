@@ -1,5 +1,6 @@
 package de.stylextv.maple.pathing;
 
+import de.stylextv.maple.pathing.calc.Path;
 import de.stylextv.maple.pathing.calc.goal.Goal;
 
 public class PathingStatus {
@@ -8,8 +9,12 @@ public class PathingStatus {
 	
 	private Goal goal;
 	
+	private Path path;
+	
 	public void clear() {
 		setGoal(null);
+		
+		path = null;
 	}
 	
 	public void setGoal(Goal g) {
@@ -44,6 +49,14 @@ public class PathingStatus {
 	
 	public Goal getGoal() {
 		return goal;
+	}
+	
+	public Path getPath() {
+		return path;
+	}
+	
+	public void setPath(Path path) {
+		this.path = path;
 	}
 	
 }

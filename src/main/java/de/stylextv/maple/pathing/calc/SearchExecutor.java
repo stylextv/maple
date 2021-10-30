@@ -1,8 +1,8 @@
 package de.stylextv.maple.pathing.calc;
 
+import de.stylextv.maple.pathing.PathingExecutor;
 import de.stylextv.maple.pathing.calc.favoring.Favoring;
 import de.stylextv.maple.pathing.calc.goal.Goal;
-import de.stylextv.maple.pathing.movement.MovementExecutor;
 import de.stylextv.maple.util.async.AsyncUtil;
 
 public class SearchExecutor {
@@ -26,13 +26,13 @@ public class SearchExecutor {
 		
 		Path path = new Path();
 		
-		MovementExecutor.followPath(path);
+		PathingExecutor.setPath(path);
 		
 		AsyncUtil.runAsync(() -> {
 			
 			while(true) {
 				
-				boolean required = path.equals(MovementExecutor.getPath());
+				boolean required = goal.equals(PathingExecutor.getGoal());
 				
 				if(!required) break;
 				
