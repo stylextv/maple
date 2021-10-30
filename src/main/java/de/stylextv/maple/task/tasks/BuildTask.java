@@ -37,8 +37,8 @@ public class BuildTask extends CompositeTask {
 				for(int z = 0; z < schematic.getLength(); z++) {
 					
 					int bx = originX + x;
-					int by = originY + x;
-					int bz = originZ + x;
+					int by = originY + y;
+					int bz = originZ + z;
 					
 					BlockState state = BlockInterface.getState(bx, by, bz);
 					
@@ -54,20 +54,44 @@ public class BuildTask extends CompositeTask {
 						continue;
 					}
 					
-					boolean b = BreakController.isBreakable(pos);
+					boolean b = BreakController.isBreakable(bx, by, bz);
 					
-					if(b) breakTargets.add(new BreakableTarget(pos));
-					else placeTargets.add(new PlaceableTarget(pos, block));
+					if(b) {
+						
+						if(breakTargets.contains(bx, by, bz)) continue;
+						
+						breakTargets.add(new BreakableTarget(bx, by, bz));
+						
+					} else {
+						
+						if(placeTargets.contains(bx, by, bz)) continue;
+						
+						placeTargets.add(new PlaceableTarget(bx, by, bz, block));
+					}
 				}
 			}
 		}
 		
 		for(BreakableTarget target : breakTargets) {
 			
+			if(target.isBroken()) {
+				
+				breakTargets.remove(target);
+				
+				continue;
+			}
+			
 			if(target.isInReach() && target.continueBreaking()) return null;
 		}
 		
 		for(PlaceableTarget target : placeTargets) {
+			
+			if(target.isPlaced()) {
+				
+				placeTargets.remove(target);
+				
+				continue;
+			}
 			
 			if(target.isInReach() && target.continuePlacing()) return null;
 		}

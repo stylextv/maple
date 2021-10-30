@@ -19,7 +19,7 @@ public class TargetList<T extends BlockTarget> implements Iterable<T> {
 	public void remove(BlockPos pos) {
 		T target = get(pos);
 		
-		remove(target);
+		if(target != null) remove(target);
 	}
 	
 	public void remove(T target) {

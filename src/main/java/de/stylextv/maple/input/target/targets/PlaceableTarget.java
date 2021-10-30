@@ -14,8 +14,8 @@ public class PlaceableTarget extends BlockTarget {
 	
 	private Block block;
 	
-	public PlaceableTarget(BlockPos pos, Block block) {
-		this(pos);
+	public PlaceableTarget(int x, int y, int z, Block block) {
+		this(x, y, z);
 		
 		this.block = block;
 	}
