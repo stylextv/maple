@@ -30,13 +30,6 @@ public abstract class CompositeTask extends Task {
 		
 		boolean empty = goal.isEmpty();
 		
-		if(status.isPathing()) {
-			
-			if(empty) return PathingCommand.CANCEL;
-			
-			return new PathingCommand(PathingCommandType.REVALIDATE_GOAL, goal);
-		}
-		
 		if(empty) {
 			
 			onEmptyGoal();
@@ -44,7 +37,17 @@ public abstract class CompositeTask extends Task {
 			return super.onRenderTick(status);
 		}
 		
-		boolean atGoal = status.goalMatches(goal) && status.isAtGoal();
+		if(status.isPathing()) {
+			
+			return new PathingCommand(PathingCommandType.REVALIDATE_GOAL, goal);
+		}
+		
+		if(!status.goalMatches(goal)) {
+			
+			return new PathingCommand(PathingCommandType.PATH_TO_GOAL, goal);
+		}
+		
+		boolean atGoal = status.isAtGoal();
 		
 		if(atGoal) {
 			
@@ -58,7 +61,9 @@ public abstract class CompositeTask extends Task {
 			return PathingCommand.DEFER;
 		}
 		
-		return new PathingCommand(PathingCommandType.PATH_TO_GOAL, goal);
+		onFail();
+		
+		return super.onRenderTick(status);
 	}
 	
 	public boolean isCompleteAtGoal() {
