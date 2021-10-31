@@ -31,7 +31,7 @@ public class FarmTask extends BreakTask {
 	}
 	
 	@Override
-	public void onComplete() {
+	public void onEmptyGoal() {
 		ChatUtil.send("Can't find any matching crops nearby.");
 	}
 	

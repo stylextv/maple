@@ -30,7 +30,7 @@ public abstract class BreakTask extends ScanTask {
 	private TargetList<BreakableTarget> targets = new TargetList<>();
 	
 	public BreakTask(BlockFilters filters) {
-		super(filters);
+		super(filters, false);
 		
 		EntityFilter filter = new EntityFilter(e -> {
 			

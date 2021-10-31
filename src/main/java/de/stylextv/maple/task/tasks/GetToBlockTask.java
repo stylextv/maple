@@ -21,7 +21,7 @@ public class GetToBlockTask extends ScanTask {
 	}
 	
 	public GetToBlockTask(BlockFilters filters) {
-		super(filters);
+		super(filters, true);
 	}
 	
 	@Override
@@ -60,7 +60,7 @@ public class GetToBlockTask extends ScanTask {
 	}
 	
 	@Override
-	public void onComplete() {
+	public void onEmptyGoal() {
 		ChatUtil.send("Can't find any matching blocks nearby.");
 	}
 	

@@ -17,7 +17,9 @@ public abstract class ScanTask extends CompositeTask {
 	
 	private long scanEndTime;
 	
-	public ScanTask(BlockFilters filters) {
+	public ScanTask(BlockFilters filters, boolean completeAtGoal) {
+		super(completeAtGoal);
+		
 		this.filters = filters;
 	}
 	

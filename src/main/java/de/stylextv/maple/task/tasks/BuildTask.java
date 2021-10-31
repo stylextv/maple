@@ -23,6 +23,8 @@ public class BuildTask extends CompositeTask {
 	private TargetList<PlaceableTarget> placeTargets = new TargetList<>();
 	
 	public BuildTask(BlockPos pos, Schematic s) {
+		super(false);
+		
 		this.pos = pos;
 		this.schematic = s;
 	}
@@ -112,7 +114,7 @@ public class BuildTask extends CompositeTask {
 	}
 	
 	@Override
-	public void onComplete() {
+	public void onEmptyGoal() {
 		ChatUtil.send("Finished building.");
 	}
 	

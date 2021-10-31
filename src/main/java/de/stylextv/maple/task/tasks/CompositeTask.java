@@ -8,11 +8,19 @@ import de.stylextv.maple.task.Task;
 
 public abstract class CompositeTask extends Task {
 	
+	private boolean completeAtGoal;
+	
+	public CompositeTask(boolean completeAtGoal) {
+		this.completeAtGoal = completeAtGoal;
+	}
+	
 	public abstract CompositeGoal onRenderTick();
+	
+	public void onComplete() {}
 	
 	public abstract void onFail();
 	
-	public abstract void onComplete();
+	public abstract void onEmptyGoal();
 	
 	@Override
 	public PathingCommand onRenderTick(PathingStatus status) {
@@ -29,18 +37,32 @@ public abstract class CompositeTask extends Task {
 			return new PathingCommand(PathingCommandType.REVALIDATE_GOAL, goal);
 		}
 		
-		if(status.goalMatches(goal) && !status.isAtGoal()) {
+		if(empty) {
 			
-			onFail();
+			onEmptyGoal();
 			
 			return super.onRenderTick(status);
 		}
 		
-		if(!empty) return new PathingCommand(PathingCommandType.PATH_TO_GOAL, goal);
+		boolean atGoal = status.goalMatches(goal) && status.isAtGoal();
 		
-		onComplete();
+		if(atGoal) {
+			
+			if(completeAtGoal) {
+				
+				onComplete();
+				
+				return super.onRenderTick(status);
+			}
+			
+			return PathingCommand.DEFER;
+		}
 		
-		return super.onRenderTick(status);
+		return new PathingCommand(PathingCommandType.PATH_TO_GOAL, goal);
+	}
+	
+	public boolean isCompleteAtGoal() {
+		return completeAtGoal;
 	}
 	
 }

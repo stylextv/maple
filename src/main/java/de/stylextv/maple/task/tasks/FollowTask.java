@@ -17,6 +17,8 @@ public class FollowTask extends CompositeTask {
 	private EntityFilters filters;
 	
 	public FollowTask(EntityFilter filter) {
+		super(false);
+		
 		this.filters = EntityFilters.fromFilters(filter, EntityFilter.ALIVE);
 	}
 	
@@ -33,7 +35,7 @@ public class FollowTask extends CompositeTask {
 	}
 	
 	@Override
-	public void onComplete() {
+	public void onEmptyGoal() {
 		ChatUtil.send("Can't find any matching entities nearby.");
 	}
 	
