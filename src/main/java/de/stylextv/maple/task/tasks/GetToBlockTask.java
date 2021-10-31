@@ -55,6 +55,11 @@ public class GetToBlockTask extends ScanTask {
 	}
 	
 	@Override
+	public void onComplete() {
+		ChatUtil.send("Destination reached.");
+	}
+	
+	@Override
 	public void onFail() {
 		ChatUtil.send("Can't get any closer to blocks.");
 	}
