@@ -1,7 +1,7 @@
 package de.stylextv.maple.util.iterate.iterators;
 
 import de.stylextv.maple.util.iterate.IntPair;
-import de.stylextv.maple.util.iterate.IntPairIterator;
+import de.stylextv.maple.util.iterate.iterators.types.IntPairIterator;
 
 public class GridIterator extends IntPairIterator {
 	
@@ -28,7 +28,7 @@ public class GridIterator extends IntPairIterator {
 			int x = i % width;
 			int y = i / width;
 			
-			setPair(i, new IntPair(x, y));
+			set(i, new IntPair(x, y));
 		}
 	}
 	

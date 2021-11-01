@@ -1,7 +1,7 @@
 package de.stylextv.maple.util.iterate.iterators;
 
 import de.stylextv.maple.util.iterate.IntPair;
-import de.stylextv.maple.util.iterate.IntPairIterator;
+import de.stylextv.maple.util.iterate.iterators.types.IntPairIterator;
 
 public class SpiralIterator extends IntPairIterator {
 	
@@ -23,7 +23,7 @@ public class SpiralIterator extends IntPairIterator {
 		
 		for(int i = 0; i < getLength(); i++) {
 			
-			setPair(i, new IntPair(x, y));
+			set(i, new IntPair(x, y));
 			
 			boolean b1 = x < 0 && x == -y;
 			boolean b2 = x > 0 && x == 1 - y;

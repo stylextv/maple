@@ -1,6 +1,6 @@
 package de.stylextv.maple.util.iterate.iterators;
 
-import de.stylextv.maple.util.iterate.IntIterator;
+import de.stylextv.maple.util.iterate.iterators.types.IntIterator;
 
 public class RangeIterator extends IntIterator {
 	
