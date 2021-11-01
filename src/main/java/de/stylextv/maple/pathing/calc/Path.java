@@ -103,12 +103,17 @@ public class Path {
 	}
 	
 	public BlockPos lastPosition() {
-		if(isEmpty()) return PlayerContext.feetPosition();
-		
 		return lastNode().blockPos();
 	}
 	
 	public Node lastNode() {
+		if(isEmpty()) {
+			
+			BlockPos pos = PlayerContext.feetPosition();
+			
+			return new Node(pos);
+		}
+		
 		PathSegment s = lastSegment();
 		
 		return s.lastNode();

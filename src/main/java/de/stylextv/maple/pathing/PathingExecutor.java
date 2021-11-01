@@ -55,29 +55,26 @@ public class PathingExecutor {
 		
 		Goal goal = c.getGoal();
 		
-		if(type == PathingCommandType.PATH_TO_GOAL) {
+		boolean idle = status.getState() == PathingState.IDLE;
+		
+		boolean forceStart = idle || type == PathingCommandType.PATH_TO_GOAL;
+		
+		if(forceStart) {
 			
 			startPathing(goal);
 			
 			return;
 		}
 		
-		boolean foundGoal = false;
-		
-		boolean destinationValid = false;
-		
 		Path path = getPath();
 		
-		if(path != null && !path.isEmpty()) {
-			
-			PathState state = path.getState();
-			
-			foundGoal = state == PathState.AT_GOAL;
-			
-			Node destination = path.lastNode();
-			
-			destinationValid = goal.isFinalNode(destination);
-		}
+		PathState state = path.getState();
+		
+		boolean foundGoal = state == PathState.AT_GOAL;
+		
+		Node destination = path.lastNode();
+		
+		boolean destinationValid = goal.isFinalNode(destination);
 		
 		if(type == PathingCommandType.REVALIDATE_GOAL) {
 			

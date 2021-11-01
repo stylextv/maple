@@ -57,13 +57,16 @@ public class MovementExecutor {
 			
 			if(path.isFinished()) {
 				
-				boolean atGoal = path.getState() == PathState.AT_GOAL;
-				
-				PathingStatus status = PathingExecutor.getStatus();
-				
-				PathingState state = atGoal ? PathingState.AT_GOAL : PathingState.FAILED;
-				
-				status.setState(state);
+				if(required) {
+					
+					boolean atGoal = path.getState() == PathState.AT_GOAL;
+					
+					PathingStatus status = PathingExecutor.getStatus();
+					
+					PathingState state = atGoal ? PathingState.AT_GOAL : PathingState.FAILED;
+					
+					status.setState(state);
+				}
 				
 				stop();
 			}
