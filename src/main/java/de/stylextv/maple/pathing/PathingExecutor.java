@@ -55,7 +55,7 @@ public class PathingExecutor {
 		
 		Goal goal = c.getGoal();
 		
-		boolean idle = status.getState() == PathingState.IDLE;
+		boolean idle = status.isIdle();
 		
 		boolean forceStart = idle || type == PathingCommandType.PATH_TO_GOAL;
 		

@@ -31,6 +31,10 @@ public class PathingStatus {
 		return goal.equals(g);
 	}
 	
+	public boolean isIdle() {
+		return !isPathing() && !isAtGoal();
+	}
+	
 	public boolean isPathing() {
 		return state == PathingState.GOING;
 	}
