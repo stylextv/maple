@@ -6,12 +6,12 @@ public abstract class StaticIterator<T> extends FunctionIterator<T> {
 	
 	private Object[] elements;
 	
+	private boolean generated;
+	
 	public StaticIterator(int length) {
 		super(length);
 		
 		this.elements = new Object[length];
-		
-		generate();
 	}
 	
 	public abstract void generate();
@@ -23,7 +23,18 @@ public abstract class StaticIterator<T> extends FunctionIterator<T> {
 	@SuppressWarnings("unchecked")
 	@Override
 	public T get(int index) {
+		if(!generated) {
+			
+			generate();
+			
+			generated = true;
+		}
+		
 		return (T) elements[index];
+	}
+	
+	public boolean isGenerated() {
+		return generated;
 	}
 	
 }
