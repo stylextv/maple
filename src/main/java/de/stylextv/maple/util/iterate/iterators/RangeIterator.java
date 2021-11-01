@@ -4,7 +4,7 @@ import de.stylextv.maple.util.iterate.IntIterator;
 
 public class RangeIterator extends IntIterator {
 	
-	// TODO common range iterators as constants
+	public static final RangeIterator ZERO_TO_SIXTEEN = new RangeIterator(16);
 	
 	private int from;
 	private int to;
