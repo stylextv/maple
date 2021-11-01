@@ -15,10 +15,12 @@ public abstract class Task {
 	
 	private boolean paused = true;
 	
-	private boolean finished;
-	
 	public void pause() {
+		if(isPaused()) return;
+		
 		paused = true;
+		
+		PathingExecutor.stopPathing();
 	}
 	
 	public void resume() {
@@ -32,12 +34,7 @@ public abstract class Task {
 	}
 	
 	public PathingCommand onRenderTick(PathingStatus status) {
-		if(!finished) {
-			
-			finished = true;
-			
-			PathingExecutor.stopPathing();
-		}
+		pause();
 		
 		for(Task t : children) {
 			
@@ -69,10 +66,6 @@ public abstract class Task {
 	
 	public boolean isPaused() {
 		return paused;
-	}
-	
-	public boolean isFinished() {
-		return finished;
 	}
 	
 }
