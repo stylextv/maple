@@ -30,13 +30,15 @@ public class ParkourHelper extends MovementHelper<ParkourMovement> {
 		int dx = m.getDeltaX();
 		int dz = m.getDeltaZ();
 		
+		int height = 3 + m.getDeltaY();
+		
 		for(int i = 0; i < dis; i++) {
 			
 			int x = startX + dx * i;
 			int y = startY;
 			int z = startZ + dz * i;
 			
-			if(isObstructed(x, y, z, 3)) return Cost.INFINITY;
+			if(isObstructed(x, y, z, height)) return Cost.INFINITY;
 		}
 		
 		boolean sprint = shouldSprint();

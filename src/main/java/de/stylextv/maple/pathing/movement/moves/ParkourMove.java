@@ -35,9 +35,7 @@ public class ParkourMove extends Move {
 			
 			Node destination = finder.getAdjacentNode(n, ox, dy, oz);
 			
-			int height = 3 - dy;
-			
-			if(ParkourHelper.isObstructed(destination, height)) {
+			if(ParkourHelper.isObstructed(destination, 3)) {
 				
 				if(dy == 1) return null;
 				
