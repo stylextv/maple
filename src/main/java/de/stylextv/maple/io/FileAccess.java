@@ -13,7 +13,7 @@ import java.util.zip.InflaterInputStream;
 
 public class FileAccess {
 	
-	private static final int FILE_VERSION = 163196754;
+	private static final int FILE_VERSION = 0x9BA2F52;
 	
 	private static final int COMPRESSION_LEVEL = Deflater.BEST_COMPRESSION;
 	
