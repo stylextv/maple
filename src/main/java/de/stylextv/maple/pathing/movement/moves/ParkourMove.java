@@ -56,7 +56,7 @@ public class ParkourMove extends Move {
 				
 				if(i == 1) return null;
 				
-				return new ParkourMovement(n, destination, dx, dz, i);
+				return new ParkourMovement(n, destination, dx, dy, dz, i);
 			}
 			
 			i++;

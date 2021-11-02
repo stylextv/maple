@@ -19,6 +19,9 @@ public class ParkourHelper extends MovementHelper<ParkourMovement> {
 		int dis = m.getDistance();
 		
 		Node source = m.getSource();
+		Node destination = m.getDestination();
+		
+		if(isObstructed(destination, 2)) return Cost.INFINITY;
 		
 		int startX = source.getX();
 		int startY = source.getY();
@@ -27,7 +30,7 @@ public class ParkourHelper extends MovementHelper<ParkourMovement> {
 		int dx = m.getDeltaX();
 		int dz = m.getDeltaZ();
 		
-		for(int i = 0; i <= dis; i++) {
+		for(int i = 0; i < dis; i++) {
 			
 			int x = startX + dx * i;
 			int y = startY;

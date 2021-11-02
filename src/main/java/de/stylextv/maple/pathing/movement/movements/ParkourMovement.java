@@ -9,6 +9,7 @@ import de.stylextv.maple.pathing.movement.helper.PositionHelper;
 public class ParkourMovement extends Movement {
 	
 	private int dx;
+	private int dy;
 	private int dz;
 	
 	private int distance;
@@ -17,10 +18,11 @@ public class ParkourMovement extends Movement {
 	
 	private PositionHelper positionHelper = new PositionHelper(this);
 	
-	public ParkourMovement(Node source, Node destination, int dx, int dz, int distance) {
+	public ParkourMovement(Node source, Node destination, int dx, int dy, int dz, int distance) {
 		super(source, destination);
 		
 		this.dx = dx;
+		this.dy = dy;
 		this.dz = dz;
 		this.distance = distance;
 	}
@@ -49,6 +51,10 @@ public class ParkourMovement extends Movement {
 	
 	public int getDeltaX() {
 		return dx;
+	}
+	
+	public int getDeltaY() {
+		return dy;
 	}
 	
 	public int getDeltaZ() {
