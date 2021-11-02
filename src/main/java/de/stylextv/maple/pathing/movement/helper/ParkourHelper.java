@@ -49,7 +49,7 @@ public class ParkourHelper extends MovementHelper<ParkourMovement> {
 	public boolean shouldSprint() {
 		ParkourMovement m = getMovement();
 		
-		double dis = m.getDistance();
+		double dis = m.getDistance() + m.getDeltaY();
 		
 		return dis > 3;
 	}
