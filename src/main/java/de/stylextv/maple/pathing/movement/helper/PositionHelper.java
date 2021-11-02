@@ -65,7 +65,7 @@ public class PositionHelper extends MovementHelper<Movement> {
 		
 		InputController.setPressed(InputAction.MOVE_FORWARD, true);
 		
-		return forwards > 0.5 && forwards < 1;
+		return forwards > 0.7 && forwards < 1;
 	}
 	
 	public boolean centerOnSource() {
