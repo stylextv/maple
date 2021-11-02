@@ -13,50 +13,13 @@ public class PositionHelper extends MovementHelper<Movement> {
 	
 	private static final double MAX_DISTANCE_FROM_CENTER = 0.016;
 	
-	private static final double[] JUMP_OFFSETS = new double[] {
-			0.25,
-			0.43,
-			0.62,
-			0.79
-	};
-	
-	private static final double RUNUP_OFFSET = -0.15;
-	
-	private static final double MIN_SIDEWAYS_DISTANCE = 0.12;
-	private static final double MIN_SIDEWAYS_SPEED = 0.01;
+	private static final double MAX_SIDEWAYS_DISTANCE = 0.12;
 	
 	public PositionHelper(Movement m) {
 		super(m);
 	}
 	
-	public boolean centerOnSource() {
-		Movement m = getMovement();
-		
-		Node source = m.getSource();
-		
-		double sourceX = source.getX() + 0.5;
-		double sourceZ = source.getZ() + 0.5;
-		
-		double dis = PlayerContext.squaredDistanceTo(sourceX, sourceZ);
-		
-		boolean atCenter = dis < MAX_DISTANCE_FROM_CENTER;
-		
-		if(atCenter) {
-			
-			double speed = PlayerContext.horizontalSpeed();
-			
-			return speed == 0;
-		}
-		
-		InputController.setPressed(InputAction.MOVE_FORWARD, true);
-		InputController.setPressed(InputAction.SNEAK, true);
-		
-		ViewController.lookAt(source, false);
-		
-		return false;
-	}
-	
-	public PreparationState prepareParkourJump() {
+	public boolean prepareParkourJump() {
 		ParkourMovement m = (ParkourMovement) getMovement();
 		
 		Node source = m.getSource();
@@ -78,66 +41,62 @@ public class PositionHelper extends MovementHelper<Movement> {
 		double forwards = dx * dirX;
 		double sideways = dz;
 		
-		Vec3d velocity = PlayerContext.velocity();
-		
-		double forwardsVelocity = velocity.getX() * dirX;
-		double sidewaysVelocity = velocity.getZ();
-		
 		if(dirX == 0) {
 			
 			forwards = dz * dirZ;
 			sideways = dx;
-			
-			forwardsVelocity = velocity.getZ() * dirZ;
-			sidewaysVelocity = velocity.getX();
 		}
-		
-		if(forwards > 1) return PreparationState.IN_JUMP;
 		
 		double sidewaysDis = Math.abs(sideways);
 		
-		boolean positionAligned = sidewaysDis < MIN_SIDEWAYS_DISTANCE;
-		
-		boolean inRunup = forwards > RUNUP_OFFSET;
-		
-		double sidewaysSpeed = Math.abs(sidewaysVelocity);
-		
-		boolean forwardsVelocityAligned = !inRunup || forwardsVelocity > 0;
-		boolean sidewaysVelocityAligned = sidewaysSpeed < MIN_SIDEWAYS_SPEED;
-		
-		boolean aligned = forwardsVelocityAligned && sidewaysVelocityAligned && positionAligned;
-		
-		if(aligned) {
+		if(sidewaysDis > MAX_SIDEWAYS_DISTANCE) {
 			
-			int dis = m.getDistance();
+			double targetX = sourceX - dirX * 0.5;
+			double targetZ = sourceZ - dirZ * 0.5;
 			
-			double jumpOffset = JUMP_OFFSETS[dis - 2];
+			moveTo(targetX, targetZ);
 			
-			if(forwards > jumpOffset) return PreparationState.PREPARED;
-			
-			Node destination = m.getDestination();
-			
-			ViewController.lookAt(destination, false);
-			
-			InputController.setPressed(InputAction.MOVE_FORWARD, true);
-			
-			return PreparationState.NOT_PREPARED;
+			return false;
 		}
 		
-		double targetX = sourceX - dirX * 0.5;
-		double targetZ = sourceZ - dirZ * 0.5;
+		Node destination = m.getDestination();
 		
-		ViewController.lookAt(targetX, targetZ);
+		ViewController.lookAt(destination);
 		
-		InputController.setPressed(InputAction.MOVE_FORWARD, !positionAligned || !forwardsVelocityAligned);
+		InputController.setPressed(InputAction.MOVE_FORWARD, true);
 		
-		return PreparationState.NOT_PREPARED;
+		return forwards > 0.5 && forwards < 1;
 	}
 	
-	public enum PreparationState {
+	public boolean centerOnSource() {
+		Movement m = getMovement();
 		
-		PREPARED, NOT_PREPARED, IN_JUMP;
+		Node source = m.getSource();
 		
+		double sourceX = source.getX() + 0.5;
+		double sourceZ = source.getZ() + 0.5;
+		
+		return moveTo(sourceX, sourceZ);
+	}
+	
+	private boolean moveTo(double x, double z) {
+		double dis = PlayerContext.squaredDistanceTo(x, z);
+		
+		boolean reached = dis < MAX_DISTANCE_FROM_CENTER;
+		
+		if(reached) {
+			
+			double speed = PlayerContext.horizontalSpeed();
+			
+			return speed == 0;
+		}
+		
+		InputController.setPressed(InputAction.MOVE_FORWARD, true);
+		InputController.setPressed(InputAction.SNEAK, true);
+		
+		ViewController.lookAt(x, z);
+		
+		return false;
 	}
 	
 }

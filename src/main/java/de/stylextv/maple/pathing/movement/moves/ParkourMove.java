@@ -11,7 +11,7 @@ import de.stylextv.maple.pathing.movement.movements.ParkourMovement;
 
 public class ParkourMove extends Move {
 	
-	private static final int MAX_DISTANCE = 5;
+	private static final int MAX_DISTANCE = 4;
 	
 	public ParkourMove(int x, int y, int z) {
 		super(x, y, z);

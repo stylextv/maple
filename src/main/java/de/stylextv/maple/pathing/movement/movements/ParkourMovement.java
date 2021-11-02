@@ -5,7 +5,6 @@ import de.stylextv.maple.pathing.calc.Node;
 import de.stylextv.maple.pathing.movement.Movement;
 import de.stylextv.maple.pathing.movement.helper.ParkourHelper;
 import de.stylextv.maple.pathing.movement.helper.PositionHelper;
-import de.stylextv.maple.pathing.movement.helper.PositionHelper.PreparationState;
 
 public class ParkourMovement extends Movement {
 	
@@ -39,19 +38,11 @@ public class ParkourMovement extends Movement {
 		
 		setPressed(InputAction.SPRINT, sprint);
 		
-		PreparationState state = positionHelper.prepareParkourJump();
-		
-		boolean prepared = state != PreparationState.NOT_PREPARED;
+		boolean prepared = positionHelper.prepareParkourJump();
 		
 		if(!prepared) return;
 		
-		lookAt(getDestination());
-		
-		setPressed(InputAction.MOVE_FORWARD, true);
-		
 		boolean jump = getJumpHelper().canJump();
-		
-		if(state == PreparationState.IN_JUMP) jump = false;
 		
 		setPressed(InputAction.JUMP, jump);
 	}
