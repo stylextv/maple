@@ -4,6 +4,10 @@ import de.stylextv.maple.cache.BlockType;
 import de.stylextv.maple.cache.CacheManager;
 import de.stylextv.maple.context.PlayerContext;
 import de.stylextv.maple.util.world.Offset;
+import de.stylextv.maple.world.BlockInterface;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.FallingBlock;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -22,11 +26,27 @@ public class AwarenessController {
 	};
 	
 	public static boolean isSafeToBreak(BlockPos pos) {
+		if(!BreakController.isSafeToBreak(pos)) return false;
+		
 		BlockPos p = PlayerContext.feetPosition().down();
 		
 		if(p.equals(pos)) return false;
 		
-		return BreakController.isSafeToBreak(pos);
+		pos = pos.up();
+		
+		boolean falls = isFallingBlock(pos);
+		
+		if(falls) return isSafeToBreak(pos);
+		
+		return true;
+	}
+	
+	public static boolean isFallingBlock(BlockPos pos) {
+		BlockState state = BlockInterface.getState(pos);
+		
+		Block block = state.getBlock();
+		
+		return block instanceof FallingBlock;
 	}
 	
 	public static boolean canJump() {

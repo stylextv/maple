@@ -2,14 +2,11 @@ package de.stylextv.maple.pathing.movement.helper;
 
 import de.stylextv.maple.cache.BlockType;
 import de.stylextv.maple.cache.CacheManager;
+import de.stylextv.maple.input.controller.AwarenessController;
 import de.stylextv.maple.input.controller.BreakController;
 import de.stylextv.maple.input.target.targets.BreakableTarget;
 import de.stylextv.maple.pathing.calc.Cost;
 import de.stylextv.maple.pathing.movement.Movement;
-import de.stylextv.maple.world.BlockInterface;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.FallingBlock;
 import net.minecraft.util.math.BlockPos;
 
 public class BreakHelper extends TargetHelper<BreakableTarget> {
@@ -48,11 +45,7 @@ public class BreakHelper extends TargetHelper<BreakableTarget> {
 				
 				if(hasTarget(pos)) break;
 				
-				BlockState state = BlockInterface.getState(pos);
-				
-				Block block = state.getBlock();
-				
-				boolean falls = block instanceof FallingBlock;
+				boolean falls = AwarenessController.isFallingBlock(pos);
 				
 				if(!falls) break;
 			}
