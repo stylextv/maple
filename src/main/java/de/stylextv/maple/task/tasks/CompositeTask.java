@@ -37,11 +37,7 @@ public abstract class CompositeTask extends Task {
 			return super.onRenderTick(status);
 		}
 		
-		if(!status.goalMatches(goal)) return new PathingCommand(PathingCommandType.REVALIDATE_GOAL, goal);
-		
-		if(status.isPathing()) return PathingCommand.DEFER;
-		
-		boolean atGoal = status.isAtGoal();
+		boolean atGoal = status.isAtGoal() && status.destinationMatches(goal);
 		
 		if(atGoal) {
 			
@@ -51,6 +47,10 @@ public abstract class CompositeTask extends Task {
 			
 			return super.onRenderTick(status);
 		}
+		
+		if(!status.goalMatches(goal)) return new PathingCommand(PathingCommandType.REVALIDATE_GOAL, goal);
+		
+		if(status.isPathing()) return PathingCommand.DEFER;
 		
 		onFail();
 		

@@ -59,7 +59,7 @@ public class MovementExecutor {
 				
 				if(required) {
 					
-					boolean atGoal = path.getState() == PathState.AT_GOAL;
+					boolean atGoal = path.getState() == PathState.FOUND_GOAL;
 					
 					PathingStatus status = PathingExecutor.getStatus();
 					

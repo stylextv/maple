@@ -1,6 +1,8 @@
 package de.stylextv.maple.pathing;
 
+import de.stylextv.maple.pathing.calc.Node;
 import de.stylextv.maple.pathing.calc.Path;
+import de.stylextv.maple.pathing.calc.PathState;
 import de.stylextv.maple.pathing.calc.goal.Goal;
 
 public class PathingStatus {
@@ -25,10 +27,22 @@ public class PathingStatus {
 		state = b ? PathingState.IDLE : PathingState.GOING;
 	}
 	
+	public boolean destinationMatches(Goal g) {
+		Node destination = path.lastNode();
+		
+		return g.isFinalNode(destination);
+	}
+	
 	public boolean goalMatches(Goal g) {
 		if(goal == null) return false;
 		
 		return goal.equals(g);
+	}
+	
+	public boolean hasFoundGoal() {
+		PathState state = path.getState();
+		
+		return state == PathState.FOUND_GOAL;
 	}
 	
 	public boolean isIdle() {

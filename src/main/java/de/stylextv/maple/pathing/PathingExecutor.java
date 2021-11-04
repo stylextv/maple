@@ -1,8 +1,6 @@
 package de.stylextv.maple.pathing;
 
-import de.stylextv.maple.pathing.calc.Node;
 import de.stylextv.maple.pathing.calc.Path;
-import de.stylextv.maple.pathing.calc.PathState;
 import de.stylextv.maple.pathing.calc.SearchExecutor;
 import de.stylextv.maple.pathing.calc.goal.Goal;
 import de.stylextv.maple.pathing.movement.MovementExecutor;
@@ -66,17 +64,11 @@ public class PathingExecutor {
 			return;
 		}
 		
-		Path path = getPath();
-		
-		PathState state = path.getState();
-		
-		boolean foundGoal = state == PathState.AT_GOAL;
-		
-		Node destination = path.lastNode();
-		
-		boolean destinationValid = goal.isFinalNode(destination);
+		boolean destinationValid = status.destinationMatches(goal);
 		
 		if(type == PathingCommandType.REVALIDATE_GOAL) {
+			
+			boolean foundGoal = status.hasFoundGoal();
 			
 			boolean invalid = foundGoal && !destinationValid;
 			

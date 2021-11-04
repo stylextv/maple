@@ -73,7 +73,7 @@ public class SearchExecutor {
 				
 				if(!empty) path.add(segment);
 				
-				if(!paused || empty) path.setState(PathState.AT_GOAL);
+				if(!paused || empty) path.setState(PathState.FOUND_GOAL);
 			}
 		});
 	}
