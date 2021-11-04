@@ -4,6 +4,7 @@ import de.stylextv.maple.pathing.calc.Node;
 import de.stylextv.maple.pathing.calc.Path;
 import de.stylextv.maple.pathing.calc.PathState;
 import de.stylextv.maple.pathing.calc.goal.Goal;
+import de.stylextv.maple.pathing.movement.MovementExecutor;
 
 public class PathingStatus {
 	
@@ -11,12 +12,8 @@ public class PathingStatus {
 	
 	private Goal goal;
 	
-	private Path path;
-	
 	public void clear() {
 		setGoal(null);
-		
-		path = null;
 	}
 	
 	public void setGoal(Goal g) {
@@ -28,6 +25,8 @@ public class PathingStatus {
 	}
 	
 	public boolean destinationMatches(Goal g) {
+		Path path = MovementExecutor.getPath();
+		
 		Node destination = path.lastNode();
 		
 		return g.isFinalNode(destination);
@@ -40,6 +39,8 @@ public class PathingStatus {
 	}
 	
 	public boolean hasFoundGoal() {
+		Path path = MovementExecutor.getPath();
+		
 		PathState state = path.getState();
 		
 		return state == PathState.FOUND_GOAL;
@@ -67,14 +68,6 @@ public class PathingStatus {
 	
 	public Goal getGoal() {
 		return goal;
-	}
-	
-	public Path getPath() {
-		return path;
-	}
-	
-	public void setPath(Path path) {
-		this.path = path;
 	}
 	
 }

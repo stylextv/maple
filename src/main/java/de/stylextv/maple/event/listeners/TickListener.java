@@ -7,7 +7,6 @@ import de.stylextv.maple.input.controller.BreakController;
 import de.stylextv.maple.input.controller.InputController;
 import de.stylextv.maple.input.controller.PlaceController;
 import de.stylextv.maple.input.controller.ViewController;
-import de.stylextv.maple.pathing.PathingExecutor;
 import de.stylextv.maple.pathing.movement.MovementExecutor;
 import de.stylextv.maple.task.TaskManager;
 
@@ -29,7 +28,6 @@ public class TickListener implements EventListener {
 		
 		TaskManager.onRenderTick();
 		
-		PathingExecutor.onRenderTick();
 		MovementExecutor.onRenderTick();
 		
 		ViewController.onRenderTick();

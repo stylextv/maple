@@ -1,6 +1,5 @@
 package de.stylextv.maple.pathing;
 
-import de.stylextv.maple.pathing.calc.Path;
 import de.stylextv.maple.pathing.calc.SearchExecutor;
 import de.stylextv.maple.pathing.calc.goal.Goal;
 import de.stylextv.maple.pathing.movement.MovementExecutor;
@@ -10,6 +9,8 @@ public class PathingExecutor {
 	private static PathingStatus status = new PathingStatus();
 	
 	public static void startPathing(Goal g) {
+		if(!MovementExecutor.isSafeToPause()) return;
+		
 		status.setGoal(g);
 		
 		SearchExecutor.startSearch(g);
@@ -87,20 +88,12 @@ public class PathingExecutor {
 		}
 	}
 	
-	public static void onRenderTick() {
-		MovementExecutor.followPath(getPath());
-	}
-	
 	public static Goal getGoal() {
 		return status.getGoal();
 	}
 	
-	public static Path getPath() {
-		return status.getPath();
-	}
-	
-	public static void setPath(Path path) {
-		status.setPath(path);
+	public static boolean isPathing() {
+		return status.isPathing();
 	}
 	
 	public static PathingStatus getStatus() {

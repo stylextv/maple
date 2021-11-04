@@ -22,10 +22,6 @@ public class MovementExecutor {
 	private static boolean safeToPause;
 	
 	public static void followPath(Path p) {
-		boolean equals = p != null && p.equals(path);
-		
-		if(!isSafeToPause() || equals) return;
-		
 		stop();
 		
 		path = p;
@@ -42,7 +38,7 @@ public class MovementExecutor {
 	public static void onRenderTick() {
 		if(path == null) return;
 		
-		boolean required = path.equals(PathingExecutor.getPath());
+		boolean required = PathingExecutor.isPathing();
 		
 		if(!required && isSafeToPause()) {
 			
