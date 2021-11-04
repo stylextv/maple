@@ -1,10 +1,12 @@
 package de.stylextv.maple.pathing;
 
+import de.stylextv.maple.context.PlayerContext;
 import de.stylextv.maple.pathing.calc.Node;
 import de.stylextv.maple.pathing.calc.Path;
 import de.stylextv.maple.pathing.calc.PathState;
 import de.stylextv.maple.pathing.calc.goal.Goal;
 import de.stylextv.maple.pathing.movement.MovementExecutor;
+import net.minecraft.util.math.BlockPos;
 
 public class PathingStatus {
 	
@@ -25,11 +27,19 @@ public class PathingStatus {
 	}
 	
 	public boolean destinationMatches(Goal g) {
-		Path path = MovementExecutor.getPath();
-		
-		Node destination = path.lastNode();
+		Node destination = getDestination();
 		
 		return g.isFinalNode(destination);
+	}
+	
+	public Node getDestination() {
+		Path path = MovementExecutor.getPath();
+		
+		if(path != null) return path.lastNode();
+		
+		BlockPos pos = PlayerContext.feetPosition();
+		
+		return new Node(pos);
 	}
 	
 	public boolean goalMatches(Goal g) {
@@ -40,6 +50,8 @@ public class PathingStatus {
 	
 	public boolean hasFoundGoal() {
 		Path path = MovementExecutor.getPath();
+		
+		if(path == null) return isAtGoal();
 		
 		PathState state = path.getState();
 		
