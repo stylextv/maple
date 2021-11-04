@@ -97,7 +97,7 @@ public abstract class BreakTask extends ScanTask {
 					continue;
 				}
 				
-				if(target.isInReach() && target.continueBreaking()) return null;
+				if(target.isInReach() && target.continueBreaking(true)) return null;
 			}
 		}
 		

@@ -83,7 +83,7 @@ public class BreakHelper extends TargetHelper<BreakableTarget> {
 				continue;
 			}
 			
-			if(target.continueBreaking()) return true;
+			if(target.continueBreaking(false)) return true;
 		}
 		
 		return false;

@@ -21,6 +21,14 @@ public class AwarenessController {
 			new Offset( 0.3,  2.9,  0.3)
 	};
 	
+	public static boolean isSafeToBreak(BlockPos pos) {
+		BlockPos p = PlayerContext.feetPosition().down();
+		
+		if(p.equals(pos)) return false;
+		
+		return BreakController.isSafeToBreak(pos);
+	}
+	
 	public static boolean canJump() {
 		if(!PlayerContext.isOnGround()) return false;
 		

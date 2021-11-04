@@ -22,8 +22,10 @@ public class BreakableTarget extends BlockTarget {
 		super(pos);
 	}
 	
-	public boolean continueBreaking() {
-		if(!lookAt(false)) return false;
+	public boolean continueBreaking(boolean onlyIfSafe) {
+		boolean unsafe = onlyIfSafe && !AwarenessController.isSafeToBreak(getPos());
+		
+		if(unsafe || !lookAt(false)) return false;
 		
 		BlockPos pos = AwarenessController.getTargetedPos();
 		

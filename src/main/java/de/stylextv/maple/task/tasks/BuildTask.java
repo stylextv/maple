@@ -86,7 +86,7 @@ public class BuildTask extends CompositeTask {
 					continue;
 				}
 				
-				if(target.isInReach() && target.continueBreaking()) return null;
+				if(target.isInReach() && target.continueBreaking(true)) return null;
 			}
 			
 			for(PlaceableTarget target : placeTargets) {
