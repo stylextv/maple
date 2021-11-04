@@ -4,6 +4,7 @@ import de.stylextv.maple.pathing.calc.favoring.Favoring;
 import de.stylextv.maple.pathing.calc.goal.Goal;
 import de.stylextv.maple.pathing.movement.MovementExecutor;
 import de.stylextv.maple.util.async.AsyncUtil;
+import net.minecraft.util.math.BlockPos;
 
 public class SearchExecutor {
 	
@@ -56,7 +57,9 @@ public class SearchExecutor {
 				
 				finder = new PathFinder(goal, favoring);
 				
-				PathSegment segment = finder.find(path.lastPosition(), primaryTimeout, failureTimeout);
+				BlockPos start = MovementExecutor.getDestination();
+				
+				PathSegment segment = finder.find(start, primaryTimeout, failureTimeout);
 				
 				boolean paused = finder.wasPaused();
 				

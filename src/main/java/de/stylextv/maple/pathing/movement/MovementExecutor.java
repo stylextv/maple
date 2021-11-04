@@ -7,6 +7,7 @@ import de.stylextv.maple.input.controller.InputController;
 import de.stylextv.maple.pathing.PathingExecutor;
 import de.stylextv.maple.pathing.PathingState;
 import de.stylextv.maple.pathing.PathingStatus;
+import de.stylextv.maple.pathing.calc.Node;
 import de.stylextv.maple.pathing.calc.Path;
 import de.stylextv.maple.pathing.calc.PathState;
 import net.minecraft.util.math.BlockPos;
@@ -125,6 +126,17 @@ public class MovementExecutor {
 		}
 		
 		return path.isImpossible();
+	}
+	
+	public static BlockPos getDestination() {
+		if(isMoving()) {
+			
+			Node n = path.lastNode();
+			
+			return n.blockPos();
+		}
+		
+		return PlayerContext.feetPosition();
 	}
 	
 	public static boolean isSafeToPause() {

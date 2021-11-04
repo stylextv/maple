@@ -3,7 +3,6 @@ package de.stylextv.maple.pathing.calc;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import de.stylextv.maple.context.PlayerContext;
 import de.stylextv.maple.pathing.movement.Movement;
 import de.stylextv.maple.util.time.TimeUtil;
 import net.minecraft.util.math.BlockPos;
@@ -102,18 +101,7 @@ public class Path {
 		return sum;
 	}
 	
-	public BlockPos lastPosition() {
-		return lastNode().blockPos();
-	}
-	
 	public Node lastNode() {
-		if(isEmpty()) {
-			
-			BlockPos pos = PlayerContext.feetPosition();
-			
-			return new Node(pos);
-		}
-		
 		PathSegment s = lastSegment();
 		
 		return s.lastNode();
