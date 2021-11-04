@@ -41,7 +41,7 @@ public class StraightMovement extends Movement {
 		
 		if(interacting) return;
 		
-		if(!getPlaceHelper().onRenderTick()) {
+		if(!getPlaceHelper().onRenderTick(false)) {
 			
 			lookAt(getDestination());
 			

@@ -4,6 +4,7 @@ import de.stylextv.maple.cache.BlockType;
 import de.stylextv.maple.cache.CacheManager;
 import de.stylextv.maple.context.WorldContext;
 import de.stylextv.maple.input.InputAction;
+import de.stylextv.maple.input.controller.AwarenessController;
 import de.stylextv.maple.input.controller.InputController;
 import de.stylextv.maple.input.controller.PlaceController;
 import de.stylextv.maple.input.target.targets.PlaceableTarget;
@@ -65,7 +66,7 @@ public class PlaceHelper extends TargetHelper<PlaceableTarget> {
 		return l * Cost.placeCost();
 	}
 	
-	public boolean onRenderTick() {
+	public boolean onRenderTick(boolean moveIfBlocked) {
 		if(!hasTargets()) return false;
 		
 		for(PlaceableTarget target : getTargets()) {
@@ -75,6 +76,19 @@ public class PlaceHelper extends TargetHelper<PlaceableTarget> {
 				removeTarget(target);
 				
 				continue;
+			}
+			
+			BlockPos pos = target.getPos();
+			
+			boolean blocked = AwarenessController.isBlockingPos(pos);
+			
+			if(blocked && moveIfBlocked) {
+				
+				Movement m = getMovement();
+				
+				m.getPositionHelper().centerOnSource();
+				
+				return true;
 			}
 			
 			if(target.continuePlacing()) {

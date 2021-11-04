@@ -48,6 +48,10 @@ public class AwarenessController {
 		return dis <= PlayerContext.reachDistance();
 	}
 	
+	public static boolean isBlockingPos(BlockPos pos) {
+		return ;
+	}
+	
 	public static BlockPos getTargetedPos() {
 		BlockHitResult result = getBlockTarget();
 		

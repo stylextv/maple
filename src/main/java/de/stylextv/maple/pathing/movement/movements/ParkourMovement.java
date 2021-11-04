@@ -4,7 +4,6 @@ import de.stylextv.maple.input.InputAction;
 import de.stylextv.maple.pathing.calc.Node;
 import de.stylextv.maple.pathing.movement.Movement;
 import de.stylextv.maple.pathing.movement.helper.ParkourHelper;
-import de.stylextv.maple.pathing.movement.helper.PositionHelper;
 
 public class ParkourMovement extends Movement {
 	
@@ -15,8 +14,6 @@ public class ParkourMovement extends Movement {
 	private int distance;
 	
 	private ParkourHelper parkourHelper = new ParkourHelper(this);
-	
-	private PositionHelper positionHelper = new PositionHelper(this);
 	
 	public ParkourMovement(Node source, Node destination, int dx, int dy, int dz, int distance) {
 		super(source, destination);
@@ -40,7 +37,7 @@ public class ParkourMovement extends Movement {
 		
 		setPressed(InputAction.SPRINT, sprint);
 		
-		boolean prepared = positionHelper.prepareParkourJump();
+		boolean prepared = getPositionHelper().prepareParkourJump();
 		
 		if(!prepared) return;
 		

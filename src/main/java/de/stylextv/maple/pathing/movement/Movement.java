@@ -13,6 +13,7 @@ import de.stylextv.maple.pathing.movement.helper.DangerHelper;
 import de.stylextv.maple.pathing.movement.helper.InteractHelper;
 import de.stylextv.maple.pathing.movement.helper.JumpHelper;
 import de.stylextv.maple.pathing.movement.helper.PlaceHelper;
+import de.stylextv.maple.pathing.movement.helper.PositionHelper;
 import de.stylextv.maple.pathing.movement.helper.StepHelper;
 import de.stylextv.maple.render.ShapeRenderer;
 import de.stylextv.maple.scheme.Color;
@@ -35,12 +36,14 @@ public abstract class Movement {
 	
 	private BumpHelper bumpHelper = new BumpHelper(this);
 	
+	private DangerHelper dangerHelper = new DangerHelper(this);
+	
 	private BreakHelper breakHelper = new BreakHelper(this);
 	private PlaceHelper placeHelper = new PlaceHelper(this);
 	
 	private InteractHelper interactHelper = new InteractHelper(this);
 	
-	private DangerHelper dangerHelper = new DangerHelper(this);
+	private PositionHelper positionHelper = new PositionHelper(this);
 	
 	private double initialCost;
 	
@@ -94,9 +97,9 @@ public abstract class Movement {
 	public MovementState getState() {
 		BlockPos pos = PlayerContext.feetPosition();
 		
-		Node n = getDestination();
+		boolean atDestination = destination.equals(pos);
 		
-		return n.equals(pos) ? MovementState.DONE : MovementState.PROCEEDING;
+		return atDestination ? MovementState.DONE : MovementState.PROCEEDING;
 	}
 	
 	public void tick(double dt) {
@@ -199,6 +202,10 @@ public abstract class Movement {
 		return bumpHelper;
 	}
 	
+	public DangerHelper getDangerHelper() {
+		return dangerHelper;
+	}
+	
 	public BreakHelper getBreakHelper() {
 		return breakHelper;
 	}
@@ -211,8 +218,8 @@ public abstract class Movement {
 		return interactHelper;
 	}
 	
-	public DangerHelper getDangerHelper() {
-		return dangerHelper;
+	public PositionHelper getPositionHelper() {
+		return positionHelper;
 	}
 	
 }

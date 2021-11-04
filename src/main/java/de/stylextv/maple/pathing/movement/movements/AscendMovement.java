@@ -40,7 +40,7 @@ public class AscendMovement extends Movement {
 		
 		if(interacting) return;
 		
-		if(!getPlaceHelper().onRenderTick()) {
+		if(!getPlaceHelper().onRenderTick(true)) {
 			
 			lookAt(getDestination());
 			

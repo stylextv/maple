@@ -6,11 +6,8 @@ import de.stylextv.maple.pathing.calc.Cost;
 import de.stylextv.maple.pathing.calc.Node;
 import de.stylextv.maple.pathing.movement.Movement;
 import de.stylextv.maple.pathing.movement.MovementState;
-import de.stylextv.maple.pathing.movement.helper.PositionHelper;
 
 public class PillarMovement extends Movement {
-	
-	private PositionHelper positionHelper = new PositionHelper(this);
 	
 	public PillarMovement(Node source, Node destination) {
 		super(source, destination);
@@ -44,11 +41,11 @@ public class PillarMovement extends Movement {
 		
 		if(interacting) return;
 		
-		boolean atCenter = positionHelper.centerOnSource();
+		boolean atCenter = getPositionHelper().centerOnSource();
 		
 		if(!atCenter) return;
 		
-		getPlaceHelper().onRenderTick();
+		getPlaceHelper().onRenderTick(false);
 		
 		boolean jump = getJumpHelper().shouldJump();
 		
