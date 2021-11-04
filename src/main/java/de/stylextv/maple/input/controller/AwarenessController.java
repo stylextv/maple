@@ -4,10 +4,12 @@ import de.stylextv.maple.cache.BlockType;
 import de.stylextv.maple.cache.CacheManager;
 import de.stylextv.maple.context.PlayerContext;
 import de.stylextv.maple.util.world.Offset;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.hit.HitResult.Type;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 
 public class AwarenessController {
@@ -49,7 +51,13 @@ public class AwarenessController {
 	}
 	
 	public static boolean isBlockingPos(BlockPos pos) {
-		return ;
+		ClientPlayerEntity p = PlayerContext.player();
+		
+		Box box = p.getBoundingBox();
+		
+		Box other = new Box(pos);
+		
+		return box.intersects(other);
 	}
 	
 	public static BlockPos getTargetedPos() {
