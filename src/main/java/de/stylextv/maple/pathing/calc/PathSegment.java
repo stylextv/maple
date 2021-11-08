@@ -18,14 +18,6 @@ public class PathSegment {
 		pointer++;
 	}
 	
-	public Node lastNode() {
-		int l = list.size();
-		
-		Movement m = list.get(l - 1);
-		
-		return m.getDestination();
-	}
-	
 	public double ticksLeft() {
 		double sum = 0;
 		
@@ -104,6 +96,12 @@ public class PathSegment {
 		}
 		
 		return -1;
+	}
+	
+	public Node lastNode() {
+		int l = length();
+		
+		return getNode(l - 1);
 	}
 	
 	public Node getCurrentNode() {
