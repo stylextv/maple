@@ -190,9 +190,7 @@ public class Path {
 	public Movement getNextMovement(int offset) {
 		for(PathSegment s : segments) {
 			
-			int k = s.getPointer();
-			
-			int l = s.length() - k;
+			int l = s.nodesLeft();
 			
 			if(offset >= l) {
 				offset -= l;
@@ -200,7 +198,9 @@ public class Path {
 				continue;
 			}
 			
-			return s.getMovement(offset + k);
+			int i = s.getPointer();
+			
+			return s.getMovement(offset + i);
 		}
 		
 		return null;
