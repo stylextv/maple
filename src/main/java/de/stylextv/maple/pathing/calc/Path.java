@@ -136,15 +136,13 @@ public class Path {
 	public void trim(int amount) {
 		while(!isEmpty() && amount > 0) {
 			
-			int i = length() - 1;
-			
-			PathSegment s = segments.get(i);
+			PathSegment s = lastSegment();
 			
 			amount -= s.trim(amount);
 			
 			if(!s.isEmpty()) return;
 			
-			segments.remove(i);
+			segments.remove(s);
 		}
 	}
 	
