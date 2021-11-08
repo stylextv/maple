@@ -163,6 +163,25 @@ public class Path {
 		return -1;
 	}
 	
+	public Movement getNextMovement(int offset) {
+		for(PathSegment s : segments) {
+			
+			int l = s.nodesLeft();
+			
+			if(offset >= l) {
+				offset -= l;
+				
+				continue;
+			}
+			
+			int i = s.getPointer();
+			
+			return s.getMovement(offset + i);
+		}
+		
+		return null;
+	}
+	
 	public int getCurrentIndex() {
 		Node n = getCurrentNode();
 		
@@ -185,25 +204,6 @@ public class Path {
 		if(s == null) return null;
 		
 		return s.getCurrentMovement();
-	}
-	
-	public Movement getNextMovement(int offset) {
-		for(PathSegment s : segments) {
-			
-			int l = s.nodesLeft();
-			
-			if(offset >= l) {
-				offset -= l;
-				
-				continue;
-			}
-			
-			int i = s.getPointer();
-			
-			return s.getMovement(offset + i);
-		}
-		
-		return null;
 	}
 	
 	public PathSegment getSegment() {
