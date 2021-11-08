@@ -14,23 +14,6 @@ public class PathSegment {
 		this.list = list;
 	}
 	
-	public Node findMatch(Path path) {
-		int index = path.getCurrentIndex();
-		
-		int start = length() - 1;
-		
-		for(int i = start; i >= 0; i--) {
-			
-			Node n = getNode(i);
-			
-			int j = path.indexOf(n);
-			
-			if(j != -1 && j > index) return n;
-		}
-		
-		return null;
-	}
-	
 	public void next() {
 		pointer++;
 	}
@@ -89,6 +72,27 @@ public class PathSegment {
 		}
 		
 		return amount;
+	}
+	
+	public Node findMatch(Path path) {
+		int index = path.getCurrentIndex();
+		
+		int start = length() - 1;
+		
+		for(int i = start; i >= 0; i--) {
+			
+			Node n = getNode(i);
+			
+			int j = path.indexOf(n);
+			
+			if(j != -1 && j > index) return n;
+		}
+		
+		return null;
+	}
+	
+	public boolean contains(Node n) {
+		return indexOf(n) != -1;
 	}
 	
 	public int indexOf(Node n) {

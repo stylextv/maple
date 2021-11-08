@@ -1,7 +1,11 @@
 package de.stylextv.maple.pathing;
 
+import de.stylextv.maple.pathing.calc.Node;
+import de.stylextv.maple.pathing.calc.Path;
+import de.stylextv.maple.pathing.calc.PathSegment;
 import de.stylextv.maple.pathing.calc.SearchExecutor;
 import de.stylextv.maple.pathing.calc.goal.Goal;
+import de.stylextv.maple.pathing.movement.Movement;
 import de.stylextv.maple.pathing.movement.MovementExecutor;
 
 public class PathingExecutor {
@@ -41,7 +45,9 @@ public class PathingExecutor {
 			return;
 		}
 		
-		MovementExecutor.setPaused(false);
+		boolean pause = shouldPause();
+		
+		MovementExecutor.setPaused(pause);
 		
 		if(type == PathingCommandType.CANCEL) {
 			
@@ -86,6 +92,22 @@ public class PathingExecutor {
 			
 			return;
 		}
+	}
+	
+	private static boolean shouldPause() {
+		if(!MovementExecutor.hasPath()) return false;
+		
+		Path path = MovementExecutor.getPath();
+		
+		Movement m = path.getCurrentMovement();
+		
+		PathSegment s = SearchExecutor.getBestSoFar();
+		
+		if(m == null || s == null) return false;
+		
+		Node source = m.getSource();
+		
+		return s.contains(source);
 	}
 	
 	public static Goal getGoal() {
