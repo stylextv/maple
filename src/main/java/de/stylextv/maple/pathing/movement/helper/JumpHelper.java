@@ -38,7 +38,7 @@ public class JumpHelper extends MovementHelper<Movement> {
 		
 		double dis = destinationY - y;
 		
-		if(dis < MAX_STEP_HEIGHT) return false;
+		if(dis <= MAX_STEP_HEIGHT) return false;
 		
 		BlockPos below = destination.blockPos().down();
 		
@@ -52,6 +52,7 @@ public class JumpHelper extends MovementHelper<Movement> {
 	private boolean canWalkUp(BlockState state, Direction dir) {
 		Block block = state.getBlock();
 		
+		// TODO obsolete since slabs became non-solids
 		if(block instanceof SlabBlock) {
 			
 			SlabType type = state.get(SlabBlock.TYPE);
