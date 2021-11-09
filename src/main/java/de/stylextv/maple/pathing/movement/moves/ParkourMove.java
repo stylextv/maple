@@ -1,7 +1,7 @@
 package de.stylextv.maple.pathing.movement.moves;
 
-import de.stylextv.maple.cache.BlockType;
 import de.stylextv.maple.cache.CacheManager;
+import de.stylextv.maple.cache.block.BlockType;
 import de.stylextv.maple.pathing.calc.Node;
 import de.stylextv.maple.pathing.calc.PathFinder;
 import de.stylextv.maple.pathing.movement.Move;

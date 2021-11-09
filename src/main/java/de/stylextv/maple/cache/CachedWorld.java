@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import de.stylextv.maple.cache.block.BlockType;
 import de.stylextv.maple.context.WorldContext;
 import de.stylextv.maple.io.FileSystem;
 import de.stylextv.maple.util.async.AsyncUtil;

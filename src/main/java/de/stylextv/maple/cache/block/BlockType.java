@@ -1,14 +1,8 @@
-package de.stylextv.maple.cache;
+package de.stylextv.maple.cache.block;
 
-import de.stylextv.maple.world.interact.Openable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.FenceBlock;
-import net.minecraft.block.InfestedBlock;
-import net.minecraft.block.WallBlock;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.Fluids;
 
 public class BlockType {
 	
@@ -22,18 +16,6 @@ public class BlockType {
 	
 	public static final BlockType UNLOADED = new BlockType("unloaded", Blocks.AIR).air(true);
 	public static final BlockType VOID = new BlockType("void", Blocks.AIR).passable(true).air(true);
-	
-	private static final Block[] DANGER_BLOCKS = new Block[] {
-			Blocks.LAVA,
-			Blocks.FIRE,
-			Blocks.SOUL_FIRE,
-			Blocks.CAMPFIRE,
-			Blocks.SOUL_CAMPFIRE,
-			Blocks.CACTUS,
-			Blocks.SWEET_BERRY_BUSH,
-			Blocks.POWDER_SNOW,
-			Blocks.BUBBLE_COLUMN
-	};
 	
 	private String name;
 	
@@ -123,49 +105,6 @@ public class BlockType {
 	
 	public boolean isAir() {
 		return air;
-	}
-	
-	public static BlockType fromBlocks(BlockState state, BlockState below, BlockState above) {
-		Block block = state.getBlock();
-		
-		for(Block b : DANGER_BLOCKS) {
-			if(block.equals(b)) return DANGER;
-		}
-		
-		if(block.equals(Blocks.LILY_PAD)) return AIR;
-		
-		boolean isUnbreakable = block.getHardness() < 0;
-		
-		if(isUnbreakable || block instanceof InfestedBlock) return UNBREAKABLE;
-		
-		Openable o = Openable.fromBlock(block);
-		
-		if(o != null) return AIR;
-		
-		Block blockBelow = below.getBlock();
-		
-		boolean aboveFence = blockBelow instanceof FenceBlock;
-		boolean aboveWall = blockBelow instanceof WallBlock;
-		
-		if(aboveFence || aboveWall || above.getBlock().equals(Blocks.LILY_PAD)) {
-			return UNBREAKABLE;
-		}
-		
-		Fluid fluid = state.getFluidState().getFluid();
-		
-		if(fluid.equals(Fluids.FLOWING_WATER)) return DANGER;
-		
-		boolean isWater = fluid.equals(Fluids.WATER);
-		
-		boolean aboveMagma = blockBelow.equals(Blocks.MAGMA_BLOCK);
-		
-		if(isWater) return aboveMagma ? DANGER : WATER;
-		
-		boolean isSolid = state.getMaterial().blocksMovement();
-		
-		if(isSolid) return SOLID;
-		
-		return aboveMagma ? DANGER : AIR;
 	}
 	
 	public static BlockType fromBits(boolean b1, boolean b2, boolean b3) {

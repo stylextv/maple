@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import de.stylextv.maple.cache.BlockType;
+import de.stylextv.maple.cache.block.BlockType;
 import de.stylextv.maple.pathing.calc.favoring.Favoring;
 import de.stylextv.maple.pathing.calc.goal.Goal;
 import de.stylextv.maple.pathing.calc.openset.HeapOpenSet;

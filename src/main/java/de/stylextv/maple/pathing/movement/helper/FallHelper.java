@@ -1,6 +1,6 @@
 package de.stylextv.maple.pathing.movement.helper;
 
-import de.stylextv.maple.cache.BlockType;
+import de.stylextv.maple.cache.block.BlockType;
 import de.stylextv.maple.context.PlayerContext;
 import de.stylextv.maple.context.WorldContext;
 import de.stylextv.maple.gui.ToolSet;

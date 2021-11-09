@@ -2,6 +2,7 @@ package de.stylextv.maple.cache;
 
 import java.util.HashMap;
 
+import de.stylextv.maple.cache.block.BlockType;
 import de.stylextv.maple.context.WorldContext;
 import de.stylextv.maple.util.world.CoordUtil;
 import de.stylextv.maple.world.WorldBorderInterface;

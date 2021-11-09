@@ -1,7 +1,7 @@
 package de.stylextv.maple.pathing.calc;
 
-import de.stylextv.maple.cache.BlockType;
 import de.stylextv.maple.cache.CacheManager;
+import de.stylextv.maple.cache.block.BlockType;
 import de.stylextv.maple.pathing.calc.goal.Goal;
 import de.stylextv.maple.pathing.movement.Movement;
 import de.stylextv.maple.util.world.CoordUtil;

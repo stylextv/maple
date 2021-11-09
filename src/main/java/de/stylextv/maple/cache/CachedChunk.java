@@ -2,6 +2,8 @@ package de.stylextv.maple.cache;
 
 import java.util.BitSet;
 
+import de.stylextv.maple.cache.block.BlockMatcher;
+import de.stylextv.maple.cache.block.BlockType;
 import de.stylextv.maple.context.WorldContext;
 import de.stylextv.maple.util.world.CoordUtil;
 import net.minecraft.block.BlockState;
@@ -88,8 +90,8 @@ public class CachedChunk {
 		if(chunk == null) return;
 		
 		BlockState state = chunk.getBlockState(pos);
-		BlockState below = chunk.getBlockState(pos.down());
 		BlockState above = chunk.getBlockState(pos.up());
+		BlockState below = chunk.getBlockState(pos.down());
 		
 		int x = pos.getX();
 		int y = pos.getY();
@@ -99,7 +101,7 @@ public class CachedChunk {
 		
 		if(index == INVALID_INDEX) return;
 		
-		BlockType type = BlockType.fromBlocks(state, below, above);
+		BlockType type = BlockMatcher.matchStates(state, above, below, pos);
 		
 		boolean[] bits = type.getBits();
 		

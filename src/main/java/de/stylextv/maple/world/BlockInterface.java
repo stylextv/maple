@@ -1,7 +1,7 @@
 package de.stylextv.maple.world;
 
-import de.stylextv.maple.cache.BlockType;
 import de.stylextv.maple.cache.CacheManager;
+import de.stylextv.maple.cache.block.BlockType;
 import de.stylextv.maple.context.WorldContext;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;

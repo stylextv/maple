@@ -1,6 +1,6 @@
 package de.stylextv.maple.pathing.movement.movements;
 
-import de.stylextv.maple.cache.BlockType;
+import de.stylextv.maple.cache.block.BlockType;
 import de.stylextv.maple.input.InputAction;
 import de.stylextv.maple.pathing.calc.Node;
 import de.stylextv.maple.pathing.movement.Movement;
