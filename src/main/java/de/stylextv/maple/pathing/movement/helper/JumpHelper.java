@@ -13,8 +13,11 @@ import net.minecraft.block.enums.BlockHalf;
 import net.minecraft.block.enums.SlabType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 
 public class JumpHelper extends MovementHelper<Movement> {
+	
+	private static final double MAX_STEP_HEIGHT = 0.5;
 	
 	public JumpHelper(Movement m) {
 		super(m);
@@ -29,11 +32,13 @@ public class JumpHelper extends MovementHelper<Movement> {
 		
 		int destinationY = destination.getY();
 		
-		BlockPos pos = PlayerContext.feetPosition();
+		Vec3d pos = PlayerContext.position();
 		
-		int y = pos.getY();
+		double y = pos.getY();
 		
-		if(y >= destinationY) return false;
+		double dis = destinationY - y;
+		
+		if(dis < MAX_STEP_HEIGHT) return false;
 		
 		BlockPos below = destination.blockPos().down();
 		
