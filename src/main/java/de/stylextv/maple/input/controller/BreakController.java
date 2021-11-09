@@ -44,7 +44,7 @@ public class BreakController {
 	public static boolean isBreakable(int x, int y, int z) {
 		BlockState state = BlockInterface.getState(x, y, z);
 		
-		return state.getMaterial().blocksMovement();
+		return !state.isAir();
 	}
 	
 	public static void onTick() {
