@@ -95,8 +95,8 @@ public abstract class Movement {
 	}
 	
 	public MovementState getState() {
-		BlockPos pos1 = PlayerContext.feetPosition();
-		BlockPos pos2 = PlayerContext.blockPosition();
+		BlockPos pos1 = PlayerContext.blockPosition();
+		BlockPos pos2 = PlayerContext.feetPosition();
 		
 		boolean atDestination = destination.equals(pos1) || destination.equals(pos2);
 		
