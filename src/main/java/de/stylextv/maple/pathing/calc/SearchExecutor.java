@@ -16,7 +16,7 @@ public class SearchExecutor {
 	
 	private static final long PLAN_AHEAD_FAILURE_TIMEOUT = 5000;
 	
-	private static final long CALCULATION_TIME_BUFFER = 2000;
+	private static final long CALCULATION_TIME_BUFFER = 3000;
 	
 	private static final long SLEEP_TIME = 100;
 	
