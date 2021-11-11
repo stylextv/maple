@@ -35,6 +35,8 @@ public class JumpHelper extends MovementHelper<Movement> {
 		
 		double y = v.getY();
 		
+		if(y >= destination.getY()) return false;
+		
 		Box box = COLLISION_BOX.offset(x, y, z);
 		
 		return CollisionUtil.collidesWithBlocks(box);
