@@ -1,9 +1,7 @@
 package de.stylextv.maple.input.controller;
 
-import de.stylextv.maple.cache.CacheManager;
-import de.stylextv.maple.cache.block.BlockType;
 import de.stylextv.maple.context.PlayerContext;
-import de.stylextv.maple.util.world.Offset;
+import de.stylextv.maple.util.world.CollisionUtil;
 import de.stylextv.maple.world.BlockInterface;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -18,12 +16,7 @@ import net.minecraft.util.math.Vec3d;
 
 public class AwarenessController {
 	
-	private static final Offset[] BONK_HEAD_CORNERS = {
-			new Offset(-0.3,  2.9, -0.3),
-			new Offset( 0.3,  2.9, -0.3),
-			new Offset(-0.3,  2.9,  0.3),
-			new Offset( 0.3,  2.9,  0.3)
-	};
+	private static final Box HEAD_COLLISION_BOX = new Box(-0.3, 0.9, -0.3, 0.3, 2.9, 0.3);
 	
 	public static boolean isSafeToBreak(BlockPos pos) {
 		if(!BreakController.isSafeToBreak(pos)) return false;
@@ -54,18 +47,9 @@ public class AwarenessController {
 		
 		Vec3d v = PlayerContext.position();
 		
-		for(Offset o : BONK_HEAD_CORNERS) {
-			
-			double x = v.getX() + o.getX();
-			double y = v.getY() + o.getY();
-			double z = v.getZ() + o.getZ();
-			
-			BlockType type = CacheManager.getBlockType(x, y, z);
-			
-			if(!type.isPassable()) return false;
-		}
+		Box box = HEAD_COLLISION_BOX.offset(v);
 		
-		return true;
+		return !CollisionUtil.collidesWithBlocks(box);
 	}
 	
 	public static boolean canReach(BlockPos pos) {
