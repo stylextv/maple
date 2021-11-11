@@ -33,7 +33,7 @@ public class JumpHelper extends MovementHelper<Movement> {
 		
 		Vec3d v = PlayerContext.position();
 		
-		double y = v.getY();
+		double y = Math.max(v.getY(), source.getY());
 		
 		if(y >= destination.getY()) return false;
 		
