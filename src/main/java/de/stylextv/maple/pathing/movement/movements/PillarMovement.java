@@ -47,7 +47,7 @@ public class PillarMovement extends Movement {
 		
 		getPlaceHelper().onRenderTick(false);
 		
-		boolean jump = getJumpHelper().shouldJump();
+		boolean jump = getJumpHelper().canJump();
 		
 		setPressed(InputAction.JUMP, jump);
 	}
