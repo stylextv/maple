@@ -4,20 +4,13 @@ import de.stylextv.maple.context.PlayerContext;
 import de.stylextv.maple.input.controller.AwarenessController;
 import de.stylextv.maple.pathing.calc.Node;
 import de.stylextv.maple.pathing.movement.Movement;
-import de.stylextv.maple.world.BlockInterface;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.SlabBlock;
-import net.minecraft.block.StairsBlock;
-import net.minecraft.block.enums.BlockHalf;
-import net.minecraft.block.enums.SlabType;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
+import de.stylextv.maple.util.world.CollisionUtil;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 
 public class JumpHelper extends MovementHelper<Movement> {
 	
-	private static final double MAX_STEP_HEIGHT = 0.5;
+	private static final Box COLLISION_BOX = new Box(-0.5, 0.5, -0.5, 0.5, 1.5, 0.5);
 	
 	public JumpHelper(Movement m) {
 		super(m);
@@ -26,52 +19,25 @@ public class JumpHelper extends MovementHelper<Movement> {
 	public boolean shouldJump() {
 		if(!canJump()) return false;
 		
-		Movement m = getMovement();
-		
-		Node destination = m.getDestination();
-		
-		int destinationY = destination.getY();
-		
-		Vec3d pos = PlayerContext.position();
-		
-		double y = pos.getY();
-		
-		double dis = destinationY - y;
-		
-		if(dis <= MAX_STEP_HEIGHT) return false;
-		
-		BlockPos below = destination.blockPos().down();
-		
-		BlockState state = BlockInterface.getState(below);
-		
-		Direction dir = m.getDirection();
-		
-		return !canWalkUp(state, dir);
+		return isCollisionAhead();
 	}
 	
-	private boolean canWalkUp(BlockState state, Direction dir) {
-		Block block = state.getBlock();
+	private boolean isCollisionAhead() {
+		Movement m = getMovement();
 		
-		// TODO obsolete since slabs became non-solids
-		if(block instanceof SlabBlock) {
-			
-			SlabType type = state.get(SlabBlock.TYPE);
-			
-			return type == SlabType.BOTTOM;
-		}
+		Node source = m.getSource();
+		Node destination = m.getDestination();
 		
-		if(block instanceof StairsBlock) {
-			
-			BlockHalf half = state.get(StairsBlock.HALF);
-			
-			if(half == BlockHalf.TOP) return false;
-			
-			Direction stairsDir = state.get(StairsBlock.FACING);
-			
-			return stairsDir.equals(dir);
-		}
+		double x = (source.getX() + destination.getX() + 1) * 0.5;
+		double z = (source.getZ() + destination.getZ() + 1) * 0.5;
 		
-		return false;
+		Vec3d v = PlayerContext.position();
+		
+		double y = v.getY();
+		
+		Box box = COLLISION_BOX.offset(x, y, z);
+		
+		return CollisionUtil.collidesWithBlocks(box);
 	}
 	
 	public boolean canJump() {
