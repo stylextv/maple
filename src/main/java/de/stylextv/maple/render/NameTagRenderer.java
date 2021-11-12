@@ -45,7 +45,7 @@ public class NameTagRenderer {
 		
 		stack.scale(-0.025F, -0.025F, 0.025F);
 		
-		Matrix4f matrix = stack.peek().getModel();
+		Matrix4f matrix = stack.peek().getPositionMatrix();
 		
 		int width = TEXT_RENDERER.getWidth(s);
 		

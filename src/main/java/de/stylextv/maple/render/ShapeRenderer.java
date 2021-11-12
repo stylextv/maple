@@ -108,9 +108,9 @@ public class ShapeRenderer {
 		
 		Entry entry = event.getMatrixStack().peek();
 		
-		Matrix4f matrix = entry.getModel();
+		Matrix4f matrix = entry.getPositionMatrix();
 		
-		stack.method_34425(matrix);
+		stack.multiplyPositionMatrix(matrix);
 		
 		RenderSystem.applyModelViewMatrix();
 		
