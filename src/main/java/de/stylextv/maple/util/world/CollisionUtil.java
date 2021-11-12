@@ -41,4 +41,18 @@ public class CollisionUtil {
 		return false;
 	}
 	
+	public static boolean hasCollision(BlockPos pos) {
+		BlockState state = BlockInterface.getState(pos);
+		
+		return hasCollision(pos, state);
+	}
+	
+	public static boolean hasCollision(BlockPos pos, BlockState state) {
+		ClientWorld world = WorldContext.world();
+		
+		VoxelShape shape = state.getCollisionShape(world, pos);
+		
+		return !shape.isEmpty();
+	}
+	
 }
