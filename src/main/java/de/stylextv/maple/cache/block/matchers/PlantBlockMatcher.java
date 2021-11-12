@@ -10,13 +10,9 @@ public class PlantBlockMatcher extends BlockMatcher {
 	
 	@Override
 	public BlockType match(BlockState state, BlockState above, BlockState below) {
-		Block block = state.getBlock();
+		Block block = above.getBlock();
 		
-		if(block.equals(Blocks.LILY_PAD)) return BlockType.AIR;
-		
-		Block blockAbove = above.getBlock();
-		
-		boolean belowLilyPad = blockAbove.equals(Blocks.LILY_PAD);
+		boolean belowLilyPad = block.equals(Blocks.LILY_PAD);
 		
 		if(belowLilyPad) return BlockType.UNBREAKABLE;
 		
