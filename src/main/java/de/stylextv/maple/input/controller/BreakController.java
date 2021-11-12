@@ -1,13 +1,15 @@
 package de.stylextv.maple.input.controller;
 
 import de.stylextv.maple.context.GameContext;
+import de.stylextv.maple.context.WorldContext;
 import de.stylextv.maple.input.InputAction;
 import de.stylextv.maple.mixin.MinecraftClientInvoker;
-import de.stylextv.maple.util.world.CollisionUtil;
 import de.stylextv.maple.util.world.Offset;
 import de.stylextv.maple.world.BlockInterface;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.shape.VoxelShape;
 
 public class BreakController {
 	
@@ -40,9 +42,14 @@ public class BreakController {
 		return isBreakable(pos);
 	}
 	
-	// TODO check for visual hitbox!
 	public static boolean isBreakable(BlockPos pos) {
-		return CollisionUtil.hasCollision(pos);
+		BlockState state = BlockInterface.getState(pos);
+		
+		ClientWorld world = WorldContext.world();
+		
+		VoxelShape shape = state.getOutlineShape(world, pos);
+		
+		return !shape.isEmpty();
 	}
 	
 	public static void onTick() {

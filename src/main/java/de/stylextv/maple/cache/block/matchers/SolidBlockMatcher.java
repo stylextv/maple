@@ -13,7 +13,14 @@ public class SolidBlockMatcher extends BlockMatcher {
 	
 	@Override
 	public BlockType match(BlockState state, BlockState above, BlockState below, BlockPos pos) {
-		if(!CollisionUtil.hasCollision(pos, state)) return null;
+		boolean noFluid = state.getFluidState().isEmpty();
+		
+		if(noFluid) {
+			
+			boolean hasCollision = CollisionUtil.hasCollision(pos, state);
+			
+			if(!hasCollision) return null;
+		}
 		
 		Box box = COLLISION_BOX.offset(pos);
 		
