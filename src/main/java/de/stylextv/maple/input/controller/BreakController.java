@@ -14,6 +14,12 @@ import net.minecraft.util.shape.VoxelShape;
 public class BreakController {
 	
 	public static boolean isSafeToBreak(BlockPos pos) {
+		BlockState state = BlockInterface.getState(pos);
+		
+		boolean inFluid = !state.getFluidState().isEmpty();
+		
+		if(inFluid) return true;
+		
 		for(Offset o : Offset.UPPER_DIRECT_BLOCK_NEIGHBOURS) {
 			
 			int dx = o.getBlockX();
@@ -24,7 +30,7 @@ public class BreakController {
 			int y = pos.getY() + dy;
 			int z = pos.getZ() + dz;
 			
-			BlockState state = BlockInterface.getState(x, y, z);
+			state = BlockInterface.getState(x, y, z);
 			
 			int level = state.getFluidState().getLevel();
 			
