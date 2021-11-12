@@ -10,7 +10,7 @@ import net.minecraft.util.math.Vec3d;
 
 public class JumpHelper extends MovementHelper<Movement> {
 	
-	private static final Box COLLISION_BOX = new Box(-0.5, 0.5, -0.5, 0.5, 1.5, 0.5);
+	private static final Box COLLISION_BOX = new Box(-0.5, 0.6, -0.5, 0.5, 1.5, 0.5);
 	
 	public JumpHelper(Movement m) {
 		super(m);
