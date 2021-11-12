@@ -17,13 +17,13 @@ public class BreakHelper extends TargetHelper<BreakableTarget> {
 	
 	@Override
 	public void collectBlock(int x, int y, int z) {
-		BlockType type = CacheManager.getBlockType(x, y, z);
+		BlockPos pos = new BlockPos(x, y, z);
 		
-		if(type.isPassable()) return;
+		if(!BreakController.isBreakable(pos)) return;
 		
 		if(!hasTarget(x, y, z)) {
 			
-			BreakableTarget target = new BreakableTarget(x, y, z);
+			BreakableTarget target = new BreakableTarget(pos);
 			
 			addTarget(target);
 		}

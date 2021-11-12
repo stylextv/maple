@@ -1,12 +1,15 @@
 package de.stylextv.maple.input.controller;
 
 import de.stylextv.maple.context.GameContext;
+import de.stylextv.maple.context.WorldContext;
 import de.stylextv.maple.input.InputAction;
 import de.stylextv.maple.mixin.MinecraftClientInvoker;
 import de.stylextv.maple.util.world.Offset;
 import de.stylextv.maple.world.BlockInterface;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.shape.VoxelShape;
 
 public class BreakController {
 	
@@ -33,18 +36,20 @@ public class BreakController {
 		return true;
 	}
 	
-	public static boolean isBreakable(BlockPos pos) {
-		int x = pos.getX();
-		int y = pos.getY();
-		int z = pos.getZ();
+	public static boolean isBreakable(int x, int y, int z) {
+		BlockPos pos = new BlockPos(x, y, z);
 		
-		return isBreakable(x, y, z);
+		return isBreakable(pos);
 	}
 	
-	public static boolean isBreakable(int x, int y, int z) {
-		BlockState state = BlockInterface.getState(x, y, z);
+	public static boolean isBreakable(BlockPos pos) {
+		BlockState state = BlockInterface.getState(pos);
 		
-		return !state.isAir();
+		ClientWorld world = WorldContext.world();
+		
+		VoxelShape shape = state.getCollisionShape(world, pos);
+		
+		return !shape.isEmpty();
 	}
 	
 	public static void onTick() {
