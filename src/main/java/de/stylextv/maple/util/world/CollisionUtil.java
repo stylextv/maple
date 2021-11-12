@@ -23,6 +23,10 @@ public class CollisionUtil {
 	private static boolean collidesWithBlock(Box box, BlockPos pos) {
 		BlockState state = BlockInterface.getState(pos);
 		
+		return collidesWithBlock(box, pos, state);
+	}
+	
+	public static boolean collidesWithBlock(Box box, BlockPos pos, BlockState state) {
 		ClientWorld world = WorldContext.world();
 		
 		VoxelShape shape = state.getCollisionShape(world, pos);

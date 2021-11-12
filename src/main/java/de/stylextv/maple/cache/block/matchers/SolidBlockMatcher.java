@@ -2,28 +2,22 @@ package de.stylextv.maple.cache.block.matchers;
 
 import de.stylextv.maple.cache.block.BlockMatcher;
 import de.stylextv.maple.cache.block.BlockType;
-import de.stylextv.maple.context.WorldContext;
+import de.stylextv.maple.util.world.CollisionUtil;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
-import net.minecraft.util.shape.VoxelShape;
 
 public class SolidBlockMatcher extends BlockMatcher {
 	
-	private static final Box UPPER_HALF = new Box(0, 0.5, 0, 1, 1, 1);
+	private static final Box COLLISION_BOX = new Box(0, 0.5, 0, 1, 1.5, 1);
 	
 	@Override
 	public BlockType match(BlockState state, BlockState above, BlockState below, BlockPos pos) {
-		ClientWorld world = WorldContext.world();
+		Box box = COLLISION_BOX.offset(pos);
 		
-		VoxelShape shape = state.getCollisionShape(world, pos);
+		boolean collides = CollisionUtil.collidesWithBlock(box, pos, state) || CollisionUtil.collidesWithBlock(box, pos.up(), above);
 		
-		if(shape.isEmpty()) return null;
-		
-		Box box = shape.getBoundingBox();
-		
-		if(box.intersects(UPPER_HALF)) return BlockType.SOLID;
+		if(collides) return BlockType.SOLID;
 		
 		return null;
 	}
