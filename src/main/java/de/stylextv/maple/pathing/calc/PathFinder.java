@@ -70,7 +70,10 @@ public class PathFinder {
 		
 		openSet.add(startNode);
 		
-		while(!openSet.isEmpty() && !stop) {
+		while(!openSet.isEmpty()) {
+			
+			if(stop) return null;
+			
 			Node n = openSet.poll();
 			
 			lastConsideration = n;
@@ -96,8 +99,6 @@ public class PathFinder {
 				break;
 			}
 		}
-		
-		if(stop) return null;
 		
 		return bestSoFar();
 	}
