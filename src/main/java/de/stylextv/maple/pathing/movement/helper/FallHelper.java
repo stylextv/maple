@@ -44,7 +44,7 @@ public class FallHelper extends MovementHelper<FallMovement> {
 		
 		if(fallDistance < 4) return false;
 		
-		Node destination = m.getDestination();
+		Node destination = getDestination();
 		
 		BlockType type = destination.getType();
 		

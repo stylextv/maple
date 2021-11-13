@@ -31,7 +31,7 @@ public class StepHelper extends MovementHelper<Movement> {
 	public double cost() {
 		Movement m = getMovement();
 		
-		Node destination = m.getDestination();
+		Node destination = getDestination();
 		
 		boolean inWater = destination.getType() == BlockType.WATER;
 		

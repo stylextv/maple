@@ -14,10 +14,8 @@ public class DangerHelper extends MovementHelper<Movement> {
 	
 	@Override
 	public double cost() {
-		Movement m = getMovement();
-		
-		Node source = m.getSource();
-		Node destination = m.getDestination();
+		Node source = getSource();
+		Node destination = getDestination();
 		
 		if(isNearDanger(destination)) return Cost.INFINITY;
 		
@@ -28,6 +26,8 @@ public class DangerHelper extends MovementHelper<Movement> {
 		BlockType type = CacheManager.getBlockType(x, y + 1, z);
 		
 		if(type == BlockType.WATER) return Cost.INFINITY;
+		
+		Movement m = getMovement();
 		
 		if(!m.isDiagonal()) return 0;
 		

@@ -18,8 +18,8 @@ public class ParkourHelper extends MovementHelper<ParkourMovement> {
 		
 		int dis = m.getDistance();
 		
-		Node source = m.getSource();
-		Node destination = m.getDestination();
+		Node source = getSource();
+		Node destination = getDestination();
 		
 		if(isObstructed(destination, 2)) return Cost.INFINITY;
 		

@@ -18,8 +18,8 @@ public class BumpHelper extends MovementHelper<Movement> {
 		
 		if(!m.isDiagonal()) return 0;
 		
-		Node source = m.getSource();
-		Node destination = m.getDestination();
+		Node source = getSource();
+		Node destination = getDestination();
 		
 		if(isBlocked(destination, 2)) return Cost.INFINITY;
 		

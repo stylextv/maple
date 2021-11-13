@@ -5,7 +5,6 @@ import de.stylextv.maple.cache.block.BlockType;
 import de.stylextv.maple.input.controller.AwarenessController;
 import de.stylextv.maple.input.target.targets.BreakableTarget;
 import de.stylextv.maple.pathing.calc.Cost;
-import de.stylextv.maple.pathing.calc.Node;
 import de.stylextv.maple.pathing.movement.Movement;
 import net.minecraft.util.math.BlockPos;
 
@@ -61,11 +60,7 @@ public class BreakHelper extends TargetHelper<BreakableTarget> {
 		
 		if(unbreakable) return Cost.INFINITY;
 		
-		Movement m = getMovement();
-		
-		Node source = m.getSource();
-		
-		BlockPos from = source.blockPos();
+		BlockPos from = sourcePos();
 		
 		boolean safe = AwarenessController.isSafeToBreak(pos, from, true, false);
 		

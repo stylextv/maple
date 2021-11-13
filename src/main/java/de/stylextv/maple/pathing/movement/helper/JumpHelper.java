@@ -23,10 +23,8 @@ public class JumpHelper extends MovementHelper<Movement> {
 	}
 	
 	private boolean isCollisionAhead() {
-		Movement m = getMovement();
-		
-		Node source = m.getSource();
-		Node destination = m.getDestination();
+		Node source = getSource();
+		Node destination = getDestination();
 		
 		double x = (source.getX() + destination.getX() + 1) * 0.5;
 		double z = (source.getZ() + destination.getZ() + 1) * 0.5;

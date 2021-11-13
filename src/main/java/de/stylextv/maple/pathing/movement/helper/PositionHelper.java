@@ -20,12 +20,12 @@ public class PositionHelper extends MovementHelper<Movement> {
 	}
 	
 	public boolean prepareParkourJump() {
-		ParkourMovement m = (ParkourMovement) getMovement();
-		
-		Node source = m.getSource();
+		Node source = getSource();
 		
 		double sourceX = source.getX() + 0.5;
 		double sourceZ = source.getZ() + 0.5;
+		
+		ParkourMovement m = (ParkourMovement) getMovement();
 		
 		int dirX = m.getDirectionX();
 		int dirZ = m.getDirectionZ();
@@ -69,9 +69,7 @@ public class PositionHelper extends MovementHelper<Movement> {
 	}
 	
 	public boolean centerOnSource() {
-		Movement m = getMovement();
-		
-		Node source = m.getSource();
+		Node source = getSource();
 		
 		double sourceX = source.getX() + 0.5;
 		double sourceZ = source.getZ() + 0.5;

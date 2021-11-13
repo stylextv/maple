@@ -41,10 +41,10 @@ public class PlaceHelper extends TargetHelper<PlaceableTarget> {
 		
 		if(!movement.isDiagonal3D()) {
 			
-			Node source = movement.getSource();
+			Node source = getSource();
 			
 			BlockType type = source.getType();
-
+			
 			hasSupport = type != BlockType.WATER;
 			
 			Movement m = source.getMovement();
