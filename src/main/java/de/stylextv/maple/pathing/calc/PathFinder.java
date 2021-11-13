@@ -103,6 +103,10 @@ public class PathFinder {
 		return bestSoFar();
 	}
 	
+	public void stop() {
+		stop = true;
+	}
+	
 	public PathSegment bestSoFar() {
 		if(startNode == null) return null;
 		
@@ -126,8 +130,20 @@ public class PathFinder {
 		return backtrace(lastConsideration);
 	}
 	
-	public void stop() {
-		stop = true;
+	private PathSegment backtrace(Node n) {
+		List<Movement> list = new ArrayList<Movement>();
+		
+		while(true) {
+			Node parent = n.getParent();
+			
+			if(parent == null) break;
+			
+			list.add(0, n.getMovement());
+			
+			n = parent;
+		}
+		
+		return new PathSegment(list);
 	}
 	
 	private void updatePartialSolutions(Node n) {
@@ -153,22 +169,6 @@ public class PathFinder {
 				if(dis > PS_MIN_DISTANCE) failing = false;
 			}
 		}
-	}
-	
-	private PathSegment backtrace(Node n) {
-		List<Movement> list = new ArrayList<Movement>();
-		
-		while(true) {
-			Node parent = n.getParent();
-			
-			if(parent == null) break;
-			
-			list.add(0, n.getMovement());
-			
-			n = parent;
-		}
-		
-		return new PathSegment(list);
 	}
 	
 	private void addAdjacentNodes(Node node) {
