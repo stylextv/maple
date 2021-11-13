@@ -79,13 +79,9 @@ public class PathFinder {
 			
 			updatePartialSolutions(n);
 			
-			if(goal.isFinalNode(n)) {
-				
-				return backtrace(n);
-				
-			} else {
-				addAdjacentNodes(n);
-			}
+			if(goal.isFinalNode(n)) return backtrace(n);
+			
+			addAdjacentNodes(n);
 			
 			long now = System.currentTimeMillis();
 			
