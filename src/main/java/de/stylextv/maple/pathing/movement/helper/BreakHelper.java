@@ -71,6 +71,12 @@ public class BreakHelper extends TargetHelper<BreakableTarget> {
 			
 			if(target.isBroken()) {
 				
+				BlockPos pos = target.getPos();
+				
+				boolean falling = AwarenessController.awaitsFallingBlock(pos);
+				
+				if(falling) return true;
+				
 				removeTarget(target);
 				
 				continue;

@@ -7,6 +7,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FallingBlock;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.hit.HitResult.Type;
@@ -32,6 +33,18 @@ public class AwarenessController {
 		if(falls) return isSafeToBreak(pos);
 		
 		return true;
+	}
+	
+	public static boolean awaitsFallingBlock(BlockPos pos) {
+		BlockPos up = pos.up();
+		
+		if(isFallingBlock(up)) return true;
+		
+		Box box = new Box(pos, up);
+		
+		box = box.stretch(1, 1, 1);
+		
+		return CollisionUtil.collidesWithEntities(box, EntityType.FALLING_BLOCK);
 	}
 	
 	public static boolean isFallingBlock(BlockPos pos) {
