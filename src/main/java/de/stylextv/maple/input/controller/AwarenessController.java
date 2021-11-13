@@ -20,17 +20,40 @@ public class AwarenessController {
 	private static final Box HEAD_COLLISION_BOX = new Box(-0.3, 0.9, -0.3, 0.3, 2.9, 0.3);
 	
 	public static boolean isSafeToBreak(BlockPos pos) {
+		BlockPos from = PlayerContext.feetPosition();
+		
+		return isSafeToBreak(pos, from, false, true);
+	}
+	
+	public static boolean isSafeToBreak(BlockPos pos, BlockPos from, boolean digStraightDown, boolean propagate) {
 		if(!BreakController.isSafeToBreak(pos)) return false;
 		
-		BlockPos p = PlayerContext.feetPosition().down();
+		BlockPos down = from.down();
 		
-		if(p.equals(pos)) return false;
+		if(!digStraightDown && down.equals(pos)) return false;
 		
 		pos = pos.up();
 		
 		boolean falls = isFallingBlock(pos);
 		
-		if(falls) return isSafeToBreak(pos);
+		if(falls) {
+			
+			int y = from.getY();
+			
+			if(y < pos.getY()) {
+				
+				int x = from.getX();
+				int z = from.getZ();
+				
+				boolean b = x == pos.getX() && z == pos.getZ();
+				
+				if(b) return false;
+			}
+			
+			if(!propagate) return true;
+			
+			return isSafeToBreak(pos, from, digStraightDown, propagate);
+		}
 		
 		return true;
 	}

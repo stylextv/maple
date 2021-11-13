@@ -70,6 +70,10 @@ public class BlockType {
 		return this;
 	}
 	
+	public boolean isUnbreakable() {
+		return solid && !breakable;
+	}
+	
 	public boolean isUnloaded() {
 		return this == UNLOADED;
 	}

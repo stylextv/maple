@@ -3,9 +3,9 @@ package de.stylextv.maple.pathing.movement.helper;
 import de.stylextv.maple.cache.CacheManager;
 import de.stylextv.maple.cache.block.BlockType;
 import de.stylextv.maple.input.controller.AwarenessController;
-import de.stylextv.maple.input.controller.BreakController;
 import de.stylextv.maple.input.target.targets.BreakableTarget;
 import de.stylextv.maple.pathing.calc.Cost;
+import de.stylextv.maple.pathing.calc.Node;
 import de.stylextv.maple.pathing.movement.Movement;
 import net.minecraft.util.math.BlockPos;
 
@@ -57,9 +57,19 @@ public class BreakHelper extends TargetHelper<BreakableTarget> {
 	private double costOfBlock(BlockPos pos) {
 		BlockType type = CacheManager.getBlockType(pos);
 		
-		boolean unbreakable = type.isSolid() && !type.isBreakable();
+		boolean unbreakable = type.isUnbreakable();
 		
-		if(unbreakable || !BreakController.isSafeToBreak(pos)) return Cost.INFINITY;
+		if(unbreakable) return Cost.INFINITY;
+		
+		Movement m = getMovement();
+		
+		Node source = m.getSource();
+		
+		BlockPos from = source.blockPos();
+		
+		boolean safe = AwarenessController.isSafeToBreak(pos, from, true, false);
+		
+		if(!safe) return Cost.INFINITY;
 		
 		return Cost.breakCost(pos);
 	}
