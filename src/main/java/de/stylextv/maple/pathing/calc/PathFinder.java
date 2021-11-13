@@ -90,9 +90,11 @@ public class PathFinder {
 			
 			long elapsedTime = now - startTime;
 			
+			if(chunkBorderHits > MAX_CHUNK_BORDER_HITS) break;
+			
 			boolean ranOutOfTime = elapsedTime > failureTimeout || (!failing && elapsedTime > primaryTimeout);
 			
-			if(chunkBorderHits > MAX_CHUNK_BORDER_HITS || ranOutOfTime) break;
+			if(ranOutOfTime) break;
 		}
 		
 		pause = true;
