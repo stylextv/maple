@@ -92,13 +92,10 @@ public class PathFinder {
 			
 			boolean ranOutOfTime = elapsedTime > failureTimeout || (!failing && elapsedTime > primaryTimeout);
 			
-			if(chunkBorderHits > MAX_CHUNK_BORDER_HITS || ranOutOfTime) {
-				
-				pause = true;
-				
-				break;
-			}
+			if(chunkBorderHits > MAX_CHUNK_BORDER_HITS || ranOutOfTime) break;
 		}
+		
+		pause = true;
 		
 		return bestSoFar();
 	}

@@ -76,7 +76,7 @@ public class SearchExecutor {
 				
 				if(!empty) path.add(segment);
 				
-				if(!paused || empty) path.setState(PathState.FOUND_GOAL);
+				if(!paused) path.setState(PathState.FOUND_GOAL);
 			}
 		});
 	}
