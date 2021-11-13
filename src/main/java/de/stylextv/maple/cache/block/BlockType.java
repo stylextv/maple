@@ -46,25 +46,25 @@ public class BlockType {
 		this.state = block.getDefaultState();
 	}
 	
-	public BlockType passable(boolean b) {
+	private BlockType passable(boolean b) {
 		this.passable = b;
 		
 		return this;
 	}
 	
-	public BlockType solid(boolean b) {
+	private BlockType solid(boolean b) {
 		this.solid = b;
 		
 		return this;
 	}
 	
-	public BlockType breakable(boolean b) {
+	private BlockType breakable(boolean b) {
 		this.breakable = b;
 		
 		return this;
 	}
 	
-	public BlockType air(boolean b) {
+	private BlockType air(boolean b) {
 		this.air = b;
 		
 		return this;
