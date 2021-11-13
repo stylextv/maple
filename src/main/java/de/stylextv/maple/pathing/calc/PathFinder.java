@@ -66,7 +66,7 @@ public class PathFinder {
 	public PathSegment find(int startX, int startY, int startZ, long primaryTimeout, long failureTimeout) {
 		long startTime = System.currentTimeMillis();
 		
-		startNode = getMapNode(startX, startY, startZ);
+		startNode = getNode(startX, startY, startZ);
 		
 		openSet.add(startNode);
 		
@@ -213,10 +213,10 @@ public class PathFinder {
 		int y = n.getY() + dy;
 		int z = n.getZ() + dz;
 		
-		return getMapNode(x, y, z);
+		return getNode(x, y, z);
 	}
 	
-	private Node getMapNode(int x, int y, int z) {
+	private Node getNode(int x, int y, int z) {
 		long hash = Node.posAsLong(x, y, z);
 		
 		Node n = map.get(hash);
