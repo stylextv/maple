@@ -1,5 +1,6 @@
 package de.stylextv.maple.cache.block;
 
+import de.stylextv.maple.cache.block.matchers.BlockadeBlockMatcher;
 import de.stylextv.maple.cache.block.matchers.DangerBlockMatcher;
 import de.stylextv.maple.cache.block.matchers.FluidBlockMatcher;
 import de.stylextv.maple.cache.block.matchers.SolidBlockMatcher;
@@ -14,6 +15,8 @@ public class BlockMatcher {
 	public static final BlockMatcher DANGER = new DangerBlockMatcher();
 	
 	public static final BlockMatcher UNBREAKABLE = new UnbreakableBlockMatcher();
+	
+	public static final BlockMatcher BLOCKADE = new BlockadeBlockMatcher();
 	
 	public static final BlockMatcher SOLID = new SolidBlockMatcher();
 	
@@ -35,6 +38,7 @@ public class BlockMatcher {
 			DANGER,
 			UNBREAKABLE,
 			OPENABLE,
+			BLOCKADE,
 			SOLID,
 			FLUID
 	};
