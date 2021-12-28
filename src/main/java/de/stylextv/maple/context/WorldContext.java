@@ -117,6 +117,7 @@ public class WorldContext {
 		return isPosLoaded(x, z);
 	}
 	
+	@SuppressWarnings("deprecation")
 	public static boolean isPosLoaded(int x, int z) {
 		return world().isPosLoaded(x, z);
 	}
