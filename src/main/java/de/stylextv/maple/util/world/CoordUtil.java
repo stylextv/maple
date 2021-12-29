@@ -1,6 +1,6 @@
 package de.stylextv.maple.util.world;
 
-import de.stylextv.maple.util.MathUtil;
+import de.stylextv.maple.util.math.MathUtil;
 import net.minecraft.util.math.BlockPos;
 
 public class CoordUtil {

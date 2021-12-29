@@ -1,7 +1,7 @@
 package de.stylextv.maple.world.avoidance;
 
 import de.stylextv.maple.context.PlayerContext;
-import de.stylextv.maple.util.MathUtil;
+import de.stylextv.maple.util.math.MathUtil;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;

@@ -1,4 +1,4 @@
-package de.stylextv.maple.util;
+package de.stylextv.maple.util.math;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;

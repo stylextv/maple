@@ -4,7 +4,7 @@ import java.util.List;
 
 import de.stylextv.maple.Constants;
 import de.stylextv.maple.context.PlayerContext;
-import de.stylextv.maple.util.MathUtil;
+import de.stylextv.maple.util.math.MathUtil;
 import net.minecraft.text.MutableText;
 
 public class ChatUtil {
