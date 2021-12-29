@@ -31,14 +31,13 @@ public class CachedChunk {
 	
 	private boolean loaded = true;
 	
-	public CachedChunk(CachedRegion r, int x, int z) {
-		this(r, x, z, 0, 0, null);
+	public CachedChunk(int x, int z) {
+		this(x, z, 0, 0, null);
 		
 		this.loaded = false;
 	}
 	
-	public CachedChunk(CachedRegion r, int x, int z, int height, int bottomY, BitSet bitSet) {
-		this.region = r;
+	public CachedChunk(int x, int z, int height, int bottomY, BitSet bitSet) {
 		this.x = x;
 		this.z = z;
 		
@@ -144,6 +143,14 @@ public class CachedChunk {
 		int index = (y << 8) | (x << 4) | z;
 		
 		return index * BlockType.BIT_AMOUNT;
+	}
+	
+	public CachedRegion getRegion() {
+		return region;
+	}
+	
+	public void setRegion(CachedRegion r) {
+		this.region = r;
 	}
 	
 	public int getX() {

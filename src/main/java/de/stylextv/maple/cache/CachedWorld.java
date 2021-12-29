@@ -8,7 +8,7 @@ import java.util.Queue;
 
 import de.stylextv.maple.cache.block.BlockType;
 import de.stylextv.maple.context.WorldContext;
-import de.stylextv.maple.io.FileSystem;
+import de.stylextv.maple.io.resource.types.StreamedFile;
 import de.stylextv.maple.util.async.AsyncUtil;
 import de.stylextv.maple.util.async.ScheduledTask;
 import de.stylextv.maple.util.world.CoordUtil;
@@ -21,7 +21,7 @@ import net.minecraft.world.chunk.WorldChunk;
 
 public class CachedWorld {
 	
-	private static final File SAVE_FOLDER = new File(FileSystem.ROOT_FOLDER, "cache");
+	private static final File SAVE_FOLDER = new File(StreamedFile.MOD_FOLDER, "cache");
 	
 	private String name;
 	
@@ -81,11 +81,11 @@ public class CachedWorld {
 		
 		if(c == null) {
 			
+			c = new CachedChunk(x, z);
+			
 			CachedRegion r = getRegion(x, z);
 			
-			c = new CachedChunk(r, x, z);
-			
-			r.storeChunk(c);
+			r.addChunk(c);
 		}
 		
 		c.load(chunk);

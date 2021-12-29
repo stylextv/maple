@@ -1,9 +1,5 @@
-package de.stylextv.maple.io;
+package de.stylextv.maple.io.resource;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -11,13 +7,13 @@ import java.util.zip.Deflater;
 import java.util.zip.DeflaterOutputStream;
 import java.util.zip.InflaterInputStream;
 
-public class FileAccess {
+import de.stylextv.maple.io.serialize.Serializer;
+
+public abstract class StreamedResource {
 	
 	private static final int COMPRESSION_LEVEL = Deflater.BEST_COMPRESSION;
 	
-	private static final int FILE_VERSION = 0x9BA2F52;
-	
-	private File file;
+	private static final int FORMAT_VERSION = 0x9BA2F52;
 	
 	private boolean compress;
 	
@@ -25,15 +21,8 @@ public class FileAccess {
 	
 	private OutputStream outputStream;
 	
-	public FileAccess(File f) {
-		this(f, true);
-	}
-	
-	public FileAccess(File f, boolean compress) {
-		this.file = f;
+	public StreamedResource(boolean compress) {
 		this.compress = compress;
-		
-		f.getParentFile().mkdirs();
 	}
 	
 	public byte[] readAll() {
@@ -60,10 +49,29 @@ public class FileAccess {
 		return null;
 	}
 	
-	public void write(byte[] data) {
+	public byte read() {
 		try {
 			
-			getOutputStream().write(data);
+			return (byte) getInputStream().read();
+			
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+		
+		return -1;
+	}
+	
+	public void write(byte[] data) {
+		for(byte b : data) {
+			
+			write(b);
+		}
+	}
+	
+	public void write(byte b) {
+		try {
+			
+			getOutputStream().write(b);
 			
 		} catch (IOException ex) {
 			ex.printStackTrace();
@@ -79,19 +87,6 @@ public class FileAccess {
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
-	}
-	
-	public boolean exists() {
-		if(!file.exists()) return false;
-		
-		if(compress) {
-			
-			int i = FileSystem.readInt(this);
-			
-			return i == FILE_VERSION;
-		}
-		
-		return true;
 	}
 	
 	public boolean isEmpty() {
@@ -110,20 +105,15 @@ public class FileAccess {
 		return 0;
 	}
 	
+	protected abstract InputStream inputStream();
+	protected abstract OutputStream outputStream();
+	
 	public InputStream getInputStream() {
 		if(inputStream == null) {
-			try {
-				
-				inputStream = new FileInputStream(file);
-				
-				if(compress) {
-					
-					inputStream = new InflaterInputStream(inputStream);
-				}
-				
-			} catch (FileNotFoundException ex) {
-				ex.printStackTrace();
-			}
+			
+			inputStream = inputStream();
+			
+			if(compress) inputStream = new InflaterInputStream(inputStream);
 		}
 		
 		return inputStream;
@@ -131,29 +121,32 @@ public class FileAccess {
 	
 	public OutputStream getOutputStream() {
 		if(outputStream == null) {
-			try {
+			
+			outputStream = outputStream();
+			
+			if(compress) {
 				
-				outputStream = new FileOutputStream(file);
+				Deflater deflater = new Deflater(COMPRESSION_LEVEL);
 				
-				if(compress) {
-					
-					Deflater deflater = new Deflater(COMPRESSION_LEVEL);
-					
-					outputStream = new DeflaterOutputStream(outputStream, deflater);
-					
-					FileSystem.writeInt(FILE_VERSION, this);
-				}
+				outputStream = new DeflaterOutputStream(outputStream, deflater);
 				
-			} catch (FileNotFoundException ex) {
-				ex.printStackTrace();
+				Serializer.INTEGER.writeTo(this, FORMAT_VERSION);
 			}
 		}
 		
 		return outputStream;
 	}
 	
-	public File getFile() {
-		return file;
+	public boolean exists() {
+		if(!compress) return true;
+		
+		int i = Serializer.INTEGER.readFrom(this);
+		
+		return i == FORMAT_VERSION;
+	}
+	
+	public boolean isCompressed() {
+		return compress;
 	}
 	
 }

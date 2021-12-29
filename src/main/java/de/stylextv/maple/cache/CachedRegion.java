@@ -4,10 +4,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.stylextv.maple.cache.io.file.CachedRegionFile;
 import de.stylextv.maple.context.PlayerContext;
 import de.stylextv.maple.context.WorldContext;
-import de.stylextv.maple.io.FileAccess;
-import de.stylextv.maple.io.FileSystem;
 import de.stylextv.maple.util.world.CoordUtil;
 import net.minecraft.util.math.ChunkPos;
 
@@ -36,11 +35,13 @@ public class CachedRegion {
 		this.chunkZ = z * SIZE;
 	}
 	
-	public void storeChunk(CachedChunk chunk) {
-		int x = chunk.getX() - chunkX;
-		int z = chunk.getZ() - chunkZ;
+	public void addChunk(CachedChunk c) {
+		int x = c.getX() - chunkX;
+		int z = c.getZ() - chunkZ;
 		
-		chunks[x][z] = chunk;
+		chunks[x][z] = c;
+		
+		c.setRegion(this);
 	}
 	
 	public void saveChanges() {
@@ -48,18 +49,25 @@ public class CachedRegion {
 		
 		File f = getSaveFile();
 		
-		FileAccess access = FileSystem.openFile(f);
+		CachedRegionFile file = new CachedRegionFile(f);
 		
-		FileSystem.writeRegion(this, access);
+		file.writeRegion(this);
 		
-		access.close();
+		file.close();
 	}
 	
-	public CachedChunk getChunk(int cx, int cz) {
-		int x = cx - chunkX;
-		int z = cz - chunkZ;
+	public boolean isInView() {
+		if(!WorldContext.isInWorld()) return false;
 		
-		return chunks[x][z];
+		ChunkPos pos = PlayerContext.chunkPosition();
+		
+		int rx = CoordUtil.chunkToRegionPos(pos.x);
+		int rz = CoordUtil.chunkToRegionPos(pos.z);
+		
+		int disX = Math.abs(x - rx);
+		int disZ = Math.abs(z - rz);
+		
+		return disX < 2 && disZ < 2;
 	}
 	
 	public List<CachedChunk> chunks() {
@@ -77,18 +85,11 @@ public class CachedRegion {
 		return list;
 	}
 	
-	public boolean isInView() {
-		if(!WorldContext.isInWorld()) return false;
+	public CachedChunk getChunk(int cx, int cz) {
+		int x = cx - chunkX;
+		int z = cz - chunkZ;
 		
-		ChunkPos pos = PlayerContext.chunkPosition();
-		
-		int rx = CoordUtil.chunkToRegionPos(pos.x);
-		int rz = CoordUtil.chunkToRegionPos(pos.z);
-		
-		int disX = Math.abs(x - rx);
-		int disZ = Math.abs(z - rz);
-		
-		return disX < 2 && disZ < 2;
+		return chunks[x][z];
 	}
 	
 	public File getSaveFile() {
@@ -122,13 +123,13 @@ public class CachedRegion {
 	public static CachedRegion loadFromDisk(CachedWorld world, int x, int z) {
 		CachedRegion r = new CachedRegion(world, x, z);
 		
-		File f = world.getSaveFile(r);
+		File f = r.getSaveFile();
 		
-		FileAccess access = FileSystem.openFile(f);
+		CachedRegionFile file = new CachedRegionFile(f);
 		
-		r = FileSystem.readRegion(r, access);
+		if(file.exists()) file.readRegion(r);
 		
-		access.close();
+		file.close();
 		
 		return r;
 	}
