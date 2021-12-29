@@ -10,7 +10,7 @@ import de.stylextv.maple.cache.block.BlockType;
 import de.stylextv.maple.context.WorldContext;
 import de.stylextv.maple.io.FileSystem;
 import de.stylextv.maple.util.async.AsyncUtil;
-import de.stylextv.maple.util.async.TaskInfo;
+import de.stylextv.maple.util.async.ScheduledTask;
 import de.stylextv.maple.util.world.CoordUtil;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
@@ -29,8 +29,8 @@ public class CachedWorld {
 	
 	private Queue<WorldChunk> chunkQueue;
 	
-	private TaskInfo collectTask;
-	private TaskInfo saveTask;
+	private ScheduledTask collectTask;
+	private ScheduledTask saveTask;
 	
 	public CachedWorld(String name) {
 		this.name = name;
