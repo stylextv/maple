@@ -24,7 +24,7 @@ public class CachedChunkSerializer extends Serializer<CachedChunk> {
 	@Override
 	public void writeTo(StreamedResource r, CachedChunk c) {
 		int x = c.getX();
-		int z = c.getX();
+		int z = c.getZ();
 		
 		int height = c.getHeight();
 		int bottomY = c.getBottomY();
