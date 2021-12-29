@@ -52,7 +52,7 @@ public class ConfigHelper {
 	private static StreamedFile openFile(String path) {
 		String s = FOLDER + path + FILE_EXTENSION;
 		
-		return new StreamedFile(s);
+		return new StreamedFile(s, false);
 	}
 	
 }
