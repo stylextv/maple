@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-    <img src="https://raw.githubusercontent.com/stylextv/maple/main/.github/assets/images/cover.png">
+  <img src="https://raw.githubusercontent.com/StylexTV/Maple/main/image/cover.png">
   <br>
 </h1>
 
